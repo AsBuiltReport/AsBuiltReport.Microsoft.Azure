@@ -1,0 +1,48 @@
+{
+    "Report": {
+        "Name": "Microsoft Azure As Built Report",
+        "Version": "1.0",
+        "Status": "Released",
+        "ShowCoverPageImage": true,
+        "ShowTableOfContents": true,
+        "ShowHeaderFooter": true,
+        "ShowTableCaptions": true
+    },
+    "Options": {
+
+    },
+    "Filter": {
+        "Subscription": ["*"]
+    },
+    "InfoLevel": {
+        "_comment_": "0 = Disabled, 1 = Enabled / Summary, 2 = Detailed, 3 = Comprehensive",
+        "AvailabilitySet": 1,
+        "Bastion": 1,
+        "ExpressRoute": 1,
+        "Firewall": 1,
+        "IpGroup": 1,
+        "KeyVault": 1,
+        "LoadBalancer": 1,
+        "NetworkSecurityGroup": 1,
+        "PolicyAssignment": 1,
+        "RecoveryServicesVault": 1,
+        "SiteRecovery": 1,
+        "VirtualNetwork": 1,
+        "VirtualMachine": 1
+    },
+    "HealthCheck": {
+        "ExpressRoute": {
+            "CircuitStatus": true
+        },
+        "SiteRecovery": {
+            "ReplicationHealth": true,
+            "FailoverHealth": true
+        },
+        "VirtualMachine": {
+            "Status": true,
+            "DiskEncryption": true,
+            "BootDiagnostics": true,
+            "BackupEnabled": true
+        }
+    }
+}
