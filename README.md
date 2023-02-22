@@ -23,11 +23,13 @@
     <a href="https://twitter.com/AsBuiltReport" alt="Twitter">
             <img src="https://img.shields.io/twitter/follow/AsBuiltReport.svg?style=social"/></a>
 </p>
+
+<p align="center">
+    <a href='https://ko-fi.com/B0B7DDGZ7' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+</p>
 <!-- ********** DO NOT EDIT THESE LINKS ********** -->
 
 # Microsoft Azure As Built Report
-
-## :exclamation: THIS ASBUILTREPORT MODULE IS CURRENTLY IN DEVELOPMENT AND MIGHT NOT YET BE FUNCTIONAL :exclamation:
 
 Microsoft Azure As Built Report is a PowerShell module which works in conjunction with [AsBuiltReport.Core](https://github.com/AsBuiltReport/AsBuiltReport.Core).
 
@@ -35,19 +37,30 @@ Microsoft Azure As Built Report is a PowerShell module which works in conjunctio
 
 Please refer to the AsBuiltReport [website](https://www.asbuiltreport.com) for more detailed information about this project.
 
+The Microsoft Azure As Built Report currently supports reporting for the following Azure resources;
+
+* Availabity Sets
+* Bastion Hosts
+* Express Route Circuits
+* Firewalls
+* IP Groups
+* Key Vaults
+* Load Balancers
+* Policies
+* Subscriptions
+* Tenants
+* Virtual Machines
+* Virtual Networks
+
 # :beginner: Getting Started
 Below are the instructions on how to install, configure and generate a Microsoft Azure As Built report.
-
-## :floppy_disk: Supported Versions
-<!-- ********** Update supported Azure versions ********** -->
-The Microsoft Azure As Built Report supports the following Azure versions;
 
 ### PowerShell
 This report is compatible with the following PowerShell versions;
 
 <!-- ********** Update supported PowerShell versions ********** -->
-| Windows PowerShell 5.1 |     PowerShell 7    |
-|:----------------------:|:--------------------:|
+| Windows PowerShell 5.1 |    PowerShell 7    |
+|:----------------------:|:------------------:|
 |   :white_check_mark:   | :white_check_mark: |
 ## :wrench: System Requirements
 <!-- ********** Update system requirements ********** -->
@@ -56,22 +69,23 @@ PowerShell 5.1 or PowerShell 7, and the following PowerShell modules are require
 - [Microsoft Azure PowerShell Module](https://docs.microsoft.com/en-us/powershell/azure)
 - [AsBuiltReport.Microsoft.Azure Module](https://www.powershellgallery.com/packages/AsBuiltReport.Microsoft.Azure/)
 
-### Linux & macOS
-* .NET Core is required for cover page image support on Linux and macOS operating systems.
-    * [Installing .NET Core for macOS](https://docs.microsoft.com/en-us/dotnet/core/install/macos)
-    * [Installing .NET Core for Linux](https://docs.microsoft.com/en-us/dotnet/core/install/linux)
-
-❗ If you are unable to install .NET Core, you must set `ShowCoverPageImage` to `False` in the report JSON configuration file.
 ### :closed_lock_with_key: Required Privileges
 <!-- ********** Define required privileges ********** -->
 <!-- ********** Try to follow best practices to define least privileges ********** -->
-* To be determined
+The least privileged roles required to generate a Microsoft Azure As Built Report are;
+* Reader
+* Backup Reader
 
 ## :package: Module Installation
 
 ### PowerShell
 <!-- ********** Add installation for any additional PowerShell module(s) ********** -->
+Open a PowerShell terminal window and install each of the required modules.
+
+:warning: Microsoft Az 9.4.0 or higher is required. Please ensure older Az modules have been uninstalled.
+
 ```powershell
+install-module Az -MinimumVersion 9.4.0
 install-module AsBuiltReport.Microsoft.Azure
 ```
 
@@ -108,36 +122,82 @@ The following provides information of how to configure each schema within the re
 ### Report
 The **Report** schema provides configuration of the Microsoft Azure report information.
 
-| Sub-Schema          | Setting      | Default                        | Description                                                  |
-|---------------------|--------------|--------------------------------|--------------------------------------------------------------|
+| Sub-Schema          | Setting      | Default                         | Description                                                  |
+|---------------------|--------------|---------------------------------|--------------------------------------------------------------|
 | Name                | User defined | Microsoft Azure As Built Report | The name of the As Built Report                              |
-| Version             | User defined | 1.0                            | The report version                                           |
-| Status              | User defined | Released                       | The report release status                                    |
-| ShowCoverPageImage  | true / false | true                           | Toggle to enable/disable the display of the cover page image |
-| ShowTableOfContents | true / false | true                           | Toggle to enable/disable table of contents                   |
-| ShowHeaderFooter    | true / false | true                           | Toggle to enable/disable document headers & footers          |
-| ShowTableCaptions   | true / false | true                           | Toggle to enable/disable table captions/numbering            |
+| Version             | User defined | 1.0                             | The report version                                           |
+| Status              | User defined | Released                        | The report release status                                    |
+| ShowCoverPageImage  | true / false | true                            | Toggle to enable/disable the display of the cover page image |
+| ShowTableOfContents | true / false | true                            | Toggle to enable/disable table of contents                   |
+| ShowHeaderFooter    | true / false | true                            | Toggle to enable/disable document headers & footers          |
+| ShowTableCaptions   | true / false | true                            | Toggle to enable/disable table captions/numbering            |
 
 ### Options
 The **Options** schema allows certain options within the report to be toggled on or off.
+
+### Filter
+The **Filter** schema allows report content to be filtered to specific Azure subscriptions within a tenant.
+
+| Sub-Schema   | Setting      | Default | Description                                                                                                                                                                  |
+|--------------|--------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Subscription | User defined | *       | Filters report content to specific Azure subscriptions within a tenant. <br>Specifying an asterisk (*) will generate a report for all Azure subscriptions within the tenant. |
 
 <!-- ********** Add/Remove the number of InfoLevels as required ********** -->
 ### InfoLevel
 The **InfoLevel** schema allows configuration of each section of the report at a granular level. The following sections can be set.
 
-There are 6 levels (0-5) of detail granularity for each section as follows;
+There are 4 levels (0-3) of detail granularity for each section as follows;
 
-| Setting | InfoLevel         | Description                                                                                                                                |
-|:-------:|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-|    0    | Disabled          | Does not collect or display any information                                                                                                |
-|    1    | Enabled / Summary | Provides summarised information for a collection of objects                                                                                |
-|    2    | Adv Summary       | Provides condensed, detailed information for a collection of objects                                                                       |
-|    3    | Detailed          | Provides detailed information for individual objects                                                                                       |
-|    4    | Adv Detailed      | Provides detailed information for individual objects, as well as information for associated objects                                        |
-|    5    | Comprehensive     | Provides comprehensive information for individual objects, such as advanced configuration settings                                         |
+| Setting | InfoLevel         | Description                                                                                        |
+|:-------:|-------------------|----------------------------------------------------------------------------------------------------|
+|    0    | Disabled          | Does not collect or display any information                                                        |
+|    1    | Enabled / Summary | Provides summarised information for a collection of objects                                        |
+|    2    | Detailed          | Provides detailed information for individual objects                                               |
+|    3    | Comprehensive     | Provides comprehensive information for individual objects, such as advanced configuration settings |
+
+The table below outlines the default and maximum **InfoLevel** settings for each section.
+
+| Sub-Schema            | Default Setting | Maximum Setting |
+|-----------------------|:---------------:|:---------------:|
+| AvailabilitySet       |        1        |        1        |
+| Bastion               |        1        |        2        |
+| ExpressRoute          |        1        |        2        |
+| Firewall              |        1        |        3        |
+| IpGroup               |        1        |        2        |
+| KeyVault              |        1        |        1        |
+| LoadBalancer          |        1        |        2        |
+| PolicyAssignment      |        1        |        1        |
+| RecoveryServicesVault |        1        |        2        |
+| SiteRecovery          |        1        |        1        |
+| VirtualNetwork        |        1        |        2        |
+| VirtualMachine        |        1        |        2        |
 
 ### Healthcheck
 The **Healthcheck** schema is used to toggle health checks on or off.
 
+#### ExpressRoute
+The **ExpressRoute** schema is used to configure health checks for Azure ExpressRoute.
+
+| Sub-Schema    | Setting      | Default | Description | Highlight                                                                                         |
+|---------------|--------------|---------|-------------|---------------------------------------------------------------------------------------------------|
+| CircuitStatus | true / false | true    |             | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) ExpressRoute Circuit is not enabled |
+
+#### SiteRecovery
+The **SiteRecovery** schema is used to configure health checks for Azure Site Recovery.
+
+| Sub-Schema        | Setting      | Default | Description | Highlight                                                                                               |
+|-------------------|--------------|---------|-------------|---------------------------------------------------------------------------------------------------------|
+| ReplicationHealth | true / false | true    |             | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Replication Health is in a critical state |
+| FailoverHealth    | true / false | true    |             | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png)                                            |
+
+#### VirtualMachine
+The **VirtualMachine** schema is used to configure health checks for Azure Virtual Machines.
+
+| Sub-Schema      | Setting      | Default | Description                                                                             | Highlight                                                                                                                                                                                                               |
+|-----------------|--------------|---------|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Status          | true / false | true    | Highlights VMs which are not in a running state                                         | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) VM is in a deallocated state                                                                                                                               |
+| DiskEncryption  | true / false | true    | Highlights VMs which do not have disk encryption enabled                                | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Disk encryption is not enabled                                                                                                                             |
+| BootDiagnostics | true / false | true    | Highlights VMs which do not have boot diagnostics enabled with a custom storage account | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Boot Diagnostics is disabled <br> ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Boot diagnostics is enabled with a managed storage account |
+| BackupEnabled   | true / false | true    | Highlights VMs which do not have Azure Backup enabled                                   | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Backup is disabled                                                                                                                                         |
 ## :computer: Examples
 <!-- ********** Add some examples. Use other AsBuiltReport modules as a guide. ********** -->

@@ -26,7 +26,7 @@ function Get-AbrAzExpressRouteCircuit {
         $AzExpressRouteCircuits = Get-AzExpressRouteCircuit | Sort-Object Name
         if (($InfoLevel.ExpressRoute -gt 0) -and ($AzExpressRouteCircuits)) {
             Write-PscriboMessage "Collecting Express Reoute Circuit information."
-            Section -Style Heading2 'Express Route Circuit' {
+            Section -Style Heading4 'Express Route Circuit' {
                 $AzExpressRouteCircuitInfo = @()
                 foreach ($AzExpressRouteCircuit in $AzExpressRouteCircuits) {
                     $InObj = [Ordered]@{
@@ -60,7 +60,7 @@ function Get-AbrAzExpressRouteCircuit {
                 if ($InfoLevel.ExpressRoute -ge 2) {
                     Paragraph "The following sections detail the configuration of the express route circuits within the $($AzSubscription.Name) subscription."
                     foreach ($AzExpressRouteCircuit in $AzExpressRouteCircuitInfo) {
-                        Section -Style Heading4 "$($AzExpressRouteCircuit.Name)" {
+                        Section -Style Heading5 "$($AzExpressRouteCircuit.Name)" {
                             $TableParams = @{
                                 Name = "Express Route Circuit - $($AzExpressRouteCircuit.Name)"
                                 List = $true

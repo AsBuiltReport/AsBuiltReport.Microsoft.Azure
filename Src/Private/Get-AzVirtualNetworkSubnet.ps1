@@ -30,9 +30,9 @@ function Get-AbrAzVirtualNetworkSubnet {
         $AzVirtualNetworkSubnets = (Get-AzVirtualNetwork -Name $Name).Subnets | Sort-Object Name
         if ($AzVirtualNetworkSubnets) {
             Write-PscriboMessage "Collecting Azure Virtual Network Subnet information."
-            Section -Style Heading5 'Subnets' {
+            Section -Style NOTOCHeading6 -ExcludeFromTOC 'Subnets' {
                 foreach ($AzVirtualNetworkSubnet in $AzVirtualNetworkSubnets) {
-                    Section -Style Heading5 $($AzVirtualNetworkSubnet.Name) {
+                    Section -Style NOTOCHeading7 -ExcludeFromTOC $($AzVirtualNetworkSubnet.Name) {
                         $AzVirtualNetworkSubnetInfo = [PSCustomObject]@{
                             'Name' = $AzVirtualNetworkSubnet.Name
                             'Address Range' = $AzVirtualNetworkSubnet.AddressPrefix

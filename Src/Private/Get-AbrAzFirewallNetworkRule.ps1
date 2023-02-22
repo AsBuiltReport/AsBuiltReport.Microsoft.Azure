@@ -31,7 +31,7 @@ function Get-AbrAzFirewallNetworkRule {
         $NetworkRuleCollections = $AzFirewall.NetworkRuleCollections
         if ($NetworkRuleCollections) {
             Write-PScriboMessage "Collecting Azure Firewall Network Rule Collections information."
-            Section -Style Heading4 'Network Rule Collections' {
+            Section -Style Heading5 -ExcludeFromTOC 'Network Rule Collections' {
                 $NetworkRuleCollectionInfo = @()
                 foreach ($NetworkRuleCollection in ($NetworkRuleCollections | Sort-Object Priority)) {
                     $InObj = [Ordered]@{
@@ -56,7 +56,7 @@ function Get-AbrAzFirewallNetworkRule {
                 if ($InfoLevel.Firewall -ge 3) {
                     foreach ($NetworkRuleCollection in ($NetworkRuleCollections | Sort-Object Name)) {
                         if ($NetworkRuleCollection.Action.Type -eq 'Allow') {
-                            Section -Style Heading5 $($NetworkRuleCollection.Name) {
+                            Section -Style NOTOCHeading6 -ExcludeFromTOC $($NetworkRuleCollection.Name) {
                                 $NetworkAllowRules = $NetworkRuleCollection.Rules | Where-Object {$NetworkRuleCollection.Action.Type -eq 'Allow'}
                                 $AllowRuleInfo = @()
                                 foreach ($AllowRule in $NetworkAllowRules) {
@@ -110,7 +110,7 @@ function Get-AbrAzFirewallNetworkRule {
                             }
                         }
                         if ($NetworkRuleCollection.Action.Type -eq 'Deny') {
-                            Section -Style Heading5 $($NetworkRuleCollection.Name) {
+                            Section -Style NOTOCHeading6 -ExcludeFromTOC $($NetworkRuleCollection.Name) {
                                 $NetworkDenyRules = $NetworkRuleCollection.Rules | Where-Object {$NetworkRuleCollection.Action.Type -eq 'Deny'}
                                 $DenyRuleInfo = @()
                                 foreach ($DenyRule in $NetworkDenyRules) {

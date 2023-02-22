@@ -26,7 +26,7 @@ function Get-AbrAzRecoveryServicesVault {
         $AzRsvs = Get-AzRecoveryServicesVault | Sort-Object Name
         if (($InfoLevel.RecoveryServicesVault -gt 0) -and ($AzRsvs)) {
             Write-PscriboMessage "Collecting Azure Recovery Services Vault information."
-            Section -Style Heading3 'Recovery Services Vaults' {
+            Section -Style Heading4 'Recovery Services Vaults' {
                 $AzRsvInfo = @()
                 foreach ($AzRsv in $AzRsvs) {
                     $InObj = [Ordered]@{
@@ -35,8 +35,14 @@ function Get-AbrAzRecoveryServicesVault {
                         'Location' = $AzLocationLookup."$($AzRsv.Location)"
                         'Subscription' = "$($AzSubscriptionLookup.(($AzRsv.Id).split('/')[2]))"
                         'Provisioning State' = $AzRsv.Properties.ProvisioningState
-                        'Private Endpoint State for Backup' = $AzRsv.Properties.PrivateEndpointStateForBackup
-                        'Private Endpoint State for Site Recovery' = $AzRsv.Properties.PrivateEndpointStateForSiteRecovery
+                        'Private Endpoint State for Backup' = Switch ($AzRsv.Properties.PrivateEndpointStateForBackup) {
+                            $null { '--' }
+                            default { $AzRsv.Properties.PrivateEndpointStateForBackup }
+                        }
+                        'Private Endpoint State for Site Recovery' = Switch ($AzRsv.Properties.PrivateEndpointStateForSiteRecovery) {
+                            $null { '--' }
+                            default { $AzRsv.Properties.PrivateEndpointStateForSiteRecovery }
+                        }
                     }
                     $AzRsvInfo += [PSCustomObject]$InObj
                 }
@@ -44,7 +50,7 @@ function Get-AbrAzRecoveryServicesVault {
                 if ($InfoLevel.RecoveryServicesVault -ge 2) {
                     Paragraph "The following sections detail the configuration of the recovery services vault within the $($AzSubscription.Name) subscription."
                     foreach ($AzRsv in $AzRsvInfo) {
-                        Section -Style Heading4 "$($AzRsv.Name)" {
+                        Section -Style Heading5 "$($AzRsv.Name)" {
                             $TableParams = @{
                                 Name = "Recovery Services Vault - $($AzRsv.Name)"
                                 List = $true

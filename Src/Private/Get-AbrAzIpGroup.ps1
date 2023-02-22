@@ -26,7 +26,7 @@ function Get-AbrAzIpGroup {
         $AzIpGroups = Get-AzIpGroup | Sort-Object Name
         if (($InfoLevel.IpGroup -gt 0) -and ($AzIpGroups)) {
             Write-PscriboMessage "Collecting Azure IP Group information."
-            Section -Style Heading2 'IP Groups' {
+            Section -Style Heading4 'IP Groups' {
                 $AzIpGroupInfo = @()
                 foreach ($AzIpGroup in $AzIpGroups) {
                     $InObj = [Ordered]@{
@@ -56,7 +56,7 @@ function Get-AbrAzIpGroup {
                 if ($InfoLevel.IPGroup -ge 2) {
                     Paragraph "The following sections detail the configuration of the IP groups within the $($AzSubscription.Name) subscription."
                     foreach ($AzIpGroup in $AzIpGroupInfo) {
-                        Section -Style Heading4 "$($AzIpGroup.Name)" {
+                        Section -Style Heading5 "$($AzIpGroup.Name)" {
                             $TableParams = @{
                                 Name = "IP Group - $($AzIpGroup.Name)"
                                 List = $true

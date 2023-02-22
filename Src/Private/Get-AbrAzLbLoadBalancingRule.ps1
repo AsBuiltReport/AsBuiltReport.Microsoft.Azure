@@ -30,9 +30,9 @@ function Get-AbrAzLbLoadBalancingRule {
         $AzLbLoadBalancingRules = (Get-AzLoadBalancer -Name $Name).LoadBalancingRules | Sort-Object Name
         if ($AzLbLoadBalancingRules) {
             Write-PscriboMessage "Collecting Azure Load Balancer Load Balancing Rules information."
-            Section -Style Heading5 'Load Balancing Rules' {
+            Section -Style NOTOCHeading6 -ExcludeFromTOC 'Load Balancing Rules' {
                 foreach ($AzLbLoadBalancingRule in $AzLbLoadBalancingRules) {
-                    Section -Style Heading5 $($AzLbLoadBalancingRule.Name) {
+                    Section -Style NOTOCHeading7 -ExcludeFromTOC $($AzLbLoadBalancingRule.Name) {
                         $AzLbLoadBalancingRuleInfo = @()
                         $InObj = [Ordered]@{
                             'Name' = $AzLbLoadBalancingRule.Name

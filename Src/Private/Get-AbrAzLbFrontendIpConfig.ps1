@@ -30,19 +30,28 @@ function Get-AbrAzLbFrontendIpConfig {
         $AzLbFrontendIpConfigs = (Get-AzLoadBalancer -Name $Name).FrontendIpConfigurations | Sort-Object Name
         if ($AzLbFrontendIpConfigs) {
             Write-PscriboMessage "Collecting Azure Load Balancer Frontend IP Configuration information."
-            Section -Style Heading5 'Frontend IP Configuration' {
+            Section -Style NOTOCHeading6 -ExcludeFromTOC 'Frontend IP Configuration' {
                 foreach ($AzLbFrontendIpConfig in $AzLbFrontendIpConfigs) {
-                    Section -Style Heading5 $($AzLbFrontendIpConfig.Name) {
+                    Section -Style NOTOCHeading7 -ExcludeFromTOC $($AzLbFrontendIpConfig.Name) {
                         $AzLbFrontendIpConfigInfo = @()
                         $InObj = [Ordered]@{
                             'Name' = $AzLbFrontendIpConfig.Name
-                            'Private IP Address' = $AzLbFrontendIpConfig.PrivateIpAddress
-                            'Private IP Allocation Method' = $AzLbFrontendIpConfig.PrivateIpAllocationMethod
+                            'Private IP Address' = Switch ($AzLbFrontendIpConfig.PrivateIpAddress) {
+                                $null { '--' }
+                                default { $AzLbFrontendIpConfig.PrivateIpAddress }
+                            }
+                            'Private IP Allocation Method' = Switch ($AzLbFrontendIpConfig.PrivateIpAllocationMethod) {
+                                $null { '--' }
+                                default { $AzLbFrontendIpConfig.PrivateIpAllocationMethod }
+                            }
                             'Public IP Address' = Switch ($AzLbFrontendIpConfig.PublicIpAddress) {
                                 $null { '--' }
                                 default { $AzLbFrontendIpConfig.PublicIpAddress }
                             }
-                            'Subnet' = ($AzLbFrontendIpConfig.Subnet.Id).split('/')[-1]
+                            'Subnet' = Switch ($AzLbFrontendIpConfig.Subnet.Id) {
+                                $null { '--' }
+                                default { ($AzLbFrontendIpConfig.Subnet.Id).split('/')[-1] }
+                            }
                             'Load Balancing Rules' = Switch ($AzLbFrontendIpConfig.LoadBalancingRules.Id) {
                                 $null { 'None' }
                                 default { ($AzLbFrontendIpConfig.LoadBalancingRules.Id).split('/')[-1] }

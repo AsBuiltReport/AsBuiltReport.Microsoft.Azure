@@ -30,9 +30,9 @@ function Get-AbrAzVirtualNetworkPeering {
         $AzVirtualNetworkPeerings = (Get-AzVirtualNetwork -Name $Name).VirtualNetworkPeerings | Sort-Object Name
         if ($AzVirtualNetworkPeerings) {
             Write-PscriboMessage "Collecting Azure Virtual Network Peering information."
-            Section -Style Heading5 'Peerings' {
+            Section -Style NOTOCHeading6 -ExcludeFromTOC 'Peerings' {
                 foreach ($AzVirtualNetworkPeering in $AzVirtualNetworkPeerings) {
-                    Section -Style Heading5 $($AzVirtualNetworkPeering.Name) {
+                    Section -Style NOTOCHeading7 -ExcludeFromTOC $($AzVirtualNetworkPeering.Name) {
                         $AzVirtualNetworkPeeringInfo = [PSCustomObject]@{
                             'Name' = $AzVirtualNetworkPeering.Name
                             'Resource Group' = $AzVirtualNetworkPeering.ResourceGroupName

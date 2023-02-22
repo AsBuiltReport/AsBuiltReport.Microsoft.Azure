@@ -25,7 +25,7 @@ function Get-AbrAzPolicyAssignment {
     process {
         $AzPolicyAssignments = Get-AzPolicyAssignment
         if (($InfoLevel.PolicyAssignment -gt 0) -and ($AzPolicyAssignments)) {
-            Section -Style Heading3 'Policy Assignments' {
+            Section -Style Heading4 'Policy Assignments' {
                 $AzPolicyAssignmentInfo = @()
                 foreach ($AzPolicyAssignment in $AzPolicyAssignments) {
                     $InObj = [Ordered]@{

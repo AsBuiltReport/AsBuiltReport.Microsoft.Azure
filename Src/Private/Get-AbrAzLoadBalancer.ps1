@@ -26,7 +26,7 @@ function Get-AbrAzLoadBalancer {
         $AzLoadBalancers = Get-AzLoadBalancer | Sort-Object Name
         if (($InfoLevel.LoadBalancer -gt 0) -and ($AzLoadBalancers)) {
             Write-PscriboMessage "Collecting Azure Load Balancer information."
-            Section -Style Heading2 'Load Balancers' {
+            Section -Style Heading4 'Load Balancers' {
                 $AzLoadBalancerInfo = @()
                 foreach ($AzLoadBalancer in $AzLoadBalancers) {
                     $InObj = [Ordered]@{
@@ -45,7 +45,7 @@ function Get-AbrAzLoadBalancer {
                 if ($InfoLevel.LoadBalancer -ge 2) {
                     Paragraph "The following sections detail the configuration of the load balancers within the $($AzSubscription.Name) subscription."
                     foreach ($AzLoadBalancer in $AzLoadBalancerInfo) {
-                        Section -Style Heading4 "$($AzLoadBalancer.Name)" {
+                        Section -Style Heading5 "$($AzLoadBalancer.Name)" {
                             $TableParams = @{
                                 Name = "Load Balancer - $($AzLoadBalancer.Name)"
                                 List = $true

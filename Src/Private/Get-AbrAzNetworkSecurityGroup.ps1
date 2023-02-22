@@ -26,7 +26,7 @@ function Get-AbrAzNetworkSecurityGroup {
         $AzNetworkSecurityGroups = Get-AzNetworkSecurityGroup | Sort-Object Name
         if (($InfoLevel.NetworkSecurityGroup -gt 0) -and ($AzNetworkSecurityGroups)) {
             Write-PscriboMessage "Collecting Azure Network Security Group information."
-            Section -Style Heading2 'Network Security Groups' {
+            Section -Style Heading4 'Network Security Groups' {
                 $AzNsgInfo = @()
                 foreach ($AzNetworkSecurityGroup in $AzNetworkSecurityGroups) {
                     $InObj = [Ordered]@{
@@ -56,7 +56,7 @@ function Get-AbrAzNetworkSecurityGroup {
                 if ($InfoLevel.NetworkSecurityGroup -ge 2) {
                     Paragraph "The following sections detail the configuration of the network security groups within the $($AzSubscription.Name) subscription."
                     foreach ($AzNetworkSecurityGroup in $AzNsgInfo) {
-                        Section -Style Heading4 "$($AzNetworkSecurityGroup.Name)" {
+                        Section -Style Heading5 "$($AzNetworkSecurityGroup.Name)" {
                             $TableParams = @{
                                 Name = "Network Security Group - $($AzNetworkSecurityGroup.Name)"
                                 List = $true

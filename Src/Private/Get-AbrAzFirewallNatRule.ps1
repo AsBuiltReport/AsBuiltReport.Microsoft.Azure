@@ -31,7 +31,7 @@ function Get-AbrAzFirewallNatRule {
         $NatRuleCollections = $AzFirewall.NatRuleCollections
         if ($NatRuleCollections) {
             Write-PScriboMessage "Collecting Azure Firewall NAT Rule Collections information."
-            Section -Style Heading4 'NAT Rule Collections' {
+            Section -Style NOTOCHeading6 -ExcludeFromTOC 'NAT Rule Collections' {
                 $NatRuleCollectionInfo = @()
                 foreach ($NatRuleCollection in ($NatRuleCollections | Sort-Object Priority)) {
                     $InObj = [Ordered]@{
@@ -55,7 +55,7 @@ function Get-AbrAzFirewallNatRule {
 
                 if ($InfoLevel.Firewall -ge 3) {
                     foreach ($NatRuleCollection in ($NatRuleCollections | Sort-Object Name)) {
-                        Section -Style Heading5 $($NatRuleCollection.Name) {
+                        Section -Style NOTOCHeading7 -ExcludeFromTOC $($NatRuleCollection.Name) {
                             $NatRuleInfo = @()
                             foreach ($NatRule in $($NatRuleCollection.Rules)) {
                                 $InObj = [Ordered]@{

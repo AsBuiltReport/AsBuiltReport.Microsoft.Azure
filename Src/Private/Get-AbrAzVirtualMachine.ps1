@@ -26,7 +26,7 @@ function Get-AbrAzVirtualMachine {
         $AzVMs = Get-AzVM -Status | Where-Object {$_.id.split('/')[2] -eq $AzSubscription.Id} | Sort-Object Name
         if (($InfoLevel.VirtualMachine -gt 0) -and ($AzVMs)) {
             Write-PscriboMessage "Collecting Azure VM information."
-            Section -Style Heading3 'Virtual Machines' {
+            Section -Style Heading4 'Virtual Machines' {
                 $AzVMInfo = @()
                 foreach ($AzVM in $AzVMs) {
                     $AzVMSize = Get-AzVMSize -Location $AzVm.Location | Where-Object {$_.Name -eq $AzVm.HardwareProfile.VmSize}
@@ -85,9 +85,10 @@ function Get-AbrAzVirtualMachine {
                             $null { '--' }
                             default { $AzVM.DiagnosticsProfile.BootDiagnostics.StorageUri.split('.')[0].trimstart('https://') }
                         }
-                        'Azure Backup Enabled' = Switch ($AzVmBackupStatus.BackedUp) {
-                            $null { '--' }
-                            default { $AzVmBackupStatus.BackedUp }
+                        'Azure Backup' = Switch ($AzVmBackupStatus.BackedUp) {
+                            $true { 'Enabled' }
+                            $false { 'Not Enabled' }
+                            $null { 'Not Enabled' }
                         }
                         'Extensions' = & {
                             if ($null -eq $AzVmExtensions.Name) {
@@ -106,7 +107,7 @@ function Get-AbrAzVirtualMachine {
                     $AzVMInfo | Where-Object { $_.'Boot Diagnostics' -eq 'Disabled' } | Set-Style -Style Critical -Property 'Boot Diagnostics'
                 }
                 if ($Healthcheck.VirtualMachine.BackupEnabled) {
-                    $AzVMInfo | Where-Object { $_.'Azure Backup Enabled' -ne $True } | Set-Style -Style Warning -Property 'Azure Backup Enabled'
+                    $AzVMInfo | Where-Object { $_.'Azure Backup' -ne 'Enabled' } | Set-Style -Style Warning -Property 'Azure Backup'
                 }
                 if ($Healthcheck.VirtualMachine.DiskEncryption) {
                     $AzVMInfo | Where-Object { $_.'Azure Disk Encryption' -ne 'Enabled' } | Set-Style -Style Warning -Property 'Azure Disk Encryption'
@@ -114,7 +115,7 @@ function Get-AbrAzVirtualMachine {
                 if ($InfoLevel.VirtualMachine -ge 2) {
                     Paragraph "The following sections detail the configuration of the virtual machines within the $($AzSubscription.Name) subscription."
                     foreach ($AzVM in $AzVMInfo) {
-                        Section -Style Heading4 "$($AzVM.Name)" {
+                        Section -Style Heading5 "$($AzVM.Name)" {
                             $TableParams = @{
                                 Name = "Virtual Machine - $($AzVM.Name)"
                                 List = $true

@@ -26,7 +26,7 @@ function Get-AbrAzFirewall {
         $AzFirewalls = Get-AzFirewall | Sort-Object Name
         if (($InfoLevel.Firewall -gt 0) -and ($AzFirewalls)) {
             Write-PscriboMessage "Collecting Azure Firewall information."
-            Section -Style Heading2 'Firewalls' {
+            Section -Style Heading4 'Firewalls' {
                 $AzFirewallInfo = @()
                 foreach ($AzFirewall in $AzFirewalls) {
                     $InObj = [Ordered]@{
@@ -60,7 +60,7 @@ function Get-AbrAzFirewall {
                 if ($InfoLevel.Firewall -ge 2) {
                     Paragraph "The following sections detail the configuration of the firewalls within the $($AzSubscription.Name) subscription."
                     foreach ($AzFirewall in $AzFirewallInfo) {
-                        Section -Style Heading3 "$($AzFirewall.Name)" {
+                        Section -Style Heading5 "$($AzFirewall.Name)" {
                             $TableParams = @{
                                 Name = "Firewall - $($AzFirewall.Name)"
                                 List = $true

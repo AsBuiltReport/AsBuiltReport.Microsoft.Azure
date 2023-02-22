@@ -30,7 +30,7 @@ function Get-AbrAzLbInboundNatPool {
         $AzLbInboundNatPools = (Get-AzLoadBalancer -Name $Name).InboundNatPools | Sort-Object Name
         if ($AzLbInboundNatPools) {
             Write-PscriboMessage "Collecting Azure Load Balancer Inbound NAT Pool information."
-            Section -Style Heading5 'Inbound NAT Pools' {
+            Section -Style Heading6 -ExcludeFromTOC 'Inbound NAT Pools' {
                 $AzLbInboundNatPoolInfo = @()
                 foreach ($AzLbInboundNatPool in $AzLbInboundNatPools) {
                     $InObj = [Ordered]@{
