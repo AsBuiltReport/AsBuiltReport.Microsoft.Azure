@@ -26,7 +26,7 @@ function Get-AbrAzAvailabilitySet {
         $AzAvailabilitySets = Get-AzAvailabilitySet | Sort-Object Name
         if (($InfoLevel.AvailabilitySet -gt 0) -and ($AzAvailabilitySets)) {
             Write-PscriboMessage "Collecting Azure Availability Set information."
-            Section -Style Heading2 'Availability Sets' {
+            Section -Style Heading4 'Availability Sets' {
                 Paragraph "The following table summarises the configuration of the availability sets within the $($AzSubscription.Name) subscription."
                 BlankLine
                 $AzAvailabilitySetInfo = @()

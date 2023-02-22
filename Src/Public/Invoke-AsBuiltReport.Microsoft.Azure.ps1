@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     .DESCRIPTION
         Documents the configuration of Microsoft Azure in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.1.1
+        Version:        0.1.2
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         @tpcarman
@@ -68,7 +68,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                     Section -Style Heading2 'Subscriptions' {
                         Get-AbrAzSubscription
                         foreach ($AzSubscription in ($AzSubscriptions | Sort-Object Name)) {
-                            Section -Style Heading2 $($AzSubscription.Name) {
+                            Section -Style Heading3 $($AzSubscription.Name) {
                                 Write-PScriboMessage "Setting Azure context to Subscription ID '$AzSubscription.Id'."
                                 $AzContext = Set-AzContext -Subscription $AzSubscription.Id -Tenant $TenantId
                                 Get-AbrAzPolicyAssignment

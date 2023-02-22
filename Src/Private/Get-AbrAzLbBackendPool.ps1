@@ -30,7 +30,7 @@ function Get-AbrAzLbBackendPool {
         $AzLbBackendPools = (Get-AzLoadBalancer -Name $Name).BackendAddressPools | Sort-Object Name
         if ($AzLbBackendPools) {
             Write-PscriboMessage "Collecting Azure Load Balancer Backend Pool information."
-            Section -Style Heading5 'Backend Pools' {
+            Section -Style NOTOCHeading6 -ExcludeFromTOC 'Backend Pools' {
                 $AzLbBackendPoolInfo = @()
                 foreach ($AzLbBackendPool in $AzLbBackendPools) {
                     $InObj = [Ordered]@{

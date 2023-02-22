@@ -26,7 +26,7 @@ function Get-AbrAzBastion {
         $AzBastions = Get-AzBastion | Sort-Object Name
         if (($InfoLevel.Bastion -gt 0) -and ($AzBastions)) {
             Write-PscriboMessage "Collecting Azure Bastion information."
-            Section -Style Heading2 'Bastion' {
+            Section -Style Heading4 'Bastion' {
                 $AzBastionInfo = @()
                 foreach ($AzBastion in $AzBastions) {
                     $InObj = [Ordered]@{
@@ -44,7 +44,7 @@ function Get-AbrAzBastion {
                 if ($InfoLevel.Bastion -ge 2) {
                     Paragraph "The following sections detail the configuration of the bastions within the $($AzSubscription.Name) subscription."
                     foreach ($AzBastion in $AzBastionInfo) {
-                        Section -Style Heading3 "$($AzBastion.Name)" {
+                        Section -Style Heading5 "$($AzBastion.Name)" {
                             $TableParams = @{
                                 Name = "Bastion - $($AzBastion.Name)"
                                 List = $true

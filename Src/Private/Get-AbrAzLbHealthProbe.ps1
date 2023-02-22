@@ -30,7 +30,7 @@ function Get-AbrAzLbHealthProbe {
         $AzLbHealthProbes = (Get-AzLoadBalancer -Name $Name).Probes | Sort-Object Name
         if ($AzLbHealthProbes) {
             Write-PscriboMessage "Collecting Azure Load Balancer Health Probe information."
-            Section -Style Heading5 'Health Probes' {
+            Section -Style Heading6 -ExcludeFromTOC 'Health Probes' {
                 $AzLbHealthProbeInfo = @()
                 foreach ($AzLbHealthProbe in $AzLbHealthProbes) {
                     $InObj = [Ordered]@{

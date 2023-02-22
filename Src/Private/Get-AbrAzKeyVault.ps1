@@ -26,7 +26,7 @@ function Get-AbrAzKeyVault {
         $AzKeyVaults = Get-AzKeyVault | Sort-Object VaultName
         if (($InfoLevel.KeyVault -gt 0) -and ($AzKeyVaults)) {
             Write-PscriboMessage "Collecting Azure Key Vault information."
-            Section -Style Heading2 'Key Vaults' {
+            Section -Style Heading4 'Key Vaults' {
                 Paragraph "The following table summarises the configuration of the key vaults within the $($AzSubscription.Name) subscription."
                 BlankLine
                 $AzKeyVaultInfo = @()
@@ -52,7 +52,7 @@ function Get-AbrAzKeyVault {
 
                 if ($InfoLevel.KeyVault -ge 2) {
                     foreach ($AzKeyVault in $AzKeyVaultInfo) {
-                        Section -Style Heading4 "$($AzKeyVault.Name)" {
+                        Section -Style Heading4 -ExcludeFromTOC "$($AzKeyVault.Name)" {
                             $TableParams = @{
                                 Name = "Key Vault - $($AzKeyVault.Name)"
                                 List = $true

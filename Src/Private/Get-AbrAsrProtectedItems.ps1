@@ -32,7 +32,7 @@ function Get-AbrAsrProtectedItems {
                 $AsrFabrics = Get-AzRecoveryServicesAsrFabric
                 if ($AsrPolicy) {
                     Write-PscriboMessage "Collecting Azure Site Recovery Protected Items information."
-                    Section -Style Heading3 'Site Recovery' {
+                    Section -Style Heading4 'Site Recovery' {
                         foreach ($AsrFabric in $AsrFabrics) {
                             $AsrContainer = Get-AzRecoveryServicesAsrProtectionContainer -Fabric $AsrFabric
                             $AsrReplicationProtectedItems = Get-AzRecoveryServicesAsrReplicationProtectedItem -ProtectionContainer $AsrContainer | Sort-Object FriendlyName
@@ -43,7 +43,7 @@ function Get-AbrAsrProtectedItems {
                                 $AsrReplicationProtectedItems | Where-Object { $_.'TestFailoverStateDescription' -ne 'None' } | Set-Style -Style Warning -Property 'TestFailoverStateDescription'
                             }
                             if ($AsrReplicationProtectedItems) {
-                                Section -Style Heading4 'Protected Items' {
+                                Section -Style Heading5 -ExcludeFromTOC 'Protected Items' {
                                     Paragraph "The following tables provides information for the Azure Site Recovery protected items within the $($AzSubscription.Name) subscription."
                                     BlankLine
                                     $TableParams = @{
