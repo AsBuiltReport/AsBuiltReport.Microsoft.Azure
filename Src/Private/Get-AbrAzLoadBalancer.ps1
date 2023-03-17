@@ -45,7 +45,7 @@ function Get-AbrAzLoadBalancer {
                 if ($InfoLevel.LoadBalancer -ge 2) {
                     Paragraph "The following sections detail the configuration of the load balancers within the $($AzSubscription.Name) subscription."
                     foreach ($AzLoadBalancer in $AzLoadBalancerInfo) {
-                        Section -Style Heading5 "$($AzLoadBalancer.Name)" {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzLoadBalancer.Name)" {
                             $TableParams = @{
                                 Name = "Load Balancer - $($AzLoadBalancer.Name)"
                                 List = $true

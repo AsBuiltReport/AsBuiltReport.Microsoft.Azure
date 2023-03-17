@@ -72,6 +72,9 @@ PowerShell 5.1 or PowerShell 7, and the following PowerShell modules are require
 ### :closed_lock_with_key: Required Privileges
 <!-- ********** Define required privileges ********** -->
 <!-- ********** Try to follow best practices to define least privileges ********** -->
+
+The Microsoft Azure as built report requires an Azure AD account. This report will not work with personal Azure accounts.
+
 The least privileged roles required to generate a Microsoft Azure As Built Report are;
 * Reader
 * Backup Reader
@@ -187,8 +190,8 @@ The **SiteRecovery** schema is used to configure health checks for Azure Site Re
 
 | Sub-Schema        | Setting      | Default | Description | Highlight                                                                                               |
 |-------------------|--------------|---------|-------------|---------------------------------------------------------------------------------------------------------|
-| ReplicationHealth | true / false | true    |             | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Replication Health is in a critical state |
-| FailoverHealth    | true / false | true    |             | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png)                                            |
+| ReplicationHealth | true / false | true    |  Highlights replicated items which are in a critical state | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Replication health is in a critical state |
+| FailoverHealth    | true / false | true    |  Highlights the failover health status of replicated items | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) A successful test failover has not been performed on the replicated item |
 
 #### VirtualMachine
 The **VirtualMachine** schema is used to configure health checks for Azure Virtual Machines.
@@ -201,3 +204,21 @@ The **VirtualMachine** schema is used to configure health checks for Azure Virtu
 | BackupEnabled   | true / false | true    | Highlights VMs which do not have Azure Backup enabled                                   | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Backup is disabled                                                                                                                                         |
 ## :computer: Examples
 <!-- ********** Add some examples. Use other AsBuiltReport modules as a guide. ********** -->
+
+```powershell
+# Generate a Microsoft Azure As Built Report for Tenant ID '555fff88-777d-1234-987a-23bc67890z5' using multifactor authentication. Export report to HTML & DOCX formats. Use default report style. Append timestamp to report filename. Save reports to 'C:\Users\Tim\Documents'
+PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target '555fff88-777d-1234-987a-23bc67890z5' -MFA -Format Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -Timestamp
+
+# Generate a Microsoft Azure As Built Report for Tenant ID '555fff88-777d-1234-987a-23bc67890z5' using specified credentials and report configuration file. Export report to Text, HTML & DOCX formats. Use default report style. Save reports to 'C:\Users\Tim\Documents'. Display verbose messages to the console.
+PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target '555fff88-777d-1234-987a-23bc67890z5' -Username 'tim@acme.com' -Password 'MyP@ssw0rd!' -Format Text,Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -ReportConfigFilePath 'C:\Users\Tim\AsBuiltReport\AsBuiltReport.Microsoft.Azure.json' -Verbose
+
+# Generate a Microsoft Azure As Built Report for Tenant ID '555fff88-777d-1234-987a-23bc67890z5' using stored credentials. Export report to HTML & Text formats. Use default report style. Highlight environment issues within the report. Save reports to 'C:\Users\Tim\Documents'.
+PS C:\> $Creds = Get-Credential
+PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target '555fff88-777d-1234-987a-23bc67890z5' -Credential $Creds -Format Html,Text -OutputFolderPath 'C:\Users\Tim\Documents' -EnableHealthCheck
+
+# Generate a Microsoft Azure As Built Report for Tenant ID '555fff88-777d-1234-987a-23bc67890z5' using specified credentials. Report exports to WORD format by default. Apply custom style to the report. Reports are saved to the user profile folder by default.
+PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target '555fff88-777d-1234-987a-23bc67890z5' -Username 'joe@acme.com' -Password 'MyP@ssw0rd!' -StyleFilePath 'C:\Scripts\Styles\MyCustomStyle.ps1'
+
+# Generate a Microsoft Azure As Built Report for Tenant ID '555fff88-777d-1234-987a-23bc67890z5' using multifactor authentication. Export report to HTML & DOCX formats. Use default report style. Reports are saved to the user profile folder by default. Attach and send reports via e-mail.
+PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target '555fff88-777d-1234-987a-23bc67890z5' -MFA -Format Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -SendEmail
+```

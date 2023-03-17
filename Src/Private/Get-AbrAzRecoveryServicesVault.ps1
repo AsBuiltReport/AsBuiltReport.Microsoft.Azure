@@ -50,7 +50,7 @@ function Get-AbrAzRecoveryServicesVault {
                 if ($InfoLevel.RecoveryServicesVault -ge 2) {
                     Paragraph "The following sections detail the configuration of the recovery services vault within the $($AzSubscription.Name) subscription."
                     foreach ($AzRsv in $AzRsvInfo) {
-                        Section -Style Heading5 "$($AzRsv.Name)" {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzRsv.Name)" {
                             $TableParams = @{
                                 Name = "Recovery Services Vault - $($AzRsv.Name)"
                                 List = $true

@@ -56,7 +56,7 @@ function Get-AbrAzIpGroup {
                 if ($InfoLevel.IPGroup -ge 2) {
                     Paragraph "The following sections detail the configuration of the IP groups within the $($AzSubscription.Name) subscription."
                     foreach ($AzIpGroup in $AzIpGroupInfo) {
-                        Section -Style Heading5 "$($AzIpGroup.Name)" {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzIpGroup.Name)" {
                             $TableParams = @{
                                 Name = "IP Group - $($AzIpGroup.Name)"
                                 List = $true

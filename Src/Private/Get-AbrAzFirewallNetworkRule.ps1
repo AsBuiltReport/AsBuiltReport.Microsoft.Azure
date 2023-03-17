@@ -31,7 +31,7 @@ function Get-AbrAzFirewallNetworkRule {
         $NetworkRuleCollections = $AzFirewall.NetworkRuleCollections
         if ($NetworkRuleCollections) {
             Write-PScriboMessage "Collecting Azure Firewall Network Rule Collections information."
-            Section -Style Heading5 -ExcludeFromTOC 'Network Rule Collections' {
+            Section -Style NOTOCHeading5 -ExcludeFromTOC 'Network Rule Collections' {
                 $NetworkRuleCollectionInfo = @()
                 foreach ($NetworkRuleCollection in ($NetworkRuleCollections | Sort-Object Priority)) {
                     $InObj = [Ordered]@{

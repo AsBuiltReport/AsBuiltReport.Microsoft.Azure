@@ -56,7 +56,7 @@ function Get-AbrAzVirtualNetwork {
                 if ($InfoLevel.VirtualNetwork -ge 2) {
                     Paragraph "The following sections detail the configuration of the virtual networks within the $($AzSubscription.Name) subscription."
                     foreach ($AzVirtualNetwork in $AzVirtualNetworkInfo) {
-                        Section -Style Heading5 "$($AzVirtualNetwork.Name)" {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzVirtualNetwork.Name)" {
                             $TableParams = @{
                                 Name = "Virtual Network - $($AzVirtualNetwork.Name)"
                                 List = $true

@@ -12,7 +12,7 @@
 RootModule = 'AsBuiltReport.Microsoft.Azure.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.2'
+ModuleVersion = '0.1.3'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -27,7 +27,7 @@ Author = 'Tim Carman'
 # CompanyName = 'Unknown'
 
 # Copyright statement for this module
-Copyright = '(c) Tim Carman. All rights reserved.'
+Copyright = '(c) 2023 Tim Carman. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'A PowerShell module to generate an as built report on the configuration of Microsoft Azure.'
