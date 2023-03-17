@@ -60,7 +60,7 @@ function Get-AbrAzExpressRouteCircuit {
                 if ($InfoLevel.ExpressRoute -ge 2) {
                     Paragraph "The following sections detail the configuration of the express route circuits within the $($AzSubscription.Name) subscription."
                     foreach ($AzExpressRouteCircuit in $AzExpressRouteCircuitInfo) {
-                        Section -Style Heading5 "$($AzExpressRouteCircuit.Name)" {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzExpressRouteCircuit.Name)" {
                             $TableParams = @{
                                 Name = "Express Route Circuit - $($AzExpressRouteCircuit.Name)"
                                 List = $true

@@ -60,7 +60,7 @@ function Get-AbrAzFirewall {
                 if ($InfoLevel.Firewall -ge 2) {
                     Paragraph "The following sections detail the configuration of the firewalls within the $($AzSubscription.Name) subscription."
                     foreach ($AzFirewall in $AzFirewallInfo) {
-                        Section -Style Heading5 "$($AzFirewall.Name)" {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzFirewall.Name)" {
                             $TableParams = @{
                                 Name = "Firewall - $($AzFirewall.Name)"
                                 List = $true

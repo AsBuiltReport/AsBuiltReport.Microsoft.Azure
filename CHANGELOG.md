@@ -1,6 +1,20 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [0.1.2] - 2023-02-23
+## [[0.1.3](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.3)] - 2023-03-17
+
+### Added
+* Added examples to `README.md`
+* Added module information and version checks to verbose messaging
+### Changed
+* Further improvements to section headings & TOC structure
+* Updated Required Privileges information in `README.md`
+
+### Fixed
+* Fixes [#4](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/4)
+* Fixes [#5](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/5)
+* Fixes [#6](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/6)
+
+## [[0.1.2](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.2)] - 2023-02-23
 
 ### Changed
 * Improved section heading & TOC structure

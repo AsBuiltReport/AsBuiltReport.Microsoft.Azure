@@ -56,7 +56,7 @@ function Get-AbrAzNetworkSecurityGroup {
                 if ($InfoLevel.NetworkSecurityGroup -ge 2) {
                     Paragraph "The following sections detail the configuration of the network security groups within the $($AzSubscription.Name) subscription."
                     foreach ($AzNetworkSecurityGroup in $AzNsgInfo) {
-                        Section -Style Heading5 "$($AzNetworkSecurityGroup.Name)" {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzNetworkSecurityGroup.Name)" {
                             $TableParams = @{
                                 Name = "Network Security Group - $($AzNetworkSecurityGroup.Name)"
                                 List = $true

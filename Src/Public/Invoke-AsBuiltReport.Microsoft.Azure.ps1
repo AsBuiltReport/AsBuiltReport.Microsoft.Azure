@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     .DESCRIPTION
         Documents the configuration of Microsoft Azure in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.1.2
+        Version:        0.1.3
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         @tpcarman
@@ -21,6 +21,23 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         [PSCredential] $Credential,
         [Switch] $MFA
     )
+
+    Write-PScriboMessage -Plugin "Module" -Message "Please refer to the AsBuiltReport.Microsoft.Azure GitHub website for more detailed information about this project."
+    Write-PScriboMessage -Plugin "Module" -Message "Do not forget to update your report configuration file after each new version release: https://www.asbuiltreport.com/user-guide/new-asbuiltreportconfig/"
+    Write-PScriboMessage -Plugin "Module" -Message "Documentation: https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure"
+    Write-PScriboMessage -Plugin "Module" -Message "Issues or bug reporting: https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues"
+
+    # Check the current AsBuiltReport.Microsoft.Azure module
+    $InstalledVersion = Get-Module -ListAvailable -Name AsBuiltReport.Microsoft.Azure -ErrorAction SilentlyContinue | Sort-Object -Property Version -Descending | Select-Object -First 1 -ExpandProperty Version
+
+    if ($InstalledVersion) {
+        Write-PScriboMessage -Plugin "Module" -Message "AsBuiltReport.Microsoft.Azure $($InstalledVersion.ToString()) is currently installed."
+        $LatestVersion = Find-Module -Name AsBuiltReport.Microsoft.Azure -Repository PSGallery -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Version
+        if ($LatestVersion -gt $InstalledVersion) {
+            Write-PScriboMessage -Plugin "Module" -Message "AsBuiltReport.Microsoft.Azure $($LatestVersion.ToString()) is available."
+            Write-PScriboMessage -Plugin "Module" -Message "Run 'Update-Module -Name AsBuiltReport.Microsoft.Azure -Force' to install the latest version."
+        }
+    }
 
     # Import Report Configuration
     $Report = $ReportConfig.Report
@@ -91,7 +108,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
             } else {
                 Write-PScriboMessage "Azure Tenant $TenantId not found."
             }
-            Disconnect-AzAccount $AzAccount
+            Disconnect-AzAccount $AzAccount | Out-null
         }
 	}
 	#endregion foreach loop

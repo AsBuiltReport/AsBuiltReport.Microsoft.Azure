@@ -115,7 +115,7 @@ function Get-AbrAzVirtualMachine {
                 if ($InfoLevel.VirtualMachine -ge 2) {
                     Paragraph "The following sections detail the configuration of the virtual machines within the $($AzSubscription.Name) subscription."
                     foreach ($AzVM in $AzVMInfo) {
-                        Section -Style Heading5 "$($AzVM.Name)" {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzVM.Name)" {
                             $TableParams = @{
                                 Name = "Virtual Machine - $($AzVM.Name)"
                                 List = $true

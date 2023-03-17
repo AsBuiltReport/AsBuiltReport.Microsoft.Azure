@@ -43,7 +43,7 @@ function Get-AbrAsrProtectedItems {
                                 $AsrReplicationProtectedItems | Where-Object { $_.'TestFailoverStateDescription' -ne 'None' } | Set-Style -Style Warning -Property 'TestFailoverStateDescription'
                             }
                             if ($AsrReplicationProtectedItems) {
-                                Section -Style Heading5 -ExcludeFromTOC 'Protected Items' {
+                                Section -Style NOTOCHeading5 -ExcludeFromTOC 'Protected Items' {
                                     Paragraph "The following tables provides information for the Azure Site Recovery protected items within the $($AzSubscription.Name) subscription."
                                     BlankLine
                                     $TableParams = @{

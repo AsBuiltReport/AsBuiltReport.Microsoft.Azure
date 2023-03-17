@@ -44,7 +44,7 @@ function Get-AbrAzBastion {
                 if ($InfoLevel.Bastion -ge 2) {
                     Paragraph "The following sections detail the configuration of the bastions within the $($AzSubscription.Name) subscription."
                     foreach ($AzBastion in $AzBastionInfo) {
-                        Section -Style Heading5 "$($AzBastion.Name)" {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzBastion.Name)" {
                             $TableParams = @{
                                 Name = "Bastion - $($AzBastion.Name)"
                                 List = $true
