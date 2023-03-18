@@ -41,7 +41,7 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 
 * Availabity Sets
 * Bastion Hosts
-* Express Route Circuits
+* ExpressRoute Circuits
 * Firewalls
 * IP Groups
 * Key Vaults
@@ -143,7 +143,21 @@ The **Filter** schema allows report content to be filtered to specific Azure sub
 
 | Sub-Schema   | Setting      | Default | Description                                                                                                                                                                  |
 |--------------|--------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Subscription | User defined | *       | Filters report content to specific Azure subscriptions within a tenant. <br>Specifying an asterisk (*) will generate a report for all Azure subscriptions within the tenant. |
+| Subscription | User defined | *       | Filters report content to specific Azure subscriptions within a tenant. <br>Specifying an asterisk (*) will generate a report for all Azure subscriptions within a tenant. |
+
+#### Example 1: Generate a report for all Azure subscriptions within a tenant.
+```json
+"Filter": {
+    "Subscription": ["*"]
+},
+```
+
+#### Example 2: Filter report content to specific Azure subscriptions within a tenant.
+```json
+"Filter": {
+    "Subscription": ["555fff88-777d-1234-987a-23bc67890z5","666dfg67-654h-1234-984f-08kb67834y8"]
+},
+```
 
 <!-- ********** Add/Remove the number of InfoLevels as required ********** -->
 ### InfoLevel
@@ -183,7 +197,7 @@ The **ExpressRoute** schema is used to configure health checks for Azure Express
 
 | Sub-Schema    | Setting      | Default | Description | Highlight                                                                                         |
 |---------------|--------------|---------|-------------|---------------------------------------------------------------------------------------------------|
-| CircuitStatus | true / false | true    |             | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) ExpressRoute Circuit is not enabled |
+| CircuitStatus | true / false | true    | Highlights ExpressRoute circuits which are not enabled | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) ExpressRoute circuit is not enabled |
 
 #### SiteRecovery
 The **SiteRecovery** schema is used to configure health checks for Azure Site Recovery.
@@ -200,7 +214,7 @@ The **VirtualMachine** schema is used to configure health checks for Azure Virtu
 |-----------------|--------------|---------|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Status          | true / false | true    | Highlights VMs which are not in a running state                                         | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) VM is in a deallocated state                                                                                                                               |
 | DiskEncryption  | true / false | true    | Highlights VMs which do not have disk encryption enabled                                | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Disk encryption is not enabled                                                                                                                             |
-| BootDiagnostics | true / false | true    | Highlights VMs which do not have boot diagnostics enabled with a custom storage account | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Boot Diagnostics is disabled <br> ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Boot diagnostics is enabled with a managed storage account |
+| BootDiagnostics | true / false | true    | Highlights VMs which do not have boot diagnostics enabled with a custom storage account | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Boot diagnostics is disabled <br> ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Boot diagnostics is enabled with a managed storage account |
 | BackupEnabled   | true / false | true    | Highlights VMs which do not have Azure Backup enabled                                   | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Backup is disabled                                                                                                                                         |
 ## :computer: Examples
 <!-- ********** Add some examples. Use other AsBuiltReport modules as a guide. ********** -->
