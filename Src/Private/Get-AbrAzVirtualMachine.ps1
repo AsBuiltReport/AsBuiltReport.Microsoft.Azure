@@ -27,6 +27,10 @@ function Get-AbrAzVirtualMachine {
         if (($InfoLevel.VirtualMachine -gt 0) -and ($AzVMs)) {
             Write-PscriboMessage "Collecting Azure VM information."
             Section -Style Heading4 'Virtual Machines' {
+                if ($Options.ShowSectionInfo) {
+                    Paragraph "Azure virtual machines are one of several types of on-demand, scalable computing resources that Azure offers. Typically, you choose a virtual machine when you need more control over the computing environment than the other choices offer. An Azure virtual machine gives you the flexibility of virtualization without having to buy and maintain the physical hardware that runs it. However, you still need to maintain the virtual machine by performing tasks, such as configuring, patching, and installing the software that runs on it."
+                    BlankLine
+                }
                 $AzVMInfo = @()
                 foreach ($AzVM in $AzVMs) {
                     $AzVMSize = Get-AzVMSize -Location $AzVm.Location | Where-Object {$_.Name -eq $AzVm.HardwareProfile.VmSize}

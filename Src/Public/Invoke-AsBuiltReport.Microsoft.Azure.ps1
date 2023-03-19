@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     .DESCRIPTION
         Documents the configuration of Microsoft Azure in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.1.3
+        Version:        0.1.4
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         @tpcarman
@@ -21,6 +21,8 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         [PSCredential] $Credential,
         [Switch] $MFA
     )
+
+    Get-RequiredModule -Name 'Az' -Version '9.4.0'
 
     Write-PScriboMessage -Plugin "Module" -Message "Please refer to the AsBuiltReport.Microsoft.Azure GitHub website for more detailed information about this project."
     Write-PScriboMessage -Plugin "Module" -Message "Do not forget to update your report configuration file after each new version release: https://www.asbuiltreport.com/user-guide/new-asbuiltreportconfig/"

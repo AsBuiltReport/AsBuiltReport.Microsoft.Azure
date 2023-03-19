@@ -1,5 +1,11 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
+## [[0.1.4](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.4)] - 2023-03-19
+
+### Added
+* Added function to check for Microsoft Azure PowerShell module
+* Added `ShowSectionInfo` option to provide information about Azure resources
+
 ## [[0.1.3](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.3)] - 2023-03-17
 
 ### Added

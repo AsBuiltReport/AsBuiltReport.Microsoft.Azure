@@ -5,7 +5,7 @@ function Get-AbrAzFirewall {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -27,6 +27,10 @@ function Get-AbrAzFirewall {
         if (($InfoLevel.Firewall -gt 0) -and ($AzFirewalls)) {
             Write-PscriboMessage "Collecting Azure Firewall information."
             Section -Style Heading4 'Firewalls' {
+                if ($Options.ShowSectionInfo) {
+                    Paragraph "Azure Firewall is a cloud-native and intelligent network firewall security service that provides the best of breed threat protection for your cloud workloads running in Azure. It's a fully stateful, firewall as a service with built-in high availability and unrestricted cloud scalability. It provides both east-west and north-south traffic inspection."
+                    BlankLine
+                }
                 $AzFirewallInfo = @()
                 foreach ($AzFirewall in $AzFirewalls) {
                     $InObj = [Ordered]@{

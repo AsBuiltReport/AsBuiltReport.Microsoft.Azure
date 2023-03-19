@@ -5,7 +5,7 @@ function Get-AbrAzAvailabilitySet {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -27,6 +27,10 @@ function Get-AbrAzAvailabilitySet {
         if (($InfoLevel.AvailabilitySet -gt 0) -and ($AzAvailabilitySets)) {
             Write-PscriboMessage "Collecting Azure Availability Set information."
             Section -Style Heading4 'Availability Sets' {
+                if ($Options.ShowSectionInfo) {
+                    Paragraph "An Availability Set (AS) is a logical construct to inform Azure that it should distribute contained virtual machine instances across multiple fault and update domains within an Azure region."
+                    BlankLine
+                }
                 Paragraph "The following table summarises the configuration of the availability sets within the $($AzSubscription.Name) subscription."
                 BlankLine
                 $AzAvailabilitySetInfo = @()
