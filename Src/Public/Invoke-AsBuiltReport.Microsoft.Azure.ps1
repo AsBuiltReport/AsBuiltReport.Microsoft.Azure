@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     .DESCRIPTION
         Documents the configuration of Microsoft Azure in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.1.4
+        Version:        0.1.5
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         @tpcarman
@@ -103,6 +103,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                                 Get-AbrAzVirtualMachine
                                 Get-AbrAzRecoveryServicesVault
                                 Get-AbrAsrProtectedItems
+                                Get-AbrAzStorageAccount
                             }
                         }
                     }

@@ -27,6 +27,7 @@
         "PolicyAssignment": 1,
         "RecoveryServicesVault": 1,
         "SiteRecovery": 1,
+        "StorageAccount": 1,
         "VirtualNetwork": 1,
         "VirtualMachine": 1
     },
@@ -37,6 +38,12 @@
         "SiteRecovery": {
             "ReplicationHealth": true,
             "FailoverHealth": true
+        },
+        "StorageAccount": {
+            "ProvisioningState": true,
+            "EnableHttpsTrafficOnly": true,
+            "PublicNetworkAccess": true,
+            "MinimumTlsVersion": true
         },
         "VirtualMachine": {
             "Status": true,
