@@ -138,12 +138,16 @@ The **Report** schema provides configuration of the Microsoft Azure report infor
 ### Options
 The **Options** schema allows certain options within the report to be toggled on or off.
 
+| Sub-Schema         | Setting      | Default | Description                                                                                                                                                                              |
+|--------------------|--------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ShowSectionInfo | true / false | true | Toggle to enable/disable information relating to Azure resources within each section. |
+
 ### Filter
 The **Filter** schema allows report content to be filtered to specific Azure subscriptions within a tenant.
 
 | Sub-Schema   | Setting      | Default | Description                                                                                                                                                                  |
 |--------------|--------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Subscription | User defined | *       | Filters report content to specific Azure subscriptions within a tenant. <br>Specifying an asterisk (*) will generate a report for all Azure subscriptions within a tenant. |
+| Subscription | User defined | *       | Filters report content to specific Azure subscription IDs within a tenant. <br>Specifying an asterisk (*) will generate a report for all Azure subscriptions within a tenant. |
 
 #### Example 1: Generate a report for all Azure subscriptions within a tenant.
 ```json
@@ -152,7 +156,7 @@ The **Filter** schema allows report content to be filtered to specific Azure sub
 },
 ```
 
-#### Example 2: Filter report content to specific Azure subscriptions within a tenant.
+#### Example 2: Filter report content to specific Azure subscription IDs within a tenant.
 ```json
 "Filter": {
     "Subscription": ["555fff88-777d-1234-987a-23bc67890z5","666dfg67-654h-1234-984f-08kb67834y8"]

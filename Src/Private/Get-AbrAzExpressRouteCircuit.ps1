@@ -1,11 +1,11 @@
 function Get-AbrAzExpressRouteCircuit {
     <#
     .SYNOPSIS
-    Used by As Built Report to retrieve Azure Express Route Circuit information
+    Used by As Built Report to retrieve Azure ExpressRoute Circuit information
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -25,8 +25,12 @@ function Get-AbrAzExpressRouteCircuit {
     process {
         $AzExpressRouteCircuits = Get-AzExpressRouteCircuit | Sort-Object Name
         if (($InfoLevel.ExpressRoute -gt 0) -and ($AzExpressRouteCircuits)) {
-            Write-PscriboMessage "Collecting Express Reoute Circuit information."
-            Section -Style Heading4 'Express Route Circuit' {
+            Write-PscriboMessage "Collecting ExpressRoute Circuit information."
+            Section -Style Heading4 'ExpressRoute Circuit' {
+                if ($Options.ShowSectionInfo) {
+                    Paragraph "An ExpressRoute circuit allows a private dedicated connection into Azure with the help of a connectivity provider."
+                    BlankLine
+                }
                 $AzExpressRouteCircuitInfo = @()
                 foreach ($AzExpressRouteCircuit in $AzExpressRouteCircuits) {
                     $InObj = [Ordered]@{
@@ -58,11 +62,11 @@ function Get-AbrAzExpressRouteCircuit {
                     $AzExpressRouteCircuitInfo | Where-Object { $_.'Circuit Status' -ne 'Enabled' } | Set-Style -Style Critical -Property 'Circuit Status'
                 }
                 if ($InfoLevel.ExpressRoute -ge 2) {
-                    Paragraph "The following sections detail the configuration of the express route circuits within the $($AzSubscription.Name) subscription."
+                    Paragraph "The following sections detail the configuration of the ExpressRoute circuits within the $($AzSubscription.Name) subscription."
                     foreach ($AzExpressRouteCircuit in $AzExpressRouteCircuitInfo) {
                         Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzExpressRouteCircuit.Name)" {
                             $TableParams = @{
-                                Name = "Express Route Circuit - $($AzExpressRouteCircuit.Name)"
+                                Name = "ExpressRoute Circuit - $($AzExpressRouteCircuit.Name)"
                                 List = $true
                                 ColumnWidths = 50, 50
                             }
@@ -73,10 +77,10 @@ function Get-AbrAzExpressRouteCircuit {
                         }
                     }
                 } else {
-                    Paragraph "The following table summarises the configuration of the express route circuits within the $($AzSubscription.Name) subscription."
+                    Paragraph "The following table summarises the configuration of the ExpressRoute circuits within the $($AzSubscription.Name) subscription."
                     BlankLine
                     $TableParams = @{
-                        Name = "Express Route Circuits - $($AzSubscription.Name)"
+                        Name = "ExpressRoute Circuits - $($AzSubscription.Name)"
                         List = $false
                         Columns = 'Name', 'Resource Group', 'Location', 'Circuit Status'
                         ColumnWidths = 25, 25, 25, 25

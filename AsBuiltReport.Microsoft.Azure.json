@@ -9,7 +9,7 @@
         "ShowTableCaptions": true
     },
     "Options": {
-
+        "ShowSectionInfo": true
     },
     "Filter": {
         "Subscription": ["*"]

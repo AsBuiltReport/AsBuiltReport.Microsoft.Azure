@@ -5,7 +5,7 @@ function Get-AbrAzKeyVault {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -27,6 +27,10 @@ function Get-AbrAzKeyVault {
         if (($InfoLevel.KeyVault -gt 0) -and ($AzKeyVaults)) {
             Write-PscriboMessage "Collecting Azure Key Vault information."
             Section -Style Heading4 'Key Vaults' {
+                if ($Options.ShowSectionInfo) {
+                    Paragraph "Azure Key Vault is a key management solution which enables Azure users and applications to securely store and access keys, secrets, and certificates."
+                    BlankLine
+                }
                 Paragraph "The following table summarises the configuration of the key vaults within the $($AzSubscription.Name) subscription."
                 BlankLine
                 $AzKeyVaultInfo = @()

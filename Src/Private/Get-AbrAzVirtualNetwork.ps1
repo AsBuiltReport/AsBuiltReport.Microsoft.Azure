@@ -5,7 +5,7 @@ function Get-AbrAzVirtualNetwork {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -27,6 +27,18 @@ function Get-AbrAzVirtualNetwork {
         if (($InfoLevel.VirtualNetwork -gt 0) -and ($AzVirtualNetworks)) {
             Write-PscriboMessage "Collecting Azure Virtual Network information."
             Section -Style Heading4 'Virtual Networks' {
+                if ($Options.ShowSectionInfo) {
+                    Paragraph "Azure Virtual Network (VNet) is the fundamental building block for a private network in Azure. VNet enables many types of Azure resources, such as Azure Virtual Machines (VM), to securely communicate with each other, the internet, and on-premises networks. VNet is similar to a traditional network that would operate in a traditonal data center, but brings with it additional benefits of Azure's infrastructure such as scale, availability, and isolation."
+                    BlankLine
+                    if ($InfoLevel.VirtualNetwork -ge 2) {
+                        Paragraph -Bold "Peerings"
+                        Paragraph "Virtual network peering enables you to seamlessly connect two or more Virtual Networks in Azure. The virtual networks appear as one for connectivity purposes. The traffic between virtual machines in peered virtual networks uses the Microsoft backbone infrastructure. Like traffic between virtual machines in the same network, traffic is routed through Microsoft's private network only."
+                        BlankLine
+                        Paragraph -Bold "Subnets"
+                        Paragraph "Subnets enable you to segment the virtual network into one or more sub-networks and allocate a portion of the virtual network's address space to each subnet. You can then deploy Azure resources in a specific subnet. Just like in a traditional network, subnets allow you to segment your VNet address space into segments that are appropriate for the organization's internal network. This also improves address allocation efficiency. You can secure resources within subnets using Network Security Groups."
+                        BlankLine
+                    }
+                }
                 $AzVirtualNetworkInfo = @()
                 foreach ($AzVirtualNetwork in $AzVirtualNetworks) {
                     $InObj = [Ordered]@{

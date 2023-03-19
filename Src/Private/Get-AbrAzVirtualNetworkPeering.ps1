@@ -5,7 +5,7 @@ function Get-AbrAzVirtualNetworkPeering {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -35,8 +35,6 @@ function Get-AbrAzVirtualNetworkPeering {
                     Section -Style NOTOCHeading7 -ExcludeFromTOC $($AzVirtualNetworkPeering.Name) {
                         $AzVirtualNetworkPeeringInfo = [PSCustomObject]@{
                             'Name' = $AzVirtualNetworkPeering.Name
-                            'Resource Group' = $AzVirtualNetworkPeering.ResourceGroupName
-                            #'Location' = $AzVirtualNetworkPeering.Location
                             'Peering Status' = $AzVirtualNetworkPeering.PeeringSyncLevel
                             'Peering State' = $AzVirtualNetworkPeering.PeeringState
                             'Peer' = ($AzVirtualNetworkPeering.RemoteVirtualNetwork.Id).split('/')[-1]

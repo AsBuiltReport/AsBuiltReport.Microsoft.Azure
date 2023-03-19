@@ -5,7 +5,7 @@ function Get-AbrAzRecoveryServicesVault {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -27,6 +27,10 @@ function Get-AbrAzRecoveryServicesVault {
         if (($InfoLevel.RecoveryServicesVault -gt 0) -and ($AzRsvs)) {
             Write-PscriboMessage "Collecting Azure Recovery Services Vault information."
             Section -Style Heading4 'Recovery Services Vaults' {
+                if ($Options.ShowSectionInfo) {
+                    Paragraph "A Recovery Services vault is a storage entity in Azure that houses data. The data is typically copies of data, or configuration information for virtual machines (VMs), workloads, servers, or workstations. You can use Recovery Services vaults to hold backup data for various Azure services such as IaaS VMs (Linux or Windows) and SQL Server in Azure VMs. Recovery Services vaults support System Center DPM, Windows Server, Azure Backup Server, and more. Recovery Services vaults make it easy to organize your backup data, while minimizing management overhead."
+                    BlankLine
+                }
                 $AzRsvInfo = @()
                 foreach ($AzRsv in $AzRsvs) {
                     $InObj = [Ordered]@{
