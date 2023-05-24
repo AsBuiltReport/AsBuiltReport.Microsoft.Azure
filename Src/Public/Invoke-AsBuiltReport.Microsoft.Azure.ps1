@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     .DESCRIPTION
         Documents the configuration of Microsoft Azure in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.1.4
+        Version:        0.1.5
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         @tpcarman
@@ -35,7 +35,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     if ($InstalledVersion) {
         Write-PScriboMessage -Plugin "Module" -Message "AsBuiltReport.Microsoft.Azure $($InstalledVersion.ToString()) is currently installed."
         $LatestVersion = Find-Module -Name AsBuiltReport.Microsoft.Azure -Repository PSGallery -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Version
-        if ($LatestVersion -gt $InstalledVersion) {
+        if ([Version]$LatestVersion -gt [Version]$InstalledVersion) {
             Write-PScriboMessage -Plugin "Module" -Message "AsBuiltReport.Microsoft.Azure $($LatestVersion.ToString()) is available."
             Write-PScriboMessage -Plugin "Module" -Message "Run 'Update-Module -Name AsBuiltReport.Microsoft.Azure -Force' to install the latest version."
         }
@@ -103,6 +103,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                                 Get-AbrAzVirtualMachine
                                 Get-AbrAzRecoveryServicesVault
                                 Get-AbrAsrProtectedItems
+                                Get-AbrAzStorageAccount
                             }
                         }
                     }

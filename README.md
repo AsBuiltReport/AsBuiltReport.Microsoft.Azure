@@ -39,7 +39,7 @@ Please refer to the AsBuiltReport [website](https://www.asbuiltreport.com) for m
 
 The Microsoft Azure As Built Report currently supports reporting for the following Azure resources;
 
-* Availabity Sets
+* Availability Sets
 * Bastion Hosts
 * ExpressRoute Circuits
 * Firewalls
@@ -47,6 +47,7 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 * Key Vaults
 * Load Balancers
 * Policies
+* Storage Accounts
 * Subscriptions
 * Tenants
 * Virtual Machines
@@ -190,6 +191,7 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | PolicyAssignment      |        1        |        1        |
 | RecoveryServicesVault |        1        |        2        |
 | SiteRecovery          |        1        |        1        |
+| StorageAccount        |        1        |        2        |
 | VirtualNetwork        |        1        |        2        |
 | VirtualMachine        |        1        |        2        |
 
@@ -210,6 +212,16 @@ The **SiteRecovery** schema is used to configure health checks for Azure Site Re
 |-------------------|--------------|---------|-------------|---------------------------------------------------------------------------------------------------------|
 | ReplicationHealth | true / false | true    |  Highlights replicated items which are in a critical state | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Replication health is in a critical state |
 | FailoverHealth    | true / false | true    |  Highlights the failover health status of replicated items | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) A successful test failover has not been performed on the replicated item |
+
+#### StorageAccount
+The **StorageAccount** schema is used to configure health checks for Azure Storage Account.
+
+| Sub-Schema             | Setting      | Default | Description | Highlight                                                                                          |
+|------------------------|--------------|---------|-------------|----------------------------------------------------------------------------------------------------|
+| ProvisioningState      | true / false | true    |             | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state  |
+| EnableHttpsTrafficOnly | true / false | true    |             | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png)                                       |
+| PublicNetworkAccess    | true / false | true    |             | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png)                                       |
+| MinimumTlsVersion      | true / false | true    |             | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png)                                       |
 
 #### VirtualMachine
 The **VirtualMachine** schema is used to configure health checks for Azure Virtual Machines.
