@@ -29,7 +29,8 @@
         "SiteRecovery": 1,
         "StorageAccount": 1,
         "VirtualNetwork": 1,
-        "VirtualMachine": 1
+        "VirtualMachine": 1,
+        "RouteTable": 1
     },
     "HealthCheck": {
         "ExpressRoute": {

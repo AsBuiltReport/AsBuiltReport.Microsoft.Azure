@@ -104,6 +104,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                                 Get-AbrAzRecoveryServicesVault
                                 Get-AbrAsrProtectedItems
                                 Get-AbrAzStorageAccount
+                                Get-AbrAzRouteTable
                             }
                         }
                     }
