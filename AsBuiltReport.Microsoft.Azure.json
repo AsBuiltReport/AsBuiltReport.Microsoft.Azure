@@ -26,11 +26,11 @@
         "NetworkSecurityGroup": 1,
         "PolicyAssignment": 1,
         "RecoveryServicesVault": 1,
+        "RouteTable": 1,
         "SiteRecovery": 1,
         "StorageAccount": 1,
         "VirtualNetwork": 1,
-        "VirtualMachine": 1,
-        "RouteTable": 1
+        "VirtualMachine": 1
     },
     "HealthCheck": {
         "ExpressRoute": {
