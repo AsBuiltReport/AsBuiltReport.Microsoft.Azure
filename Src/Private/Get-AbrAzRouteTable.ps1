@@ -49,32 +49,35 @@ function Get-AbrAzRouteTable {
                     $AzRouteTableInfo += [PSCustomObject]$InObj
                 }}
 
-                if ($InfoLevel.RouteTable -ge 2) { #Comprehensive and details info,add provisioning state and subscription
-                    Paragraph "The following table summarises the configuration of the Route Table within the $($AzSubscription.Name) subscription."
-                    BlankLine
-                    $TableParams = @{
+                if ($InfoLevel.RouteTable -ge 2) {
+                    Paragraph "The following sections detail the configuration of the Route Tables within the $($AzSubscription.Name) subscription."
+                    foreach ($AzRouteTable in $AzRouteTables) {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzRouteTable.Name)" {
+                            $TableParams = @{
+                                Name = "Route Table - $($AzRouteTable.Name)"
+                                List = $true
+                                ColumnWidths = 30, 70
+                            }
+                            if ($Report.ShowTableCaptions) {
+                                $TableParams['Caption'] = "- $($TableParams.Name)"
+                            }
+                            $AzRouteTable | Table @TableParams
+                        }
+                    }
+                    } else {
+                        Paragraph "The following table summarises the configuration of the Route Table within the $($AzSubscription.Name) subscription."
+                        BlankLine
+                        $TableParams = @{
                         Name = "Route Tables - $($AzSubscription.Name)"
                         List = $false
-                        Columns = 'Name', 'Resource Group', 'Location', 'Subscription','Provisioning State','Routes','Address','Next Hop Type','Next Hop IpAddress'
-                        ColumnWidths = 11,11,11,12,11,11,11,11,11
-                    }
-                       if ($Report.ShowTableCaptions) {
-                                $TableParams['Caption'] = "- $($TableParams.Name)"
-                                  }
-                                $AzRouteTableInfo | Table @TableParams
-                                } else {
-                                       Paragraph "The following table summarises the configuration of the Route Table within the $($AzSubscription.Name) subscription."
-                                       BlankLine
-                                       $TableParams = @{
-                                             Name = "Route Tables - $($AzSubscription.Name)"
-                                             List = $false
-                                             Columns = 'Name', 'Resource Group', 'Location', 'Routes','Address','Next Hop Type','Next Hop IpAddress'
-                                             ColumnWidths = 14,14,15,15,14,14,14
-                                            }
-                                   if ($Report.ShowTableCaptions) {
-                                              $TableParams['Caption'] = "- $($TableParams.Name)"
-                                              }
-                                    $AzRouteTableInfo |Select-Object -ExcludeProperty 'Subscription' -Property *|Select-Object -ExcludeProperty 'Provisioning State' -Property * | Table @TableParams
+                        Headers = 'Name','Routes','Address','Next Hop','IpAddress'
+                        Columns = 'Name', 'Routes','Address Prefix','Next Hop Type','Next Hop IpAddress'
+                        ColumnWidths = 14,14,15,15,14,14,14
+                        }
+                        if ($Report.ShowTableCaptions) {
+                            $TableParams['Caption'] = "- $($TableParams.Name)"
+                            }
+                        $AzRouteTableInfo|Table @TableParams
                 }
             }
         }

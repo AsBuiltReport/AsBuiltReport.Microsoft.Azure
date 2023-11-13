@@ -105,6 +105,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                                 Get-AbrAsrProtectedItems
                                 Get-AbrAzStorageAccount
                                 Get-AbrAzRouteTable
+                                #Get-AbrAzFirewallNetworkRule
                             }
                         }
                     }
