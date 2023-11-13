@@ -13,5 +13,4 @@ jobs:
         failOnErrors: true
         failOnWarnings: false
         failOnInfos: false
-        repoToken: ${{ secrets.GITHUB_TOKEN }}
         settingsPath: .github/workflows/PSScriptAnalyzerSettings.psd1
