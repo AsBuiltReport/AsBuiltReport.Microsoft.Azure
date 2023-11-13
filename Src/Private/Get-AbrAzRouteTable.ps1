@@ -33,7 +33,7 @@ function Get-AbrAzRouteTable {
                 }
                 $AzRouteTableInfo = @()
                 foreach ($AzRouteTable in $AzRouteTables) {
-                    $routes= $AzRouteTable.routes
+                    $routes = $AzRouteTable.routes
                     foreach ($route in $routes){
                         $InObj = [Ordered]@{
                             'Name' = $AzRouteTable.Name
@@ -73,12 +73,12 @@ function Get-AbrAzRouteTable {
                         List = $false
                         Headers = 'Name','Routes','Address','Next Hop','IpAddress'
                         Columns = 'Name', 'Routes','Address Prefix','Next Hop Type','Next Hop IpAddress'
-                        ColumnWidths = 20,20,20,20,20
+                        ColumnWidths = 20, 20, 20, 20, 20
                     }
                     if ($Report.ShowTableCaptions) {
                         $TableParams['Caption'] = "- $($TableParams.Name)"
                     }
-                    $AzRouteTableInfo|Table @TableParams
+                    $AzRouteTableInfo | Table @TableParams
                 }
             }
         }
