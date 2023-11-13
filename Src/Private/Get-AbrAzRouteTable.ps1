@@ -73,7 +73,7 @@ function Get-AbrAzRouteTable {
                         List = $false
                         Headers = 'Name','Routes','Address','Next Hop','IpAddress'
                         Columns = 'Name', 'Routes','Address Prefix','Next Hop Type','Next Hop IpAddress'
-                        ColumnWidths = 14,14,15,15,14,14,14
+                        ColumnWidths = 20,20,20,20,20
                     }
                     if ($Report.ShowTableCaptions) {
                         $TableParams['Caption'] = "- $($TableParams.Name)"
