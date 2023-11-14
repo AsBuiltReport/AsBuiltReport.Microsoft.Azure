@@ -100,9 +100,9 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                                 Get-AbrAzLoadBalancer
                                 Get-AbrAzVirtualNetwork
                                 Get-AbrAzNetworkSecurityGroup
+                                Get-AbrAzRouteTable
                                 Get-AbrAzVirtualMachine
                                 Get-AbrAzRecoveryServicesVault
-                                Get-AbrAzRouteTable
                                 Get-AbrAsrProtectedItems
                                 Get-AbrAzStorageAccount
                             }
