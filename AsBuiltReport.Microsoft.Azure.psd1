@@ -12,7 +12,7 @@
 RootModule = 'AsBuiltReport.Microsoft.Azure.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.5'
+ModuleVersion = '0.1.6'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -109,7 +109,7 @@ PrivateData = @{
         ProjectUri = 'https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure'
 
         # A URL to an icon representing this module.
-        IconUri = 'https://raw.githubusercontent.com/AsBuiltReport/AsBuiltReport/master/AsBuiltReport.png'
+        IconUri = 'https://github.com/AsBuiltReport.png'
 
         # ReleaseNotes of this module
         ReleaseNotes = 'https://raw.githubusercontent.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/master/CHANGELOG.md'

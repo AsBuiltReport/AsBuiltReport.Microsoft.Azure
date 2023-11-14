@@ -1,5 +1,10 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
+## [[0.1.6](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.6)] - 2023-11-14
+
+### Added
+* Added initial support for Route Tables (@howardhaooooo)
+
 ## [[0.1.5](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.5)] - 2023-05-24
 
 ### Added
