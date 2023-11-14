@@ -47,6 +47,7 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 * Key Vaults
 * Load Balancers
 * Policies
+* Route Tables
 * Storage Accounts
 * Subscriptions
 * Tenants
@@ -190,6 +191,7 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | LoadBalancer          |        1        |        2        |
 | PolicyAssignment      |        1        |        1        |
 | RecoveryServicesVault |        1        |        2        |
+| RouteTable            |        1        |        2        |
 | SiteRecovery          |        1        |        1        |
 | StorageAccount        |        1        |        2        |
 | VirtualNetwork        |        1        |        2        |

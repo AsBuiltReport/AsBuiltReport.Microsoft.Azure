@@ -5,10 +5,10 @@ function Get-AbrAzRouteTable {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.1
-        Author:         Howard Hao
-        Twitter:
-        Github:         howardhaooooo
+        Version:        0.2
+        Author:         Howard Hao & Tim Carman
+        Twitter:        tpcarman
+        Github:         howardhaooooo / tpcarman
     .EXAMPLE
 
     .LINK
@@ -28,57 +28,71 @@ function Get-AbrAzRouteTable {
             Write-PscriboMessage "Collecting Azure Route Table information."
             Section -Style Heading4 'Route Tables' {
                 if ($Options.ShowSectionInfo) {
-                    Paragraph "Azure Route Table is a powerful tool to control and direct traffic within a virtual network (VNet). It offers a way to control the flow of the data, ensuring it reaches the correct endpoint."
+                    Paragraph "Azure Route Tables are a set of custom routes that dictate how network traffic should move within a virtual network (VNet). They offer a way to control the flow of data, ensuring it reaches the correct endpoint. For instance, if a subnet in a VNet needs to communicate with a virtual appliance, an Azure Route Table can direct the traffic accordingly."
                     BlankLine
                 }
                 $AzRouteTableInfo = @()
                 foreach ($AzRouteTable in $AzRouteTables) {
-                    $routes = $AzRouteTable.routes
-                    foreach ($route in $routes){
-                        $InObj = [Ordered]@{
-                            'Name' = $AzRouteTable.Name
-                            'Resource Group' = $AzRouteTable.ResourceGroupName
-                            'Location' = $AzRouteTable.Location
-                            'Subscription' = $AzRouteTable.Id.split('/')[2]
-                            'Provisioning State' = $AzRouteTable.ProvisioningState
-                            'Routes' = $route.Name
-                            'Address Prefix' = $route.AddressPrefix
-                            'Next Hop Type' = $route.NextHopType
-                            'Next Hop IpAddress' = $route.NextHopIpAddress
-                        }
-                        $AzRouteTableInfo += [PSCustomObject]$InObj
+                    $InObj = [Ordered]@{
+                        'Name' = $AzRouteTable.Name
+                        'Resource Group' = $AzRouteTable.ResourceGroupName
+                        'Location' = $AzLocationLookup."$($AzRouteTable.Location)"
+                        'Subscription' = "$($AzSubscriptionLookup.(($AzRouteTable.Id).split('/')[2]))"
+                        'Provisioning State' = $AzRouteTable.ProvisioningState
                     }
+                    $AzRouteTableInfo += [PSCustomObject]$InObj
                 }
 
-                if ($InfoLevel.RouteTable -ge 2) {
-                    Paragraph "The following sections detail the configuration of the Route Tables within the $($AzSubscription.Name) subscription."
-                    foreach ($AzRouteTable in $AzRouteTables) {
-                        Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzRouteTable.Name)" {
-                            $TableParams = @{
-                                Name = "Route Table - $($AzRouteTable.Name)"
-                                List = $true
-                                ColumnWidths = 30, 70
-                            }
-                            if ($Report.ShowTableCaptions) {
-                                $TableParams['Caption'] = "- $($TableParams.Name)"
-                            }
-                            $AzRouteTable | Table @TableParams
-                        }
-                    }
-                } else {
+                if ($InfoLevel.RouteTable -eq 1) {
                     Paragraph "The following table summarises the configuration of the Route Table within the $($AzSubscription.Name) subscription."
                     BlankLine
-                    $TableParams = @{
-                        Name = "Route Tables - $($AzSubscription.Name)"
-                        List = $false
-                        Headers = 'Name','Routes','Address','Next Hop','IpAddress'
-                        Columns = 'Name', 'Routes','Address Prefix','Next Hop Type','Next Hop IpAddress'
-                        ColumnWidths = 20, 20, 20, 20, 20
+                } else {
+                    Paragraph "The following sections detail the configuration of the Route Tables within the $($AzSubscription.Name) subscription."
+                    BlankLine
+                }
+                $TableParams = @{
+                    Name = "Route Tables - $($AzSubscription.Name)"
+                    List = $false
+                    Columns = 'Name', 'Resource Group', 'Location', 'Subscription'
+                    ColumnWidths = 25, 25, 25, 25
+                }
+                if ($Report.ShowTableCaptions) {
+                    $TableParams['Caption'] = "- $($TableParams.Name)"
+                }
+                $AzRouteTableInfo | Table @TableParams
+
+                if ($InfoLevel.RouteTable -ge 2) {
+                    foreach ($AzRouteTable in $AzRouteTables) {
+                        $AzRoutes = $AzRouteTable.Routes | Sort-Object Name
+                        if ($AzRoutes) {
+                            Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzRouteTable.Name)" {
+                                Section -Style NOTOCHeading6 -ExcludeFromTOC "Routes" {
+                                    $AzRouteInfo = @()
+                                    foreach ($AzRoute in $AzRoutes){
+                                        $InObj = [Ordered]@{
+                                            'Name' = $AzRoute.Name
+                                            'Address Prefix' = $AzRoute.AddressPrefix
+                                            'Next Hop Type' = $AzRoute.NextHopType
+                                            'Next Hop IP Address' = Switch ($AzRoute.NextHopIpAddress) {
+                                                "" { '--' }
+                                                default { $AzRoute.NextHopIpAddress }
+                                            }
+                                        }
+                                        $AzRouteInfo += [PSCustomObject]$InObj
+                                    }
+                                    $TableParams = @{
+                                        Name = "Routes - $($AzRouteTable.Name)"
+                                        List = $false
+                                        ColumnWidths = 25, 25, 25, 25
+                                    }
+                                    if ($Report.ShowTableCaptions) {
+                                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                                    }
+                                    $AzRouteInfo | Table @TableParams
+                                }
+                            }
+                        }
                     }
-                    if ($Report.ShowTableCaptions) {
-                        $TableParams['Caption'] = "- $($TableParams.Name)"
-                    }
-                    $AzRouteTableInfo | Table @TableParams
                 }
             }
         }
