@@ -12,6 +12,7 @@
 
 ### Changed
 * Performance improvements
+* Update GitHub Action release workflow
 * Improve reporting for Azure Tenant
 * Improve reporting for Azure Policy assignments
 * Improve reporting for Key Vaults
