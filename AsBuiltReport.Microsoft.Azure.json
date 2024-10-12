@@ -9,7 +9,8 @@
         "ShowTableCaptions": true
     },
     "Options": {
-        "ShowSectionInfo": true
+        "ShowSectionInfo": true,
+        "ShowTags": true
     },
     "Filter": {
         "Subscription": ["*"]
@@ -24,7 +25,10 @@
         "KeyVault": 1,
         "LoadBalancer": 1,
         "NetworkSecurityGroup": 1,
-        "PolicyAssignment": 1,
+        "Policy": {
+			"Assignments": 1,
+			"Definitions": 0
+		},
         "RecoveryServicesVault": 1,
         "RouteTable": 1,
         "SiteRecovery": 1,
@@ -42,7 +46,9 @@
         },
         "StorageAccount": {
             "ProvisioningState": true,
-            "EnableHttpsTrafficOnly": true,
+            "StorageAccountKeyAccess": true,
+            "SecureTransfer": true,
+            "BlobAnonymousAccess": true,
             "PublicNetworkAccess": true,
             "MinimumTlsVersion": true
         },

@@ -87,10 +87,10 @@ The least privileged roles required to generate a Microsoft Azure As Built Repor
 <!-- ********** Add installation for any additional PowerShell module(s) ********** -->
 Open a PowerShell terminal window and install each of the required modules.
 
-:warning: Microsoft Az 9.4.0 or higher is required. Please ensure older Az modules have been uninstalled.
+:warning: Microsoft Az 12.0.0 or higher is required. Please ensure older Az modules have been uninstalled.
 
 ```powershell
-install-module Az -MinimumVersion 9.4.0
+install-module Az -MinimumVersion 12.0.0
 install-module AsBuiltReport.Microsoft.Azure
 ```
 
@@ -143,6 +143,7 @@ The **Options** schema allows certain options within the report to be toggled on
 | Sub-Schema         | Setting      | Default | Description                                                                                                                                                                              |
 |--------------------|--------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | ShowSectionInfo | true / false | true | Toggle to enable/disable information relating to Azure resources within each section. |
+| ShowTags | true / false | true | Toggle to enable/disable the display of Azure resource tags. <br><br> _**Note:** Reporting of tags is not currently available on all Azure resources. Tags will only be displayed for Azure resources when the relevant section [InfoLevel](#infolevel) is configured to 2 or higher._ |
 
 ### Filter
 The **Filter** schema allows report content to be filtered to specific Azure subscriptions within a tenant.
@@ -189,7 +190,9 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | IpGroup               |        1        |        2        |
 | KeyVault              |        1        |        1        |
 | LoadBalancer          |        1        |        2        |
-| PolicyAssignment      |        1        |        1        |
+| NetworkSecurityGroup  |        1        |        2        |
+| Policy > Assignments  |        1        |        2        |
+| Policy > Definitions  |        0        |        1        |
 | RecoveryServicesVault |        1        |        2        |
 | RouteTable            |        1        |        2        |
 | SiteRecovery          |        1        |        1        |
@@ -205,7 +208,7 @@ The **ExpressRoute** schema is used to configure health checks for Azure Express
 
 | Sub-Schema    | Setting      | Default | Description | Highlight                                                                                         |
 |---------------|--------------|---------|-------------|---------------------------------------------------------------------------------------------------|
-| CircuitStatus | true / false | true    | Highlights ExpressRoute circuits which are not enabled | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) ExpressRoute circuit is not enabled |
+| CircuitStatus | true / false | true    | Highlights ExpressRoute circuits which are disabled | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) ExpressRoute circuit is disabled |
 
 #### SiteRecovery
 The **SiteRecovery** schema is used to configure health checks for Azure Site Recovery.
@@ -218,12 +221,14 @@ The **SiteRecovery** schema is used to configure health checks for Azure Site Re
 #### StorageAccount
 The **StorageAccount** schema is used to configure health checks for Azure Storage Account.
 
-| Sub-Schema             | Setting      | Default | Description | Highlight                                                                                          |
-|------------------------|--------------|---------|-------------|----------------------------------------------------------------------------------------------------|
-| ProvisioningState      | true / false | true    |             | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state  |
-| EnableHttpsTrafficOnly | true / false | true    |             | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png)                                       |
-| PublicNetworkAccess    | true / false | true    |             | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png)                                       |
-| MinimumTlsVersion      | true / false | true    |             | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png)                                       |
+| Sub-Schema              | Setting      | Default | Description | Highlight                                                                                          |
+|-------------------------|--------------|---------|-------------|----------------------------------------------------------------------------------------------------|
+| ProvisioningState       | true / false | true    | Highlights storage accounts which are in a critical state            | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state  |
+| StorageAccountKeyAccess | true / false | true    | Highlights storage accounts which have storage account key access enabled            | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Storage account key access is enabled                                      |
+| SecureTransfer            | true / false | true    | Highlights storage accounts which do not have secure transfer enabled           | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Secure transfer is disabled                                       |
+| BlobAnonymousAccess     | true / false | true    | Highlights storage accounts which have Blob anonymous read access enabled            | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Anonymous read access is enabled                                       |
+| PublicNetworkAccess     | true / false | true    | Highlights storage accounts which have public network access enabled            | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Public network access is enabled                                     |
+| MinimumTlsVersion       | true / false | true    | Highlights storage accounts which have TLS 1.0 or TLS 1.1 configured            | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) TLS version 1.0 or 1.1 configured                                      |
 
 #### VirtualMachine
 The **VirtualMachine** schema is used to configure health checks for Azure Virtual Machines.
@@ -231,7 +236,7 @@ The **VirtualMachine** schema is used to configure health checks for Azure Virtu
 | Sub-Schema      | Setting      | Default | Description                                                                             | Highlight                                                                                                                                                                                                               |
 |-----------------|--------------|---------|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Status          | true / false | true    | Highlights VMs which are not in a running state                                         | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) VM is in a deallocated state                                                                                                                               |
-| DiskEncryption  | true / false | true    | Highlights VMs which do not have disk encryption enabled                                | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Disk encryption is not enabled                                                                                                                             |
+| DiskEncryption  | true / false | true    | Highlights VMs which do not have disk encryption enabled                                | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Disk encryption is disabled                                                                                                                             |
 | BootDiagnostics | true / false | true    | Highlights VMs which do not have boot diagnostics enabled with a custom storage account | ![Critical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) Boot diagnostics is disabled <br> ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Boot diagnostics is enabled with a managed storage account |
 | BackupEnabled   | true / false | true    | Highlights VMs which do not have Azure Backup enabled                                   | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Backup is disabled                                                                                                                                         |
 ## :computer: Examples

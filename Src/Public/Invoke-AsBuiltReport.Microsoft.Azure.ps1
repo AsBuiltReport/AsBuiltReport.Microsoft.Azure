@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     .DESCRIPTION
         Documents the configuration of Microsoft Azure in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.1.5
+        Version:        0.1.7
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         @tpcarman
@@ -22,7 +22,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         [Switch] $MFA
     )
 
-    Get-RequiredModule -Name 'Az' -Version '9.4.0'
+    Get-RequiredModule -Name 'Az' -Version '12.0.0'
 
     Write-PScriboMessage -Plugin "Module" -Message "Please refer to the AsBuiltReport.Microsoft.Azure GitHub website for more detailed information about this project."
     Write-PScriboMessage -Plugin "Module" -Message "Do not forget to update your report configuration file after each new version release: https://www.asbuiltreport.com/user-guide/new-asbuiltreportconfig/"
@@ -66,31 +66,33 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         if ($AzAccount) {
             $AzTenant = Get-AzTenant -TenantId $TenantId
             $AzLocations = Get-AzLocation
-            $AzLocationLookup = @{ }
+            $AzLocationLookup = @{}
             foreach ($AzLocation in $AzLocations) {
                 $AzLocationLookup.($AzLocation.Location) = $AzLocation.DisplayName
             }
             if ($AzTenant) {
-                if ($Filter.Subscription -eq "*") {
-                    $AzSubscriptions = Get-AzSubscription -TenantId $TenantId | Sort-Object Name
-                } else {
-                    $AzSubscriptions = foreach ($AzSubscription in $Filter.Subscription) {
-                        Get-AzSubscription -TenantId $TenantId -SubscriptionId $AzSubscription
-                    }
-                }
-                $AzSubscriptionLookup = @{ }
-                foreach ($AzSubscription in ($AzSubscriptions | Sort-Object Name)) {
+                # Create a Lookup Hashtable for all Azure Subscriptions
+                $AzSubscriptions = Get-AzSubscription -TenantId $TenantId | Sort-Object Name
+                $AzSubscriptionLookup = @{}
+                foreach ($AzSubscription in $AzSubscriptions) {
                     $AzSubscriptionLookup.($AzSubscription.SubscriptionId) = $AzSubscription.Name
                 }
+
+                # Filter Subscriptions
+                if ($Filter.Subscription -ne "*") {
+                    $AzSubscriptions = foreach ($AzSubscription in $Filter.Subscription) {
+                        Get-AzSubscription -TenantId $TenantId -SubscriptionId $AzSubscription | Sort-Object Name
+                    }
+                }
+
                 Section -Style Heading1 $($AzTenant.Name) {
                     Get-AbrAzTenant
                     Section -Style Heading2 'Subscriptions' {
                         Get-AbrAzSubscription
-                        foreach ($AzSubscription in ($AzSubscriptions | Sort-Object Name)) {
+                        foreach ($AzSubscription in $AzSubscriptions) {
                             Section -Style Heading3 $($AzSubscription.Name) {
                                 Write-PScriboMessage "Setting Azure context to Subscription ID '$AzSubscription.Id'."
                                 $AzContext = Set-AzContext -Subscription $AzSubscription.Id -Tenant $TenantId
-                                Get-AbrAzPolicyAssignment
                                 Get-AbrAzAvailabilitySet
                                 Get-AbrAzBastion
                                 Get-AbrAzExpressRouteCircuit
@@ -100,6 +102,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                                 Get-AbrAzLoadBalancer
                                 Get-AbrAzVirtualNetwork
                                 Get-AbrAzNetworkSecurityGroup
+                                Get-AbrAzPolicy
                                 Get-AbrAzRouteTable
                                 Get-AbrAzVirtualMachine
                                 Get-AbrAzRecoveryServicesVault

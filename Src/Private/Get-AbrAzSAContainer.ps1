@@ -1,14 +1,14 @@
 function Get-AbrAzSAContainer {
     <#
     .SYNOPSIS
-    Used by As Built Report to retrieve Azure Storage Account Container information
+        Used by As Built Report to retrieve Azure Storage Account Container information
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.5
-        Author:         Jonathan Colon
-        Twitter:        @jcolonfzenpr
-        Github:         rebelinux
+        Version:        0.1.6
+        Author:         Jonathan Colon / Tim Carman
+        Twitter:        @jcolonfzenpr / @tpcarman
+        Github:         rebelinux / tpcarman
     .EXAMPLE
 
     .LINK
@@ -31,40 +31,43 @@ function Get-AbrAzSAContainer {
     )
 
     begin {
-        Write-PScriboMessage "StorageAccount InfoLevel set at $($InfoLevel.StorageAccount)."
     }
 
     process {
-        $AzSAContainers = Get-AzStorageAccount -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName | Get-AzStorageContainer | Sort-Object Name
-        if (($InfoLevel.StorageAccount -gt 0) -and ($AzSAContainers)) {
-            Write-PscriboMessage "Collecting Azure Storage Account Containers information."
-            Section -Style NOTOCHeading6 -ExcludeFromTOC 'Containers' {
-                $AzSAContInfo = @()
-                foreach ($AzSAContainer in $AzSAContainers) {
-                    $InObj = [Ordered]@{
-                        'Name' = $AzSAContainer.Name
-                        'Public Access' = Switch ($AzSAContainer.PublicAccess) {
-                            'Off' { 'Not Enabled' }
-                            $null { 'Not Enabled' }
-                            default {$AzSAContainer.PublicAccess}
+        Try {
+            $AzSAContainers = Get-AzStorageAccount -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName | Get-AzStorageContainer -ErrorAction SilentlyContinue | Sort-Object Name
+            if ($AzSAContainers) {
+                Write-PscriboMessage "Collecting Azure Storage Account Containers information."
+                Section -Style NOTOCHeading6 -ExcludeFromTOC 'Containers' {
+                    $AzSAContInfo = @()
+                    foreach ($AzSAContainer in $AzSAContainers) {
+                        $InObj = [Ordered]@{
+                            'Name' = $AzSAContainer.Name
+                            'Public Access' = if ($AzSAContainer.PublicAccess) {
+                                $AzSAContainer.PublicAccess
+                            } else {
+                                'Disabled'
+                            }
+                            'Last Modified' = $AzSAContainer.LastModified.UtcDateTime.ToShortDateString()
+
                         }
-                        'Last Modified' = $AzSAContainer.LastModified.UtcDateTime.ToShortDateString()
-
+                        $AzSAContInfo += [PSCustomObject]$InObj
                     }
-                    $AzSAContInfo += [PSCustomObject]$InObj
-                }
 
-                $TableParams = @{
-                    Name = "Container - $($StorageAccountName)"
-                    List = $false
-                    Columns = 'Name', 'Public Access', 'Last Modified'
-                    ColumnWidths = 50, 25, 25
+                    $TableParams = @{
+                        Name = "Container - $($StorageAccountName)"
+                        List = $false
+                        Columns = 'Name', 'Public Access', 'Last Modified'
+                        ColumnWidths = 50, 25, 25
+                    }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $AzSAContInfo | Table @TableParams
                 }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $AzSAContInfo | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 
