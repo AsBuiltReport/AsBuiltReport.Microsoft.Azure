@@ -1,7 +1,7 @@
 function Get-AbrAzLbHealthProbe {
     <#
     .SYNOPSIS
-    Used by As Built Report to retrieve Azure Load Balancer Health Probe information
+        Used by As Built Report to retrieve Azure Load Balancer Health Probe information
     .DESCRIPTION
 
     .NOTES
@@ -27,37 +27,41 @@ function Get-AbrAzLbHealthProbe {
     begin {}
 
     process {
-        $AzLbHealthProbes = (Get-AzLoadBalancer -Name $Name).Probes | Sort-Object Name
-        if ($AzLbHealthProbes) {
-            Write-PscriboMessage "Collecting Azure Load Balancer Health Probe information."
-            Section -Style NOTOCHeading6 -ExcludeFromTOC 'Health Probes' {
-                $AzLbHealthProbeInfo = @()
-                foreach ($AzLbHealthProbe in $AzLbHealthProbes) {
-                    $InObj = [Ordered]@{
-                        'Name' = $AzLbHealthProbe.Name
-                        'Protocol' = $AzLbHealthProbe.Protocol
-                        'Port' = $AzLbHealthProbe.Port
-                        'Interval' = "$($AzLbHealthProbe.IntervalInSeconds) secs"
-                        'Used By' = & {
-                            if ($AzLbHealthProbe.LoadBalancingRules.Id) {
-                                ($AzLbHealthProbe.LoadBalancingRules.Id | ForEach-Object {$_.split('/')[-1]}) -join ', '
-                            } else {
-                                '--'
+        Try {
+            $AzLbHealthProbes = (Get-AzLoadBalancer -Name $Name).Probes | Sort-Object Name
+            if ($AzLbHealthProbes) {
+                Write-PscriboMessage "Collecting Azure Load Balancer Health Probe information."
+                Section -Style NOTOCHeading6 -ExcludeFromTOC 'Health Probes' {
+                    $AzLbHealthProbeInfo = @()
+                    foreach ($AzLbHealthProbe in $AzLbHealthProbes) {
+                        $InObj = [Ordered]@{
+                            'Name' = $AzLbHealthProbe.Name
+                            'Protocol' = $AzLbHealthProbe.Protocol
+                            'Port' = $AzLbHealthProbe.Port
+                            'Interval' = "$($AzLbHealthProbe.IntervalInSeconds) secs"
+                            'Used By' = & {
+                                if ($AzLbHealthProbe.LoadBalancingRules.Id) {
+                                    ($AzLbHealthProbe.LoadBalancingRules.Id | ForEach-Object {$_.split('/')[-1]}) -join ', '
+                                } else {
+                                    '--'
+                                }
                             }
                         }
+                        $AzLbHealthProbeInfo += [PSCustomObject]$InObj
                     }
-                    $AzLbHealthProbeInfo += [PSCustomObject]$InObj
+                    $TableParams = @{
+                        Name = "Health Probes - $($Name)"
+                        List = $false
+                        ColumnWidths = 20, 20, 20, 20, 20
+                    }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $AzLbHealthProbeInfo | Table @TableParams
                 }
-                $TableParams = @{
-                    Name = "Health Probes - $($Name)"
-                    List = $false
-                    ColumnWidths = 20, 20, 20, 20, 20
-                }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $AzLbHealthProbeInfo | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

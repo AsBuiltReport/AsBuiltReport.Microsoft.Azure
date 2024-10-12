@@ -1,14 +1,14 @@
 function Get-AbrAzSAFileServiceProperty {
     <#
     .SYNOPSIS
-    Used by As Built Report to retrieve Azure Storage Account File Service Property information
+        Used by As Built Report to retrieve Azure Storage Account File Service Property information
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.5
-        Author:         Jonathan Colon
-        Twitter:        @jcolonfzenpr
-        Github:         rebelinux
+        Version:        0.1.6
+        Author:         Jonathan Colon / Tim Carman
+        Twitter:        @jcolonfzenpr / @tpcarman
+        Github:         rebelinux / tpcarman
     .EXAMPLE
 
     .LINK
@@ -31,36 +31,49 @@ function Get-AbrAzSAFileServiceProperty {
     )
 
     begin {
-        Write-PScriboMessage "StorageAccount InfoLevel set at $($InfoLevel.StorageAccount)."
     }
 
     process {
-        $AzSAFileServiceProperties = Get-AzStorageFileServiceProperty -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
-        if (($InfoLevel.StorageAccount -gt 0) -and ($AzSAFileServiceProperties)) {
-            Write-PscriboMessage "Collecting Azure Storage Account File Service Property information."
-            Section -Style NOTOCHeading6 -ExcludeFromTOC 'File Service Property' {
-                $AzSASrvPrtyInfo = @()
-                foreach ($AzSAFileServiceProperty in $AzSAFileServiceProperties) {
-                    $InObj = [Ordered]@{
-                        'Soft Delete' = Switch ($AzSAFileServiceProperty.ShareDeleteRetentionPolicy.Enabled) {
-                            $true { 'Enabled' }
-                            $false { 'Not Enabled' }
-                            $null { 'Not Enabled' }
+        Try {
+            $AzSAFileServiceProperty = Get-AzStorageFileServiceProperty -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
+            $AzStorageAccount = Get-AzStorageAccount -Name $AzSAFileServiceProperty.StorageAccountName -ResourceGroupName $AzSAFileServiceProperty.ResourceGroupName
+            if ($AzSAFileServiceProperty -and $AzStorageAccount) {
+                Write-PscriboMessage "Collecting Azure Storage Account File Service information [$($AzStorageAccount.StorageAccountName)]."
+                Section -Style NOTOCHeading6 -ExcludeFromTOC 'File Service' {
+                    $AzSAFileServicePropertyInfo = @()
+                    foreach ($AzSAFileService in $AzSAFileServiceProperty) {
+                        $InObj = [Ordered]@{
+                            'Large File Share' = If ($AzStorageAccount.LargeFileSharesState) {
+                                'Enabled'
+                            } else {
+                                'Disabled'
+                            }
+                            'Identity-based Access' = If ($AzStorageAccount.AzureFilesIdentityBasedAuth) {
+                                'Enabled'
+                            } else {
+                                'Disabled'
+                            }
+                            'Soft Delete' = if ($AzSAFileService.ShareDeleteRetentionPolicy.Enabled -and $AzSAFileService.ShareDeleteRetentionPolicy.Days) {
+                                "Enabled ($($AzSAFileService.ShareDeleteRetentionPolicy.Days) days)"
+                            } else {
+                                'Disabled'
+                            }
                         }
-                        'Soft Delete Days' = "$($AzSAFileServiceProperty.ShareDeleteRetentionPolicy.Days) days"
+                        $AzSAFileServicePropertyInfo = [PSCustomObject]$InObj
                     }
-                    $AzSASrvPrtyInfo = [PSCustomObject]$InObj
+                    $TableParams = @{
+                        Name = "File Service - $($AzSAFileServiceProperty.StorageAccountName)"
+                        List = $true
+                        ColumnWidths = 40, 60
+                    }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $AzSAFileServicePropertyInfo | Table @TableParams
                 }
-                $TableParams = @{
-                    Name = "File Service Property - $($AzSAFileServiceProperty.StorageAccountName)"
-                    List = $true
-                    ColumnWidths = 50, 50
-                }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $AzSASrvPrtyInfo | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

@@ -1,7 +1,7 @@
 function Get-AbrAzLbLoadBalancingRule {
     <#
     .SYNOPSIS
-    Used by As Built Report to retrieve Azure Load Balancer Load Balancing Rules information
+        Used by As Built Report to retrieve Azure Load Balancer Load Balancing Rules information
     .DESCRIPTION
 
     .NOTES
@@ -27,41 +27,46 @@ function Get-AbrAzLbLoadBalancingRule {
     begin {}
 
     process {
-        $AzLbLoadBalancingRules = (Get-AzLoadBalancer -Name $Name).LoadBalancingRules | Sort-Object Name
-        if ($AzLbLoadBalancingRules) {
-            Write-PscriboMessage "Collecting Azure Load Balancer Load Balancing Rules information."
-            Section -Style NOTOCHeading6 -ExcludeFromTOC 'Load Balancing Rules' {
-                foreach ($AzLbLoadBalancingRule in $AzLbLoadBalancingRules) {
-                    Section -Style NOTOCHeading7 -ExcludeFromTOC $($AzLbLoadBalancingRule.Name) {
-                        $AzLbLoadBalancingRuleInfo = @()
-                        $InObj = [Ordered]@{
-                            'Name' = $AzLbLoadBalancingRule.Name
-                            'Frontend IP Address' = ($AzLbLoadBalancingRule.FrontendIPConfiguration.Id).split('/')[-1]
-                            'Backend Pool' = ($AzLbLoadBalancingRule.BackendAddressPool.Id).split('/')[-1]
-                            'Protocol' = $AzLbLoadBalancingRule.Protocol
-                            'Port' = $AzLbLoadBalancingRule.FrontendPort
-                            'Backend Port' = $AzLbLoadBalancingRule.BackendPort
-                            'Health Probe' = ($AzLbLoadBalancingRule.Probe.Id).split('/')[-1]
-                            'Idle Timeout' = "$($AzLbLoadBalancingRule.IdleTimeoutInMinutes) mins"
-                            'Floating IP' = Switch ($AzLbLoadBalancingRule.EnableFloatingIP) {
-                                $true { 'Enabled' }
-                                $false { 'Disabled' }
+        Try {
+            $AzLbLoadBalancingRules = (Get-AzLoadBalancer -Name $Name).LoadBalancingRules | Sort-Object Name
+            if ($AzLbLoadBalancingRules) {
+                Write-PscriboMessage "Collecting Azure Load Balancer Load Balancing Rules information."
+                Section -Style NOTOCHeading6 -ExcludeFromTOC 'Load Balancing Rules' {
+                    foreach ($AzLbLoadBalancingRule in $AzLbLoadBalancingRules) {
+                        Section -Style NOTOCHeading7 -ExcludeFromTOC $($AzLbLoadBalancingRule.Name) {
+                            $AzLbLoadBalancingRuleInfo = @()
+                            $InObj = [Ordered]@{
+                                'Name' = $AzLbLoadBalancingRule.Name
+                                'Frontend IP Address' = ($AzLbLoadBalancingRule.FrontendIPConfiguration.Id).split('/')[-1]
+                                'Backend Pool' = ($AzLbLoadBalancingRule.BackendAddressPool.Id).split('/')[-1]
+                                'Protocol' = $AzLbLoadBalancingRule.Protocol
+                                'Port' = $AzLbLoadBalancingRule.FrontendPort
+                                'Backend Port' = $AzLbLoadBalancingRule.BackendPort
+                                'Health Probe' = ($AzLbLoadBalancingRule.Probe.Id).split('/')[-1]
+                                'Idle Timeout' = "$($AzLbLoadBalancingRule.IdleTimeoutInMinutes) mins"
+                                'Floating IP' = if ($AzLbLoadBalancingRule.EnableFloatingIP) {
+                                    'Enabled'
+                                } else {
+                                    'Disabled'
+                                }
                             }
-                        }
-                        $AzLbLoadBalancingRuleInfo += [PSCustomObject]$InObj
+                            $AzLbLoadBalancingRuleInfo += [PSCustomObject]$InObj
 
-                        $TableParams = @{
-                            Name = "Load Balancing Rule - $($AzLbLoadBalancingRule.Name)"
-                            List = $true
-                            ColumnWidths = 50, 50
+                            $TableParams = @{
+                                Name = "Load Balancing Rule - $($AzLbLoadBalancingRule.Name)"
+                                List = $true
+                                ColumnWidths = 40, 60
+                            }
+                            if ($Report.ShowTableCaptions) {
+                                $TableParams['Caption'] = "- $($TableParams.Name)"
+                            }
+                            $AzLbLoadBalancingRuleInfo | Table @TableParams
                         }
-                        if ($Report.ShowTableCaptions) {
-                            $TableParams['Caption'] = "- $($TableParams.Name)"
-                        }
-                        $AzLbLoadBalancingRuleInfo | Table @TableParams
                     }
                 }
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

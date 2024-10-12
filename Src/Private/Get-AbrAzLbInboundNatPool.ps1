@@ -1,7 +1,7 @@
 function Get-AbrAzLbInboundNatPool {
     <#
     .SYNOPSIS
-    Used by As Built Report to retrieve Azure Load Balancer Inbound NAT Pool information
+        Used by As Built Report to retrieve Azure Load Balancer Inbound NAT Pool information
     .DESCRIPTION
 
     .NOTES
@@ -27,27 +27,31 @@ function Get-AbrAzLbInboundNatPool {
     begin {}
 
     process {
-        $AzLbInboundNatPools = (Get-AzLoadBalancer -Name $Name).InboundNatPools | Sort-Object Name
-        if ($AzLbInboundNatPools) {
-            Write-PscriboMessage "Collecting Azure Load Balancer Inbound NAT Pool information."
-            Section -Style NOTOCHeading6 -ExcludeFromTOC 'Inbound NAT Pools' {
-                $AzLbInboundNatPoolInfo = @()
-                foreach ($AzLbInboundNatPool in $AzLbInboundNatPools) {
-                    $InObj = [Ordered]@{
-                        'Name' = $AzLbInboundNatPool.Name
+        try {
+            $AzLbInboundNatPools = (Get-AzLoadBalancer -Name $Name).InboundNatPools | Sort-Object Name
+            if ($AzLbInboundNatPools) {
+                Write-PscriboMessage "Collecting Azure Load Balancer Inbound NAT Pool information."
+                Section -Style NOTOCHeading6 -ExcludeFromTOC 'Inbound NAT Pools' {
+                    $AzLbInboundNatPoolInfo = @()
+                    foreach ($AzLbInboundNatPool in $AzLbInboundNatPools) {
+                        $InObj = [Ordered]@{
+                            'Name' = $AzLbInboundNatPool.Name
+                        }
+                        $AzLbInboundNatPoolInfo += [PSCustomObject]$InObj
                     }
-                    $AzLbInboundNatPoolInfo += [PSCustomObject]$InObj
+                    $TableParams = @{
+                        Name = "Inbound NAT Pools - $($Name)"
+                        List = $false
+                        ColumnWidths = 40, 60
+                    }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $AzLbInboundNatPoolInfo | Table @TableParams
                 }
-                $TableParams = @{
-                    Name = "Inbound NAT Pools - $($Name)"
-                    List = $false
-                    ColumnWidths = 50, 50
-                }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $AzLbInboundNatPoolInfo | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

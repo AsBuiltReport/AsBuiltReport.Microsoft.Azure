@@ -1,11 +1,11 @@
 function Get-AbrAzTenant {
     <#
     .SYNOPSIS
-    Used by As Built Report to retrieve Azure Tenant information
+        Used by As Built Report to retrieve Azure Tenant information
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -23,21 +23,28 @@ function Get-AbrAzTenant {
     }
 
     process {
-        $AzTenantInfo = [PSCustomObject]@{
-            'Tenant Name' = $AzTenant.Name
-            'Tenant ID' = $AzTenant.TenantId
-            'Domains' = $AzTenant.Domains
-        }
+        Try {
+            $AzTenantInfo = [PSCustomObject]@{
+                'Tenant Name' = $AzTenant.Name
+                'Tenant ID' = $AzTenant.TenantId
+                'Tenant Type' = $AzTenant.TenantType
+                'Country ' = (Get-CountryName $AzTenant.CountryCode)
+                'Domains' = $AzTenant.Domains -join ', '
+                'Default Domain' = $AzTenant.DefaultDomain
+            }
 
-        $TableParams = @{
-            Name = "Tenant - $($AzTenant.Name)"
-            List = $true
-            ColumnWidths = 50, 50
+            $TableParams = @{
+                Name = "Tenant - $($AzTenant.Name)"
+                List = $true
+                ColumnWidths = 40, 60
+            }
+            if ($Report.ShowTableCaptions) {
+                $TableParams['Caption'] = "- $($TableParams.Name)"
+            }
+            $AzTenantInfo | Table @TableParams
+        } Catch {
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
-        if ($Report.ShowTableCaptions) {
-            $TableParams['Caption'] = "- $($TableParams.Name)"
-        }
-        $AzTenantInfo | Table @TableParams
     }
 
     end {}
