@@ -1,5 +1,14 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
+## [[0.1.8](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.8)] - 2024-11-13
+
+### Added
+* Add support for DNS private resolver
+* Add Tenant and Subscription InfoLevels to toggle on/off
+
+### Changed
+* Update GitHub release workflow to add post to Bluesky social platform
+
 ## [[0.1.7](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.7)] - 2024-10-13
 
 ### Added

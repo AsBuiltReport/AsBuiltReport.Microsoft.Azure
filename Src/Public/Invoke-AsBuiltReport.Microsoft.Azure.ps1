@@ -95,6 +95,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                                 $AzContext = Set-AzContext -Subscription $AzSubscription.Id -Tenant $TenantId
                                 Get-AbrAzAvailabilitySet
                                 Get-AbrAzBastion
+                                Get-AbrAzDnsPrivateResolver
                                 Get-AbrAzExpressRouteCircuit
                                 Get-AbrAzFirewall
                                 Get-AbrAzIpGroup
