@@ -1,6 +1,6 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [[0.1.8](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.8)] - 2024-11-13
+## [[0.1.8.1](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.8.1)] - 2024-11-13
 
 ### Added
 * Add support for DNS private resolver
