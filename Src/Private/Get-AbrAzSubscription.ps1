@@ -19,12 +19,13 @@ function Get-AbrAzSubscription {
     )
 
     begin {
-        Write-PscriboMessage "Collecting Azure Subscription information."
+        Write-PScriboMessage "Subscription InfoLevel set at $($InfoLevel.Subscription)."
     }
 
     process {
         Try {
-            if ($AzSubscriptions) {
+            if (($InfoLevel.Subscription -gt 0) -and ($AzSubscriptions)) {
+                Write-PscriboMessage "Collecting Azure Subscription information."
                 if ($Options.ShowSectionInfo) {
                     Paragraph "An Azure subscription is a logical container used to provision resources in Azure. It holds the details of all your resources like virtual machines (VMs), databases, and more. When you create an Azure resource like a VM, you must identify the subscription it belongs to."
                     BlankLine
