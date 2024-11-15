@@ -88,7 +88,8 @@ The least privileged roles required to generate a Microsoft Azure As Built Repor
 <!-- ********** Add installation for any additional PowerShell module(s) ********** -->
 Open a PowerShell terminal window and install each of the required modules.
 
-:warning: Microsoft Az 12.0.0 or higher is required. Please ensure older Az modules have been uninstalled.
+> [!NOTE]
+> Microsoft Az 12.0.0 or higher is required. Please ensure older Az modules have been uninstalled.
 
 ```powershell
 # Install
@@ -240,7 +241,7 @@ The **StorageAccount** schema is used to configure health checks for Azure Stora
 | SecureTransfer            | true / false | true    | Highlights storage accounts which do not have secure transfer enabled           | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Secure transfer is disabled                                       |
 | BlobAnonymousAccess     | true / false | true    | Highlights storage accounts which have Blob anonymous read access enabled            | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Anonymous read access is enabled                                       |
 | PublicNetworkAccess     | true / false | true    | Highlights storage accounts which have public network access enabled            | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) Public network access is enabled                                     |
-| MinimumTlsVersion       | true / false | true    | Highlights storage accounts which have TLS 1.0 or TLS 1.1 configured            | ![Warning](https://via.placeholder.com/15/FFF4C7/FFF4C7.png) TLS version 1.0 or 1.1 configured                                      |
+| MinimumTlsVersion       | true / false | true    | Highlights storage accounts which have TLS 1.0 or TLS 1.1 configured            | ![Citical](https://via.placeholder.com/15/FEDDD7/FEDDD7.png) TLS version 1.0 or 1.1 configured                                      |
 
 #### VirtualMachine
 The **VirtualMachine** schema is used to configure health checks for Azure Virtual Machines.

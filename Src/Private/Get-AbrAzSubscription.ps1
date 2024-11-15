@@ -5,7 +5,7 @@ function Get-AbrAzSubscription {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.2
+        Version:        0.1.3
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -53,7 +53,6 @@ function Get-AbrAzSubscription {
                 $AzSubscriptionInfo | Table @TableParams
             } else {
                 Write-PScriboMessage -IsWarning 'No subscriptions found.'
-                Break
             }
         } Catch {
             Write-PScriboMessage -IsWarning $($_.Exception.Message)

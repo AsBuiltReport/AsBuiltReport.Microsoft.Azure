@@ -1,5 +1,14 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
+## [[0.1.8.2](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.8.2)] - 2024-11-15
+
+### Fixed
+* Fix issue where a report would not be generated if `Subscription` InfoLevel was set to 0
+
+### Changed
+* Change Storage Account `Minimum TLS Version` healthcheck to highlight Critical
+
+
 ## [[0.1.8.1](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.8.1)] - 2024-11-13
 
 ### Added
