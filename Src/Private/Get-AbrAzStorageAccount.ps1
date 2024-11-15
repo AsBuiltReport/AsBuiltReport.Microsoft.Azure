@@ -5,7 +5,7 @@ function Get-AbrAzStorageAccount {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.6
+        Version:        0.1.7
         Author:         Jonathan Colon / Tim Carman
         Twitter:        @jcolonfzenpr / @tpcarman
         Github:         rebelinux / tpcarman
@@ -78,7 +78,7 @@ function Get-AbrAzStorageAccount {
                                 } else {
                                     'Disabled'
                                 }
-                                'Minimum TLS Version' = ($AzStorageAccount.MinimumTlsVersion).Replace('_','.')
+                                'Minimum TLS Version' = $AzStorageAccount.MinimumTlsVersion -Replace "TLS(\d)_(\d)", 'TLS $1.$2'
                                 'Infrastructure Encryption' = if ($AzStorageAccount.RequireInfrastructureEncryption) {
                                     'Enabled'
                                 } else {
@@ -115,7 +115,7 @@ function Get-AbrAzStorageAccount {
                         }
 
                         if ($Healthcheck.StorageAccount.MinimumTlsVersion) {
-                            $AzStorageAccountInfo | Where-Object { $_.'Minimum TLS Version' -ne 'TLS1.2' } | Set-Style -Style Warning -Property 'Minimum TLS Version'
+                            $AzStorageAccountInfo | Where-Object { $_.'Minimum TLS Version' -ne 'TLS 1.2' } | Set-Style -Style Critical -Property 'Minimum TLS Version'
                         }
 
                         if ($InfoLevel.StorageAccount -ge 2) {
