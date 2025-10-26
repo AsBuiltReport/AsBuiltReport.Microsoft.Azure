@@ -1,6 +1,24 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [[0.1.8.2](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.8.2)] - 2024-11-15
+## [0.2.0] - 2025-10-26
+
+### Added
+* Add language support for English (US) and English (GB)
+* Add support for Firewall Policies
+* Add support for Log Analytics Workspaces
+* Add comprehensive Pester tests for module validation
+* Add Pester workflow for automated testing across Windows, Linux, and macOS platforms
+* Add Codecov integration for code coverage reporting
+* Add Tests/Invoke-Tests.ps1 script for running Pester tests with code coverage support
+
+### Changed
+* Update minimum Az module version requirement from 12.0.0 to 14.4.0
+* Reorganize module structure - moved module files to AsBuiltReport.Microsoft.Azure/ subdirectory
+* Update Release workflow to use windows-latest runner instead of windows-2019
+* Update Bluesky post action from v0.1.0 to v0.2.0
+* Update module paths in Release workflow to reflect new directory structure
+
+## [0.1.8.2] - 2024-11-15
 
 ### Fixed
 * Fix issue where a report would not be generated if `Subscription` InfoLevel was set to 0
@@ -9,16 +27,16 @@
 * Change Storage Account `Minimum TLS Version` healthcheck to highlight Critical
 
 
-## [[0.1.8.1](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.8.1)] - 2024-11-13
+## [0.1.8.1] - 2024-11-13
 
 ### Added
-* Add support for DNS private resolver
+* Add support for DNS Private Resolver
 * Add Tenant and Subscription InfoLevels to toggle on/off
 
 ### Changed
 * Update GitHub release workflow to add post to Bluesky social platform
 
-## [[0.1.7](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.7)] - 2024-10-13
+## [0.1.7] - 2024-10-13
 
 ### Added
 * Add support for Azure Policy definitions
@@ -37,12 +55,12 @@
 * Improve reporting for Storage Accounts
 * Improve reporting for Network Security Groups
 
-## [[0.1.6](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.6)] - 2023-11-14
+## [0.1.6] - 2023-11-14
 
 ### Added
 * Add initial support for Route Tables (@howardhaooooo)
 
-## [[0.1.5](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.5)] - 2023-05-24
+## [0.1.5] - 2023-05-24
 
 ### Added
 * Add initial support for Storage Account (@rebelinux)
@@ -50,13 +68,13 @@
 ### Fixed
 * Fix issue with Az module version check (Fix [#10](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/10))
 
-## [[0.1.4](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.4)] - 2023-03-19
+## [0.1.4] - 2023-03-19
 
 ### Added
 * Add function to check for Microsoft Azure PowerShell module
 * Add `ShowSectionInfo` option to provide information about Azure resources
 
-## [[0.1.3](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.3)] - 2023-03-17
+## [0.1.3] - 2023-03-17
 
 ### Added
 * Add examples to `README.md`
@@ -70,7 +88,7 @@
 * Fix [#5](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/5)
 * Fix [#6](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/6)
 
-## [[0.1.2](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/releases/tag/v0.1.2)] - 2023-02-23
+## [0.1.2] - 2023-02-23
 
 ### Changed
 * Improve section heading & TOC structure
