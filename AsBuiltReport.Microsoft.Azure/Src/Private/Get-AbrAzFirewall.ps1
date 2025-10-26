@@ -43,11 +43,23 @@ function Get-AbrAzFirewall {
                                 $LocalizedData.Subscription = "$($AzSubscriptionLookup.(($AzFirewall.Id).split('/')[2]))"
                                 $LocalizedData.SubscriptionID = ($AzFirewall.Id).split('/')[2]
                                 #'Virtual Network' = ''
-                                $LocalizedData.FirewallPolicy = ($AzFirewall.FirewallPolicy.id).Split('/')[-1]
+                                $LocalizedData.FirewallPolicy = if ($AzFirewall.FirewallPolicy.id) {
+                                    ($AzFirewall.FirewallPolicy.id).Split('/')[-1]
+                                } else {
+                                    $LocalizedData.None
+                                }
                                 $LocalizedData.ProvisioningState = $AzFirewall.ProvisioningState
                                 $LocalizedData.SKU = $AzFirewall.Sku.Tier
-                                $LocalizedData.Subnet = ($AzFirewall.IpConfigurations | Where-Object {$null -ne $_.PrivateIPAddress}).Subnet.Id.Split('/')[-1]
-                                $LocalizedData.PublicIP = ($AzFirewall.IpConfigurations | Where-Object {$null -ne $_.PrivateIPAddress}).PublicIpAddress.Id.Split('/')[-1]
+                                $LocalizedData.Subnet = if (($AzFirewall.IpConfigurations | Where-Object {$null -ne $_.PrivateIPAddress}).Subnet.Id) {
+                                    ($AzFirewall.IpConfigurations | Where-Object {$null -ne $_.PrivateIPAddress}).Subnet.Id.Split('/')[-1]
+                                } else {
+                                    $LocalizedData.None
+                                }
+                                $LocalizedData.PublicIP = if (($AzFirewall.IpConfigurations | Where-Object {$null -ne $_.PrivateIPAddress}).PublicIpAddress.Id) {
+                                    ($AzFirewall.IpConfigurations | Where-Object {$null -ne $_.PrivateIPAddress}).PublicIpAddress.Id.Split('/')[-1]
+                                } else {
+                                    $LocalizedData.None
+                                }
                                 $LocalizedData.PrivateIP = ($AzFirewall.IpConfigurations | Where-Object {$null -ne $_.PrivateIPAddress}).PrivateIpAddress
                                 ##ToDo: App Rules
                             }
@@ -118,7 +130,7 @@ function Get-AbrAzFirewall {
                 }
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

@@ -21,36 +21,36 @@ function Get-AbrAzFirewallPolicy {
                             # Display policy settings
                             Section -Style Heading5 $policy.name {
                                 $InObj = [Ordered]@{
-                                    Name = $policy.Name
-                                    ResourceGroupName = $policy.ResourceGroupName
-                                    Location = $AzLocationLookup."$($policy.Location)"
-                                    Subscription = "$($AzSubscriptionLookup.(($policy.Id).split('/')[2]))"
-                                    SubscriptionID = ($policy.Id).split('/')[2]
-                                    ProvisioningState = $policy.ProvisioningState
-                                    ParentPolicy = if ($policy.BasePolicy.Id) {
+                                    $LocalizedData.Name = $policy.Name
+                                    $LocalizedData.ResourceGroup = $policy.ResourceGroupName
+                                    $LocalizedData.Location = $AzLocationLookup."$($policy.Location)"
+                                    $LocalizedData.Subscription = "$($AzSubscriptionLookup.(($policy.Id).split('/')[2]))"
+                                    $LocalizedData.SubscriptionID = ($policy.Id).split('/')[2]
+                                    $LocalizedData.ProvisioningState = $policy.ProvisioningState
+                                    $LocalizedData.ParentPolicy = if ($policy.BasePolicy.Id) {
                                         ($policy.BasePolicy.Id).Split('/')[-1]
                                     } else {
                                         $LocalizedData.None
                                     }
-                                    PolicyTier = $policy.Sku.Tier
-                                    ThreatIntelMode = if ($policy.ThreatIntelMode) {
+                                    $LocalizedData.PolicyTier = $policy.Sku.Tier
+                                    $LocalizedData.ThreatIntelMode = if ($policy.ThreatIntelMode) {
                                         $policy.ThreatIntelMode
                                     } else {
                                         $LocalizedData.Off
                                     }
-                                    IntrusionDetectionMode = if ($policy.Sku.Tier -eq 'Premium') {
+                                    $LocalizedData.IntrusionDetectionMode = if ($policy.Sku.Tier -eq 'Premium') {
                                         $policy.IntrusionDetection.Mode
                                     } else {
                                         $LocalizedData.NotSupported
                                     }
-                                    DnsServers = if (-not $policy.DnsSettings -or -not $policy.DnsSettings.Servers) {
+                                    $LocalizedData.DnsServers = if (-not $policy.DnsSettings -or -not $policy.DnsSettings.Servers) {
                                         $LocalizedData.Disabled
                                     } elseif ($policy.DnsSettings.Servers.Count -eq 0) {
-                                        "Default (Azure provided)"
+                                        $LocalizedData.Default
                                     } else {
                                         $policy.DnsSettings.Servers -join ", "
                                     }
-                                    DnsProxy = if ($policy.DnsSettings.EnableProxy) {
+                                    $LocalizedData.DnsProxy = if ($policy.DnsSettings.EnableProxy) {
                                         $LocalizedData.Enabled
                                     } else {
                                         $LocalizedData.Disabled
@@ -80,7 +80,7 @@ function Get-AbrAzFirewallPolicy {
                                 }
 
                                 $TableParams = @{
-                                    Name = "Firewall Policy - $($firewallpolicy.Name)"
+                                    Name = "$($LocalizedData.TableHeading) - $($firewallpolicy.Name)"
                                     List = $true
                                     ColumnWidths = 40, 60
                                 }
@@ -99,7 +99,7 @@ function Get-AbrAzFirewallPolicy {
                                 Write-PScriboMessage ($LocalizedData.Found -f $($policy.RuleCollectionGroups.Count), $firewallPolicy.Name)
 
                                 if ($InfoLevel.FirewallPolicy -ge 2) {
-                                    Section -Style NOTOCHeading6 -ExcludeFromTOC 'Rule Collection Groups' {
+                                    Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.RcgHeading {
                                         $allRuleGroups = @()
                                         $parentPolicyName = $null
 
@@ -112,6 +112,10 @@ function Get-AbrAzFirewallPolicy {
                                                 if ($parentPolicy.RuleCollectionGroups) {
                                                     foreach ($rcgRef in $parentPolicy.RuleCollectionGroups) {
                                                         $rcgId = $rcgRef.Id
+                                                        if (-not $rcgId) {
+                                                            Write-PScriboMessage -IsWarning $LocalizedData.Skipping
+                                                            continue
+                                                        }
                                                         $rcgName = $rcgId.Split('/')[-1]
                                                         $rcgPolicyName = $rcgId.Split('/')[8]
                                                         $rcgResourceGroup = $rcgId.Split('/')[4]
@@ -128,21 +132,25 @@ function Get-AbrAzFirewallPolicy {
                                                         }
 
                                                         $allRuleGroups += [PSCustomObject]@{
-                                                            Name = $ruleGroup.Name
-                                                            Priority = $ruleGroup.Properties.Priority
-                                                            Rules = $totalRules
-                                                            InheritedFrom = $parentPolicyName
+                                                            $LocalizedData.Name = $ruleGroup.Name
+                                                            $LocalizedData.Priority = $ruleGroup.Properties.Priority
+                                                            $LocalizedData.Rules = $totalRules
+                                                            $LocalizedData.InheritedFrom = $parentPolicyName
                                                         }
                                                     }
                                                 }
                                             } catch {
-                                                Write-PScriboMessage "Unable to retrieve parent policy rule collection groups"
+                                                Write-PScriboMessage $LocalizedData.NoParentPolicyRCG
                                             }
                                         }
 
                                         # Get current policy rule collection groups
                                         foreach ($rcgRef in $policy.RuleCollectionGroups) {
                                             $rcgId = $rcgRef.Id
+                                            if (-not $rcgId) {
+                                                Write-PScriboMessage -IsWarning $LocalizedData.Skipping
+                                                continue
+                                            }
                                             $rcgName = $rcgId.Split('/')[-1]
                                             $rcgPolicyName = $rcgId.Split('/')[8]
                                             $rcgResourceGroup = $rcgId.Split('/')[4]
@@ -160,17 +168,17 @@ function Get-AbrAzFirewallPolicy {
 
                                             # For current policy RCGs, show blank for InheritedFrom
                                             $allRuleGroups += [PSCustomObject]@{
-                                                Name = $ruleGroup.Name
-                                                Priority = $ruleGroup.Properties.Priority
-                                                Rules = $totalRules
-                                                InheritedFrom = ""
+                                                $LocalizedData.Name = $ruleGroup.Name
+                                                $LocalizedData.Priority = $ruleGroup.Properties.Priority
+                                                $LocalizedData.Rules = $totalRules
+                                                $LocalizedData.InheritedFrom = ""
                                             }
                                         }
 
                                         $RuleGroupInfo = $allRuleGroups
 
                                         $TableParams = @{
-                                            Name = "Rule Collection Groups - $($firewallpolicy.Name)"
+                                            Name = "$($LocalizedData.RcgTableHeading) - $($firewallpolicy.Name)"
                                             List = $false
                                             ColumnWidths = 43, 12, 12, 33
                                         }
@@ -201,7 +209,7 @@ function Get-AbrAzFirewallPolicy {
                                                     }
                                                 }
                                             } catch {
-                                                Write-PScriboMessage "Unable to retrieve parent policy for InfoLevel 3"
+                                                Write-PScriboMessage $LocalizedData.NoParentPolicy
                                             }
                                         }
 
@@ -216,6 +224,10 @@ function Get-AbrAzFirewallPolicy {
                                         foreach ($rcgData in $allRcgData) {
                                             # Extract the RCG name and details from the ID
                                             $rcgId = $rcgData.RcgRef.Id
+                                            if (-not $rcgId) {
+                                                Write-PScriboMessage -IsWarning $LocalizedData.Skipping
+                                                continue
+                                            }
                                             $rcgName = $rcgId.Split('/')[-1]
                                             $rcgPolicyName = $rcgId.Split('/')[8]
                                             $rcgResourceGroup = $rcgId.Split('/')[4]
@@ -226,11 +238,11 @@ function Get-AbrAzFirewallPolicy {
                                             # Build rule collections summary table
                                             $rulesInfo = foreach ($ruleCollection in $ruleGroup.Properties.RuleCollection) {
                                                 $InObj = [Ordered]@{
-                                                    Name = $ruleCollection.Name
-                                                    Priority = $ruleCollection.Priority
-                                                    Action = $ruleCollection.Action.Type
-                                                    Rules = $ruleCollection.Rules.Count
-                                                    InheritedFrom = $rcgData.Source
+                                                    $LocalizedData.Name = $ruleCollection.Name
+                                                    $LocalizedData.Priority = $ruleCollection.Priority
+                                                    $LocalizedData.Action = $ruleCollection.Action.Type
+                                                    $LocalizedData.Rules = $ruleCollection.Rules.Count
+                                                    $LocalizedData.InheritedFrom = $rcgData.Source
                                                 }
                                                 [PSCustomObject]$InObj
                                             }
@@ -238,7 +250,7 @@ function Get-AbrAzFirewallPolicy {
                                             if ($rulesInfo) {
                                                 Section -Style NOTOCHeading7 -ExcludeFromTOC $rcgName {
                                                     $TableParams = @{
-                                                        Name = "Rule Collections - $rcgName"
+                                                        Name = "$($LocalizedData.RcTableHeading) - $rcgName"
                                                         List = $false
                                                         ColumnWidths = 34, 12, 12, 12, 30
                                                     }
@@ -264,19 +276,19 @@ function Get-AbrAzFirewallPolicy {
                                                                 if ($firstRule.RuleType -eq "ApplicationRule") {
                                                                     foreach ($rule in $ruleCollection.Rules) {
                                                                         $InObj = [Ordered]@{
-                                                                            Name = $rule.Name
-                                                                            Description = $rule.Description
-                                                                            SourceAddresses = if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" }
-                                                                            SourceIpGroups = if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" }
-                                                                            TargetFQDNs = if ($rule.TargetFqdns) { ($rule.TargetFqdns -join ", ") } else { "" }
-                                                                            TargetUrls = if ($rule.TargetUrls) { ($rule.TargetUrls -join ", ") } else { "" }
-                                                                            Protocols = if ($rule.Protocols) { ($rule.Protocols | ForEach-Object { "$($_.ProtocolType):$($_.Port)" }) -join ", " } else { "" }
-                                                                            WebCategories = if ($rule.WebCategories) { ($rule.WebCategories -join ", ") } else { "" }
+                                                                            $LocalizedData.Name = $rule.Name
+                                                                            $LocalizedData.Description = $rule.Description
+                                                                            $LocalizedData.SourceAddresses = if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" }
+                                                                            $LocalizedData.SourceIpGroups = if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" }
+                                                                            $LocalizedData.TargetFQDNs = if ($rule.TargetFqdns) { ($rule.TargetFqdns -join ", ") } else { "" }
+                                                                            $LocalizedData.TargetUrls = if ($rule.TargetUrls) { ($rule.TargetUrls -join ", ") } else { "" }
+                                                                            $LocalizedData.Protocols = if ($rule.Protocols) { ($rule.Protocols | ForEach-Object { "$($_.ProtocolType):$($_.Port)" }) -join ", " } else { "" }
+                                                                            $LocalizedData.WebCategories = if ($rule.WebCategories) { ($rule.WebCategories -join ", ") } else { "" }
                                                                         }
                                                                         $appRule = [PSCustomObject]$InObj
 
                                                                         $TableParams = @{
-                                                                            Name = "Application Rule - $($rule.Name)"
+                                                                            Name = "$($LocalizedData.AppRuleTableHeading) - $($rule.Name)"
                                                                             List = $true
                                                                             ColumnWidths = 40, 60
                                                                         }
@@ -293,20 +305,20 @@ function Get-AbrAzFirewallPolicy {
                                                                 elseif ($firstRule.RuleType -eq "NetworkRule") {
                                                                     foreach ($rule in $ruleCollection.Rules) {
                                                                         $InObj = [Ordered]@{
-                                                                            Name = $rule.Name
-                                                                            Description = $rule.Description
-                                                                            SourceAddresses = if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" }
-                                                                            SourceIpGroups = if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" }
-                                                                            DestinationAddresses = if ($rule.DestinationAddresses) { ($rule.DestinationAddresses -join ", ") } else { "" }
-                                                                            DestinationIpGroups = if ($rule.DestinationIpGroups) { ($rule.DestinationIpGroups -join ", ") } else { "" }
-                                                                            DestinationFqdns = if ($rule.DestinationFqdns) { ($rule.DestinationFqdns -join ", ") } else { "" }
-                                                                            DestinationPorts = if ($rule.DestinationPorts) { ($rule.DestinationPorts -join ", ") } else { "" }
-                                                                            Protocols = if ($rule.IpProtocols) { ($rule.IpProtocols -join ", ") } else { "" }
+                                                                            $LocalizedData.Name = $rule.Name
+                                                                            $LocalizedData.Description = $rule.Description
+                                                                            $LocalizedData.SourceAddresses = if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" }
+                                                                            $LocalizedData.SourceIpGroups = if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" }
+                                                                            $LocalizedData.DestinationAddresses = if ($rule.DestinationAddresses) { ($rule.DestinationAddresses -join ", ") } else { "" }
+                                                                            $LocalizedData.DestinationIpGroups = if ($rule.DestinationIpGroups) { ($rule.DestinationIpGroups -join ", ") } else { "" }
+                                                                            $LocalizedData.DestinationFqdns = if ($rule.DestinationFqdns) { ($rule.DestinationFqdns -join ", ") } else { "" }
+                                                                            $LocalizedData.DestinationPorts = if ($rule.DestinationPorts) { ($rule.DestinationPorts -join ", ") } else { "" }
+                                                                            $LocalizedData.Protocols = if ($rule.IpProtocols) { ($rule.IpProtocols -join ", ") } else { "" }
                                                                         }
                                                                         $netRule = [PSCustomObject]$InObj
 
                                                                         $TableParams = @{
-                                                                            Name = "Network Rule - $($rule.Name)"
+                                                                            Name = "$($LocalizedData.NetRuleTableHeading) - $($rule.Name)"
                                                                             List = $true
                                                                             ColumnWidths = 40, 60
                                                                         }
@@ -323,21 +335,21 @@ function Get-AbrAzFirewallPolicy {
                                                                 elseif ($firstRule.RuleType -eq "NatRule") {
                                                                     foreach ($rule in $ruleCollection.Rules) {
                                                                         $InObj = [Ordered]@{
-                                                                            Name = $rule.Name
-                                                                            Description = $rule.Description
-                                                                            SourceAddresses = if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" }
-                                                                            SourceIpGroups = if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" }
-                                                                            DestinationAddresses = if ($rule.DestinationAddresses) { ($rule.DestinationAddresses -join ", ") } else { "" }
-                                                                            DestinationPorts = if ($rule.DestinationPorts) { ($rule.DestinationPorts -join ", ") } else { "" }
-                                                                            Protocols = if ($rule.IpProtocols) { ($rule.IpProtocols -join ", ") } else { "" }
-                                                                            TranslatedAddress = $rule.TranslatedAddress
-                                                                            TranslatedPort = $rule.TranslatedPort
-                                                                            TranslatedFqdn = $rule.TranslatedFqdn
+                                                                            $LocalizedData.Name = $rule.Name
+                                                                            $LocalizedData.Description = $rule.Description
+                                                                            $LocalizedData.SourceAddresses = if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" }
+                                                                            $LocalizedData.SourceIpGroups = if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" }
+                                                                            $LocalizedData.DestinationAddresses = if ($rule.DestinationAddresses) { ($rule.DestinationAddresses -join ", ") } else { "" }
+                                                                            $LocalizedData.DestinationPorts = if ($rule.DestinationPorts) { ($rule.DestinationPorts -join ", ") } else { "" }
+                                                                            $LocalizedData.Protocols = if ($rule.IpProtocols) { ($rule.IpProtocols -join ", ") } else { "" }
+                                                                            $LocalizedData.TranslatedAddress = $rule.TranslatedAddress
+                                                                            $LocalizedData.TranslatedPort = $rule.TranslatedPort
+                                                                            $LocalizedData.TranslatedFqdn = $rule.TranslatedFqdn
                                                                         }
                                                                         $natRule = [PSCustomObject]$InObj
 
                                                                         $TableParams = @{
-                                                                            Name = "DNAT Rule - $($rule.Name)"
+                                                                            Name = "$($LocalizedData.DnatRuleTableHeading) - $($rule.Name)"
                                                                             List = $true
                                                                             ColumnWidths = 40, 60
                                                                         }
@@ -354,7 +366,7 @@ function Get-AbrAzFirewallPolicy {
                                                     }
                                                 }
                                             } else {
-                                                Write-PScriboMessage "No rule collections found in $rcgName"
+                                                Write-PScriboMessage ($LocalizedData.NoRuleCollections -f $rcgName)
                                             }
                                     }
                                 }
@@ -367,7 +379,7 @@ function Get-AbrAzFirewallPolicy {
 
         }
         } catch {
-            Write-PScriboMessage ($_.Exception.Message)
+            Write-PScriboMessage -IsWarning ($_.Exception.Message)
         }
     }
     end {}

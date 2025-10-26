@@ -153,7 +153,7 @@ function Get-AbrAzDnsPrivateResolver {
                 }
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

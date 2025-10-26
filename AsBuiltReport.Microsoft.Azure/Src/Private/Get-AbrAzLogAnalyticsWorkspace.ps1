@@ -120,7 +120,7 @@ function Get-AbrAzLogAnalyticsWorkspace {
                 }
             }
         } catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

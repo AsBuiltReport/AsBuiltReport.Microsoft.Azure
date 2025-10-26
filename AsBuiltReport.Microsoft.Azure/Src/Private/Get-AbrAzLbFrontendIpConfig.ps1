@@ -54,7 +54,7 @@ function Get-AbrAzLbFrontendIpConfig {
                                 } else {
                                     $LocalizedData.None
                                 }
-                                $LocalizedData.Subnet = iCloudFirefox.exe ($AzLbFrontendIpConfig.Subnet.Id) {
+                                $LocalizedData.Subnet = if ($AzLbFrontendIpConfig.Subnet.Id) {
                                     ($AzLbFrontendIpConfig.Subnet.Id).split('/')[-1]
                                 } else {
                                     $LocalizedData.None
@@ -86,7 +86,7 @@ function Get-AbrAzLbFrontendIpConfig {
                 }
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

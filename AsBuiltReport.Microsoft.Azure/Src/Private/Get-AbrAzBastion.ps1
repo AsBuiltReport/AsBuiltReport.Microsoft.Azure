@@ -53,9 +53,9 @@ function Get-AbrAzBastion {
                                 $LocalizedData.Subscription = "$($AzSubscriptionLookup.(($AzBastion.Id).split('/')[2]))"
                                 $LocalizedData.SubscriptionID = ($AzBastion.Id).split('/')[2]
                                 $LocalizedData.ProvisioningState = $AzBastion.ProvisioningState
-                                $LocalizedData.VirtualNetworkSubnet = $AzBastion.IpConfigurations.subnet.id.split('/')[-1]
+                                $LocalizedData.VirtualNetworkSubnet = if ($AzBastion.IpConfigurations.subnet.id) { $AzBastion.IpConfigurations.subnet.id.split('/')[-1] } else { $LocalizedData.None }
                                 $LocalizedData.PublicDnsName = $AzBastion.DnsName
-                                $LocalizedData.PublicIpAddress = $AzBastion.IpConfigurations.publicipaddress.id.split('/')[-1]
+                                $LocalizedData.PublicIpAddress = if ($AzBastion.IpConfigurations.publicipaddress.id) { $AzBastion.IpConfigurations.publicipaddress.id.split('/')[-1] } else { $LocalizedData.None }
                             }
 
                             if ($Options.ShowTags) {
@@ -107,7 +107,7 @@ function Get-AbrAzBastion {
                 }
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

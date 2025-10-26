@@ -3,9 +3,11 @@
 ## [0.2.0] - 2025-10-26
 
 ### Added
+* Add report section order customisation
 * Add language support for English (US) and English (GB)
 * Add support for Firewall Policies
 * Add support for Log Analytics Workspaces
+* Add support for Private Endpoints
 * Add comprehensive Pester tests for module validation
 * Add Pester workflow for automated testing across Windows, Linux, and macOS platforms
 * Add Codecov integration for code coverage reporting
@@ -17,6 +19,10 @@
 * Update Release workflow to use windows-latest runner instead of windows-2019
 * Update Bluesky post action from v0.1.0 to v0.2.0
 * Update module paths in Release workflow to reflect new directory structure
+
+### Fixed
+* Fix [#22](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/22)
+* Fix [#23](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/23)
 
 ## [0.1.8.2] - 2024-11-15
 

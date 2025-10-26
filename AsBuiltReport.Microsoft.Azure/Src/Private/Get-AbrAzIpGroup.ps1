@@ -100,7 +100,7 @@ function Get-AbrAzIpGroup {
                 }
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

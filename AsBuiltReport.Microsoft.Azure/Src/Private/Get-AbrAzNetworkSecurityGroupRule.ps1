@@ -46,16 +46,22 @@ function Get-AbrAzNetworkSecurityGroupRule {
                             Try {
                                 $SourceApplicationSecurityGroups = @()
                                 $jsonstring = $InboundNsgSecurityRule.SourceApplicationSecurityGroupsText -join "`n"
-                                $SourceApplicationSecurityGroups = (($jsonstring | ConvertFrom-Json).id).Split('/')[-1]
+                                $convertedJson = $jsonstring | ConvertFrom-Json
+                                if ($convertedJson.id) {
+                                    $SourceApplicationSecurityGroups = ($convertedJson.id).Split('/')[-1]
+                                }
                             } Catch {
-
+                                # Silently continue if ASG parsing fails
                             }
                             Try {
                                 $DestinationApplicationSecurityGroups = @()
                                 $jsonstring = $InboundNsgSecurityRule.DestinationApplicationSecurityGroupsText -join "`n"
-                                $DestinationApplicationSecurityGroups = (($jsonstring | ConvertFrom-Json).id).Split('/')[-1]
+                                $convertedJson = $jsonstring | ConvertFrom-Json
+                                if ($convertedJson.id) {
+                                    $DestinationApplicationSecurityGroups = ($convertedJson.id).Split('/')[-1]
+                                }
                             } Catch {
-
+                                # Silently continue if ASG parsing fails
                             }
                             $InObj = [Ordered] @{
                                 $LocalizedData.Priority = $InboundNsgSecurityRule.Priority
@@ -127,16 +133,22 @@ function Get-AbrAzNetworkSecurityGroupRule {
                             Try {
                                 $SourceApplicationSecurityGroups = @()
                                 $jsonstring = $OutboundNsgSecurityRule.SourceApplicationSecurityGroupsText -join "`n"
-                                $SourceApplicationSecurityGroups = (($jsonstring | ConvertFrom-Json).id).Split('/')[-1]
+                                $convertedJson = $jsonstring | ConvertFrom-Json
+                                if ($convertedJson.id) {
+                                    $SourceApplicationSecurityGroups = ($convertedJson.id).Split('/')[-1]
+                                }
                             } Catch {
-
+                                # Silently continue if ASG parsing fails
                             }
                             Try {
                                 $DestinationApplicationSecurityGroups = @()
                                 $jsonstring = $OutboundNsgSecurityRule.DestinationApplicationSecurityGroupsText -join "`n"
-                                $DestinationApplicationSecurityGroups = (($jsonstring | ConvertFrom-Json).id).Split('/')[-1]
+                                $convertedJson = $jsonstring | ConvertFrom-Json
+                                if ($convertedJson.id) {
+                                    $DestinationApplicationSecurityGroups = ($convertedJson.id).Split('/')[-1]
+                                }
                             } Catch {
-
+                                # Silently continue if ASG parsing fails
                             }
                             $InObj = [Ordered] @{
                                 $LocalizedData.Priority = $OutboundNsgSecurityRule.Priority
@@ -201,7 +213,7 @@ function Get-AbrAzNetworkSecurityGroupRule {
                 }
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

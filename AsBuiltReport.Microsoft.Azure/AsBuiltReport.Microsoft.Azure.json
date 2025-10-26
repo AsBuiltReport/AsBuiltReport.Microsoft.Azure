@@ -54,6 +54,7 @@
 			"Assignments": 1,
 			"Definitions": 0
 		},
+        "PrivateEndpoint": 2,
         "RecoveryServicesVault": 1,
         "RouteTable": 1,
         "SiteRecovery": 1,

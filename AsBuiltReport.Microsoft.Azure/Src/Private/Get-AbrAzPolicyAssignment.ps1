@@ -114,7 +114,7 @@ function Get-AbrAzPolicyAssignment {
                 }
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

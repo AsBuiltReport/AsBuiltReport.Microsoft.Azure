@@ -39,18 +39,30 @@ function Get-AbrAzPrivateEndpoint {
                         foreach ($AzPrivateEndpoint in $AzPrivateEndpoints) {
                             # Extract NIC details
                             $nicId = $AzPrivateEndpoint.NetworkInterfaces[0].Id
+                            if (-not $nicId) {
+                                Write-PScriboMessage -IsWarning "Skipping Private Endpoint '$($AzPrivateEndpoint.Name)' - No network interface found"
+                                continue
+                            }
                             $nicName = $nicId.Split("/")[-1]
                             $nicRg = $nicId.Split("/")[4]
-                            $nic = Get-AzNetworkInterface -Name $nicName -ResourceGroupName $nicRg
+                            $nic = Get-AzNetworkInterface -Name $nicName -ResourceGroupName $nicRg -ErrorAction SilentlyContinue
 
                             # Extract <vnet>/<subnet> from subnet ID
+                            if (-not $AzPrivateEndpoint.Subnet.Id) {
+                                Write-PScriboMessage -IsWarning "Skipping Private Endpoint '$($AzPrivateEndpoint.Name)' - No subnet found"
+                                continue
+                            }
                             $subnetParts = $AzPrivateEndpoint.Subnet.Id.Split("/")
                             $vnetName = $subnetParts[$subnetParts.IndexOf("virtualNetworks") + 1]
                             $subnetName = $subnetParts[$subnetParts.IndexOf("subnets") + 1]
 
                             # Extract Private Link Service connection info
                             $plsConnection = $AzPrivateEndpoint.PrivateLinkServiceConnections[0]
-                            $plsName = $plsConnection.PrivateLinkServiceId.Split("/")[-1]
+                            $plsName = if ($plsConnection.PrivateLinkServiceId) {
+                                $plsConnection.PrivateLinkServiceId.Split("/")[-1]
+                            } else {
+                                "N/A"
+                            }
                             $RequestMessage = $plsConnection.RequestMessage
                             $ResponseMessage = $plsConnection.PrivateLinkServiceConnectionState.Description
 
@@ -83,10 +95,10 @@ function Get-AbrAzPrivateEndpoint {
 
                         # Apply health check highlighting
                         if ($Healthcheck.PrivateEndpoint.ProvisioningState) {
-                            $AzPrivateEndpointInfo | Where-Object { $_.$($LocalizedData.ProvisioningState) -ne $LocalizedData.Succeeded } | Set-Style -Style Critical -Property $LocalizedData.ProvisioningState
+                            $AzPrivateEndpointInfo | Where-Object { $_.$($LocalizedData.ProvisioningState) -ne 'Succeeded' } | Set-Style -Style Critical -Property $LocalizedData.ProvisioningState
                         }
                         if ($Healthcheck.PrivateEndpoint.ConnectionStatus) {
-                            $AzPrivateEndpointInfo | Where-Object { $_.$($LocalizedData.ConnectionStatus) -ne $LocalizedData.Approved } | Set-Style -Style Critical -Property $LocalizedData.ConnectionStatus
+                            $AzPrivateEndpointInfo | Where-Object { $_.$($LocalizedData.ConnectionStatus) -ne 'Approved' } | Set-Style -Style Critical -Property $LocalizedData.ConnectionStatus
                         }
 
                         if ($InfoLevel.PrivateEndpoint -ge 2) {
@@ -122,7 +134,7 @@ function Get-AbrAzPrivateEndpoint {
                 }
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

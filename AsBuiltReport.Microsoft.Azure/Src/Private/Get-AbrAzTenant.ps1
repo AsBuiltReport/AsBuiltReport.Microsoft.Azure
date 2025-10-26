@@ -48,7 +48,7 @@ function Get-AbrAzTenant {
                 $AzTenantInfo | Table @TableParams
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

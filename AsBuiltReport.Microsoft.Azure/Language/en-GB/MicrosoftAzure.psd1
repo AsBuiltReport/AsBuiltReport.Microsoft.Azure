@@ -348,7 +348,7 @@ GetAbrAzBastion = ConvertFrom-StringData @'
 
 # Azure DNS Private Resolver (Get-AbrAzDnsPrivateResolver)
 GetAbrAzDnsPrivateResolver = ConvertFrom-StringData @'
-    InfoLevel = DnsPrivateResolver InfoLevel set at {0},
+    InfoLevel = DnsPrivateResolver InfoLevel set at {0}.
     Collecting = Collecting Azure DNS Private Resolver information.
     SectionInfo = Azure Private DNS Resolver is a service that securely resolves DNS queries for private resources in Azure VNets, enabling seamless communication between on-premises and cloud environments without exposing traffic to the public internet. It centralises DNS management and supports hybrid cloud architectures.
     ParagraphDetail = The following sections detail the configuration of the DNS private resolver(s) within the {0} subscription.
@@ -831,13 +831,11 @@ GetAbrAzPrivateEndpoint = ConvertFrom-StringData @'
     TargetSubResource = Target Sub-Resource
     ConnectionStatus = Connection Status
     Response = Response
-    Approved = Approved
     Pending = Pending
     Rejected = Rejected
     Disconnected = Disconnected
     Tags = Tags
     None = None
-    Succeeded = Succeeded
 '@
 
 # Azure Recovery Services Vault (Get-AbrAzRecoveryServicesVault)
@@ -1077,13 +1075,48 @@ GetAbrAzVirtualNetworkSubnet = ConvertFrom-StringData @'
 GetAbrAzFirewallPolicy = ConvertFrom-StringData @'
     InfoLevel = FirewallPolicy InfoLevel set at {0}.
     Collecting = Collecting Azure Firewall policy information.
-    SectionInfo = Azure Firewall Policy is a top-level resource that contains security and operational settings for Azure Firewall. It allows you to define rule hierarchies and enforce compliance using a centralised policy structure. Policies support inheritance allowing child policies to inherit rules from parent policies.
-    Heading = Firewall Policies
+    SectionInfo = Azure Firewall Policy is a top-level resource that contains security and operational settings for Azure Firewall. It allows you to define rule hierarchies and enforce compliance using a centralized policy structure. Policies support inheritance allowing child policies to inherit rules from parent policies.
     Name = Name
     ResourceGroup = Resource Group
     Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
     ProvisioningState = Provisioning State
-    ThreatIntelMode = Threat Intelligence Mode
+    ParentPolicy = Parent Policy
+    PolicyTier = Policy Tier
+    ThreatIntelMode = Threat Intel Mode
+    IntrusionDetectionMode = Intrusion Detection Mode
+    DnsServers = DNS Servers
+    DnsProxy = DNS Proxy
+    Priority = Priority
+    Rules = Rules
+    Action = Action
+    InheritedFrom = Inherited From
+    Description = Description
+    SourceAddresses = Source Addresses
+    SourceIpGroups = Source IP Groups
+    DestinationAddresses = Destination Addresses
+    DestinationIpGroups = Destination IP Groups
+    DestinationFqdns = Destination FQDNs
+    DestinationPorts = Destination Ports
+    TranslatedAddress = Translated Address
+    TranslatedPort = Translated Port
+    TranslatedFqdn = Translated FQDN
+    TargetFQDNs = Target FQDNs
+    TargetUrls = Target URLs
+    Protocols = Protocols
+    WebCategories = Web Categories
+    Heading = Firewall Policies
+    RcgHeading = Rule Collection Groups
+    RcgTableHeading = Rule Collection Groups
+    RcTableHeading = Rule Collections
+    AppRuleTableHeading = Application Rule
+    NetRuleTableHeading = Network Rule
+    DnatRuleTableHeading = DNAT Rule
+    NoRuleCollections = No rule collections found in {0}.
+    NoParentPolicy = Unable to retrieve parent policy.
+    NoParentPolicyRCG = Unable to retrieve parent policy rule collection groups.
+    TableHeading = Firewall Policy
     Alert = Alert
     Deny = Deny
     Found = Found {0} rule collection group(s) in {1} policy.
@@ -1094,6 +1127,8 @@ GetAbrAzFirewallPolicy = ConvertFrom-StringData @'
     Enabled = Enabled
     Disabled = Disabled
     Off = Off
+    Default = Default (Azure provided)
+    Skipping = Skipping null rule collection group reference
 '@
 
 }

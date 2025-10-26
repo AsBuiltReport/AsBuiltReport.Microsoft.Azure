@@ -37,7 +37,7 @@ function Get-AbrAzPolicy {
                 Write-PScriboMessage $LocalizedData.InfoLevel
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

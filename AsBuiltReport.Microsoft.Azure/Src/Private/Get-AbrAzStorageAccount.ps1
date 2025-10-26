@@ -145,17 +145,6 @@ function Get-AbrAzStorageAccount {
                                     Get-AbrAzSAFileServiceProperty -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
                                     # Share Service Properties
                                     Get-AbrAzSAShare -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
-
-                                    <#
-                                    # Blob Service Properties
-                                    Get-AbrAzSABlobServiceProperty -ResourceGroupName $AzStorageAccount.($LocalizedData.ResourceGroup) -StorageAccountName $AzStorageAccount.($LocalizedData.Name)
-                                    # Container Service Properties
-                                    Get-AbrAzSAContainer -ResourceGroupName $AzStorageAccount.($LocalizedData.ResourceGroup) -StorageAccountName $AzStorageAccount.($LocalizedData.Name)
-                                    # File Service Properties
-                                    Get-AbrAzSAFileServiceProperty -ResourceGroupName $AzStorageAccount.($LocalizedData.ResourceGroup) -StorageAccountName $AzStorageAccount.($LocalizedData.Name)
-                                    # Share Service Properties
-                                    Get-AbrAzSAShare -ResourceGroupName $AzStorageAccount.($LocalizedData.ResourceGroup) -StorageAccountName $AzStorageAccount.($LocalizedData.Name)
-                                    #>
                                 }
                             }
                         } else {
@@ -176,7 +165,7 @@ function Get-AbrAzStorageAccount {
                 }
             }
         } catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 

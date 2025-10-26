@@ -155,7 +155,7 @@ function Get-AbrAzFirewallNetworkRule {
                 }
             }
         } Catch {
-            Write-PScriboMessage $($_.Exception.Message)
+            Write-PScriboMessage -IsWarning $($_.Exception.Message)
         }
     }
 
