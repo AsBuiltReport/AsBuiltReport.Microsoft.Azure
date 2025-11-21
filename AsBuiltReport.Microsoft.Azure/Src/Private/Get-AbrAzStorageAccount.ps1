@@ -35,7 +35,10 @@ function Get-AbrAzStorageAccount {
                             BlankLine
                         }
                         $AzStorageAccountInfo = @()
+                        $Count = 1
                         foreach ($AzStorageAccount in $AzStorageAccounts) {
+                            Write-PscriboMessage ($LocalizedData.Processing -f ($AzStorageAccount.StorageAccountName),$Count,($AzStorageAccounts.Count))
+                            $Count ++
                             $InObj = [Ordered]@{
                                 $LocalizedData.Name = $AzStorageAccount.StorageAccountName
                                 $LocalizedData.ResourceGroup = $AzStorageAccount.ResourceGroupName
@@ -65,26 +68,30 @@ function Get-AbrAzStorageAccount {
                                     default { $LocalizedData.Unknown }
                                 }
                                 $LocalizedData.ProvisioningState = $AzStorageAccount.ProvisioningState
-                                $LocalizedData.SecureTransfer = if ($AzStorageAccount.EnableHttpsTrafficOnly) {
-                                    $LocalizedData.Enabled
-                                } else {
-                                    $LocalizedData.Disabled
+                                $LocalizedData.SecureTransfer = switch ($AzStorageAccount.EnableHttpsTrafficOnly) {
+                                    $null { $LocalizedData.Disabled }
+                                    $true { $LocalizedData.Enabled }
+                                    $false { $LocalizedData.Disabled }
+                                    default { $AzStorageAccount.EnableHttpsTrafficOnly }
                                 }
-                                $LocalizedData.StorageAccountKeyAccess = if ($AzStorageAccount.AllowSharedKeyAccess) {
-                                    $LocalizedData.Enabled
-                                } else {
-                                    $LocalizedData.Disabled
+                                $LocalizedData.StorageAccountKeyAccess = switch ($AzStorageAccount.AllowSharedKeyAccess) {
+                                    $null { $LocalizedData.Enabled }
+                                    $true { $LocalizedData.Enabled }
+                                    $false { $LocalizedData.Disabled }
+                                    default { $AzStorageAccount.AllowSharedKeyAccess }
                                 }
-                                $LocalizedData.PublicNetworkAccess = if ($AzStorageAccount.PublicNetworkAccess) {
-                                    $LocalizedData.Enabled
-                                } else {
-                                    $LocalizedData.Disabled
+                                $LocalizedData.PublicNetworkAccess = switch ($AzStorageAccount.PublicNetworkAccess) {
+                                    $null { $LocalizedData.Enabled }
+                                    $true { $LocalizedData.Enabled }
+                                    $false { $LocalizedData.Disabled }
+                                    default { $AzStorageAccount.PublicNetworkAccess }
                                 }
                                 $LocalizedData.MinimumTLSVersion = $AzStorageAccount.MinimumTlsVersion -replace "TLS(\d)_(\d)", 'TLS $1.$2'
-                                $LocalizedData.InfrastructureEncryption = if ($AzStorageAccount.RequireInfrastructureEncryption) {
-                                    $LocalizedData.Enabled
-                                } else {
-                                    $LocalizedData.Disabled
+                                $LocalizedData.InfrastructureEncryption = switch ($AzStorageAccount.Encryption.RequireInfrastructureEncryption) {
+                                    $null { $LocalizedData.Disabled }
+                                    $true { $LocalizedData.Enabled }
+                                    $false { $LocalizedData.Disabled }
+                                    default { $AzStorageAccount.Encryption.RequireInfrastructureEncryption }
                                 }
                                 $LocalizedData.Created = $AzStorageAccount.CreationTime
                             }
@@ -105,15 +112,15 @@ function Get-AbrAzStorageAccount {
                         }
 
                         if ($Healthcheck.StorageAccount.StorageAccountKeyAccess) {
-                            $AzStorageAccountInfo | Where-Object { $_.($LocalizedData.StorageAccountKeyAccess) -eq 'Enabled' } | Set-Style -Style Warning -Property $LocalizedData.StorageAccountKeyAccess
+                            $AzStorageAccountInfo | Where-Object { $_.($LocalizedData.StorageAccountKeyAccess) -eq $LocalizedData.Enabled } | Set-Style -Style Warning -Property $LocalizedData.StorageAccountKeyAccess
                         }
 
                         if ($Healthcheck.StorageAccount.SecureTransfer) {
-                            $AzStorageAccountInfo | Where-Object { $_.($LocalizedData.SecureTransfer) -ne 'Enabled' } | Set-Style -Style Warning -Property $LocalizedData.SecureTransfer
+                            $AzStorageAccountInfo | Where-Object { $_.($LocalizedData.SecureTransfer) -ne $LocalizedData.Enabled } | Set-Style -Style Warning -Property $LocalizedData.SecureTransfer
                         }
 
                         if ($Healthcheck.StorageAccount.PublicNetworkAccess) {
-                            $AzStorageAccountInfo | Where-Object { $_.($LocalizedData.PublicNetworkAccess) -eq 'Enabled' } | Set-Style -Style Warning -Property $LocalizedData.PublicNetworkAccess
+                            $AzStorageAccountInfo | Where-Object { $_.($LocalizedData.PublicNetworkAccess) -eq $LocalizedData.Enabled } | Set-Style -Style Warning -Property $LocalizedData.PublicNetworkAccess
                         }
 
                         if ($Healthcheck.StorageAccount.MinimumTlsVersion) {
@@ -145,6 +152,10 @@ function Get-AbrAzStorageAccount {
                                     Get-AbrAzSAFileServiceProperty -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
                                     # Share Service Properties
                                     Get-AbrAzSAShare -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
+                                    # Queue Service Properties
+                                    Get-AbrAzSAQueue -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
+                                    # Table Service Properties
+                                    Get-AbrAzSATable -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName
                                 }
                             }
                         } else {

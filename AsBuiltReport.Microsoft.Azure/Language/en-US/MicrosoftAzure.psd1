@@ -284,7 +284,7 @@ GetAbrAzTenant = ConvertFrom-StringData @'
 # Azure Site Recovery Protected Items (Get-AbrAsrProtectedItems)
 GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     InfoLevel = SiteRecovery InfoLevel set at {0}.
-    Collecting = Collecting Azure Site Recovery information [{0}].
+    Collecting = Collecting Azure Site Recovery information '{0}'.
     CollectingItems = Collecting Azure Site Recovery Protected Items information.
     ParagraghSummary = The following tables provides information for the Azure Site Recovery protected items within the {0} subscription.
     Heading = Protected Items
@@ -375,10 +375,11 @@ GetAbrAzDnsPrivateResolver = ConvertFrom-StringData @'
     None = None
 '@
 
-# Azure Stroage Account (Get-AbrAzStorageAccount)
+# Azure Storage Account (Get-AbrAzStorageAccount)
 GetAbrAzStorageAccount = ConvertFrom-StringData @'
     InfoLevel = StorageAccount InfoLevel set at {0}.
     Collecting = Collecting Azure Storage Account information.
+    Processing = Processing Azure Storage Account '{0}' ({1} of {2}).
     SectionInfo = Azure storage account contains all of your Azure Storage data objects, including blobs, file shares, queues, tables, and disks. The storage account provides a unique namespace for your Azure Storage data that's accessible from anywhere in the world over HTTP or HTTPS. Data in your storage account is durable and highly available, secure, and massively scalable.
     ParagraphDetail = The following sections detail the configuration of the storage account within the {0} subscription.
     ParagraphSummary = The following table summarizes the configuration of the storage account within the {0} subscription.
@@ -410,7 +411,7 @@ GetAbrAzStorageAccount = ConvertFrom-StringData @'
     BlockBlobStorage = Block Blob Storage
     FileStorage = File Storage
     ProvisioningState = Provisioning State
-    SecureTransfer = Secure Transfer
+    SecureTransfer = Secure Transfer for REST API
     StorageAccountKeyAccess = Storage Account Key Access
     PublicNetworkAccess = Public Network Access
     MinimumTLSVersion = Minimum TLS Version
@@ -886,7 +887,7 @@ GetAbrAzRouteTable = ConvertFrom-StringData @'
 
 # Azure Blob Storage Service Property (Get-AbrAzSABlobServiceProperty)
 GetAbrAzSABlobServiceProperty = ConvertFrom-StringData @'
-    Collecting = Collecting Azure Blob Storage Service Properties information [{0}].
+    Collecting = Collecting Azure Blob Storage Service Properties information '{0}'.
     Heading = Blob Service
     TableHeading = Blob Service
     HierarchicalNamespace = Hierarchical Namespace
@@ -908,20 +909,44 @@ GetAbrAzSABlobServiceProperty = ConvertFrom-StringData @'
 # Azure Storage Account Containers (Get-AbrAzSAContainer)
 GetAbrAzSAContainer = ConvertFrom-StringData @'
     Collecting = Collecting Azure Storage Account Container information.
+    Processing = Processing Azure Storage Account Container '{0}' ({1} of {2}).
     Heading = Containers
     TableHeading = Containers
     Name = Name
-    PublicAccess = Public Access
+    AnonymousAccessLevel = Anonymous Access Level
+    Private = Private
+    Blob = Blob
+    Container = Container
+    LeaseState = Lease State
     LastModified = Last Modified
     Disabled = Disabled
 '@
 
+# Azure Storage Account Tables (Get-AbrAzSATable)
+GetAbrAzSATable = ConvertFrom-StringData @'
+    Collecting = Collecting Azure Storage Account Table information.
+    Processing = Processing Azure Storage Account Table '{0}' ({1} of {2}).
+    Heading = Tables
+    TableHeading = Tables
+    Name = Name
+'@
+
+# Azure Storage Account Queues (Get-AbrAzSAQueue)
+GetAbrAzSAQueue = ConvertFrom-StringData @'
+    Collecting = Collecting Azure Storage Account Queue information.
+    Processing = Processing Azure Storage Account Queue '{0}' ({1} of {2}).
+    Heading = Queues
+    TableHeading = Queues
+    Name = Name
+'@
+
 # Azure Storage Account File Service Property (Get-AbrAzSAFileServiceProperty)
 GetAbrAzSAFileServiceProperty = ConvertFrom-StringData @'
-    Collecting = Collecting Azure File Storage Service Properties information [{0}].
+    Collecting = Collecting Azure File Storage Service Properties information '{0}'.
     Heading = File Service
     TableHeading = File Service
     LargeFileShare = Large File Share
+    NotConfigured = Not configured
     Enabled = Enabled
     Disabled = Disabled
     IdentityBasedAccess = Identity Based Access
@@ -932,6 +957,7 @@ GetAbrAzSAFileServiceProperty = ConvertFrom-StringData @'
 # Azure Storage Account Share
 GetAbrAzSAShare = ConvertFrom-StringData @'
     Collecting = Collecting Azure Storage Account Shares information.
+    Processing = Processing Azure Storage Account Share '{0}' ({1} of {2}).
     Heading = Shares
     TableHeading = Shares
     Name = Name
@@ -950,6 +976,7 @@ GetAbrAzSAShare = ConvertFrom-StringData @'
 GetAbrAzSubscription = ConvertFrom-StringData @'
     InfoLevel = Subscription InfoLevel set at {0}.
     Collecting = Collecting Azure Subscription information.
+    Processing = Processing Azure Subscription '{0}' ({1} of {2}).
     Heading = Subscriptions
     SectionInfo = An Azure subscription is a logical container used to provision resources in Microsoft Azure. It holds the details of all your resources like virtual machines (VMs), databases, and more. A subscription is linked to an Azure account, which is used to manage access to the resources and services within that subscription. Subscriptions help you organise and manage your Azure resources, track costs, and control access through role-based access control (RBAC).
     ParagraphSummary = The following table summarizes the configuration of the subscriptions within the {0} tenant.
@@ -966,6 +993,7 @@ GetAbrAzSubscription = ConvertFrom-StringData @'
 GetAbrAzVirtualMachine = ConvertFrom-StringData @'
     InfoLevel = VirtualMachine InfoLevel set at {0}.
     Collecting = Collecting Azure Virtual Machine information.
+    Processing = Processing Azure Virtual Machine '{0}' ({1} of {2}).
     SectionInfo1 = An Azure Virtual Machine (VM) is a scalable computing resource that provides the flexibility of virtualization without the need to buy and maintain physical hardware. VMs in Azure can run a wide range of operating systems, including various distributions of Linux and Windows Server. They can be used for various purposes, such as hosting applications, running development and testing environments, or extending on-premises datacenters to the cloud.
     SectionInfo2 = Azure VMs offer various sizes and configurations to meet different workload requirements. They can be easily scaled up or down based on demand, and they integrate seamlessly with other Azure services, such as storage, networking, and security. Additionally, Azure provides features like VM backups, monitoring, and auto-scaling to help manage and optimize VM performance.
     ParagraphDetail = The following sections detail the configuration of the virtual machines within the {0} subscription.
@@ -1012,6 +1040,7 @@ GetAbrAzVirtualMachine = ConvertFrom-StringData @'
 GetAbrAzVirtualNetwork = ConvertFrom-StringData @'
     InfoLevel = VirtualNetwork InfoLevel set at {0}.
     Collecting = Collecting Azure Virtual Network information.
+    Processing = Processing Azure Virtual Network '{0}' ({1} of {2}).
     SectionInfo = An Azure Virtual Network (VNet) is a fundamental building block for your private network in Azure. It enables many types of Azure resources, such as Azure Virtual Machines (VMs), to securely communicate with each other, the internet, and on-premises networks. VNets are similar to traditional networks that you'd operate in your own datacenter, but they bring additional benefits of Azure's infrastructure, such as scale, availability, and isolation.
     ParagraphDetail = The following sections detail the configuration of the virtual networks within the {0} subscription.
     ParagraphSummary = The following table summarizes the configuration of the virtual networks within the {0} subscription.
@@ -1039,6 +1068,7 @@ GetAbrAzVirtualNetwork = ConvertFrom-StringData @'
 # Azure Virtual Network Peering (Get-AbrAzVirtualNetworkPeering)
 GetAbrAzVirtualNetworkPeering = ConvertFrom-StringData @'
     Collecting = Collecting Azure Virtual Network Peering information.
+    Processing = Processing Azure Virtual Network Peering '{0}' ({1} of {2}).
     Heading = Virtual Network Peerings
     TableHeading = Virtual Network Peerings
     Name = Name
@@ -1062,6 +1092,7 @@ GetAbrAzVirtualNetworkPeering = ConvertFrom-StringData @'
 
 GetAbrAzVirtualNetworkSubnet = ConvertFrom-StringData @'
     Collecting = Collecting Azure Virtual Network Subnet information.
+    Processing = Processing Azure Virtual Network Subnet '{0}' ({1} of {2}).
     Heading = Subnets
     TableHeading = Subnet
     Name = Name

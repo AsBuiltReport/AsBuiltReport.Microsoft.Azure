@@ -34,7 +34,10 @@ function Get-AbrAzVirtualNetworkPeering {
             if ($AzVirtualNetworkPeerings) {
                 Write-PscriboMessage $LocalizedData.Collecting
                 Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.Heading {
+                    $Count = 1
                     foreach ($AzVirtualNetworkPeering in $AzVirtualNetworkPeerings) {
+                        Write-PscriboMessage ($LocalizedData.Processing -f ($AzVirtualNetworkPeering.Name),$Count,($AzVirtualNetworkPeerings.Count))
+                        $Count ++
                         Section -Style NOTOCHeading7 -ExcludeFromTOC $AzVirtualNetworkPeering.Name {
                             $AzVirtualNetworkPeeringInfo = [PSCustomObject]@{
                                 $LocalizedData.Name = $AzVirtualNetworkPeering.Name

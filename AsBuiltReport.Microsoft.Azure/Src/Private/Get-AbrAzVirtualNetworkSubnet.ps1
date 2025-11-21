@@ -33,8 +33,11 @@ function Get-AbrAzVirtualNetworkSubnet {
             $AzVirtualNetworkSubnets = (Get-AzVirtualNetwork -Name $Name).Subnets | Sort-Object Name
             if ($AzVirtualNetworkSubnets) {
                 Write-PscriboMessage $LocalizedData.Collecting
+                $Count = 1
                 Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.Heading {
                     foreach ($AzVirtualNetworkSubnet in $AzVirtualNetworkSubnets) {
+                        Write-PscriboMessage ($LocalizedData.Processing -f ($AzVirtualNetworkSubnet.Name),$Count,($AzVirtualNetworkSubnets.Count))
+                        $Count ++
                         Section -Style NOTOCHeading7 -ExcludeFromTOC $AzVirtualNetworkSubnet.Name {
                             $AzVirtualNetworkSubnetInfo = [PSCustomObject]@{
                                 $LocalizedData.Name = $AzVirtualNetworkSubnet.Name

@@ -43,7 +43,10 @@ function Get-AbrAzVirtualNetwork {
                             }
                         }
                         $AzVirtualNetworkInfo = @()
+                        $Count = 1
                         foreach ($AzVirtualNetwork in $AzVirtualNetworks) {
+                            Write-PScriboMessage ($LocalizedData.Processing -f ($AzVirtualNetwork.Name),$Count,($AzVirtualNetworks.Count))
+                            $Count ++
                             $InObj = [Ordered]@{
                                 $LocalizedData.Name = $AzVirtualNetwork.Name
                                 $LocalizedData.ResourceGroup = $AzVirtualNetwork.ResourceGroupName

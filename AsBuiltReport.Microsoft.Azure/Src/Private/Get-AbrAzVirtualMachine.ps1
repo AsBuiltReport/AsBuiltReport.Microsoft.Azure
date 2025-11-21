@@ -36,7 +36,10 @@ function Get-AbrAzVirtualMachine {
                             Paragraph $LocalizedData.SectionInfo2
                         }
                         $AzVMInfo = @()
+                        $Count = 1
                         foreach ($AzVM in $AzVMs) {
+                            Write-PScriboMessage ($LocalizedData.Processing -f ($AzVm.Name),$Count,($AzVMs.Count))
+                            $Count ++
                             $AzVMSize = Get-AzVMSize -VMName $AzVm.Name -ResourceGroupName $AzVm.ResourceGroupName | Where-Object { $_.Name -eq $AzVm.HardwareProfile.VmSize }
                             $AzVmNic = Get-AzNetworkInterface | Where-Object { $_.VirtualMachine.Id -eq $AzVm.id }
                             $AzVmBackupStatus = Get-AzRecoveryServicesBackupStatus -Name $AzVm.Name -ResourceGroupName $AzVm.ResourceGroupName -Type "AzureVM" -ErrorAction SilentlyContinue
@@ -121,7 +124,7 @@ function Get-AbrAzVirtualMachine {
                                 }
                                 $LocalizedData.OSDisk = ($AzVm.StorageProfile.OsDisk.Name)
                                 $LocalizedData.OSDiskSize = if ($AzVm.StorageProfile.OsDisk.DiskSizeGB) {
-                                    "$($AzVm.StorageProfile.OsDisk.DiskSizeGB) GiB"
+                                    Convert-DataSize -Size ($AzVm.StorageProfile.OsDisk.DiskSizeGB) -DecimalPlaces 2
                                 } else {
                                     $LocalizedData.Unknown
                                 }

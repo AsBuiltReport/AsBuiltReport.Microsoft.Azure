@@ -41,16 +41,20 @@ function Get-AbrAzSAContainer {
                 Write-PscriboMessage $LocalizedData.Collecting
                 Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.Heading {
                     $AzSAContInfo = @()
+                    $Count = 1
                     foreach ($AzSAContainer in $AzSAContainers) {
+                        Write-PscriboMessage ($LocalizedData.Processing -f ($AzSAContainer.Name),$Count,($AzSAContainers.Count))
+                        $Count ++
                         $InObj = [Ordered]@{
                             $LocalizedData.Name = $AzSAContainer.Name
-                            $LocalizedData.PublicAccess = if ($AzSAContainer.PublicAccess) {
-                                $AzSAContainer.PublicAccess
-                            } else {
-                                $LocalizedData.Disabled
-                            }
                             $LocalizedData.LastModified = $AzSAContainer.LastModified.UtcDateTime.ToShortDateString()
-
+                            $LocalizedData.AnonymousAccessLevel = switch ($AzSAContainer.PublicAccess) {
+                                "None" { $LocalizedData.Private }
+                                "Blob" { $LocalizedData.Blob }
+                                "Container" { $LocalizedData.Container }
+                                default { $AzSAContainer.PublicAccess }
+                            }
+                            $LocalizedData.LeaseState = $AzSAContainer.BlobContainerProperties.LeaseState
                         }
                         $AzSAContInfo += [PSCustomObject]$InObj
                     }
@@ -58,8 +62,7 @@ function Get-AbrAzSAContainer {
                     $TableParams = @{
                         Name = "$($LocalizedData.TableHeading) - $($StorageAccountName)"
                         List = $false
-                        Columns = $LocalizedData.Name, $LocalizedData.PublicAccess, $LocalizedData.LastModified
-                        ColumnWidths = 50, 25, 25
+                        ColumnWidths = 40, 20, 20, 20
                     }
                     if ($Report.ShowTableCaptions) {
                         $TableParams['Caption'] = "- $($TableParams.Name)"

@@ -44,15 +44,17 @@ function Get-AbrAzSAFileServiceProperty {
                     $AzSAFileServicePropertyInfo = @()
                     foreach ($AzSAFileService in $AzSAFileServiceProperty) {
                         $InObj = [Ordered]@{
-                            $LocalizedData.LargeFileShare = If ($AzStorageAccount.LargeFileSharesState) {
-                                $LocalizedData.Enabled
-                            } else {
-                                $LocalizedData.Disabled
+                            $LocalizedData.LargeFileShare = switch ($AzStorageAccount.LargeFileSharesState) {
+                                $null { $LocalizedData.Enabled }
+                                $true { $LocalizedData.Enabled }
+                                $false { $LocalizedData.Disabled }
+                                default { $AzStorageAccount.LargeFileSharesState }
                             }
-                            $LocalizedData.IdentityBasedAccess = If ($AzStorageAccount.AzureFilesIdentityBasedAuth) {
-                                $LocalizedData.Enabled
-                            } else {
-                                $LocalizedData.Disabled
+                            $LocalizedData.IdentityBasedAccess = switch ($AzStorageAccount.AzureFilesIdentityBasedAuth) {
+                                $null { $LocalizedData.NotConfigured }
+                                $true { $LocalizedData.Enabled }
+                                $false { $LocalizedData.Disabled }
+                                default { $AzStorageAccount.AzureFilesIdentityBasedAuth }
                             }
                             $LocalizedData.SoftDelete = if ($AzSAFileService.ShareDeleteRetentionPolicy.Enabled -and $AzSAFileService.ShareDeleteRetentionPolicy.Days) {
                                 ($LocalizedData.EnabledDays -f $AzSAFileService.ShareDeleteRetentionPolicy.Days)

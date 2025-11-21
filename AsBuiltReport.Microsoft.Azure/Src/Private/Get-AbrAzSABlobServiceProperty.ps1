@@ -54,10 +54,11 @@ function Get-AbrAzSABlobServiceProperty {
                             } else {
                                 $LocalizedData.NotApplicable
                             }
-                            $LocalizedData.BlobAnonymousAccess = if ($AzStorageAccount.AllowBlobPublicAccess) {
-                                $LocalizedData.Enabled
-                            } else {
-                                $LocalizedData.Disabled
+                            $LocalizedData.BlobAnonymousAccess = switch ($AzStorageAccount.AllowBlobPublicAccess) {
+                                $null { $LocalizedData.Enabled }
+                                $true { $LocalizedData.Enabled }
+                                $false { $LocalizedData.Disabled }
+                                default { $AzStorageAccount.AllowBlobPublicAccess }
                             }
                             $LocalizedData.BlobSoftDelete = If ($AzSABlobService.DeleteRetentionPolicy.Enabled -and $AzSABlobService.DeleteRetentionPolicy.Days) {
                                 ($LocalizedData.EnabledDays -f $AzSABlobService.DeleteRetentionPolicy.Days)
@@ -89,10 +90,11 @@ function Get-AbrAzSABlobServiceProperty {
                             } else {
                                 $LocalizedData.Disabled
                             }
-                            $LocalizedData.AllowCrossTenantReplication = if ($AzStorageAccount.AllowCrossTenantReplication) {
-                                $LocalizedData.Enabled
-                            } else {
-                                $LocalizedData.Disabled
+                            $LocalizedData.AllowCrossTenantReplication = switch ($AzStorageAccount.AllowCrossTenantReplication) {
+                                $null { $LocalizedData.Enabled }
+                                $true { $LocalizedData.Enabled }
+                                $false { $LocalizedData.Disabled }
+                                default { $AzStorageAccount.AllowCrossTenantReplication }
                             }
                         }
                         $AzSABlobServicePropertyInfo += [PSCustomObject]$InObj

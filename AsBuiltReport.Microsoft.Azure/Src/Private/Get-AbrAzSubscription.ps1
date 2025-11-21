@@ -34,7 +34,10 @@ function Get-AbrAzSubscription {
                 Paragraph ($LocalizedData.ParagraphSummary -f $AzTenant.Name)
                 BlankLine
                 $AzSubscriptionInfo = @()
+                $Count = 1
                 foreach ($AzSubscription in $AzSubscriptions) {
+                    Write-PscriboMessage ($LocalizedData.Processing -f ($AzSubscription.Name),$Count,($AzSubscriptions.Count))
+                    $Count ++
                     $InObj = [Ordered]@{
                         $LocalizedData.Name = $AzSubscription.Name
                         $LocalizedData.SubscriptionID = $AzSubscription.SubscriptionId

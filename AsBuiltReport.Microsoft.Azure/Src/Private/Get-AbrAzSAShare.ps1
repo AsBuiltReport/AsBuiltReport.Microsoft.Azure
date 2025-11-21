@@ -41,14 +41,17 @@ function Get-AbrAzSAShare {
                 Write-PscriboMessage $LocalizedData.Collecting
                 Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.Heading {
                     $AzSAShareInfo = @()
+                    $Count = 1
                     foreach ($AzSAShare in $AzSAShares) {
+                        Write-PscriboMessage ($LocalizedData.Processing -f ($AzSAShare.Name),$Count,($AzSAShares.Count))
+                        $Count ++
                         $InObj = [Ordered]@{
                             $LocalizedData.Name = $AzSAShare.Name
                             $LocalizedData.ShareURL = $AzSAShare.CloudFileShare.Uri.AbsoluteUri
                             $LocalizedData.Quota = if ([string]::IsNullOrEmpty($AzSAShare.ShareProperties.QuotaInGB)) {
                                 $LocalizedData.Unknown
                             } else {
-                                "$($AzSAShare.ShareProperties.QuotaInGB / 1024) Tib"
+                                Convert-DataSize -Size ($AzSAShare.ShareProperties.QuotaInGB) -DecimalPlaces 2
                             }
                             $LocalizedData.AccessTier = Switch ($AzSAShare.ShareProperties.AccessTier) {
                                 'TransactionOptimized' { $LocalizedData.TransactionOptimized }
