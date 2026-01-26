@@ -1,6 +1,6 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [0.2.0] - 2025-10-26
+## [0.2.0] - 2026-01-27
 
 ### Added
 * Add report section order customisation
@@ -8,13 +8,16 @@
 * Add support for Firewall Policies
 * Add support for Log Analytics Workspaces
 * Add support for Private Endpoints
+* Add support for token authentication methods
+* Add documentation for supported authentication methods in `README.md`
 * Add comprehensive Pester tests for module validation
 * Add Pester workflow for automated testing across Windows, Linux, and macOS platforms
 * Add Codecov integration for code coverage reporting
 * Add Tests/Invoke-Tests.ps1 script for running Pester tests with code coverage support
 
 ### Changed
-* Update minimum Az module version requirement from 12.0.0 to 14.4.0
+* Update minimum AsBuiltReport.Core module version from 1.5.0 to 1.6.0
+* Update minimum Az module version requirement from 12.0.0 to 15.2.0
 * Reorganize module structure - moved module files to AsBuiltReport.Microsoft.Azure/ subdirectory
 * Update Release workflow to use windows-latest runner instead of windows-2019
 * Update Bluesky post action from v0.1.0 to v0.2.0
@@ -23,6 +26,7 @@
 ### Fixed
 * Fix [#22](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/22)
 * Fix [#23](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/23)
+* Fix [#24](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/24)
 
 ## [0.1.8.2] - 2024-11-15
 
@@ -31,7 +35,6 @@
 
 ### Changed
 * Change Storage Account `Minimum TLS Version` healthcheck to highlight Critical
-
 
 ## [0.1.8.1] - 2024-11-13
 

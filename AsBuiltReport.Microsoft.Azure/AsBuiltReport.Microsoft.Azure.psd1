@@ -54,7 +54,7 @@ PowerShellVersion = '5.1'
 RequiredModules = @(
         @{
             ModuleName = 'AsBuiltReport.Core';
-            ModuleVersion = '1.5.0'
+            ModuleVersion = '1.6.0'
         }
     )
 

@@ -5,11 +5,32 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     .DESCRIPTION
         Documents the configuration of Microsoft Azure in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.1.7
+        Version:        0.2.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         @tpcarman
         Credits:        Iain Brighton (@iainbrighton) - PScribo module
+
+    .EXAMPLE
+        PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' -Credential $Credential -Format Html -OutputFolderPath 'C:\Reports'
+
+        Generates an Azure report in HTML format for the specified tenant using credentials.
+
+    .EXAMPLE
+        PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' -UseInteractiveAuth -Format Word -OutputFolderPath 'C:\Reports'
+
+        Generates an Azure report in Word format for the specified tenant using interactive authentication (MFA).
+
+    .EXAMPLE
+        PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' -UseInteractiveAuth -Format Html,Word -OutputFolderPath 'C:\Reports' -ReportConfigFilePath 'C:\Config\AsBuiltReport.Microsoft.Azure.json'
+
+        Generates an Azure report in both HTML and Word formats using a custom configuration file.
+
+    .EXAMPLE
+        PS C:\> $Token = (Get-AzAccessToken).Token
+        PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx' -Token $Token -TokenParameters @{AccountId='user@domain.com'} -Format Html -OutputFolderPath 'C:\Reports'
+
+        Generates an Azure report using token-based authentication.
 
     .LINK
         https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure
@@ -20,10 +41,13 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     param (
         [String[]] $Target,
         [PSCredential] $Credential,
-        [Switch] $UseInteractiveAuth
+        [Switch] $UseInteractiveAuth,
+        [String] $Token,
+        [String] $AccountId  # Passed via TokenParameters hashtable from Core
     )
 
-    Get-RequiredModule -Name 'Az' -Version '14.4.0'
+    # Check for required modules
+    Get-RequiredModule -Name 'Az' -Version '15.2.0'
 
     # Display report module information using Core function
     Write-ReportModuleInfo -ModuleName 'Microsoft.Azure'
@@ -35,11 +59,6 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     $Options = $ReportConfig.Options
     $SectionOrder = $Options.SectionOrder
     $LocalizedData = $reportTranslate.InvokeAsBuiltReportMicrosoftAzure
-
-    # Debug: Show what we loaded from the configuration
-    #Write-PScriboMessage "InfoLevel type: $($InfoLevel.GetType().Name)"
-    #Write-PScriboMessage "InfoLevel keys: $($InfoLevel.PSObject.Properties.Name -join ', ')"
-    #Write-PScriboMessage "SectionOrder: $($SectionOrder -join ', ')"
 
     # Used to set values to TitleCase where required
     $TextInfo = (Get-Culture).TextInfo
@@ -105,6 +124,15 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
             Write-PScriboMessage -Plugin "Module" -Message ($LocalizedData.Connecting -f $TenantId)
             if ($UseInteractiveAuth) {
                 $AzAccount = Connect-AzAccount -TenantId $TenantId -ErrorAction Stop
+            } elseif ($Token) {
+                # Validate AccountId is provided via TokenParameters
+                if (-not $AccountId) {
+                    Write-Error ($LocalizedData.TokenAccountIdRequired -f 'New-AsBuiltReport', 'TokenParameters')
+                    throw "Azure token authentication requires AccountId. Please use: -TokenParameters @{AccountId='user@domain.com'}"
+                }
+
+                Write-PScriboMessage -Plugin "Module" -Message ($LocalizedData.ConnectingWithToken -f $AccountId, $TenantId)
+                $AzAccount = Connect-AzAccount -TenantId $TenantId -AccessToken $Token -AccountId $AccountId -ErrorAction Stop
             } else {
                 $AzAccount = Connect-AzAccount -Credential $Credential -TenantId $TenantId -ErrorAction Stop
             }

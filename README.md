@@ -20,6 +20,13 @@
         <img src="https://img.shields.io/github/contributors/AsBuiltReport/AsBuiltReport.Microsoft.Azure.svg"/></a>
 </p>
 <p align="center">
+    <a href="https://codecov.io/gh/AsBuiltReport/AsBuiltReport.Microsoft.Azure" >
+    <img src="https://codecov.io/gh/AsBuiltReport/AsBuiltReport.Microsoft.Azure/graph/badge.svg?token=VGABX486CM"/>
+    </a>
+    <a href="https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/actions/workflows/Pester.yml" alt="Pester Tests">
+        <img src="https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/workflows/Pester%20Tests/badge.svg" /></a>
+</p>
+<p align="center">
     <a href="https://twitter.com/AsBuiltReport" alt="Twitter">
             <img src="https://img.shields.io/twitter/follow/AsBuiltReport.svg?style=social"/></a>
 </p>
@@ -69,7 +76,7 @@ This report is compatible with the following PowerShell versions;
 |:----------------------:|:------------------:|
 |   :white_check_mark:   | :white_check_mark: |
 
-## 🗺️ Language Support
+## 🌐 Language Support
 <!-- ********** Update supported languages ********** -->
 The Microsoft Azure As Built Report supports the following languages;
 
@@ -87,11 +94,96 @@ PowerShell 5.1 or PowerShell 7, and the following PowerShell modules are require
 <!-- ********** Define required privileges ********** -->
 <!-- ********** Try to follow best practices to define least privileges ********** -->
 
-The Microsoft Azure as built report requires an Azure AD account. This report will not work with personal Azure accounts.
+The Microsoft Azure As Built Report requires an Azure AD account. This report will not work with personal Azure accounts.
 
 The least privileged roles required to generate a Microsoft Azure As Built Report are;
 * Reader
 * Backup Reader
+
+## :key: Authentication Methods
+
+The Microsoft Azure As Built Report supports the following authentication methods to connect to Azure tenants. Choose the method that best suits your environment and security requirements.
+
+### 1. Organizational ID (Username/Password)
+
+Authenticate using an Azure AD organizational account with username and password credentials.
+
+**Example:**
+```powershell
+$TenantId = '555fff88-777d-1234-987a-23bc67890z5'
+New-AsBuiltReport -Report Microsoft.Azure -Target $TenantId `
+    -Username 'admin@contoso.com' -Password 'YourPassword' `
+    -Format HTML -OutputFolderPath 'C:\Reports'
+```
+
+**Using stored credentials:**
+```powershell
+$Creds = Get-Credential
+$TenantId = '555fff88-777d-1234-987a-23bc67890z5'
+New-AsBuiltReport -Report Microsoft.Azure -Target $TenantId `
+    -Credential $Creds -Format HTML -OutputFolderPath 'C:\Reports'
+```
+
+### 2. Interactive Authentication (MFA/Browser-based)
+
+Authenticate interactively via web browser, supporting Multi-Factor Authentication (MFA) and modern authentication flows.
+
+**Example:**
+```powershell
+$TenantId = '555fff88-777d-1234-987a-23bc67890z5'
+New-AsBuiltReport -Report Microsoft.Azure -Target $TenantId `
+    -UseInteractiveAuth -Format HTML,Word -OutputFolderPath 'C:\Reports'
+```
+
+> [!NOTE]
+> The `-UseInteractiveAuth` parameter has an alias `-MFA` for backwards compatibility.
+
+### 3. Token Authentication
+
+Authenticate using an access token obtained from Azure AD. This method requires additional parameters to be passed via the `-TokenParameters` hashtable.
+
+**Required Parameters:**
+- `AccountId`: The Azure account/UPN associated with the access token
+
+**Example using Azure CLI:**
+```powershell
+# Get access token from Azure CLI
+$Token = (az account get-access-token --resource https://management.azure.com --query accessToken -o tsv)
+$AccountId = (az account show --query user.name -o tsv)
+
+# Generate report using token
+$TenantId = '555fff88-777d-1234-987a-23bc67890z5'
+New-AsBuiltReport -Report Microsoft.Azure -Target $TenantId `
+    -Token $Token -TokenParameters @{AccountId=$AccountId} `
+    -Format HTML -OutputFolderPath 'C:\Reports'
+```
+
+**Example using Az PowerShell:**
+```powershell
+# Connect to Azure and get access token
+Connect-AzAccount
+$Token = (Get-AzAccessToken -ResourceUrl "https://management.azure.com").Token
+$AccountId = (Get-AzContext).Account.Id
+
+# Generate report using token
+$TenantId = '555fff88-777d-1234-987a-23bc67890z5'
+New-AsBuiltReport -Report Microsoft.Azure -Target $TenantId `
+    -Token $Token -TokenParameters @{AccountId=$AccountId} `
+    -Format HTML,Word -OutputFolderPath 'C:\Reports'
+```
+
+**Example with Managed Identity (Azure Automation/VM):**
+```powershell
+# Get token using managed identity
+Connect-AzAccount -Identity
+$Token = (Get-AzAccessToken -ResourceUrl "https://management.azure.com").Token
+$TenantId = (Get-AzContext).Tenant.Id
+
+# Generate report
+New-AsBuiltReport -Report Microsoft.Azure -Target $TenantId `
+    -Token $Token -TokenParameters @{AccountId='managed-identity@system'} `
+    -Format HTML -OutputFolderPath 'C:\Reports'
+```
 
 ## :package: Module Installation
 
@@ -100,11 +192,11 @@ The least privileged roles required to generate a Microsoft Azure As Built Repor
 Open a PowerShell terminal window and install each of the required modules.
 
 > [!NOTE]
-> Microsoft Az 14.4.0 or higher is required. Please ensure older Az modules have been uninstalled.
+> Microsoft Az 15.2.0 or higher is required. Please ensure older Az modules have been uninstalled.
 
 ```powershell
 # Install
-install-module Az -Repository PSGallery -MinimumVersion 14.4.0 -Force
+install-module Az -Repository PSGallery -MinimumVersion 15.2.0 -Force
 install-module AsBuiltReport.Microsoft.Azure -Repository PSGallery -Force
 
 # Update
@@ -236,139 +328,139 @@ The **Bastion** schema is used to configure health checks for Azure Bastion.
 
 | Sub-Schema        | Setting      | Default | Description                                                 | Highlight                                                                                   |
 |-------------------|--------------|---------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Bastion instances in a failed provisioning state | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights Bastion instances in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 
 #### DnsPrivateResolver
 The **DnsPrivateResolver** schema is used to configure health checks for Azure DNS Private Resolver.
 
 | Sub-Schema        | Setting      | Default | Description                                                     | Highlight                                                                                    |
 |-------------------|--------------|---------|-----------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights DNS Private Resolvers in a failed provisioning state | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state  |
-| CurrentState      | true / false | true    | Highlights DNS Private Resolvers not in a Connected state       | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) DNS Private Resolver is not Connected |
+| ProvisioningState | true / false | true    | Highlights DNS Private Resolvers in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state  |
+| CurrentState      | true / false | true    | Highlights DNS Private Resolvers not in a Connected state       | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) DNS Private Resolver is not Connected |
 
 #### ExpressRoute
 The **ExpressRoute** schema is used to configure health checks for Azure ExpressRoute.
 
 | Sub-Schema    | Setting      | Default | Description                                         | Highlight                                                                                |
 |---------------|--------------|---------|-----------------------------------------------------|------------------------------------------------------------------------------------------|
-| CircuitStatus | true / false | true    | Highlights ExpressRoute circuits which are disabled | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) ExpressRoute circuit is disabled |
+| CircuitStatus | true / false | true    | Highlights ExpressRoute circuits which are disabled | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) ExpressRoute circuit is disabled |
 
 #### Firewall
 The **Firewall** schema is used to configure health checks for Azure Firewall.
 
 | Sub-Schema        | Setting      | Default | Description                                         | Highlight                                                                                   |
 |-------------------|--------------|---------|-----------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Firewalls in a failed provisioning state | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights Firewalls in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 
 #### FirewallPolicy
 The **FirewallPolicy** schema is used to configure health checks for Azure Firewall Policy.
 
 | Sub-Schema        | Setting      | Default | Description                                                    | Highlight                                                                                   |
 |-------------------|--------------|---------|----------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Firewall Policies in a failed provisioning state    | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state |
-| ThreatIntelMode   | true / false | true    | Highlights Firewall Policies with Threat Intelligence disabled | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Threat Intelligence is disabled      |
+| ProvisioningState | true / false | true    | Highlights Firewall Policies in a failed provisioning state    | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ThreatIntelMode   | true / false | true    | Highlights Firewall Policies with Threat Intelligence disabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Threat Intelligence is disabled      |
 
 #### IpGroup
 The **IpGroup** schema is used to configure health checks for Azure IP Groups.
 
 | Sub-Schema        | Setting      | Default | Description                                         | Highlight                                                                                   |
 |-------------------|--------------|---------|-----------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights IP Groups in a failed provisioning state | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights IP Groups in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 
 #### KeyVault
 The **KeyVault** schema is used to configure health checks for Azure Key Vault.
 
 | Sub-Schema          | Setting      | Default | Description                                              | Highlight                                                                               |
 |---------------------|--------------|---------|----------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| SoftDelete          | true / false | true    | Highlights Key Vaults without soft delete enabled        | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Soft delete is disabled         |
-| PurgeProtection     | true / false | true    | Highlights Key Vaults without purge protection enabled   | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Purge protection is disabled     |
-| PublicNetworkAccess | true / false | true    | Highlights Key Vaults with public network access enabled | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Public network access is enabled |
-| RBACAuthorization   | true / false | true    | Highlights Key Vaults without RBAC authorization enabled | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) RBAC authorization is disabled   |
+| SoftDelete          | true / false | true    | Highlights Key Vaults without soft delete enabled        | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Soft delete is disabled         |
+| PurgeProtection     | true / false | true    | Highlights Key Vaults without purge protection enabled   | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Purge protection is disabled     |
+| PublicNetworkAccess | true / false | true    | Highlights Key Vaults with public network access enabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access is enabled |
+| RBACAuthorization   | true / false | true    | Highlights Key Vaults without RBAC authorization enabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) RBAC authorization is disabled   |
 
 #### LoadBalancer
 The **LoadBalancer** schema is used to configure health checks for Azure Load Balancer.
 
 | Sub-Schema        | Setting      | Default | Description                                              | Highlight                                                                                   |
 |-------------------|--------------|---------|----------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Load Balancers in a failed provisioning state | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights Load Balancers in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 
 #### LogAnalyticsWorkspace
 The **LogAnalyticsWorkspace** schema is used to configure health checks for Azure Log Analytics Workspace.
 
 | Sub-Schema                      | Setting      | Default | Description                                                                  | Highlight                                                                                             |
 |---------------------------------|--------------|---------|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| ProvisioningState               | true / false | true    | Highlights workspaces which are in a critical state                          | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state           |
-| PublicNetworkAccessForIngestion | true / false | true    | Highlights workspaces which have public network access enabled for ingestion | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Public network access for ingestion is enabled |
-| PublicNetworkAccessForQuery     | true / false | true    | Highlights workspaces which have public network access enabled for query     | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Public network access for query is enabled     |
+| ProvisioningState               | true / false | true    | Highlights workspaces which are in a critical state                          | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state           |
+| PublicNetworkAccessForIngestion | true / false | true    | Highlights workspaces which have public network access enabled for ingestion | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access for ingestion is enabled |
+| PublicNetworkAccessForQuery     | true / false | true    | Highlights workspaces which have public network access enabled for query     | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access for query is enabled     |
 
 #### NetworkSecurityGroup
 The **NetworkSecurityGroup** schema is used to configure health checks for Azure Network Security Groups.
 
 | Sub-Schema            | Setting      | Default | Description                                                                           | Highlight                                                                                        |
 |-----------------------|--------------|---------|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| ProvisioningState     | true / false | true    | Highlights NSGs in a failed provisioning state                                        | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state      |
-| OverlyPermissiveRules | true / false | true    | Highlights NSG rules with overly permissive source addresses (*, 0.0.0.0/0, Internet) | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Rule has overly permissive source address |
+| ProvisioningState     | true / false | true    | Highlights NSGs in a failed provisioning state                                        | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state      |
+| OverlyPermissiveRules | true / false | true    | Highlights NSG rules with overly permissive source addresses (*, 0.0.0.0/0, Internet) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Rule has overly permissive source address |
 
 #### PrivateEndpoint
 The **PrivateEndpoint** schema is used to configure health checks for Azure Private Endpoints.
 
 | Sub-Schema        | Setting      | Default | Description                                                      | Highlight                                                                                   |
 |-------------------|--------------|---------|------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Private Endpoints in a failed provisioning state      | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state |
-| ConnectionStatus  | true / false | true    | Highlights Private Endpoints with connection status not Approved | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Connection is not Approved          |
+| ProvisioningState | true / false | true    | Highlights Private Endpoints in a failed provisioning state      | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ConnectionStatus  | true / false | true    | Highlights Private Endpoints with connection status not Approved | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Connection is not Approved          |
 
 #### RecoveryServicesVault
 The **RecoveryServicesVault** schema is used to configure health checks for Azure Recovery Services Vault.
 
 | Sub-Schema                    | Setting      | Default | Description                                                        | Highlight                                                                                            |
 |-------------------------------|--------------|---------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| ProvisioningState             | true / false | true    | Highlights Recovery Services Vaults in a failed provisioning state | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state          |
-| PrivateEndpointStateForBackup | true / false | true    | Highlights vaults without private endpoints configured for backup  | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Private endpoint for backup is not configured |
+| ProvisioningState             | true / false | true    | Highlights Recovery Services Vaults in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state          |
+| PrivateEndpointStateForBackup | true / false | true    | Highlights vaults without private endpoints configured for backup  | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Private endpoint for backup is not configured |
 
 #### RouteTable
 The **RouteTable** schema is used to configure health checks for Azure Route Tables.
 
 | Sub-Schema        | Setting      | Default | Description                                            | Highlight                                                                                   |
 |-------------------|--------------|---------|--------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Route Tables in a failed provisioning state | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights Route Tables in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 
 #### SiteRecovery
 The **SiteRecovery** schema is used to configure health checks for Azure Site Recovery.
 
 | Sub-Schema        | Setting      | Default | Description                                               | Highlight                                                                                                                       |
 |-------------------|--------------|---------|-----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
-| ReplicationHealth | true / false | true    | Highlights replicated items which are in a critical state | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Replication health is in a critical state                               |
-| FailoverHealth    | true / false | true    | Highlights the failover health status of replicated items | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) A successful test failover has not been performed on the replicated item |
+| ReplicationHealth | true / false | true    | Highlights replicated items which are in a critical state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Replication health is in a critical state                               |
+| FailoverHealth    | true / false | true    | Highlights the failover health status of replicated items | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) A successful test failover has not been performed on the replicated item |
 
 #### StorageAccount
 The **StorageAccount** schema is used to configure health checks for Azure Storage Account.
 
 | Sub-Schema              | Setting      | Default | Description                                                               | Highlight                                                                                    |
 |-------------------------|--------------|---------|---------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| ProvisioningState       | true / false | true    | Highlights storage accounts which are in a critical state                 | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state  |
-| StorageAccountKeyAccess | true / false | true    | Highlights storage accounts which have storage account key access enabled | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Storage account key access is enabled |
-| SecureTransfer          | true / false | true    | Highlights storage accounts which do not have secure transfer enabled     | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Secure transfer is disabled           |
-| BlobAnonymousAccess     | true / false | true    | Highlights storage accounts which have Blob anonymous read access enabled | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Anonymous read access is enabled      |
-| PublicNetworkAccess     | true / false | true    | Highlights storage accounts which have public network access enabled      | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Public network access is enabled      |
-| MinimumTlsVersion       | true / false | true    | Highlights storage accounts which have TLS 1.0 or TLS 1.1 configured      | ![Citical](https://place-hold.it/15/FEDDD7/FEDDD7.png) TLS version 1.0 or 1.1 configured     |
+| ProvisioningState       | true / false | true    | Highlights storage accounts which are in a critical state                 | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state  |
+| StorageAccountKeyAccess | true / false | true    | Highlights storage accounts which have storage account key access enabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Storage account key access is enabled |
+| SecureTransfer          | true / false | true    | Highlights storage accounts which do not have secure transfer enabled     | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Secure transfer is disabled           |
+| BlobAnonymousAccess     | true / false | true    | Highlights storage accounts which have Blob anonymous read access enabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Anonymous read access is enabled      |
+| PublicNetworkAccess     | true / false | true    | Highlights storage accounts which have public network access enabled      | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access is enabled      |
+| MinimumTlsVersion       | true / false | true    | Highlights storage accounts which have TLS 1.0 or TLS 1.1 configured      | ![Citical](https://placehold.co/15x15/FEDDD7/FEDDD7) TLS version 1.0 or 1.1 configured     |
 
 #### VirtualMachine
 The **VirtualMachine** schema is used to configure health checks for Azure Virtual Machines.
 
 | Sub-Schema      | Setting      | Default | Description                                                                             | Highlight                                                                                                                                                                                                   |
 |-----------------|--------------|---------|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Status          | true / false | true    | Highlights VMs which are not in a running state                                         | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) VM is in a deallocated state                                                                                                                         |
-| DiskEncryption  | true / false | true    | Highlights VMs which do not have disk encryption enabled                                | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Disk encryption is disabled                                                                                                                          |
-| BootDiagnostics | true / false | true    | Highlights VMs which do not have boot diagnostics enabled with a custom storage account | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Boot diagnostics is disabled <br> ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Boot diagnostics is enabled with a managed storage account |
-| BackupEnabled   | true / false | true    | Highlights VMs which do not have Azure Backup enabled                                   | ![Warning](https://place-hold.it/15/FFF4C7/FFF4C7.png) Backup is disabled                                                                                                                                   |
+| Status          | true / false | true    | Highlights VMs which are not in a running state                                         | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) VM is in a deallocated state                                                                                                                         |
+| DiskEncryption  | true / false | true    | Highlights VMs which do not have disk encryption enabled                                | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Disk encryption is disabled                                                                                                                          |
+| BootDiagnostics | true / false | true    | Highlights VMs which do not have boot diagnostics enabled with a custom storage account | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Boot diagnostics is disabled <br> ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Boot diagnostics is enabled with a managed storage account |
+| BackupEnabled   | true / false | true    | Highlights VMs which do not have Azure Backup enabled                                   | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Backup is disabled                                                                                                                                   |
 
 #### VirtualNetwork
 The **VirtualNetwork** schema is used to configure health checks for Azure Virtual Networks.
 
 | Sub-Schema        | Setting      | Default | Description                                                  | Highlight                                                                                   |
 |-------------------|--------------|---------|--------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Virtual Networks in a failed provisioning state   | ![Critical](https://place-hold.it/15/FEDDD7/FEDDD7.png) Provisioning is in a critical state |
-| DnsServers        | true / false | true    | Highlights Virtual Networks using default Azure-provided DNS | ![Info](https://place-hold.it/15/D4E4F7/D4E4F7.png) Using default Azure-provided DNS        |
+| ProvisioningState | true / false | true    | Highlights Virtual Networks in a failed provisioning state   | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| DnsServers        | true / false | true    | Highlights Virtual Networks using default Azure-provided DNS | ![Info](https://placehold.co/15x15/D4E4F7/D4E4F7) Using default Azure-provided DNS        |
 
 ## :computer: Examples
 <!-- ********** Add some examples. Use other AsBuiltReport modules as a guide. ********** -->
@@ -392,4 +484,15 @@ PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target '555fff88-777d-1234-98
 
 # Generate a Microsoft Azure As Built Report for Tenant ID '555fff88-777d-1234-987a-23bc67890z5' using Entra ID authentication. Export report to HTML & DOCX formats. Use default report style. Reports are saved to the user profile folder by default. Attach and send reports via e-mail.
 PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target '555fff88-777d-1234-987a-23bc67890z5' -UseInteractiveAuth -Format Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -SendEmail
+
+# Generate a Microsoft Azure As Built Report for Tenant ID '555fff88-777d-1234-987a-23bc67890z5' using token authentication. Obtain token from Azure CLI and pass AccountId via TokenParameters. Export report to HTML format. Reports are saved to 'C:\Users\Tim\Documents'.
+PS C:\> $Token = (az account get-access-token --resource https://management.azure.com --query accessToken -o tsv)
+PS C:\> $AccountId = (az account show --query user.name -o tsv)
+PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target '555fff88-777d-1234-987a-23bc67890z5' -Token $Token -TokenParameters @{AccountId=$AccountId} -Format Html -OutputFolderPath 'C:\Users\Tim\Documents'
+
+# Generate a Microsoft Azure As Built Report for Tenant ID '555fff88-777d-1234-987a-23bc67890z5' using token authentication with Az PowerShell. Enable health checks and append timestamp to filename. Export to Word & HTML formats.
+PS C:\> Connect-AzAccount
+PS C:\> $Token = (Get-AzAccessToken -ResourceUrl "https://management.azure.com").Token
+PS C:\> $AccountId = (Get-AzContext).Account.Id
+PS C:\> New-AsBuiltReport -Report Microsoft.Azure -Target '555fff88-777d-1234-987a-23bc67890z5' -Token $Token -TokenParameters @{AccountId=$AccountId} -Format Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -Timestamp -EnableHealthCheck
 ```

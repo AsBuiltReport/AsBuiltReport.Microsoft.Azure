@@ -40,7 +40,7 @@ If you're new to Git and GitHub:
 
 The issue tracker is the preferred channel for bug reports, feature requests, and submitting pull requests. Please respect the following:
 
-- **Do not** use the issue tracker for personal support requests. Use [Stack Overflow](http://stackoverflow.com) or community forums instead.
+- **Do not** use the issue tracker for personal support requests. Use our [Discussion Board](https://github.com/orgs/AsBuiltReport/discussions) instead.
 - **Do not** derail or troll issues. Keep discussions on topic and respect the opinions of others.
 - Search existing issues (both open and closed) before creating a new one to avoid duplicates.
 

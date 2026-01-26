@@ -162,12 +162,30 @@ if ($CodeCoverage -and $TestResults.CodeCoverage) {
     Write-Host "======================================" -ForegroundColor Cyan
 
     $Coverage = $TestResults.CodeCoverage
-    $CoveragePercent = [math]::Round(($Coverage.NumberOfCommandsExecuted / $Coverage.NumberOfCommandsAnalyzed) * 100, 2)
+
+    if ($Coverage.NumberOfCommandsAnalyzed -gt 0) {
+        $CoveragePercent = [math]::Round(($Coverage.NumberOfCommandsExecuted / $Coverage.NumberOfCommandsAnalyzed) * 100, 2)
+    } else {
+        $CoveragePercent = 0
+        Write-Host "Warning: No commands were analyzed for code coverage" -ForegroundColor Yellow
+    }
 
     Write-Host "Commands Analyzed: $($Coverage.NumberOfCommandsAnalyzed)" -ForegroundColor White
     Write-Host "Commands Executed: $($Coverage.NumberOfCommandsExecuted)" -ForegroundColor White
     Write-Host "Commands Missed: $($Coverage.NumberOfCommandsMissed)" -ForegroundColor White
     Write-Host "Coverage: $CoveragePercent%" -ForegroundColor $(if ($CoveragePercent -ge 80) { 'Green' } elseif ($CoveragePercent -ge 60) { 'Yellow' } else { 'Red' })
+
+    # Code coverage threshold enforcement
+    $MinimumCoverageThreshold = 50  # Minimum 50% code coverage
+    if ($CoveragePercent -lt $MinimumCoverageThreshold) {
+        Write-Host "`nWARNING: Code coverage ($CoveragePercent%) is below minimum threshold ($MinimumCoverageThreshold%)" -ForegroundColor Red
+        Write-Host "Consider adding more tests to improve coverage" -ForegroundColor Yellow
+
+        # Uncomment the line below to fail builds when coverage is too low
+        # exit 1
+    } else {
+        Write-Host "`nCode coverage meets minimum threshold ($MinimumCoverageThreshold%)" -ForegroundColor Green
+    }
 }
 
 Write-Host "`n======================================" -ForegroundColor Cyan

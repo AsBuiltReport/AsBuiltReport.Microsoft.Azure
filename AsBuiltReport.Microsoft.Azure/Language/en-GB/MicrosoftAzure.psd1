@@ -12,6 +12,8 @@ InvokeAsBuiltReportMicrosoftAzure = ConvertFrom-StringData @'
     FunctionNotFound = Function '{0}' for section '{1}' not found.
     SectionError = Error processing section '{0}': {1}"
     TenantNotFound = Azure Tenant '{0}' not found.
+    TokenAccountIdRequired = Azure token authentication requires AccountId parameter. Use {0} with {1} @{{AccountId="user@domain.com"}}.
+    ConnectingWithToken = Connecting to Azure using token for account {0} in tenant {1}.
 '@
 
 # Country Code to Country Name mapping (Get-CountryName)
