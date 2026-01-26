@@ -57,7 +57,7 @@ jobs:
 
       - name: Install AsBuiltReport.Core
         run: |
-          Install-Module -Name AsBuiltReport.Core -MinimumVersion 1.5.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
+          Install-Module -Name AsBuiltReport.Core -MinimumVersion 1.6.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
 
       - name: Run Pester Tests
         run: |
