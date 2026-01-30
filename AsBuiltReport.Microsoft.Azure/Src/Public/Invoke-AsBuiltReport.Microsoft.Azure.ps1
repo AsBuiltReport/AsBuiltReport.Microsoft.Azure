@@ -122,7 +122,9 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     foreach ($TenantId in $Target) {
         try {
             Write-PScriboMessage -Plugin "Module" -Message ($LocalizedData.Connecting -f $TenantId)
-            if ($UseInteractiveAuth) {
+            if ($UseInteractiveAuth -or (-not $Token -and -not $Credential)) {
+                # Use interactive auth if explicitly requested OR if no other auth method provided
+                Clear-AzContext -Scope Process -Force -ErrorAction SilentlyContinue
                 $AzAccount = Connect-AzAccount -TenantId $TenantId -ErrorAction Stop
             } elseif ($Token) {
                 # Validate AccountId is provided via TokenParameters
@@ -134,6 +136,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                 Write-PScriboMessage -Plugin "Module" -Message ($LocalizedData.ConnectingWithToken -f $AccountId, $TenantId)
                 $AzAccount = Connect-AzAccount -TenantId $TenantId -AccessToken $Token -AccountId $AccountId -ErrorAction Stop
             } else {
+                Clear-AzContext -Scope Process -Force -ErrorAction SilentlyContinue
                 $AzAccount = Connect-AzAccount -Credential $Credential -TenantId $TenantId -ErrorAction Stop
             }
         } catch {

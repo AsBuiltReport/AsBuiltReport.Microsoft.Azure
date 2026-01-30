@@ -1,6 +1,6 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [0.2.0] - 2026-01-27
+## [0.2.0] - 2026-01-30
 
 ### Added
 * Add report section order customisation
@@ -22,11 +22,14 @@
 * Update Release workflow to use windows-latest runner instead of windows-2019
 * Update Bluesky post action from v0.1.0 to v0.2.0
 * Update module paths in Release workflow to reflect new directory structure
+* Increase stale GitHub actions workflow to 90 days
 
 ### Fixed
-* Fix [#22](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/22)
-* Fix [#23](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/23)
-* Fix [#24](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/24)
+* Fix [#22](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/22) - Add customizable report section ordering via `SectionOrder` configuration option
+* Fix [#23](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/23) - Resolve unexpected executable reference warnings during report generation
+* Fix [#24](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/24) - Fix token-based authentication requiring `AccountId` via `TokenParameters`
+* Fix [#24](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/24) - Fix interactive authentication (`-UseInteractiveAuth`) failing with null credential error when switch not properly passed from Core module
+* Fix [#25](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/25) - Replace deprecated `Get-AzVMSize` with `Get-AzComputeResourceSku` for Az.Compute 8.x+ compatibility
 
 ## [0.1.8.2] - 2024-11-15
 

@@ -36,11 +36,25 @@ function Get-AbrAzVirtualMachine {
                             Paragraph $LocalizedData.SectionInfo2
                         }
                         $AzVMInfo = @()
+                        $VmSkuCache = @{}
                         $Count = 1
                         foreach ($AzVM in $AzVMs) {
                             Write-PScriboMessage ($LocalizedData.Processing -f ($AzVm.Name),$Count,($AzVMs.Count))
                             $Count ++
-                            $AzVMSize = Get-AzVMSize -VMName $AzVm.Name -ResourceGroupName $AzVm.ResourceGroupName | Where-Object { $_.Name -eq $AzVm.HardwareProfile.VmSize }
+                            # Get VM size info from cache or fetch using Get-AzComputeResourceSku (Az.Compute 8.x+ compatible)
+                            $VmLocation = $AzVm.Location
+                            $VmSizeName = $AzVm.HardwareProfile.VmSize
+                            if (-not $VmSkuCache.ContainsKey($VmLocation)) {
+                                $VmSkuCache[$VmLocation] = Get-AzComputeResourceSku -Location $VmLocation -ErrorAction SilentlyContinue |
+                                    Where-Object { $_.ResourceType -eq 'virtualMachines' }
+                            }
+                            $AzVMSku = $VmSkuCache[$VmLocation] | Where-Object { $_.Name -eq $VmSizeName } | Select-Object -First 1
+                            $VmCores = if ($AzVMSku) {
+                                ($AzVMSku.Capabilities | Where-Object { $_.Name -eq 'vCPUs' }).Value
+                            } else { '--' }
+                            $VmMemoryGB = if ($AzVMSku) {
+                                ($AzVMSku.Capabilities | Where-Object { $_.Name -eq 'MemoryGB' }).Value
+                            } else { '--' }
                             $AzVmNic = Get-AzNetworkInterface | Where-Object { $_.VirtualMachine.Id -eq $AzVm.id }
                             $AzVmBackupStatus = Get-AzRecoveryServicesBackupStatus -Name $AzVm.Name -ResourceGroupName $AzVm.ResourceGroupName -Type "AzureVM" -ErrorAction SilentlyContinue
                             $AzVmExtensions = Get-AzVMExtension -VMName $AzVm.Name -ResourceGroupName $AzVm.ResourceGroupName | Sort-Object Name
@@ -61,8 +75,8 @@ function Get-AbrAzVirtualMachine {
                                 $LocalizedData.VirtualNetworkSubnet = ($AzVmNic.IpConfigurations.Subnet.Id).split('/')[4] + " / " + ($AzVmNic.IpConfigurations.Subnet.Id).split('/')[-1]
                                 $LocalizedData.OSType = $AzVm.StorageProfile.OsDisk.OsType
                                 $LocalizedData.Size = $AzVm.HardwareProfile.VmSize
-                                $LocalizedData.vCPUs = $AzVMSize.NumberOfCores
-                                $LocalizedData.RAM = "$($AzVMSize.MemoryInMB / 1024) GiB"
+                                $LocalizedData.vCPUs = $VmCores
+                                $LocalizedData.RAM = if ($VmMemoryGB -ne '--') { "$VmMemoryGB GiB" } else { '--' }
                                 $LocalizedData.OperatingSystem = & {
                                     $imageRef = $AzVm.StorageProfile.ImageReference
                                     if ($imageRef.Publisher -and $imageRef.Offer -and $imageRef.Sku) {
