@@ -83,7 +83,8 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "VirtualMachine",
         "AvailabilitySet",
         "RecoveryServicesVault",
-        "SiteRecovery"
+        "SiteRecovery",
+        "DesktopVirtualization"
     )
 
     # Use custom section order if provided, otherwise use default
@@ -116,6 +117,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "SiteRecovery" = "Get-AbrAsrProtectedItems"
         "StorageAccount" = "Get-AbrAzStorageAccount"
         "PrivateEndpoint" = "Get-AbrAzPrivateEndpoint"
+        "DesktopVirtualization" = "Get-AbrAzDesktopVirtualization"
     }
 
     #region foreach loop

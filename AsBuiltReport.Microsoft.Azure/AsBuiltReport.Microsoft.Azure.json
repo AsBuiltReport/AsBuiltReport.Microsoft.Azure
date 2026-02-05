@@ -31,7 +31,8 @@
             "VirtualMachine",
             "AvailabilitySet",
             "RecoveryServicesVault",
-            "SiteRecovery"
+            "SiteRecovery",
+            "DesktopVirtualization"
         ]
     },
     "Filter": {
@@ -62,7 +63,8 @@
         "Subscription": 1,
         "Tenant": 0,
         "VirtualNetwork": 1,
-        "VirtualMachine": 1
+        "VirtualMachine": 1,
+        "DesktopVirtualization": 1
     },
     "HealthCheck": {
         "Bastion": {
@@ -135,6 +137,13 @@
         "VirtualNetwork": {
             "ProvisioningState": true,
             "DnsServers": true
+        },
+        "DesktopVirtualization": {
+            "SessionHostHealth": true,
+            "DrainMode": true,
+            "RegistrationExpiry": true,
+            "NoSessionHosts": true,
+            "HostPoolCapacity": true
         }
     }
 }
