@@ -76,8 +76,11 @@ foreach ($Module in $RequiredModules) {
     }
 }
 
-# Import Pester
-Import-Module Pester -MinimumVersion 5.0.0 -Force
+# Remove any pre-loaded Pester module (PowerShell 5.1 ships with old Pester 3.4.0)
+Get-Module Pester | Remove-Module -Force -ErrorAction SilentlyContinue
+
+# Import Pester with explicit minimum version
+Import-Module Pester -MinimumVersion 5.0.0 -Force -ErrorAction Stop
 
 # Configure Pester
 $PesterConfiguration = New-PesterConfiguration

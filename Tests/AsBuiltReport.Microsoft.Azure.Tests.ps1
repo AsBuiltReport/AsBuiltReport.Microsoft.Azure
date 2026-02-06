@@ -141,29 +141,21 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             Test-Path $LanguagePath | Should -Be $true
         }
 
-        It 'Should have en-US language files' {
-            $EnUSPath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Language\en-US'
-            Test-Path $EnUSPath | Should -Be $true
-        }
+        foreach ($lang in @('en-US', 'en-GB', 'de-DE', 'es-ES', 'fr-FR')) {
+            It "Should have <Language> language folder" -TestCases @(@{ Language = $lang }) {
+                $LangPath = Join-Path -Path $PSScriptRoot -ChildPath "..\AsBuiltReport.Microsoft.Azure\Language\$Language"
+                Test-Path $LangPath | Should -Be $true
+            }
 
-        It 'Should have en-GB language files' {
-            $EnGBPath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Language\en-GB'
-            Test-Path $EnGBPath | Should -Be $true
-        }
+            It "Should have <Language> MicrosoftAzure.psd1 localization file" -TestCases @(@{ Language = $lang }) {
+                $LangFile = Join-Path -Path $PSScriptRoot -ChildPath "..\AsBuiltReport.Microsoft.Azure\Language\$Language\MicrosoftAzure.psd1"
+                Test-Path $LangFile | Should -Be $true
+            }
 
-        It 'Should have en-US MicrosoftAzure.psd1 localization file' {
-            $EnUSLocalizationFile = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Language\en-US\MicrosoftAzure.psd1'
-            Test-Path $EnUSLocalizationFile | Should -Be $true
-        }
-
-        It 'Should have en-GB MicrosoftAzure.psd1 localization file' {
-            $EnGBLocalizationFile = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Language\en-GB\MicrosoftAzure.psd1'
-            Test-Path $EnGBLocalizationFile | Should -Be $true
-        }
-
-        It 'Should be able to load en-GB localization file' {
-            $EnGBPath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Language\en-GB'
-            { Import-LocalizedData -BaseDirectory $EnGBPath -FileName 'MicrosoftAzure.psd1' -ErrorAction Stop } | Should -Not -Throw
+            It "Should be able to load <Language> localization file" -TestCases @(@{ Language = $lang }) {
+                $LangPath = Join-Path -Path $PSScriptRoot -ChildPath "..\AsBuiltReport.Microsoft.Azure\Language\$Language"
+                { Import-LocalizedData -BaseDirectory $LangPath -FileName 'MicrosoftAzure.psd1' -ErrorAction Stop } | Should -Not -Throw
+            }
         }
 
         It 'Should have a JSON configuration file' {

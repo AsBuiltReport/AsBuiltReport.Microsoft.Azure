@@ -15,6 +15,7 @@
 * Add Pester workflow for automated testing across Windows, Linux, and macOS platforms
 * Add Codecov integration for code coverage reporting
 * Add Tests/Invoke-Tests.ps1 script for running Pester tests with code coverage support
+* Add Pester tests to validate localization string consistency across all languages
 
 ### Changed
 * Update minimum AsBuiltReport.Core module version from 1.5.0 to 1.6.0
