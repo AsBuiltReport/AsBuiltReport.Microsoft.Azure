@@ -48,6 +48,7 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 
 * Availability Sets
 * Bastion Hosts
+* Desktop Virtualization
 * ExpressRoute Circuits
 * Firewalls
 * Firewall Policies
@@ -80,8 +81,13 @@ This report is compatible with the following PowerShell versions;
 <!-- ********** Update supported languages ********** -->
 The Microsoft Azure As Built Report supports the following languages;
 
-- English (US) (Default)
-- English (GB)
+| Language | Culture Code |
+|----------|--------------|
+| English (US) | en-US (Default) |
+| English (GB) | en-GB |
+| French | fr-FR |
+| German | de-DE |
+| Spanish | es-ES |
 
 ## :wrench: System Requirements
 <!-- ********** Update system requirements ********** -->
@@ -300,6 +306,7 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 |-----------------------|:---------------:|:---------------:|
 | AvailabilitySet       |        1        |        1        |
 | Bastion               |        1        |        2        |
+| DesktopVirtualization |        1        |        4        |
 | DnsPrivateResolver    |        1        |        2        |
 | ExpressRoute          |        1        |        2        |
 | Firewall              |        1        |        3        |
@@ -329,6 +336,17 @@ The **Bastion** schema is used to configure health checks for Azure Bastion.
 | Sub-Schema        | Setting      | Default | Description                                                 | Highlight                                                                                   |
 |-------------------|--------------|---------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | ProvisioningState | true / false | true    | Highlights Bastion instances in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+
+#### DesktopVirtualization
+The **DesktopVirtualization** schema is used to configure health checks for Azure Virtual Desktop.
+
+| Sub-Schema         | Setting      | Default | Description                                                        | Highlight                                                                                           |
+|--------------------|--------------|---------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| SessionHostHealth  | true / false | true    | Highlights session hosts not in Available status or with failed health checks | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Session host is unavailable or unhealthy    |
+| DrainMode          | true / false | true    | Highlights session hosts with drain mode enabled (not accepting new sessions) | ![Info](https://placehold.co/15x15/D4E4F7/D4E4F7) Session host is in drain mode                   |
+| RegistrationExpiry | true / false | true    | Highlights host pools with expired registration tokens             | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Registration token has expired               |
+| NoSessionHosts     | true / false | true    | Warns when a host pool has no session hosts configured             | Displays warning message in report                                                                  |
+| HostPoolCapacity   | true / false | true    | Warns when a host pool is at maximum session capacity              | Displays warning message in report                                                                  |
 
 #### DnsPrivateResolver
 The **DnsPrivateResolver** schema is used to configure health checks for Azure DNS Private Resolver.

@@ -73,6 +73,8 @@ function Get-AbrAzFirewallNatRule {
                                             $NatRule.SourceAddresses -join ', '
                                         } elseif ($NatRule.SourceIpGroups) {
                                             ($NatRule.SourceIpGroups | ForEach-Object {$_.split('/')[-1]}) -join ', '
+                                        } else {
+                                            '--'
                                         }
                                         $LocalizedData.DestinationAddresses = $NatRule.DestinationAddresses -join ', '
                                         $LocalizedData.DestinationPorts = $NatRule.DestinationPorts -join ', '
