@@ -1,10 +1,11 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [0.2.0] - 2026-01-30
+## [0.2.0] - 2026-02-06
 
 ### Added
 * Add report section order customisation
-* Add language support for English (US) and English (GB)
+* Add language support for English (US), English (GB), French, German and Spanish
+* Add support for Desktop Virtualization
 * Add support for Firewall Policies
 * Add support for Log Analytics Workspaces
 * Add support for Private Endpoints
