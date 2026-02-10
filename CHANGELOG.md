@@ -1,6 +1,6 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [0.2.0] - 2026-02-06
+## [0.2.0] - 2026-02-11
 
 ### Added
 * Add report section order customisation
