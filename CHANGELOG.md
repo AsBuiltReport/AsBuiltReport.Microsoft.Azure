@@ -25,6 +25,7 @@
 * Update Bluesky post action from v0.1.0 to v0.2.0
 * Update module paths in Release workflow to reflect new directory structure
 * Increase stale GitHub actions workflow to 90 days
+* Update broken links in `change_request.yml` and `bug_report.yml` GitHub templates
 
 ### Fixed
 * Fix `Get-AbrAzDesktopVirtualization` - Add explicit `-SubscriptionId` to `Get-AzWvd*` cmdlets to resolve `SharedTokenCacheCredential` authentication errors
