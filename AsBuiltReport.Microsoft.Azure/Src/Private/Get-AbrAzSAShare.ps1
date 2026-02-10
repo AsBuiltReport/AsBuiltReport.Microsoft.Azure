@@ -48,21 +48,21 @@ function Get-AbrAzSAShare {
                         $InObj = [Ordered]@{
                             $LocalizedData.Name = $AzSAShare.Name
                             $LocalizedData.ShareURL = $AzSAShare.CloudFileShare.Uri.AbsoluteUri
-                            $LocalizedData.Quota = if ([string]::IsNullOrEmpty($AzSAShare.ShareProperties.QuotaInGB)) {
+                            $LocalizedData.Quota = $(if ([string]::IsNullOrEmpty($AzSAShare.ShareProperties.QuotaInGB)) {
                                 $LocalizedData.Unknown
                             } else {
                                 Convert-DataSize -Size ($AzSAShare.ShareProperties.QuotaInGB) -DecimalPlaces 2
-                            }
+                            })
                             $LocalizedData.AccessTier = Switch ($AzSAShare.ShareProperties.AccessTier) {
                                 'TransactionOptimized' { $LocalizedData.TransactionOptimized }
                                 default {$AzSAShare.ShareProperties.AccessTier}
                             }
                             $LocalizedData.LastModified = $AzSAShare.LastModified.UtcDateTime.ToShortDateString()
-                            $LocalizedData.Snapshot = if ($AzSAShare.IsSnapshot) {
+                            $LocalizedData.Snapshot = $(if ($AzSAShare.IsSnapshot) {
                                 $LocalizedData.Enabled
                             } else {
                                 $LocalizedData.Disabled
-                            }
+                            })
                         }
                         $AzSAShareInfo += [PSCustomObject]$InObj
                     }

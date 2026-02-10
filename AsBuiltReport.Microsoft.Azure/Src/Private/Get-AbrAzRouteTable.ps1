@@ -91,11 +91,11 @@ function Get-AbrAzRouteTable {
                                                 $LocalizedData.Name = $AzRoute.Name
                                                 $LocalizedData.AddressPrefix = $AzRoute.AddressPrefix
                                                 $LocalizedData.NextHopType = $AzRoute.NextHopType
-                                                $LocalizedData.NextHopIPAddress = if ($AzRoute.NextHopIpAddress) {
+                                                $LocalizedData.NextHopIPAddress = $(if ($AzRoute.NextHopIpAddress) {
                                                     $AzRoute.NextHopIpAddress
                                                 } else {
                                                     '--'
-                                                }
+                                                })
                                             }
                                             $AzRouteInfo += [PSCustomObject]$InObj
                                         }

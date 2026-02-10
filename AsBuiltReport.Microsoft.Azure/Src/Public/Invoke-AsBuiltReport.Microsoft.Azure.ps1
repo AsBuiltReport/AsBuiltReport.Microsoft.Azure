@@ -47,7 +47,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     )
 
     # Check for required modules
-    Get-RequiredModule -Name 'Az' -Version '15.2.0'
+    Get-RequiredModule -Name 'Az' -Version '15.3.0'
 
     # Display report module information using Core function
     Write-ReportModuleInfo -ModuleName 'Microsoft.Azure'

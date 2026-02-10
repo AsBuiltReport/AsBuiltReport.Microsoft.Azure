@@ -42,23 +42,23 @@ function Get-AbrAzVirtualNetworkSubnet {
                             $AzVirtualNetworkSubnetInfo = [PSCustomObject]@{
                                 $LocalizedData.Name = $AzVirtualNetworkSubnet.Name
                                 $LocalizedData.AddressRange = $AzVirtualNetworkSubnet.AddressPrefix
-                                $LocalizedData.NatGateway = if ($AzVirtualNetworkSubnet.NatGateway) {
+                                $LocalizedData.NatGateway = $(if ($AzVirtualNetworkSubnet.NatGateway) {
                                     $AzVirtualNetworkSubnet.NatGateway
                                 } else {
                                     $LocalizedData.None
-                                }
-                                $LocalizedData.NetworkSecurityGroup = if ($AzVirtualNetworkSubnet.NetworkSecurityGroup.Id) {
+                                })
+                                $LocalizedData.NetworkSecurityGroup = $(if ($AzVirtualNetworkSubnet.NetworkSecurityGroup.Id) {
                                     ($AzVirtualNetworkSubnet.NetworkSecurityGroup.Id).Split('/')[-1]
                                 } else {
                                     $LocalizedData.None
-                                }
-                                $LocalizedData.RouteTable = if ($AzVirtualNetworkSubnet.Name -eq 'AzureBastionSubnet') {
+                                })
+                                $LocalizedData.RouteTable = $(if ($AzVirtualNetworkSubnet.Name -eq 'AzureBastionSubnet') {
                                     $LocalizedData.None
                                 } elseif ($AzVirtualNetworkSubnet.RouteTable.Id) {
                                     ($AzVirtualNetworkSubnet.RouteTable.Id).Split('/')[-1]
                                 } else {
                                     $LocalizedData.None
-                                }
+                                })
                             }
 
                             $TableParams = @{

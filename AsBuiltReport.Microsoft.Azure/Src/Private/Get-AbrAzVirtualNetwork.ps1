@@ -54,16 +54,16 @@ function Get-AbrAzVirtualNetwork {
                                 $LocalizedData.Subscription = "$($AzSubscriptionLookup.(($AzVirtualNetwork.Id).split('/')[2]))"
                                 $LocalizedData.SubscriptionID = ($AzVirtualNetwork.Id).split('/')[2]
                                 $LocalizedData.ProvisioningState = $AzVirtualNetwork.ProvisioningState
-                                $LocalizedData.AddressSpace = if ($AzVirtualNetwork.AddressSpace.AddressPrefixes) {
+                                $LocalizedData.AddressSpace = $(if ($AzVirtualNetwork.AddressSpace.AddressPrefixes) {
                                     $AzVirtualNetwork.AddressSpace.AddressPrefixes -join ', '
                                 } else {
                                     $LocalizedData.Unknown
-                                }
-                                $LocalizedData.DnsServers = if ($AzVirtualNetwork.DhcpOptions.DnsServers) {
+                                })
+                                $LocalizedData.DnsServers = $(if ($AzVirtualNetwork.DhcpOptions.DnsServers) {
                                     $AzVirtualNetwork.DhcpOptions.DnsServers -join ', '
                                 } else {
                                     $LocalizedData.Default
-                                }
+                                })
                             }
 
                             if ($Options.ShowTags) {

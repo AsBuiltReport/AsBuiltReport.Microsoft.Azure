@@ -27,7 +27,7 @@ Author = 'Tim Carman'
 # CompanyName = 'AsBuiltReport'
 
 # Copyright statement for this module
-Copyright = '(c) 2025 Tim Carman. All rights reserved.'
+Copyright = '(c) 2026 Tim Carman. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'A PowerShell module to generate an as built report on the configuration of Microsoft Azure.'
@@ -54,7 +54,7 @@ PowerShellVersion = '5.1'
 RequiredModules = @(
         @{
             ModuleName = 'AsBuiltReport.Core';
-            ModuleVersion = '1.6.0'
+            ModuleVersion = '1.6.1'
         }
     )
 

@@ -39,16 +39,16 @@ function Get-AbrAzPolicyAssignment {
                             $AzInitiativeDef = $AzInitiativeDefinitions | Where-Object { $_.Id -eq $AzPolicyDefId }
                             $InObj = [Ordered]@{
                                 $LocalizedData.Name = $AzPolicyAssignment.DisplayName
-                                $LocalizedData.Description = if ($AzPolicyAssignment.Description) {
+                                $LocalizedData.Description = $(if ($AzPolicyAssignment.Description) {
                                     $AzPolicyAssignment.Description
                                 } else {
                                     '--'
-                                }
-                                $LocalizedData.Location = if ($AzPolicyAssignment.Location) {
+                                })
+                                $LocalizedData.Location = $(if ($AzPolicyAssignment.Location) {
                                     $AzLocationLookup."$($AzPolicyAssignment.Location)"
                                 } else {
                                     '--'
-                                }
+                                })
                                 $LocalizedData.Scope = Switch -Wildcard ($AzPolicyAssignment.Scope) {
                                     "*subscriptions*" { "$($AzSubscriptionLookup.(($AzPolicyAssignment.Scope).split('/')[-1]))" }
                                     default { $AzPolicyAssignment.Scope }
@@ -64,18 +64,18 @@ function Get-AbrAzPolicyAssignment {
                                     }
                                     default { $AzPolicyAssignment.NotScope }
                                 }
-                                $LocalizedData.DefinitionType = if ($AzPolicyDef) {
+                                $LocalizedData.DefinitionType = $(if ($AzPolicyDef) {
                                     $LocalizedData.Policy
                                 } elseif ($AzInitiativeDef) {
                                     $LocalizedData.Initiative
                                 } else {
                                     $LocalizedData.Unknown
-                                }
-                                $LocalizedData.PolicyEnforcement = if ($AzPolicyAssignment.EnforcementMode -eq 'Default') {
+                                })
+                                $LocalizedData.PolicyEnforcement = $(if ($AzPolicyAssignment.EnforcementMode -eq 'Default') {
                                     $LocalizedData.Enforce
                                 } else {
                                     $LocalizedData.DoNotEnforce
-                                }
+                                })
                             }
                             $AzPolicyAssignmentInfo += [PSCustomObject]$InObj
                         }

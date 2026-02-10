@@ -202,7 +202,7 @@ Open a PowerShell terminal window and install each of the required modules.
 
 ```powershell
 # Install
-install-module Az -Repository PSGallery -MinimumVersion 15.2.0 -Force
+install-module Az -Repository PSGallery -MinimumVersion 15.3.0 -Force
 install-module AsBuiltReport.Microsoft.Azure -Repository PSGallery -Force
 
 # Update

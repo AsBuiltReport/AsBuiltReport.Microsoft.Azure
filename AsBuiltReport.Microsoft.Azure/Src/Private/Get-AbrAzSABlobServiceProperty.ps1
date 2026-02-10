@@ -44,52 +44,52 @@ function Get-AbrAzSABlobServiceProperty {
                     $AzSABlobServicePropertyInfo = @()
                     foreach ($AzSABlobService in $AzSABlobServiceProperty) {
                         $InObj = [Ordered]@{
-                            $LocalizedData.HierarchicalNamespace = if ($AzStorageAccount.EnableHierarchicalNamespace) {
+                            $LocalizedData.HierarchicalNamespace = $(if ($AzStorageAccount.EnableHierarchicalNamespace) {
                                 $LocalizedData.Enabled
                             } else {
                                 $LocalizedData.Disabled
-                            }
-                            $LocalizedData.DefaultAccessTier = if ($null -ne $AzStorageAccount.AccessTier) {
+                            })
+                            $LocalizedData.DefaultAccessTier = $(if ($null -ne $AzStorageAccount.AccessTier) {
                                 $AzStorageAccount.AccessTier
                             } else {
                                 $LocalizedData.NotApplicable
-                            }
+                            })
                             $LocalizedData.BlobAnonymousAccess = switch ($AzStorageAccount.AllowBlobPublicAccess) {
                                 $null { $LocalizedData.Enabled }
                                 $true { $LocalizedData.Enabled }
                                 $false { $LocalizedData.Disabled }
                                 default { $AzStorageAccount.AllowBlobPublicAccess }
                             }
-                            $LocalizedData.BlobSoftDelete = If ($AzSABlobService.DeleteRetentionPolicy.Enabled -and $AzSABlobService.DeleteRetentionPolicy.Days) {
+                            $LocalizedData.BlobSoftDelete = $(if ($AzSABlobService.DeleteRetentionPolicy.Enabled -and $AzSABlobService.DeleteRetentionPolicy.Days) {
                                 ($LocalizedData.EnabledDays -f $AzSABlobService.DeleteRetentionPolicy.Days)
                             } else {
                                 $LocalizedData.Disabled
-                            }
-                            $LocalizedData.ContainerSoftDelete = If ($AzSABlobService.ContainerDeleteRetentionPolicy.Enabled -and $AzSABlobService.ContainerDeleteRetentionPolicy.Days) {
+                            })
+                            $LocalizedData.ContainerSoftDelete = $(if ($AzSABlobService.ContainerDeleteRetentionPolicy.Enabled -and $AzSABlobService.ContainerDeleteRetentionPolicy.Days) {
                                 ($LocalizedData.EnabledDays -f $AzSABlobService.ContainerDeleteRetentionPolicy.Days)
                             } else {
                                 $LocalizedData.Disabled
-                            }
-                            $LocalizedData.Versioning = if ($AzSABlobService.IsVersioningEnabled) {
+                            })
+                            $LocalizedData.Versioning = $(if ($AzSABlobService.IsVersioningEnabled) {
                                 $LocalizedData.Enabled
                             } else {
                                 $LocalizedData.Disabled
-                            }
-                            $LocalizedData.ChangeFeed = if ($AzSABlobService.ChangeFeed.Enabled -and $AzSABlobService.ChangeFeed.RetentionInDays) {
+                            })
+                            $LocalizedData.ChangeFeed = $(if ($AzSABlobService.ChangeFeed.Enabled -and $AzSABlobService.ChangeFeed.RetentionInDays) {
                                 ($LocalizedData.EnabledDays -f $AzSABlobService.ChangeFeed.RetentionInDays)
                             } else {
                                 $LocalizedData.Disabled
-                            }
-                            $LocalizedData.NFSv3 = if ($AzStorageAccount.EnableNfsV3) {
+                            })
+                            $LocalizedData.NFSv3 = $(if ($AzStorageAccount.EnableNfsV3) {
                                 $LocalizedData.Enabled
                             } else {
                                 $LocalizedData.Disabled
-                            }
-                            $LocalizedData.SFTP = if ($AzStorageAccount.EnableSftp) {
+                            })
+                            $LocalizedData.SFTP = $(if ($AzStorageAccount.EnableSftp) {
                                 $LocalizedData.Enabled
                             } else {
                                 $LocalizedData.Disabled
-                            }
+                            })
                             $LocalizedData.AllowCrossTenantReplication = switch ($AzStorageAccount.AllowCrossTenantReplication) {
                                 $null { $LocalizedData.Enabled }
                                 $true { $LocalizedData.Enabled }

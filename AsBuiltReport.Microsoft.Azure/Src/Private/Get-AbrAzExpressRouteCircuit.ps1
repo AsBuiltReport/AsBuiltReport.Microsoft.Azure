@@ -53,11 +53,11 @@ function Get-AbrAzExpressRouteCircuit {
                                     'MeteredData' { $LocalizedData.MeteredData }
                                     default { $AzExpressRouteCircuit.Sku.Family }
                                 }
-                                $LocalizedData.AllowClassicOperations = if ($AzExpressRouteCircuit.AllowClassicOperations) {
+                                $LocalizedData.AllowClassicOperations = $(if ($AzExpressRouteCircuit.AllowClassicOperations) {
                                     $LocalizedData.On
                                 } else {
                                     $LocalizedData.Off
-                                }
+                                })
                                 ##ToDo: Peerings
                             }
 

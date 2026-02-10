@@ -45,28 +45,28 @@ function Get-AbrAzVirtualNetworkPeering {
                                 $LocalizedData.PeeringState = $AzVirtualNetworkPeering.PeeringState
                                 $LocalizedData.Peer = ($AzVirtualNetworkPeering.RemoteVirtualNetwork.Id).split('/')[-1]
                                 $LocalizedData.AddressSpace = $AzVirtualNetworkPeering.RemoteVirtualNetworkAddressSpace.AddressPrefixes -join ', '
-                                $LocalizedData.GatewayTransit = if ($AzVirtualNetworkPeering.AllowGatewayTransit) {
+                                $LocalizedData.GatewayTransit = $(if ($AzVirtualNetworkPeering.AllowGatewayTransit) {
                                     $LocalizedData.Enabled
                                 } else {
                                     $LocalizedData.Disabled
-                                }
-                                $LocalizedData.TrafficToRemoteVNet = if ($AzVirtualNetworkPeering.AllowVirtualNetworkAccess) {
+                                })
+                                $LocalizedData.TrafficToRemoteVNet = $(if ($AzVirtualNetworkPeering.AllowVirtualNetworkAccess) {
                                     $LocalizedData.Allow
                                 } else {
                                     $LocalizedData.BlockRemoteVnet
-                                }
-                                $LocalizedData.TrafficForwardedFromRemoteVnet = if ($AzVirtualNetworkPeering.AllowForwardedTraffic) {
+                                })
+                                $LocalizedData.TrafficForwardedFromRemoteVnet = $(if ($AzVirtualNetworkPeering.AllowForwardedTraffic) {
                                     $LocalizedData.Allow
                                 } else {
                                     $LocalizedData.BlockForwardedTraffic
-                                }
-                                $LocalizedData.VNetGateway = if ($AzVirtualNetworkPeering.UseRemoteGateways) {
+                                })
+                                $LocalizedData.VNetGateway = $(if ($AzVirtualNetworkPeering.UseRemoteGateways) {
                                     $LocalizedData.UseRemoteVNetGateway
                                 } elseif ($AzVirtualNetworkPeering.UseRemoteGateways -eq $false) {
                                     $LocalizedData.UseLocalVnetGateway
                                 } elseif (($AzVirtualNetworkPeering.UseRemoteGateways -eq $false) -and ($null -eq $AzVirtualNetworkPeering.RemoteGateways)) {
                                     '--'
-                                }
+                                })
 
                             }
                             $TableParams = @{

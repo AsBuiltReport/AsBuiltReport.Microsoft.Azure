@@ -66,28 +66,28 @@ function Get-AbrAzFirewallNetworkRule {
                                         $InObj = [Ordered]@{
                                             $LocalizedData.Name = $AllowRule.Name
                                             $LocalizedData.Protocols = $AllowRule.Protocols -join ', '
-                                            $LocalizedData.SourceType = if ($AllowRule.SourceAddresses) {
+                                            $LocalizedData.SourceType = $(if ($AllowRule.SourceAddresses) {
                                                 $LocalizedData.IPAddress
                                             } else {
                                                 $LocalizedData.IPGroup
-                                            }
-                                            $LocalizedData.Source = if ($AllowRule.SourceAddresses) {
+                                            })
+                                            $LocalizedData.Source = $(if ($AllowRule.SourceAddresses) {
                                                 $AllowRule.SourceAddresses -join ', '
                                             } elseif ($AllowRule.SourceIpGroups) {
                                                 ($AllowRule.SourceIpGroups | ForEach-Object {$_.split('/')[-1]}) -join ', '
-                                            }
-                                            $LocalizedData.DestinationType = if ($AllowRule.DestinationAddresses) {
+                                            })
+                                            $LocalizedData.DestinationType = $(if ($AllowRule.DestinationAddresses) {
                                                 $LocalizedData.IPAddress
                                             } else {
                                                 $LocalizedData.IPGroup
-                                            }
-                                            $LocalizedData.Destination = if ($AllowRule.DestinationAddresses) {
+                                            })
+                                            $LocalizedData.Destination = $(if ($AllowRule.DestinationAddresses) {
                                                 $AllowRule.DestinationAddresses -join ', '
                                             } elseif ($AllowRule.DestinationIpGroups) {
                                                 ($AllowRule.DestinationIpGroups | ForEach-Object {$_.split('/')[-1]}) -join ', '
                                             } elseif ($AllowRule.DestinationFqdns) {
                                                 ($AllowRule.DestinationFqdns | ForEach-Object {$_.split('/')[-1]}) -join ', '
-                                            }
+                                            })
                                             $LocalizedData.DestinationPorts = $AllowRule.DestinationPorts -join ', '
                                         }
                                         $AllowRuleInfo += [PSCustomObject]$InObj
@@ -112,28 +112,28 @@ function Get-AbrAzFirewallNetworkRule {
                                         $InObj = [Ordered]@{
                                             $LocalizedData.Name = $DenyRule.Name
                                             $LocalizedData.Protocols = $DenyRule.Protocols -join ', '
-                                            $LocalizedData.SourceType = if ($DenyRule.SourceAddresses) {
+                                            $LocalizedData.SourceType = $(if ($DenyRule.SourceAddresses) {
                                                 $LocalizedData.IPAddress
                                             } else {
                                                 $LocalizedData.IPGroup
-                                            }
-                                            $LocalizedData.Source = if ($DenyRule.SourceAddresses) {
+                                            })
+                                            $LocalizedData.Source = $(if ($DenyRule.SourceAddresses) {
                                                 $DenyRule.SourceAddresses -join ', '
                                             } elseif ($DenyRule.SourceIpGroups) {
                                                 ($DenyRule.SourceIpGroups | ForEach-Object {$_.split('/')[-1]}) -join ', '
-                                            }
-                                            $LocalizedData.DestinationType = if ($DenyRule.DestinationAddresses) {
+                                            })
+                                            $LocalizedData.DestinationType = $(if ($DenyRule.DestinationAddresses) {
                                                 $LocalizedData.IPAddress
                                             } else {
                                                 $LocalizedData.IPGroup
-                                            }
-                                            $LocalizedData.Destination = if ($DenyRule.DestinationAddresses) {
+                                            })
+                                            $LocalizedData.Destination = $(if ($DenyRule.DestinationAddresses) {
                                                 $DenyRule.DestinationAddresses -join ', '
                                             } elseif ($DenyRule.DestinationIpGroups) {
                                                 ($DenyRule.DestinationIpGroups | ForEach-Object {$_.split('/')[-1]}) -join ', '
                                             } elseif ($DenyRule.DestinationFqdns) {
                                                 ($DenyRule.DestinationFqdns | ForEach-Object {$_.split('/')[-1]}) -join ', '
-                                            }
+                                            })
                                             $LocalizedData.DestinationPorts = $DenyRule.DestinationPorts -join ', '
                                         }
                                         $DenyRuleInfo += [PSCustomObject]$InObj

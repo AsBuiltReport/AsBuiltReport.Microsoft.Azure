@@ -38,11 +38,11 @@ function Get-AbrAzLbBackendPool {
                     foreach ($AzLbBackendPool in $AzLbBackendPools) {
                         $InObj = [Ordered]@{
                             $LocalizedData.Name = $AzLbBackendPool.Name
-                            $LocalizedData.LoadBalancingRules = if ($AzLbBackendPool.LoadBalancingRules.Id) {
+                            $LocalizedData.LoadBalancingRules = $(if ($AzLbBackendPool.LoadBalancingRules.Id) {
                                 ($AzLbBackendPool.LoadBalancingRules.Id | ForEach-Object {$_.split('/')[-1]}) -join ', '
                             } else {
                                 $LocalizedData.None
-                            }
+                            })
                         }
                         $AzLbBackendPoolInfo = [PSCustomObject]$InObj
                     }

@@ -39,36 +39,36 @@ function Get-AbrAzLbFrontendIpConfig {
                             $AzLbFrontendIpConfigInfo = @()
                             $InObj = [Ordered]@{
                                 $LocalizedData.Name = $AzLbFrontendIpConfig.Name
-                                $LocalizedData.PrivateIPAddress = if ($AzLbFrontendIpConfig.PrivateIpAddress) {
+                                $LocalizedData.PrivateIPAddress = $(if ($AzLbFrontendIpConfig.PrivateIpAddress) {
                                     $AzLbFrontendIpConfig.PrivateIpAddress
                                 } else {
                                     $LocalizedData.None
-                                }
-                                $LocalizedData.PrivateIPAllocationMethod = if ($AzLbFrontendIpConfig.PrivateIpAllocationMethod) {
+                                })
+                                $LocalizedData.PrivateIPAllocationMethod = $(if ($AzLbFrontendIpConfig.PrivateIpAllocationMethod) {
                                     $AzLbFrontendIpConfig.PrivateIpAllocationMethod
                                 } else {
                                     $LocalizedData.Unknown
-                                }
-                                $LocalizedData.PublicIPAddress = if ($AzLbFrontendIpConfig.PublicIpAddress) {
+                                })
+                                $LocalizedData.PublicIPAddress = $(if ($AzLbFrontendIpConfig.PublicIpAddress) {
                                     $AzLbFrontendIpConfig.PublicIpAddress
                                 } else {
                                     $LocalizedData.None
-                                }
-                                $LocalizedData.Subnet = if ($AzLbFrontendIpConfig.Subnet.Id) {
+                                })
+                                $LocalizedData.Subnet = $(if ($AzLbFrontendIpConfig.Subnet.Id) {
                                     ($AzLbFrontendIpConfig.Subnet.Id).split('/')[-1]
                                 } else {
                                     $LocalizedData.None
-                                }
-                                $LocalizedData.LoadBalancingRules = if ($AzLbFrontendIpConfig.LoadBalancingRules.Id) {
+                                })
+                                $LocalizedData.LoadBalancingRules = $(if ($AzLbFrontendIpConfig.LoadBalancingRules.Id) {
                                     ($AzLbFrontendIpConfig.LoadBalancingRules.Id).split('/')[-1]
                                 } else {
                                     $LocalizedData.None
-                                }
-                                $LocalizedData.InboundNATRules = if ($AzLbFrontendIpConfig.InboundNatRules.Id) {
+                                })
+                                $LocalizedData.InboundNATRules = $(if ($AzLbFrontendIpConfig.InboundNatRules.Id) {
                                     ($AzLbFrontendIpConfig.InboundNatRules.Id).split('/')[-1]
                                 } else {
                                     $LocalizedData.None
-                                }
+                                })
                             }
                             $AzLbFrontendIpConfigInfo += [PSCustomObject]$InObj
 

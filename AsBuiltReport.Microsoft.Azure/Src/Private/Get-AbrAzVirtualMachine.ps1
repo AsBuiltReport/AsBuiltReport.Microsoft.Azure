@@ -76,7 +76,7 @@ function Get-AbrAzVirtualMachine {
                                 $LocalizedData.OSType = $AzVm.StorageProfile.OsDisk.OsType
                                 $LocalizedData.Size = $AzVm.HardwareProfile.VmSize
                                 $LocalizedData.vCPUs = $VmCores
-                                $LocalizedData.RAM = if ($VmMemoryGB -ne '--') { "$VmMemoryGB GiB" } else { '--' }
+                                $LocalizedData.RAM = $(if ($VmMemoryGB -ne '--') { "$VmMemoryGB GiB" } else { '--' })
                                 $LocalizedData.OperatingSystem = & {
                                     $imageRef = $AzVm.StorageProfile.ImageReference
                                     if ($imageRef.Publisher -and $imageRef.Offer -and $imageRef.Sku) {
@@ -137,11 +137,11 @@ function Get-AbrAzVirtualMachine {
                                     }
                                 }
                                 $LocalizedData.OSDisk = ($AzVm.StorageProfile.OsDisk.Name)
-                                $LocalizedData.OSDiskSize = if ($AzVm.StorageProfile.OsDisk.DiskSizeGB) {
+                                $LocalizedData.OSDiskSize = $(if ($AzVm.StorageProfile.OsDisk.DiskSizeGB) {
                                     Convert-DataSize -Size ($AzVm.StorageProfile.OsDisk.DiskSizeGB) -DecimalPlaces 2
                                 } else {
                                     $LocalizedData.Unknown
-                                }
+                                })
                                 $LocalizedData.OSDiskType = Switch ($AzVm.StorageProfile.OsDisk.ManagedDisk.StorageAccountType) {
                                     $null { '--' }
                                     'Standard_LRS' { 'Standard LRS' }
@@ -153,11 +153,11 @@ function Get-AbrAzVirtualMachine {
                                     default { $AzVm.StorageProfile.OsDisk.ManagedDisk.StorageAccountType }
                                 }
                                 $LocalizedData.NoOfDataDisks = ($AzVm.StorageProfile.DataDisks).Count
-                                $LocalizedData.AzureDiskEncryption = if ($AzVmDiskEncryption.OsVolumeEncryptionSettings.Enabled) {
+                                $LocalizedData.AzureDiskEncryption = $(if ($AzVmDiskEncryption.OsVolumeEncryptionSettings.Enabled) {
                                     $LocalizedData.Enabled
                                 } else {
                                     $LocalizedData.Disabled
-                                }
+                                })
                                 $LocalizedData.BootDiagnostics = & {
                                     if (($AzVM.DiagnosticsProfile.BootDiagnostics.Enabled) -and ($null -eq $AzVM.DiagnosticsProfile.BootDiagnostics.StorageUri)) {
                                         $LocalizedData.managedstorageaccount
@@ -167,16 +167,16 @@ function Get-AbrAzVirtualMachine {
                                         $LocalizedData.Disabled
                                     }
                                 }
-                                $LocalizedData.BootDiagnosticsStorageAccount = if ($AzVM.DiagnosticsProfile.BootDiagnostics.StorageUri) {
+                                $LocalizedData.BootDiagnosticsStorageAccount = $(if ($AzVM.DiagnosticsProfile.BootDiagnostics.StorageUri) {
                                     $AzVM.DiagnosticsProfile.BootDiagnostics.StorageUri.split('.')[0].trimstart('https://')
                                 } else {
                                     '--'
-                                }
-                                $LocalizedData.AzureBackup = if ($AzVmBackupStatus.BackedUp) {
+                                })
+                                $LocalizedData.AzureBackup = $(if ($AzVmBackupStatus.BackedUp) {
                                     $LocalizedData.Enabled
                                 } else {
                                     $LocalizedData.Disabled
-                                }
+                                })
                                 $LocalizedData.Extensions = & {
                                     if ($null -eq $AzVmExtensions.Name) {
                                         '--'

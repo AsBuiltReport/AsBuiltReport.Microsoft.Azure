@@ -45,11 +45,11 @@ function Get-AbrAzAvailabilitySet {
                                 $LocalizedData.Subscription = "$($AzSubscriptionLookup.(($AzAvailabilitySet.Id).split('/')[2]))"
                                 $LocalizedData.SubscriptionID = ($AzAvailabilitySet.Id).split('/')[2]
                                 $LocalizedData.SKU = $AzAvailabilitySet.Sku
-                                $LocalizedData.VirtualMachines = if ($AzAvailabilitySet.VirtualMachinesReferences.Id) {
+                                $LocalizedData.VirtualMachines = $(if ($AzAvailabilitySet.VirtualMachinesReferences.Id) {
                                     ($AzAvailabilitySet.VirtualMachinesReferences.Id | ForEach-Object {$_.split('/')[-1]}) -join ', '
                                 } else {
                                     $LocalizedData.None
-                                }
+                                })
                             }
                             $AzAvailabilitySetInfo += [PSCustomObject]$InObj
                         }

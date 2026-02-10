@@ -39,16 +39,16 @@ function Get-AbrAzIpGroup {
                                 $LocalizedData.Subscription = "$($AzSubscriptionLookup.(($AzIpGroup.Id).split('/')[2]))"
                                 $LocalizedData.SubscriptionID = ($AzIpGroup.Id).split('/')[2]
                                 $LocalizedData.ProvisioningState = $AzIpGroup.ProvisioningState
-                                $LocalizedData.Firewalls = if ($AzIpGroup.Firewalls.id) {
+                                $LocalizedData.Firewalls = $(if ($AzIpGroup.Firewalls.id) {
                                     ($AzIpGroup.Firewalls.id | ForEach-Object { $_.split('/')[-1] }) -join ', '
                                 } else {
                                     $LocalizedData.None
-                                }
-                                $LocalizedData.IPAddresses = if ($AzIpGroup.IpAddresses) {
+                                })
+                                $LocalizedData.IPAddresses = $(if ($AzIpGroup.IpAddresses) {
                                     $AzIpGroup.IpAddresses -join ', '
                                 } else {
                                     $LocalizedData.None
-                                }
+                                })
                             }
 
                             if ($Options.ShowTags) {

@@ -57,31 +57,31 @@ function Get-AbrAzKeyVault {
                                 $LocalizedData.SubscriptionID = ($AzKeyVault.ResourceId).split('/')[2]
                                 $LocalizedData.VaultURI = $AzKeyVault.VaultUri
                                 $LocalizedData.SkuPricingTier = $AzKeyVault.SKU
-                                $LocalizedData.ResourceAccess = if ($AzKeyVaultResourceAccess) {
+                                $LocalizedData.ResourceAccess = $(if ($AzKeyVaultResourceAccess) {
                                     $AzKeyVaultResourceAccess
                                 } else {
                                     $LocalizedData.NoAccessEnabled
-                                }
-                                $LocalizedData.RBACAuthorization = if ($AzKeyVault.EnableRbacAuthorization) {
+                                })
+                                $LocalizedData.RBACAuthorization = $(if ($AzKeyVault.EnableRbacAuthorization) {
                                     $LocalizedData.Enabled
                                 } else {
                                     $LocalizedData.Disabled
-                                }
-                                $LocalizedData.SoftDelete = if ($AzKeyVault.EnableSoftDelete) {
+                                })
+                                $LocalizedData.SoftDelete = $(if ($AzKeyVault.EnableSoftDelete) {
                                     ($LocalizedData.EnabledDays -f $AzKeyVault.SoftDeleteRetentionInDays)
                                 } else {
                                     $LocalizedData.Disabled
-                                }
-                                $LocalizedData.PurgeProtection = if ($AzKeyVault.EnablePurgeProtection) {
+                                })
+                                $LocalizedData.PurgeProtection = $(if ($AzKeyVault.EnablePurgeProtection) {
                                     $LocalizedData.Enabled
                                 } else {
                                     $LocalizedData.Disabled
-                                }
-                                $LocalizedData.PublicNetworkAccess = if ($AzKeyVault.PublicNetworkAccess) {
+                                })
+                                $LocalizedData.PublicNetworkAccess = $(if ($AzKeyVault.PublicNetworkAccess) {
                                     $LocalizedData.Enabled
                                 } else {
                                     $LocalizedData.Disabled
-                                }
+                                })
                             }
 
                             if ($Options.ShowTags) {

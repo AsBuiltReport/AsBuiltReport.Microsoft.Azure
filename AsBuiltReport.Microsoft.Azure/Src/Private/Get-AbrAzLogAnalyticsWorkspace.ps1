@@ -45,11 +45,11 @@ function Get-AbrAzLogAnalyticsWorkspace {
                                 $LocalizedData.WorkspaceID = $AzLogAnalyticsWorkspace.CustomerId
                                 $LocalizedData.Sku = $AzLogAnalyticsWorkspace.Sku
                                 $LocalizedData.RetentionDays = $AzLogAnalyticsWorkspace.RetentionInDays
-                                $LocalizedData.DailyQuotaGB = if ($AzLogAnalyticsWorkspace.DailyQuotaGb) {
+                                $LocalizedData.DailyQuotaGB = $(if ($AzLogAnalyticsWorkspace.DailyQuotaGb) {
                                     "$($AzLogAnalyticsWorkspace.DailyQuotaGb) GB"
                                 } else {
                                     $LocalizedData.NoQuota
-                                }
+                                })
                                 $LocalizedData.ProvisioningState = $AzLogAnalyticsWorkspace.ProvisioningState
                                 $LocalizedData.PublicNetworkAccessForIngestion = switch ($AzLogAnalyticsWorkspace.PublicNetworkAccessForIngestion) {
                                     'Enabled' { $LocalizedData.Enabled }

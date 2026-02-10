@@ -64,18 +64,18 @@ function Get-AbrAzFirewallNatRule {
                                     $InObj = [Ordered]@{
                                         $LocalizedData.Name = $NatRule.Name
                                         $LocalizedData.Protocols = $NatRule.Protocols -join ', '
-                                        $LocalizedData.SourceType = if ($NatRule.SourceAddresses) {
+                                        $LocalizedData.SourceType = $(if ($NatRule.SourceAddresses) {
                                             $LocalizedData.IPAddress
                                         } else {
                                             $LocalizedData.IPGroup
-                                        }
-                                        $LocalizedData.Source = if ($NatRule.SourceAddresses) {
+                                        })
+                                        $LocalizedData.Source = $(if ($NatRule.SourceAddresses) {
                                             $NatRule.SourceAddresses -join ', '
                                         } elseif ($NatRule.SourceIpGroups) {
                                             ($NatRule.SourceIpGroups | ForEach-Object {$_.split('/')[-1]}) -join ', '
                                         } else {
                                             '--'
-                                        }
+                                        })
                                         $LocalizedData.DestinationAddresses = $NatRule.DestinationAddresses -join ', '
                                         $LocalizedData.DestinationPorts = $NatRule.DestinationPorts -join ', '
                                         $LocalizedData.TranslatedAddress = $NatRule.TranslatedAddress

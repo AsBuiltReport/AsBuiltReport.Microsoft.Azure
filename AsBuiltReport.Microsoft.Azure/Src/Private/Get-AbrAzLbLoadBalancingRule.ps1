@@ -46,11 +46,11 @@ function Get-AbrAzLbLoadBalancingRule {
                                 $LocalizedData.BackendPort = $AzLbLoadBalancingRule.BackendPort
                                 $LocalizedData.HealthProbe = ($AzLbLoadBalancingRule.Probe.Id).split('/')[-1]
                                 $LocalizedData.IdleTimeout = ($LocalizedData.minutes -f $AzLbLoadBalancingRule.IdleTimeoutInMinutes)
-                                $LocalizedData.FloatingIP = if ($AzLbLoadBalancingRule.EnableFloatingIP) {
+                                $LocalizedData.FloatingIP = $(if ($AzLbLoadBalancingRule.EnableFloatingIP) {
                                     $LocalizedData.Enabled
                                 } else {
                                     $LocalizedData.Disabled
-                                }
+                                })
                             }
                             $AzLbLoadBalancingRuleInfo += [PSCustomObject]$InObj
 

@@ -56,11 +56,11 @@ function Get-AbrAzSAFileServiceProperty {
                                 $false { $LocalizedData.Disabled }
                                 default { $AzStorageAccount.AzureFilesIdentityBasedAuth }
                             }
-                            $LocalizedData.SoftDelete = if ($AzSAFileService.ShareDeleteRetentionPolicy.Enabled -and $AzSAFileService.ShareDeleteRetentionPolicy.Days) {
+                            $LocalizedData.SoftDelete = $(if ($AzSAFileService.ShareDeleteRetentionPolicy.Enabled -and $AzSAFileService.ShareDeleteRetentionPolicy.Days) {
                                 ($LocalizedData.EnabledDays -f $AzSAFileService.ShareDeleteRetentionPolicy.Days)
                             } else {
                                 $LocalizedData.Disabled
-                            }
+                            })
                         }
                         $AzSAFileServicePropertyInfo = [PSCustomObject]$InObj
                     }

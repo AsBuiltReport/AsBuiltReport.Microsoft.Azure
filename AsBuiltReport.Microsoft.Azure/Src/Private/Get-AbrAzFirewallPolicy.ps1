@@ -19,7 +19,7 @@ function Get-AbrAzFirewallPolicy {
                             # Get full policy details
                             $policy = Get-AzFirewallPolicy -Name $firewallpolicy.Name -ResourceGroupName $firewallpolicy.ResourceGroupName
                             # Display policy settings
-                            Section -Style Heading5 $policy.name {
+                            Section -Style NOTOCHeading5 -ExcludeFromTOC $policy.name {
                                 $InObj = [Ordered]@{
                                     $LocalizedData.Name = $policy.Name
                                     $LocalizedData.ResourceGroup = $policy.ResourceGroupName
@@ -27,34 +27,34 @@ function Get-AbrAzFirewallPolicy {
                                     $LocalizedData.Subscription = "$($AzSubscriptionLookup.(($policy.Id).split('/')[2]))"
                                     $LocalizedData.SubscriptionID = ($policy.Id).split('/')[2]
                                     $LocalizedData.ProvisioningState = $policy.ProvisioningState
-                                    $LocalizedData.ParentPolicy = if ($policy.BasePolicy.Id) {
+                                    $LocalizedData.ParentPolicy = $(if ($policy.BasePolicy.Id) {
                                         ($policy.BasePolicy.Id).Split('/')[-1]
                                     } else {
                                         $LocalizedData.None
-                                    }
+                                    })
                                     $LocalizedData.PolicyTier = $policy.Sku.Tier
-                                    $LocalizedData.ThreatIntelMode = if ($policy.ThreatIntelMode) {
+                                    $LocalizedData.ThreatIntelMode = $(if ($policy.ThreatIntelMode) {
                                         $policy.ThreatIntelMode
                                     } else {
                                         $LocalizedData.Off
-                                    }
-                                    $LocalizedData.IntrusionDetectionMode = if ($policy.Sku.Tier -eq 'Premium') {
+                                    })
+                                    $LocalizedData.IntrusionDetectionMode = $(if ($policy.Sku.Tier -eq 'Premium') {
                                         $policy.IntrusionDetection.Mode
                                     } else {
                                         $LocalizedData.NotSupported
-                                    }
-                                    $LocalizedData.DnsServers = if (-not $policy.DnsSettings -or -not $policy.DnsSettings.Servers) {
+                                    })
+                                    $LocalizedData.DnsServers = $(if (-not $policy.DnsSettings -or -not $policy.DnsSettings.Servers) {
                                         $LocalizedData.Disabled
                                     } elseif ($policy.DnsSettings.Servers.Count -eq 0) {
                                         $LocalizedData.Default
                                     } else {
                                         $policy.DnsSettings.Servers -join ", "
-                                    }
-                                    $LocalizedData.DnsProxy = if ($policy.DnsSettings.EnableProxy) {
+                                    })
+                                    $LocalizedData.DnsProxy = $(if ($policy.DnsSettings.EnableProxy) {
                                         $LocalizedData.Enabled
                                     } else {
                                         $LocalizedData.Disabled
-                                    }
+                                    })
                                 }
 
                                 if ($Options.ShowTags) {
@@ -278,12 +278,12 @@ function Get-AbrAzFirewallPolicy {
                                                                         $InObj = [Ordered]@{
                                                                             $LocalizedData.Name = $rule.Name
                                                                             $LocalizedData.Description = $rule.Description
-                                                                            $LocalizedData.SourceAddresses = if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" }
-                                                                            $LocalizedData.SourceIpGroups = if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" }
-                                                                            $LocalizedData.TargetFQDNs = if ($rule.TargetFqdns) { ($rule.TargetFqdns -join ", ") } else { "" }
-                                                                            $LocalizedData.TargetUrls = if ($rule.TargetUrls) { ($rule.TargetUrls -join ", ") } else { "" }
-                                                                            $LocalizedData.Protocols = if ($rule.Protocols) { ($rule.Protocols | ForEach-Object { "$($_.ProtocolType):$($_.Port)" }) -join ", " } else { "" }
-                                                                            $LocalizedData.WebCategories = if ($rule.WebCategories) { ($rule.WebCategories -join ", ") } else { "" }
+                                                                            $LocalizedData.SourceAddresses = $(if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" })
+                                                                            $LocalizedData.SourceIpGroups = $(if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" })
+                                                                            $LocalizedData.TargetFQDNs = $(if ($rule.TargetFqdns) { ($rule.TargetFqdns -join ", ") } else { "" })
+                                                                            $LocalizedData.TargetUrls = $(if ($rule.TargetUrls) { ($rule.TargetUrls -join ", ") } else { "" })
+                                                                            $LocalizedData.Protocols = $(if ($rule.Protocols) { ($rule.Protocols | ForEach-Object { "$($_.ProtocolType):$($_.Port)" }) -join ", " } else { "" })
+                                                                            $LocalizedData.WebCategories = $(if ($rule.WebCategories) { ($rule.WebCategories -join ", ") } else { "" })
                                                                         }
                                                                         $appRule = [PSCustomObject]$InObj
 
@@ -307,13 +307,13 @@ function Get-AbrAzFirewallPolicy {
                                                                         $InObj = [Ordered]@{
                                                                             $LocalizedData.Name = $rule.Name
                                                                             $LocalizedData.Description = $rule.Description
-                                                                            $LocalizedData.SourceAddresses = if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" }
-                                                                            $LocalizedData.SourceIpGroups = if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" }
-                                                                            $LocalizedData.DestinationAddresses = if ($rule.DestinationAddresses) { ($rule.DestinationAddresses -join ", ") } else { "" }
-                                                                            $LocalizedData.DestinationIpGroups = if ($rule.DestinationIpGroups) { ($rule.DestinationIpGroups -join ", ") } else { "" }
-                                                                            $LocalizedData.DestinationFqdns = if ($rule.DestinationFqdns) { ($rule.DestinationFqdns -join ", ") } else { "" }
-                                                                            $LocalizedData.DestinationPorts = if ($rule.DestinationPorts) { ($rule.DestinationPorts -join ", ") } else { "" }
-                                                                            $LocalizedData.Protocols = if ($rule.IpProtocols) { ($rule.IpProtocols -join ", ") } else { "" }
+                                                                            $LocalizedData.SourceAddresses = $(if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" })
+                                                                            $LocalizedData.SourceIpGroups = $(if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" })
+                                                                            $LocalizedData.DestinationAddresses = $(if ($rule.DestinationAddresses) { ($rule.DestinationAddresses -join ", ") } else { "" })
+                                                                            $LocalizedData.DestinationIpGroups = $(if ($rule.DestinationIpGroups) { ($rule.DestinationIpGroups -join ", ") } else { "" })
+                                                                            $LocalizedData.DestinationFqdns = $(if ($rule.DestinationFqdns) { ($rule.DestinationFqdns -join ", ") } else { "" })
+                                                                            $LocalizedData.DestinationPorts = $(if ($rule.DestinationPorts) { ($rule.DestinationPorts -join ", ") } else { "" })
+                                                                            $LocalizedData.Protocols = $(if ($rule.IpProtocols) { ($rule.IpProtocols -join ", ") } else { "" })
                                                                         }
                                                                         $netRule = [PSCustomObject]$InObj
 
@@ -337,11 +337,11 @@ function Get-AbrAzFirewallPolicy {
                                                                         $InObj = [Ordered]@{
                                                                             $LocalizedData.Name = $rule.Name
                                                                             $LocalizedData.Description = $rule.Description
-                                                                            $LocalizedData.SourceAddresses = if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" }
-                                                                            $LocalizedData.SourceIpGroups = if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" }
-                                                                            $LocalizedData.DestinationAddresses = if ($rule.DestinationAddresses) { ($rule.DestinationAddresses -join ", ") } else { "" }
-                                                                            $LocalizedData.DestinationPorts = if ($rule.DestinationPorts) { ($rule.DestinationPorts -join ", ") } else { "" }
-                                                                            $LocalizedData.Protocols = if ($rule.IpProtocols) { ($rule.IpProtocols -join ", ") } else { "" }
+                                                                            $LocalizedData.SourceAddresses = $(if ($rule.SourceAddresses) { ($rule.SourceAddresses -join ", ") } else { "" })
+                                                                            $LocalizedData.SourceIpGroups = $(if ($rule.SourceIpGroups) { ($rule.SourceIpGroups -join ", ") } else { "" })
+                                                                            $LocalizedData.DestinationAddresses = $(if ($rule.DestinationAddresses) { ($rule.DestinationAddresses -join ", ") } else { "" })
+                                                                            $LocalizedData.DestinationPorts = $(if ($rule.DestinationPorts) { ($rule.DestinationPorts -join ", ") } else { "" })
+                                                                            $LocalizedData.Protocols = $(if ($rule.IpProtocols) { ($rule.IpProtocols -join ", ") } else { "" })
                                                                             $LocalizedData.TranslatedAddress = $rule.TranslatedAddress
                                                                             $LocalizedData.TranslatedPort = $rule.TranslatedPort
                                                                             $LocalizedData.TranslatedFqdn = $rule.TranslatedFqdn

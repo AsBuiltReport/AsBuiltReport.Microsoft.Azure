@@ -39,11 +39,11 @@ function Get-AbrAzPolicyDefinition {
                                 $LocalizedData.Policies = $Definition.PolicyDefinition.count
                                 $LocalizedData.Type = $Definition.PolicyType
                                 $LocalizedData.DefinitionType = 'Initiative'
-                                $LocalizedData.Category = if ($Definition.Metadata.Category) {
+                                $LocalizedData.Category = $(if ($Definition.Metadata.Category) {
                                     $Definition.Metadata.Category
                                 } else {
                                     '--'
-                                }
+                                })
                             }
                             $AzPolicyDefinitionInfo += [pscustomobject]$InObj
                         }
@@ -54,11 +54,11 @@ function Get-AbrAzPolicyDefinition {
                                 $LocalizedData.Policies = $Definition.PolicyDefinition.count
                                 $LocalizedData.Type = $Definition.PolicyType
                                 $LocalizedData.DefinitionType = 'Policy'
-                                $LocalizedData.Category = if ($Definition.Metadata.Category) {
+                                $LocalizedData.Category = $(if ($Definition.Metadata.Category) {
                                     $Definition.Metadata.Category
                                 } else {
                                     '--'
-                                }
+                                })
                             }
                             $AzPolicyDefinitionInfo += [pscustomobject]$InObj
                         }

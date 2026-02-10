@@ -26,7 +26,7 @@ function Get-AbrAzDesktopVirtualization {
     process {
         Try {
             if ($InfoLevel.DesktopVirtualization -gt 0) {
-                $AzWvdHostPools = Get-AzWvdHostPool | Sort-Object Name
+                $AzWvdHostPools = Get-AzWvdHostPool -SubscriptionId $AzSubscription.Id | Sort-Object Name
                 if ($AzWvdHostPools) {
                     Write-PScriboMessage $LocalizedData.Collecting
                     Section -Style Heading4 $LocalizedData.Heading {
@@ -36,7 +36,7 @@ function Get-AbrAzDesktopVirtualization {
                         }
 
                         #region Host Pools
-                        Section -Style Heading5 $LocalizedData.HostPoolsHeading {
+                        Section -Style NOTOCHeading5 -ExcludeFromTOC $LocalizedData.HostPoolsHeading {
                             Paragraph ($LocalizedData.HostPoolsSummary -f $AzSubscription.Name)
                             BlankLine
 
@@ -44,7 +44,7 @@ function Get-AbrAzDesktopVirtualization {
                             foreach ($AzHostPool in $AzWvdHostPools) {
                                 $InObj = [Ordered]@{
                                     $LocalizedData.Name = $AzHostPool.Name
-                                    $LocalizedData.FriendlyName = if ($AzHostPool.FriendlyName) { $AzHostPool.FriendlyName } else { '--' }
+                                    $LocalizedData.FriendlyName = $(if ($AzHostPool.FriendlyName) { $AzHostPool.FriendlyName } else { '--' })
                                     $LocalizedData.ResourceGroup = $AzHostPool.Id.Split('/')[4]
                                     $LocalizedData.Location = $AzLocationLookup."$($AzHostPool.Location)"
                                     $LocalizedData.Type = $AzHostPool.HostPoolType
@@ -89,7 +89,7 @@ function Get-AbrAzDesktopVirtualization {
                                                     $parts = $prop -split ':', 2
                                                     $RdpInfo += [PSCustomObject][Ordered]@{
                                                         $LocalizedData.Property = $parts[0].Trim()
-                                                        $LocalizedData.Value = if ($parts.Count -gt 1) { $parts[1].Trim() } else { '' }
+                                                        $LocalizedData.Value = $(if ($parts.Count -gt 1) { $parts[1].Trim() } else { '' })
                                                     }
                                                 }
                                                 $TableParams = @{
@@ -109,10 +109,10 @@ function Get-AbrAzDesktopVirtualization {
                                             Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.AgentUpdateHeading {
                                                 $AgentInfo = [PSCustomObject][Ordered]@{
                                                     $LocalizedData.UpdateType = $AzHostPool.AgentUpdateType
-                                                    $LocalizedData.MaintenanceWindow = if ($AzHostPool.AgentUpdateMaintenanceWindow) {
+                                                    $LocalizedData.MaintenanceWindow = $(if ($AzHostPool.AgentUpdateMaintenanceWindow) {
                                                         ($AzHostPool.AgentUpdateMaintenanceWindow | ConvertFrom-Json | ForEach-Object { "$($_.dayOfWeek) at $($_.hour):00" }) -join ', '
-                                                    } else { '--' }
-                                                    $LocalizedData.TimeZone = if ($AzHostPool.AgentUpdateMaintenanceWindowTimeZone) { $AzHostPool.AgentUpdateMaintenanceWindowTimeZone } else { '--' }
+                                                    } else { '--' })
+                                                    $LocalizedData.TimeZone = $(if ($AzHostPool.AgentUpdateMaintenanceWindowTimeZone) { $AzHostPool.AgentUpdateMaintenanceWindowTimeZone } else { '--' })
                                                     $LocalizedData.UseLocalTime = $AzHostPool.AgentUpdateUseSessionHostLocalTime
                                                 }
                                                 $TableParams = @{
@@ -135,7 +135,7 @@ function Get-AbrAzDesktopVirtualization {
                                                     if ([datetime]$RegInfo -lt (Get-Date)) { $LocalizedData.Expired } else { $LocalizedData.Valid }
                                                 } else { $LocalizedData.NoActiveToken }
                                                 $RegObj = [PSCustomObject][Ordered]@{
-                                                    $LocalizedData.ExpirationTime = if ($RegInfo) { ([datetime]$RegInfo).ToString('yyyy-MM-dd HH:mm') } else { '--' }
+                                                    $LocalizedData.ExpirationTime = $(if ($RegInfo) { ([datetime]$RegInfo).ToString('yyyy-MM-dd HH:mm') } else { '--' })
                                                     $LocalizedData.TokenStatus = $TokenStatus
                                                 }
                                                 if ($Healthcheck.DesktopVirtualization.RegistrationExpiry) {
@@ -181,7 +181,7 @@ function Get-AbrAzDesktopVirtualization {
                                                     $InObj = [Ordered]@{
                                                         $LocalizedData.Name = $ShName
                                                         $LocalizedData.Status = $SH.Status
-                                                        $LocalizedData.HealthCheck = if ($SH.HealthCheckResult) {
+                                                        $LocalizedData.HealthCheck = $(if ($SH.HealthCheckResult) {
                                                             $checks = $SH.HealthCheckResult | ConvertFrom-Json -ErrorAction SilentlyContinue
                                                             if ($checks) {
                                                                 $failed = $checks | Where-Object { $_.healthCheckResult -ne 'HealthCheckSucceeded' }
@@ -191,13 +191,13 @@ function Get-AbrAzDesktopVirtualization {
                                                                     $LocalizedData.Healthy
                                                                 }
                                                             } else { '--' }
-                                                        } else { '--' }
+                                                        } else { '--' })
                                                         $LocalizedData.Sessions = $SH.Session
                                                         $LocalizedData.AllowNewSessions = $SH.AllowNewSession
-                                                        $LocalizedData.OSVersion = if ($SH.OSVersion) { $SH.OSVersion } else { '--' }
-                                                        $LocalizedData.AgentVersion = if ($SH.AgentVersion) { $SH.AgentVersion } else { '--' }
-                                                        $LocalizedData.LastHeartbeat = if ($SH.LastHeartBeat) { $SH.LastHeartBeat.ToString('yyyy-MM-dd HH:mm') } else { '--' }
-                                                        $LocalizedData.UpdateState = if ($SH.UpdateState) { $SH.UpdateState } else { '--' }
+                                                        $LocalizedData.OSVersion = $(if ($SH.OSVersion) { $SH.OSVersion } else { '--' })
+                                                        $LocalizedData.AgentVersion = $(if ($SH.AgentVersion) { $SH.AgentVersion } else { '--' })
+                                                        $LocalizedData.LastHeartbeat = $(if ($SH.LastHeartBeat) { $SH.LastHeartBeat.ToString('yyyy-MM-dd HH:mm') } else { '--' })
+                                                        $LocalizedData.UpdateState = $(if ($SH.UpdateState) { $SH.UpdateState } else { '--' })
                                                     }
 
                                                     # Add assigned user for personal host pools
@@ -226,12 +226,12 @@ function Get-AbrAzDesktopVirtualization {
                                                             $LocalizedData.Status = $SH.Status
                                                             $LocalizedData.AllowNewSessions = $SH.AllowNewSession
                                                             $LocalizedData.Sessions = $SH.Session
-                                                            $LocalizedData.OSVersion = if ($SH.OSVersion) { $SH.OSVersion } else { '--' }
-                                                            $LocalizedData.AgentVersion = if ($SH.AgentVersion) { $SH.AgentVersion } else { '--' }
-                                                            $LocalizedData.LastHeartbeat = if ($SH.LastHeartBeat) { $SH.LastHeartBeat.ToString('yyyy-MM-dd HH:mm') } else { '--' }
-                                                            $LocalizedData.UpdateState = if ($SH.UpdateState) { $SH.UpdateState } else { '--' }
-                                                            $LocalizedData.UpdateError = if ($SH.UpdateErrorMessage) { $SH.UpdateErrorMessage } else { '--' }
-                                                            $LocalizedData.VMResourceId = if ($SH.ResourceId) { $SH.ResourceId } else { '--' }
+                                                            $LocalizedData.OSVersion = $(if ($SH.OSVersion) { $SH.OSVersion } else { '--' })
+                                                            $LocalizedData.AgentVersion = $(if ($SH.AgentVersion) { $SH.AgentVersion } else { '--' })
+                                                            $LocalizedData.LastHeartbeat = $(if ($SH.LastHeartBeat) { $SH.LastHeartBeat.ToString('yyyy-MM-dd HH:mm') } else { '--' })
+                                                            $LocalizedData.UpdateState = $(if ($SH.UpdateState) { $SH.UpdateState } else { '--' })
+                                                            $LocalizedData.UpdateError = $(if ($SH.UpdateErrorMessage) { $SH.UpdateErrorMessage } else { '--' })
+                                                            $LocalizedData.VMResourceId = $(if ($SH.ResourceId) { $SH.ResourceId } else { '--' })
                                                         }
                                                         if ($AzHostPool.HostPoolType -eq 'Personal') {
                                                             $ShDetail[$LocalizedData.AssignedUser] = if ($SH.AssignedUser) { $SH.AssignedUser } else { $LocalizedData.Unassigned }
@@ -292,11 +292,11 @@ function Get-AbrAzDesktopVirtualization {
                                                     $SessionInfo = @()
                                                     foreach ($US in $UserSessions) {
                                                         $SessionInfo += [PSCustomObject][Ordered]@{
-                                                            $LocalizedData.User = if ($US.ActiveDirectoryUserName) { $US.ActiveDirectoryUserName } elseif ($US.UserPrincipalName) { $US.UserPrincipalName } else { '--' }
+                                                            $LocalizedData.User = $(if ($US.ActiveDirectoryUserName) { $US.ActiveDirectoryUserName } elseif ($US.UserPrincipalName) { $US.UserPrincipalName } else { '--' })
                                                             $LocalizedData.SessionHost = (($US.Name -split '/')[1] -split '\.')[0]
-                                                            $LocalizedData.State = if ($US.SessionState) { $US.SessionState } else { '--' }
-                                                            $LocalizedData.Application = if ($US.ApplicationType) { $US.ApplicationType } else { '--' }
-                                                            $LocalizedData.CreateTime = if ($US.CreateTime) { $US.CreateTime.ToString('yyyy-MM-dd HH:mm') } else { '--' }
+                                                            $LocalizedData.State = $(if ($US.SessionState) { $US.SessionState } else { '--' })
+                                                            $LocalizedData.Application = $(if ($US.ApplicationType) { $US.ApplicationType } else { '--' })
+                                                            $LocalizedData.CreateTime = $(if ($US.CreateTime) { $US.CreateTime.ToString('yyyy-MM-dd HH:mm') } else { '--' })
                                                         }
                                                     }
                                                     $TableParams = @{
@@ -331,7 +331,7 @@ function Get-AbrAzDesktopVirtualization {
                         #endregion Host Pools
 
                         #region Application Groups
-                        $AzAppGroups = Get-AzWvdApplicationGroup | Sort-Object Name
+                        $AzAppGroups = Get-AzWvdApplicationGroup -SubscriptionId $AzSubscription.Id | Sort-Object Name
                         if ($AzAppGroups) {
                             Section -Style Heading5 $LocalizedData.ApplicationGroupsHeading {
                                 Paragraph ($LocalizedData.AppGroupsSummary -f $AzSubscription.Name)
@@ -343,7 +343,7 @@ function Get-AbrAzDesktopVirtualization {
                                     $WorkspaceName = if ($AG.WorkspaceArmPath) { $AG.WorkspaceArmPath.Split('/')[-1] } else { '--' }
                                     $InObj = [Ordered]@{
                                         $LocalizedData.Name = $AG.Name
-                                        $LocalizedData.FriendlyName = if ($AG.FriendlyName) { $AG.FriendlyName } else { '--' }
+                                        $LocalizedData.FriendlyName = $(if ($AG.FriendlyName) { $AG.FriendlyName } else { '--' })
                                         $LocalizedData.Type = $AG.ApplicationGroupType
                                         $LocalizedData.HostPool = $HostPoolName
                                         $LocalizedData.Workspace = $WorkspaceName
@@ -387,9 +387,9 @@ function Get-AbrAzDesktopVirtualization {
                                                         foreach ($App in $Apps) {
                                                             $AppInfo += [PSCustomObject][Ordered]@{
                                                                 $LocalizedData.Name = $App.Name.Split('/')[-1]
-                                                                $LocalizedData.FriendlyName = if ($App.FriendlyName) { $App.FriendlyName } else { '--' }
-                                                                $LocalizedData.FilePath = if ($App.FilePath) { $App.FilePath } else { '--' }
-                                                                $LocalizedData.CommandLine = if ($App.CommandLineSetting -eq 'Allow') { if ($App.CommandLineArgument) { $App.CommandLineArgument } else { $LocalizedData.Allowed } } else { $App.CommandLineSetting }
+                                                                $LocalizedData.FriendlyName = $(if ($App.FriendlyName) { $App.FriendlyName } else { '--' })
+                                                                $LocalizedData.FilePath = $(if ($App.FilePath) { $App.FilePath } else { '--' })
+                                                                $LocalizedData.CommandLine = $(if ($App.CommandLineSetting -eq 'Allow') { if ($App.CommandLineArgument) { $App.CommandLineArgument } else { $LocalizedData.Allowed } } else { $App.CommandLineSetting })
                                                                 $LocalizedData.ShowInPortal = $App.ShowInPortal
                                                             }
                                                         }
@@ -425,7 +425,7 @@ function Get-AbrAzDesktopVirtualization {
                         #endregion Application Groups
 
                         #region Workspaces
-                        $AzWorkspaces = Get-AzWvdWorkspace | Sort-Object Name
+                        $AzWorkspaces = Get-AzWvdWorkspace -SubscriptionId $AzSubscription.Id | Sort-Object Name
                         if ($AzWorkspaces) {
                             Section -Style Heading5 $LocalizedData.WorkspacesHeading {
                                 Paragraph ($LocalizedData.WorkspacesSummary -f $AzSubscription.Name)
@@ -439,12 +439,12 @@ function Get-AbrAzDesktopVirtualization {
 
                                     $InObj = [Ordered]@{
                                         $LocalizedData.Name = $WS.Name
-                                        $LocalizedData.FriendlyName = if ($WS.FriendlyName) { $WS.FriendlyName } else { '--' }
-                                        $LocalizedData.Description = if ($WS.Description) { $WS.Description } else { '--' }
+                                        $LocalizedData.FriendlyName = $(if ($WS.FriendlyName) { $WS.FriendlyName } else { '--' })
+                                        $LocalizedData.Description = $(if ($WS.Description) { $WS.Description } else { '--' })
                                         $LocalizedData.ResourceGroup = $WS.ResourceGroupName
                                         $LocalizedData.Location = $AzLocationLookup."$($WS.Location)"
                                         $LocalizedData.ApplicationGroups = $AppGroupNames
-                                        $LocalizedData.PublicNetworkAccess = if ($WS.PublicNetworkAccess) { $WS.PublicNetworkAccess } else { '--' }
+                                        $LocalizedData.PublicNetworkAccess = $(if ($WS.PublicNetworkAccess) { $WS.PublicNetworkAccess } else { '--' })
                                     }
 
                                     $AzWorkspaceInfo += [PSCustomObject]$InObj
@@ -481,7 +481,7 @@ function Get-AbrAzDesktopVirtualization {
                         #endregion Workspaces
 
                         #region Scaling Plans
-                        $AzScalingPlans = Get-AzWvdScalingPlan -ErrorAction SilentlyContinue | Sort-Object Name
+                        $AzScalingPlans = Get-AzWvdScalingPlan -SubscriptionId $AzSubscription.Id -ErrorAction SilentlyContinue | Sort-Object Name
                         if ($AzScalingPlans) {
                             Section -Style Heading5 $LocalizedData.ScalingPlansHeading {
                                 Paragraph ($LocalizedData.ScalingPlansSummary -f $AzSubscription.Name)
@@ -491,12 +491,12 @@ function Get-AbrAzDesktopVirtualization {
                                 foreach ($SP in $AzScalingPlans) {
                                     $InObj = [Ordered]@{
                                         $LocalizedData.Name = $SP.Name
-                                        $LocalizedData.FriendlyName = if ($SP.FriendlyName) { $SP.FriendlyName } else { '--' }
+                                        $LocalizedData.FriendlyName = $(if ($SP.FriendlyName) { $SP.FriendlyName } else { '--' })
                                         $LocalizedData.ResourceGroup = $SP.ResourceGroupName
                                         $LocalizedData.Location = $AzLocationLookup."$($SP.Location)"
-                                        $LocalizedData.TimeZone = if ($SP.TimeZone) { $SP.TimeZone } else { '--' }
-                                        $LocalizedData.ExclusionTag = if ($SP.ExclusionTag) { $SP.ExclusionTag } else { '--' }
-                                        $LocalizedData.HostPoolType = if ($SP.HostPoolType) { $SP.HostPoolType } else { '--' }
+                                        $LocalizedData.TimeZone = $(if ($SP.TimeZone) { $SP.TimeZone } else { '--' })
+                                        $LocalizedData.ExclusionTag = $(if ($SP.ExclusionTag) { $SP.ExclusionTag } else { '--' })
+                                        $LocalizedData.HostPoolType = $(if ($SP.HostPoolType) { $SP.HostPoolType } else { '--' })
                                     }
                                     $AzScalingPlanInfo += [PSCustomObject]$InObj
                                 }
@@ -529,18 +529,18 @@ function Get-AbrAzDesktopVirtualization {
                                                     foreach ($Sched in $SP.Schedule) {
                                                         $SchedInfo += [PSCustomObject][Ordered]@{
                                                             $LocalizedData.Name = $Sched.Name
-                                                            $LocalizedData.Days = if ($Sched.DaysOfWeek) { ($Sched.DaysOfWeek | ForEach-Object { $_.ToString().Substring(0,3) }) -join ', ' } else { '--' }
-                                                            $LocalizedData.RampUpStart = if ($Sched.RampUpStartTime) { "$($Sched.RampUpStartTime.Hour.ToString('00')):$($Sched.RampUpStartTime.Minute.ToString('00'))" } else { '--' }
-                                                            $LocalizedData.PeakStart = if ($Sched.PeakStartTime) { "$($Sched.PeakStartTime.Hour.ToString('00')):$($Sched.PeakStartTime.Minute.ToString('00'))" } else { '--' }
-                                                            $LocalizedData.RampDownStart = if ($Sched.RampDownStartTime) { "$($Sched.RampDownStartTime.Hour.ToString('00')):$($Sched.RampDownStartTime.Minute.ToString('00'))" } else { '--' }
-                                                            $LocalizedData.OffPeakStart = if ($Sched.OffPeakStartTime) { "$($Sched.OffPeakStartTime.Hour.ToString('00')):$($Sched.OffPeakStartTime.Minute.ToString('00'))" } else { '--' }
-                                                            $LocalizedData.RampUpAction = if ($Sched.RampUpLoadBalancingAlgorithm) { $Sched.RampUpLoadBalancingAlgorithm } else { '--' }
-                                                            $LocalizedData.RampUpMinPct = if ($null -ne $Sched.RampUpMinimumHostsPct) { "$($Sched.RampUpMinimumHostsPct)%" } else { '--' }
-                                                            $LocalizedData.RampUpCapacityPct = if ($null -ne $Sched.RampUpCapacityThresholdPct) { "$($Sched.RampUpCapacityThresholdPct)%" } else { '--' }
-                                                            $LocalizedData.RampDownAction = if ($Sched.RampDownLoadBalancingAlgorithm) { $Sched.RampDownLoadBalancingAlgorithm } else { '--' }
-                                                            $LocalizedData.RampDownMinPct = if ($null -ne $Sched.RampDownMinimumHostsPct) { "$($Sched.RampDownMinimumHostsPct)%" } else { '--' }
-                                                            $LocalizedData.RampDownCapacityPct = if ($null -ne $Sched.RampDownCapacityThresholdPct) { "$($Sched.RampDownCapacityThresholdPct)%" } else { '--' }
-                                                            $LocalizedData.OffPeakAction = if ($Sched.OffPeakLoadBalancingAlgorithm) { $Sched.OffPeakLoadBalancingAlgorithm } else { '--' }
+                                                            $LocalizedData.Days = $(if ($Sched.DaysOfWeek) { ($Sched.DaysOfWeek | ForEach-Object { $_.ToString().Substring(0,3) }) -join ', ' } else { '--' })
+                                                            $LocalizedData.RampUpStart = $(if ($Sched.RampUpStartTime) { "$($Sched.RampUpStartTime.Hour.ToString('00')):$($Sched.RampUpStartTime.Minute.ToString('00'))" } else { '--' })
+                                                            $LocalizedData.PeakStart = $(if ($Sched.PeakStartTime) { "$($Sched.PeakStartTime.Hour.ToString('00')):$($Sched.PeakStartTime.Minute.ToString('00'))" } else { '--' })
+                                                            $LocalizedData.RampDownStart = $(if ($Sched.RampDownStartTime) { "$($Sched.RampDownStartTime.Hour.ToString('00')):$($Sched.RampDownStartTime.Minute.ToString('00'))" } else { '--' })
+                                                            $LocalizedData.OffPeakStart = $(if ($Sched.OffPeakStartTime) { "$($Sched.OffPeakStartTime.Hour.ToString('00')):$($Sched.OffPeakStartTime.Minute.ToString('00'))" } else { '--' })
+                                                            $LocalizedData.RampUpAction = $(if ($Sched.RampUpLoadBalancingAlgorithm) { $Sched.RampUpLoadBalancingAlgorithm } else { '--' })
+                                                            $LocalizedData.RampUpMinPct = $(if ($null -ne $Sched.RampUpMinimumHostsPct) { "$($Sched.RampUpMinimumHostsPct)%" } else { '--' })
+                                                            $LocalizedData.RampUpCapacityPct = $(if ($null -ne $Sched.RampUpCapacityThresholdPct) { "$($Sched.RampUpCapacityThresholdPct)%" } else { '--' })
+                                                            $LocalizedData.RampDownAction = $(if ($Sched.RampDownLoadBalancingAlgorithm) { $Sched.RampDownLoadBalancingAlgorithm } else { '--' })
+                                                            $LocalizedData.RampDownMinPct = $(if ($null -ne $Sched.RampDownMinimumHostsPct) { "$($Sched.RampDownMinimumHostsPct)%" } else { '--' })
+                                                            $LocalizedData.RampDownCapacityPct = $(if ($null -ne $Sched.RampDownCapacityThresholdPct) { "$($Sched.RampDownCapacityThresholdPct)%" } else { '--' })
+                                                            $LocalizedData.OffPeakAction = $(if ($Sched.OffPeakLoadBalancingAlgorithm) { $Sched.OffPeakLoadBalancingAlgorithm } else { '--' })
                                                         }
                                                     }
                                                     foreach ($S in $SchedInfo) {

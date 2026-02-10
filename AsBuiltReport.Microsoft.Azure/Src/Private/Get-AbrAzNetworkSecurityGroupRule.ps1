@@ -66,16 +66,16 @@ function Get-AbrAzNetworkSecurityGroupRule {
                             $InObj = [Ordered] @{
                                 $LocalizedData.Priority = $InboundNsgSecurityRule.Priority
                                 $LocalizedData.Name = $InboundNsgSecurityRule.Name
-                                $LocalizedData.Port = if ($InboundNsgSecurityRule.DestinationPortRange -eq '*') {
+                                $LocalizedData.Port = $(if ($InboundNsgSecurityRule.DestinationPortRange -eq '*') {
                                     $LocalizedData.Any
                                 } else {
                                     $InboundNsgSecurityRule.DestinationPortRange -join ','
-                                }
-                                $LocalizedData.Protocol = if ($InboundNsgSecurityRule.Protocol -eq '*') {
+                                })
+                                $LocalizedData.Protocol = $(if ($InboundNsgSecurityRule.Protocol -eq '*') {
                                     $LocalizedData.Any
                                 } else {
                                     $InboundNsgSecurityRule.Protocol
-                                }
+                                })
                                 $LocalizedData.Source = & {
                                     if ($SourceApplicationSecurityGroups) {
                                         $SourceApplicationSecurityGroups
@@ -153,16 +153,16 @@ function Get-AbrAzNetworkSecurityGroupRule {
                             $InObj = [Ordered] @{
                                 $LocalizedData.Priority = $OutboundNsgSecurityRule.Priority
                                 $LocalizedData.Name = $OutboundNsgSecurityRule.Name
-                                $LocalizedData.Port = if ($OutboundNsgSecurityRule.DestinationPortRange -eq '*') {
+                                $LocalizedData.Port = $(if ($OutboundNsgSecurityRule.DestinationPortRange -eq '*') {
                                     $LocalizedData.Any
                                 } else {
                                     $OutboundNsgSecurityRule.DestinationPortRange -join ','
-                                }
-                                $LocalizedData.Protocol = if ($OutboundNsgSecurityRule.Protocol -eq '*') {
+                                })
+                                $LocalizedData.Protocol = $(if ($OutboundNsgSecurityRule.Protocol -eq '*') {
                                     $LocalizedData.Any
                                 } else {
                                     $OutboundNsgSecurityRule.Protocol
-                                }
+                                })
                                 $LocalizedData.Source = & {
                                     if ($SourceApplicationSecurityGroups) {
                                         $SourceApplicationSecurityGroups

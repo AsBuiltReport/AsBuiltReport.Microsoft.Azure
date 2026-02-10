@@ -18,8 +18,8 @@
 * Add Pester tests to validate localization string consistency across all languages
 
 ### Changed
-* Update minimum AsBuiltReport.Core module version from 1.5.0 to 1.6.0
-* Update minimum Az module version requirement from 12.0.0 to 15.2.0
+* Update minimum AsBuiltReport.Core module version from 1.5.0 to 1.6.1
+* Update minimum Az module version requirement from 12.0.0 to 15.3.0
 * Reorganize module structure - moved module files to AsBuiltReport.Microsoft.Azure/ subdirectory
 * Update Release workflow to use windows-latest runner instead of windows-2019
 * Update Bluesky post action from v0.1.0 to v0.2.0
@@ -27,11 +27,14 @@
 * Increase stale GitHub actions workflow to 90 days
 
 ### Fixed
+* Fix `Get-AbrAzDesktopVirtualization` - Add explicit `-SubscriptionId` to `Get-AzWvd*` cmdlets to resolve `SharedTokenCacheCredential` authentication errors
+* Fix `Get-AbrAzDnsPrivateResolver` - Replace `Get-AzResource` call with resource group name parsed from resource ID to resolve incorrect resource group assignment with multiple DNS Private Resolvers
 * Fix [#22](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/22) - Add customizable report section ordering via `SectionOrder` configuration option
 * Fix [#23](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/23) - Resolve unexpected executable reference warnings during report generation
 * Fix [#24](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/24) - Fix token-based authentication requiring `AccountId` via `TokenParameters`
 * Fix [#24](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/24) - Fix interactive authentication (`-UseInteractiveAuth`) failing with null credential error when switch not properly passed from Core module
 * Fix [#25](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/25) - Replace deprecated `Get-AzVMSize` with `Get-AzComputeResourceSku` for Az.Compute 8.x+ compatibility
+* Fix [#26](https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/issues/26) - Add reporting for Azure Virtual Desktop
 
 ## [0.1.8.2] - 2024-11-15
 

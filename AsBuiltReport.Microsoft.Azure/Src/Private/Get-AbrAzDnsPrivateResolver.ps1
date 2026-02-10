@@ -36,12 +36,12 @@ function Get-AbrAzDnsPrivateResolver {
                         }
                         $AzDnsPrivateResolverInfo = @()
                         foreach ($AzDnsPrivateResolver in $AzDnsPrivateResolvers) {
-                            $AzResourceGroup = Get-AzResource -ResourceType $AzDnsPrivateResolver.Type
-                            $AzDnsResolverInboundEndpoint = Get-AzDnsResolverInboundEndpoint -DnsResolverName $AzDnsPrivateResolver.Name -ResourceGroupName $AzResourceGroup.ResourceGroupName
-                            $AzDnsResolverOutboundEndpoint = Get-AzDnsResolverOutboundEndpoint -DnsResolverName $AzDnsPrivateResolver.Name -ResourceGroupName $AzResourceGroup.ResourceGroupName
+                            $AzResourceGroupName = ($AzDnsPrivateResolver.Id).split('/')[4]
+                            $AzDnsResolverInboundEndpoint = Get-AzDnsResolverInboundEndpoint -DnsResolverName $AzDnsPrivateResolver.Name -ResourceGroupName $AzResourceGroupName
+                            $AzDnsResolverOutboundEndpoint = Get-AzDnsResolverOutboundEndpoint -DnsResolverName $AzDnsPrivateResolver.Name -ResourceGroupName $AzResourceGroupName
                             $InObj = [Ordered]@{
                                 $LocalizedData.Name = $AzDnsPrivateResolver.Name
-                                $LocalizedData.ResourceGroup = $AzResourceGroup.ResourceGroupName
+                                $LocalizedData.ResourceGroup = $AzResourceGroupName
                                 $LocalizedData.Location = $AzLocationLookup."$($AzDnsPrivateResolver.Location)"
                                 $LocalizedData.Subscription = "$($AzSubscriptionLookup.(($AzDnsPrivateResolver.Id).split('/')[2]))"
                                 $LocalizedData.SubscriptionID = ($AzDnsPrivateResolver.Id).split('/')[2]
@@ -56,10 +56,10 @@ function Get-AbrAzDnsPrivateResolver {
                             }
 
                             if ($Options.ShowTags) {
-                                $InObj[$LocalizedData.Tags] = if ([string]::IsNullOrEmpty($AzResourceGroup.Tags)) {
+                                $InObj[$LocalizedData.Tags] = if ($null -eq $AzDnsPrivateResolver.Tag -or $AzDnsPrivateResolver.Tag.Count -eq 0) {
                                     $LocalizedData.None
                                 } else {
-                                    ($AzResourceGroup.Tags.GetEnumerator() | ForEach-Object {"$($_.Key):`t$($_.Value)"}) -join [Environment]::NewLine
+                                    ($AzDnsPrivateResolver.Tag.Keys | ForEach-Object {"$_`:`t$($AzDnsPrivateResolver.Tag.AdditionalProperties[$_])"}) -join [Environment]::NewLine
                                 }
                             }
 

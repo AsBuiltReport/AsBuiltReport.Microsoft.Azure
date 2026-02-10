@@ -54,16 +54,16 @@ function Get-AbrAzNetworkSecurityGroup {
                                 $LocalizedData.SubscriptionID = ($AzNetworkSecurityGroup.Id).split('/')[2]
                                 $LocalizedData.ProvisioningState = $AzNetworkSecurityGroup.ProvisioningState
                                 $LocalizedData.AssociatedWith = "$(($AzNetworkSecurityGroup.Subnets.Id).Count) subnets, $(($AzNetworkSecurityGroup.NetworkInterfaces.Id).Count) NICs"
-                                $LocalizedData.NetworkInterfaces = if ($AzNetworkSecurityGroup.NetworkInterfaces.Id) {
+                                $LocalizedData.NetworkInterfaces = $(if ($AzNetworkSecurityGroup.NetworkInterfaces.Id) {
                                     ($AzNetworkSecurityGroup.NetworkInterfaces.Id | ForEach-Object {$_.split('/')[-1]}) -join ', '
                                 } else {
                                     $LocalizedData.None
-                                }
-                                $LocalizedData.Subnets = if ($AzNetworkSecurityGroup.Subnets.Id) {
+                                })
+                                $LocalizedData.Subnets = $(if ($AzNetworkSecurityGroup.Subnets.Id) {
                                     ($AzNetworkSecurityGroup.Subnets.Id | ForEach-Object {$_.split('/')[-1]}) -join ', '
                                 } else {
                                     $LocalizedData.None
-                                }
+                                })
                             }
 
                             if ($Options.ShowTags) {
