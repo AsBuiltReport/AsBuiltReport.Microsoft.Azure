@@ -1,0 +1,1257 @@
+# culture = 'es-ES'
+@{
+
+# Module-wide strings
+InvokeAsBuiltReportMicrosoftAzure = ConvertFrom-StringData @'
+    DefaultOrder = No se especificó un orden de secciones personalizado. Usando el orden predeterminado.
+    CustomOrder = Usando el orden de secciones personalizado de la configuración JSON del informe.
+    Connecting = Conectando al ID de inquilino de Azure '{0}'.
+    Subscriptions = Suscripciones
+    SubscriptionID = Estableciendo el contexto de Azure en el ID de suscripción '{0}'.
+    InfoLevelNotFound = InfoLevel para '{0}' no encontrado.
+    FunctionNotFound = Función '{0}' para la sección '{1}' no encontrada.
+    SectionError = Error al procesar la sección '{0}': {1}"
+    TenantNotFound = Inquilino de Azure '{0}' no encontrado.
+    TokenAccountIdRequired = La autenticación con token de Azure requiere el parámetro AccountId. Use {0} con {1} @{{AccountId="usuario@dominio.com"}}.
+    ConnectingWithToken = Conectando a Azure usando token para la cuenta {0} en el inquilino {1}.
+'@
+
+# Country Code to Country Name mapping (Get-CountryName)
+GetCountryName = ConvertFrom-StringData @'
+    CodeNotFound = Código de país '{0}' no encontrado.
+    AF = Afganistán
+    AX = Islas Åland
+    AL = Albania
+    DZ = Argelia
+    AS = Samoa Americana
+    AD = Andorra
+    AO = Angola
+    AQ = Antártida
+    AG = Antigua y Barbuda
+    AR = Argentina
+    AM = Armenia
+    AW = Aruba
+    AU = Australia
+    AT = Austria
+    AZ = Azerbaiyán
+    BS = Bahamas
+    BH = Baréin
+    BD = Bangladés
+    BB = Barbados
+    BY = Bielorrusia
+    BE = Bélgica
+    BZ = Belice
+    BJ = Benín
+    BM = Bermudas
+    BT = Bután
+    BO = Bolivia
+    BQ = Bonaire
+    BA = Bosnia y Herzegovina
+    BW = Botsuana
+    BV = Isla Bouvet
+    BR = Brasil
+    IO = Territorio Británico del Océano Índico
+    VG = Islas Vírgenes Británicas
+    BN = Brunéi
+    BG = Bulgaria
+    BF = Burkina Faso
+    BI = Burundi
+    CV = Cabo Verde
+    KH = Camboya
+    CM = Camerún
+    CA = Canadá
+    KY = Islas Caimán
+    CF = República Centroafricana
+    TD = Chad
+    CZ = Chequia
+    CL = Chile
+    CN = China
+    CX = Isla de Navidad
+    CC = Islas Cocos
+    CO = Colombia
+    KM = Comoras
+    CG = Congo
+    CD = Congo (República Democrática)
+    CK = Islas Cook
+    CR = Costa Rica
+    HR = Croacia
+    CU = Cuba
+    CW = Curazao
+    CY = Chipre
+    DK = Dinamarca
+    DJ = Yibuti
+    DM = Dominica
+    DO = República Dominicana
+    EC = Ecuador
+    EG = Egipto
+    SV = El Salvador
+    GQ = Guinea Ecuatorial
+    ER = Eritrea
+    EE = Estonia
+    SZ = Esuatini
+    ET = Etiopía
+    FO = Islas Feroe
+    FJ = Fiyi
+    FI = Finlandia
+    FR = Francia
+    GF = Guayana Francesa
+    PF = Polinesia Francesa
+    TF = Tierras Australes Francesas
+    GA = Gabón
+    GM = Gambia
+    GE = Georgia
+    DE = Alemania
+    GH = Ghana
+    GI = Gibraltar
+    GR = Grecia
+    GL = Groenlandia
+    GD = Granada
+    GP = Guadalupe
+    GU = Guam
+    GT = Guatemala
+    GG = Guernsey
+    GN = Guinea
+    GW = Guinea-Bisáu
+    GY = Guyana
+    HT = Haití
+    HM = Islas Heard y McDonald
+    HN = Honduras
+    HK = Hong Kong RAE
+    HU = Hungría
+    IS = Islandia
+    IN = India
+    ID = Indonesia
+    IR = Irán
+    IQ = Irak
+    IE = Irlanda
+    IM = Isla de Man
+    IL = Israel
+    IT = Italia
+    JM = Jamaica
+    JP = Japón
+    JE = Jersey
+    JO = Jordania
+    KZ = Kazajistán
+    KE = Kenia
+    KI = Kiribati
+    KR = Corea del Sur
+    KW = Kuwait
+    KG = Kirguistán
+    LA = Laos
+    LV = Letonia
+    LB = Líbano
+    LS = Lesoto
+    LR = Liberia
+    LY = Libia
+    LI = Liechtenstein
+    LT = Lituania
+    LU = Luxemburgo
+    MO = Macao RAE
+    MG = Madagascar
+    MW = Malaui
+    MY = Malasia
+    MV = Maldivas
+    ML = Malí
+    MT = Malta
+    MH = Islas Marshall
+    MQ = Martinica
+    MR = Mauritania
+    MU = Mauricio
+    YT = Mayotte
+    MX = México
+    FM = Micronesia
+    MD = Moldavia
+    MC = Mónaco
+    MN = Mongolia
+    ME = Montenegro
+    MS = Montserrat
+    MA = Marruecos
+    MZ = Mozambique
+    MM = Myanmar
+    NA = Namibia
+    NR = Nauru
+    NP = Nepal
+    NL = Países Bajos
+    NC = Nueva Caledonia
+    NZ = Nueva Zelanda
+    NI = Nicaragua
+    NE = Níger
+    NG = Nigeria
+    NU = Niue
+    NF = Isla Norfolk
+    KP = Corea del Norte
+    MP = Islas Marianas del Norte
+    MK = Macedonia del Norte
+    NO = Noruega
+    OM = Omán
+    PK = Pakistán
+    PW = Palaos
+    PS = Autoridad Palestina
+    PA = Panamá
+    PG = Papúa Nueva Guinea
+    PY = Paraguay
+    PE = Perú
+    PH = Filipinas
+    PN = Islas Pitcairn
+    PL = Polonia
+    PT = Portugal
+    PR = Puerto Rico
+    QA = Catar
+    RE = Reunión
+    RO = Rumanía
+    RU = Rusia
+    RW = Ruanda
+    BL = San Bartolomé
+    KN = San Cristóbal y Nieves
+    LC = Santa Lucía
+    MF = San Martín
+    PM = San Pedro y Miquelón
+    VC = San Vicente y las Granadinas
+    WS = Samoa
+    SM = San Marino
+    ST = Santo Tomé y Príncipe
+    SA = Arabia Saudita
+    SN = Senegal
+    RS = Serbia
+    SC = Seychelles
+    SL = Sierra Leona
+    SG = Singapur
+    SX = Sint Maarten
+    SK = Eslovaquia
+    SI = Eslovenia
+    SB = Islas Salomón
+    SO = Somalia
+    ZA = Sudáfrica
+    GS = Georgia del Sur e Islas Sandwich del Sur
+    SS = Sudán del Sur
+    ES = España
+    LK = Sri Lanka
+    SH = Santa Elena, Ascensión y Tristán de Acuña
+    SD = Sudán
+    SR = Surinam
+    SJ = Svalbard
+    SE = Suecia
+    CH = Suiza
+    SY = Siria
+    TW = Taiwán
+    TJ = Tayikistán
+    TZ = Tanzania
+    TH = Tailandia
+    TL = Timor Oriental
+    TG = Togo
+    TK = Tokelau
+    TO = Tonga
+    TT = Trinidad y Tobago
+    TN = Túnez
+    TR = Türkiye
+    TM = Turkmenistán
+    TC = Islas Turcas y Caicos
+    TV = Tuvalu
+    UG = Uganda
+    UA = Ucrania
+    AE = Emiratos Árabes Unidos
+    GB = Reino Unido
+    US = Estados Unidos
+    UY = Uruguay
+    UM = Islas menores de EE. UU.
+    VI = Islas Vírgenes de EE. UU.
+    UZ = Uzbekistán
+    VU = Vanuatu
+    VA = Ciudad del Vaticano
+    VE = Venezuela
+    VN = Vietnam
+    WF = Wallis y Futuna
+    YE = Yemen
+    ZM = Zambia
+    ZW = Zimbabue
+'@
+
+# Azure Tenant Information (Get-AbrAzTenant)
+GetAbrAzTenant = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de inquilino establecido en {0}.
+    Collecting = Recopilando información del inquilino de Azure.
+    Heading = Inquilino
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    TenantName = Nombre del inquilino
+    TenantID = ID del inquilino
+    TenantType = Tipo de inquilino
+    Country = País
+    Domains = Dominios
+    DefaultDomain = Dominio predeterminado
+    TableHeading = Inquilino
+'@
+
+# Azure Site Recovery Protected Items (Get-AbrAsrProtectedItems)
+GetAbrAsrProtectedItems = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de SiteRecovery establecido en {0}.
+    Collecting = Recopilando información de Azure Site Recovery '{0}'.
+    CollectingItems = Recopilando información de elementos protegidos de Azure Site Recovery.
+    ParagraghSummary = Las siguientes tablas proporcionan información sobre los elementos protegidos de Azure Site Recovery en la suscripción {0}.
+    Heading = Elementos protegidos
+    TableHeading = Elementos protegidos
+    SubHeading = Site Recovery
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    VirtualMachine = Máquina virtual
+    ReplicationHealth = Estado de replicación
+    State = Estado
+    ActiveLocation = Ubicación activa
+    TargetLocation = Ubicación de destino
+    FailoverHealth = Estado de conmutación por error
+'@
+
+# Azure Availability Sets (Get-AbrAzAvailabilitySet)
+GetAbrAzAvailabilitySet = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de conjunto de disponibilidad establecido en {0}.
+    Collecting = Recopilando información de conjuntos de disponibilidad de Azure.
+    SectionInfo = Un conjunto de disponibilidad (AS) es una construcción lógica para informar a Azure que debe distribuir las instancias de máquinas virtuales contenidas en múltiples dominios de error y actualización dentro de una región de Azure.
+    ParagraphSummary = La siguiente tabla resume la configuración de los conjuntos de disponibilidad en la suscripción {0}.
+    Heading = Conjuntos de disponibilidad
+    TableHeading = Conjuntos de disponibilidad
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    SKU = SKU
+    VirtualMachines = Máquinas virtuales
+    None = Ninguno
+'@
+
+# Azure Bastion (Get-AbrAzBastion)
+GetAbrAzBastion = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de Bastion establecido en {0}.
+    Collecting = Recopilando información de Azure Bastion.
+    SectionInfo1 = Azure Bastion es un servicio que implementa y le permite conectarse a una máquina virtual usando su navegador y el portal de Azure, o a través del cliente SSH o RDP nativo ya instalado en su computadora local.
+    SectionInfo2 = El servicio Azure Bastion es un servicio PaaS totalmente administrado por la plataforma que se aprovisiona dentro de su red virtual. Proporciona conectividad RDP/SSH segura y sin interrupciones a sus máquinas virtuales directamente desde el portal de Azure a través de TLS.
+    SectionInfo3 = Bastion proporciona conectividad RDP y SSH segura a todas las VM en la red virtual en la que está aprovisionado. El uso de Azure Bastion protege sus máquinas virtuales de exponer los puertos RDP/SSH al mundo exterior, mientras sigue proporcionando acceso seguro usando RDP/SSH.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los bastiones en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de los bastiones en la suscripción {0}.
+    Heading = Bastion
+    TableHeading = Bastion
+    TableHeadings = Bastiones
+    Image = Arquitectura de Bastion
+    ImageError = No se puede mostrar la imagen de Bastion.
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    ProvisioningState = Estado de aprovisionamiento
+    VirtualNetworkSubnet = Red virtual / Subred
+    PublicDnsName = Nombre DNS público
+    PublicIpAddress = Dirección IP pública
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure DNS Private Resolver (Get-AbrAzDnsPrivateResolver)
+GetAbrAzDnsPrivateResolver = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de DnsPrivateResolver establecido en {0}.
+    Collecting = Recopilando información de Azure DNS Private Resolver.
+    SectionInfo = Azure Private DNS Resolver es un servicio que resuelve de forma segura las consultas DNS para recursos privados en redes virtuales de Azure, permitiendo una comunicación fluida entre entornos locales y en la nube sin exponer el tráfico a Internet público.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los DNS Private Resolver en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de los DNS Private Resolver en la suscripción {0}.
+    Heading = DNS Private Resolver
+    TableHeading = Private DNS Resolver
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    InboundEndpoints = Puntos de conexión de entrada
+    OutboundEndpoints = Puntos de conexión de salida
+    VirtualNetwork = Red virtual
+    ResourceGuid = GUID de recurso
+    CreationTime = Hora de creación
+    LastModified = Última modificación
+    CurrentState = Estado actual
+    ProvisioningState = Estado de aprovisionamiento
+    EndpointName = Nombre del punto de conexión
+    IpAddress = Dirección IP
+    IpAllocation = Asignación de IP
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure Storage Account (Get-AbrAzStorageAccount)
+GetAbrAzStorageAccount = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de cuenta de almacenamiento establecido en {0}.
+    Collecting = Recopilando información de cuenta de almacenamiento de Azure.
+    Processing = Procesando cuenta de almacenamiento de Azure '{0}' ({1} de {2}).
+    SectionInfo = La cuenta de almacenamiento de Azure contiene todos sus objetos de datos de Azure Storage, incluidos blobs, recursos compartidos de archivos, colas, tablas y discos. La cuenta de almacenamiento proporciona un espacio de nombres único para sus datos de Azure Storage que es accesible desde cualquier parte del mundo a través de HTTP o HTTPS.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de la cuenta de almacenamiento en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de la cuenta de almacenamiento en la suscripción {0}.
+    Heading = Cuenta de almacenamiento
+    TableHeading = Cuenta de almacenamiento
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    PrimarySecondaryLocation = Ubicación primaria/secundaria
+    Primary = Primaria
+    Secondary = Secundaria
+    DiskState = Estado del disco
+    Performance = Rendimiento
+    Replication = Replicación
+    LRS = Almacenamiento con redundancia local (LRS)
+    ZRS = Almacenamiento con redundancia de zona (ZRS)
+    GRS = Almacenamiento con redundancia geográfica (GRS)
+    RAGRS = Almacenamiento con redundancia geográfica con acceso de lectura (RA-GRS)
+    PremiumLRS = Almacenamiento premium con redundancia local (Premium LRS)
+    PremiumZRS = Almacenamiento premium con redundancia de zona (Premium ZRS)
+    GZRS = Almacenamiento con redundancia de zona geográfica (GZRS)
+    RAGZRS = Almacenamiento con redundancia de zona geográfica con acceso de lectura (RA-GZRS)
+    AccountKind = Tipo de cuenta
+    Storage = Storage (Uso general v1)
+    StorageV2 = StorageV2 (Uso general v2)
+    BlobStorage = Blob Storage
+    BlockBlobStorage = Block Blob Storage
+    FileStorage = File Storage
+    ProvisioningState = Estado de aprovisionamiento
+    SecureTransfer = Transferencia segura para API REST
+    StorageAccountKeyAccess = Acceso con clave de cuenta de almacenamiento
+    PublicNetworkAccess = Acceso a red pública
+    MinimumTLSVersion = Versión mínima de TLS
+    InfrastructureEncryption = Cifrado de infraestructura
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+    Unknown = Desconocido
+    Created = Creado
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure ExpressRoute Circuit (Get-AbrAzExpressRouteCircuit)
+GetAbrAzExpressRouteCircuit = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de ExpressRoute establecido en {0}.
+    Collecting = Recopilando información de circuito ExpressRoute.
+    SectionInfo = Un circuito ExpressRoute permite una conexión privada dedicada a Azure con la ayuda de un proveedor de conectividad.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los circuitos ExpressRoute en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de los circuitos ExpressRoute en la suscripción {0}.
+    Heading = Circuito ExpressRoute
+    TableHeading = Circuito ExpressRoute
+    TableHeadings = Circuitos ExpressRoute
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    CircuitStatus = Estado del circuito
+    Provider = Proveedor
+    ProviderStatus = Estado del proveedor
+    PeeringLocation = Ubicación de emparejamiento
+    Bandwidth = Ancho de banda
+    ServiceKey = Clave de servicio
+    SKU = SKU
+    BillingModel = Modelo de facturación
+    MeteredData = Medido
+    AllowClassicOperations = Permitir operaciones clásicas
+    On = Activado
+    Off = Desactivado
+    None = Ninguno
+    Tags = Etiquetas
+'@
+
+# Azure Firewall (Get-AbrAzFirewall)
+GetAbrAzFirewall = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de Firewall establecido en {0}.
+    Collecting = Recopilando información de Azure Firewall.
+    SectionInfo = Azure Firewall es un servicio de seguridad de red administrado y basado en la nube que protege sus recursos de Azure Virtual Network. Es un firewall como servicio completamente con estado con alta disponibilidad integrada y escalabilidad en la nube sin restricciones.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los firewalls en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de los firewalls en la suscripción {0}.
+    Heading = Firewalls
+    TableHeading = Firewall
+    TableHeadings = Firewalls
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    FirewallPolicy = Directiva de firewall
+    ProvisioningState = Estado de aprovisionamiento
+    SKU = SKU
+    Subnet = Subred
+    PublicIP = IP pública
+    PrivateIP = IP privada
+    NatRuleCollections = Colecciones de reglas NAT
+    NetworkRuleCollections = Colecciones de reglas de red
+    ApplicationRuleCollections = Colecciones de reglas de aplicación
+    NatRules = Reglas NAT
+    NetworkRules = Reglas de red
+    AppRules = Reglas de aplicación
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure Firewall NAT Rules (Get-AbrAzFirewallNatRule)
+GetAbrAzFirewallNatRule = ConvertFrom-StringData @'
+    Collecting = Recopilando información de colecciones de reglas NAT de Azure Firewall.
+    Heading = Colecciones de reglas NAT
+    TableHeading = Colecciones de reglas NAT
+    Name = Nombre
+    Priority = Prioridad
+    Action = Acción
+    Rules = Reglas
+    Protocols = Protocolos
+    SourceType = Tipo de origen
+    IPAddress = Dirección IP
+    IPGroup = Grupo de IP
+    Source = Origen
+    DestinationAddresses = Direcciones de destino
+    DestinationType = Tipo de destino
+    TranslatedAddress = Dirección traducida
+    TranslatedPort = Puerto traducido
+    DestinationPorts = Puertos de destino
+    NatRule = Regla NAT
+'@
+
+# Azure Firewall Network Rules (Get-AbrAzFirewallNetworkRule)
+GetAbrAzFirewallNetworkRule = ConvertFrom-StringData @'
+    Collecting = Recopilando información de colecciones de reglas de red de Azure Firewall.
+    Heading = Colecciones de reglas de red
+    TableHeading = Colecciones de reglas de red
+    Name = Nombre
+    Priority = Prioridad
+    Action = Acción
+    Rules = Reglas
+    Protocols = Protocolos
+    SourceType = Tipo de origen
+    IPAddress = Dirección IP
+    IPGroup = Grupo de IP
+    Source = Origen
+    DestinationType = Tipo de destino
+    Destination = Destino
+    DestinationPorts = Puertos de destino
+    NetworkAllowRule = Regla de permiso de red
+    NetworkDenyRule = Regla de denegación de red
+'@
+
+# Azure Load Balancer Backend Pool (Get-AbrAzLbBackendPool)
+GetAbrAzLbBackendPool = ConvertFrom-StringData @'
+    Collecting = Recopilando información de grupo de backend de Azure Load Balancer.
+    Heading = Grupos de backend
+    TableHeading = Grupos de backend
+    Name = Nombre
+    LoadBalancingRules = Reglas de equilibrio de carga
+    None = Ninguno
+'@
+
+# Azure IP Group (Get-AbrAzIpGroup)
+GetAbrAzIpGroup = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de IPGroup establecido en {0}.
+    Collecting = Recopilando información de grupo de IP de Azure.
+    SectionInfo = Los grupos de IP de Azure le permiten agrupar y administrar direcciones IP para las reglas de Azure Firewall. Los grupos de IP le permiten definir direcciones IP una vez y usarlas en múltiples reglas de firewall.
+    ParagraphSummary = La siguiente tabla resume la configuración de los grupos de IP en la suscripción {0}.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los grupos de IP en la suscripción {0}.
+    TableHeading = Grupo de IP
+    TableHeadings = Grupos de IP
+    Heading = Grupos de IP
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    ProvisioningState = Estado de aprovisionamiento
+    Firewalls = Firewalls
+    IPAddresses = Direcciones IP
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure Key Vault (Get-AbrAzKeyVault)
+GetAbrAzKeyVault = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de KeyVault establecido en {0}.
+    Collecting = Recopilando información de Azure Key Vault.
+    SectionInfo = Azure Key Vault es una solución de administración de claves que permite a los usuarios y aplicaciones de Azure almacenar y acceder de forma segura a claves, secretos y certificados.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los almacenes de claves en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de los almacenes de claves en la suscripción {0}.
+    AzureVM = Azure Virtual Machines para implementación
+    AzureRM = Azure Resource Manager para implementación de plantillas
+    ADE = Azure Disk Encryption para cifrado de volúmenes
+    Heading = Almacenes de claves
+    TableHeading = Almacén de claves
+    TableHeadings = Almacenes de claves
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    VaultURI = URI del almacén
+    SkuPricingTier = SKU (Nivel de precios)
+    ResourceAccess = Acceso a recursos
+    RBACAuthorization = Autorización RBAC
+    SoftDelete = Eliminación temporal
+    PurgeProtection = Protección contra purga
+    PublicNetworkAccess = Acceso a red pública
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+    NoAccessEnabled = Sin acceso habilitado
+    EnabledDays = Habilitado ({0} días)
+    Tags = Etiquetas
+    None = Ninguno
+    days = días
+'@
+
+# Azure Load Balancer Health Probe (Get-AbrAzLbHealthProbe)
+GetAbrAzLbHealthProbe = ConvertFrom-StringData @'
+    Collecting = Recopilando información de sonda de estado de Azure Load Balancer.
+    Heading = Sondas de estado
+    TableHeading = Sondas de estado
+    Name = Nombre
+    Protocol = Protocolo
+    Port = Puerto
+    Interval = Intervalo
+    UsedBy = Usado por
+    Seconds = {0} segundos
+'@
+
+# Azure Load Balancer Frontend IP Configuration (Get-AbrAzLbFrontendIpConfig)
+GetAbrAzLbFrontendIpConfig = ConvertFrom-StringData @'
+    Collecting = Recopilando información de configuración de IP de frontend de Azure Load Balancer.
+    Heading = Configuración de IP de frontend
+    TableHeading = Configuración de IP de frontend
+    Name = Nombre
+    PrivateIPAddress = Dirección IP privada
+    PrivateIPAllocationMethod = Método de asignación de IP privada
+    PublicIPAddress = Dirección IP pública
+    Subnet = Subred
+    LoadBalancingRules = Reglas de equilibrio de carga
+    InboundNATRules = Reglas NAT de entrada
+    None = Ninguno
+    Unknown = Desconocido
+'@
+
+# Azure Load Balancer Inbound NAT Pool (Get-AbrAzLbInboundNatPool)
+GetAbrAzLbInboundNatPool = ConvertFrom-StringData @'
+    Collecting = Recopilando información de grupo NAT de entrada de Azure Load Balancer.
+    Heading = Grupos NAT de entrada
+    TableHeading = Grupos NAT de entrada
+    Name = Nombre
+'@
+
+# Azure Load Balancer Load Balancing Rule (Get-AbrAzLbLoadBalancingRule)
+GetAbrAzLbLoadBalancingRule = ConvertFrom-StringData @'
+    Collecting = Recopilando información de reglas de equilibrio de carga de Azure Load Balancer.
+    Heading = Reglas de equilibrio de carga
+    TableHeading = Regla de equilibrio de carga
+    Name = Nombre
+    FrontendIPAddress = Dirección IP de frontend
+    BackendPool = Grupo de backend
+    Protocol = Protocolo
+    Port = Puerto
+    BackendPort = Puerto de backend
+    HealthProbe = Sonda de estado
+    IdleTimeout = Tiempo de espera en reposo
+    FloatingIP = IP flotante
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+    Minutes = {0} minutos
+'@
+
+# Azure Load Balancer (Get-AbrAzLoadBalancer)
+GetAbrAzLoadBalancer = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de LoadBalancer establecido en {0}.
+    Collecting = Recopilando información de Azure Load Balancer.
+    SectionInfo1 = Azure Load Balancer opera en la capa 4 del modelo de Interconexión de Sistemas Abiertos (OSI). Es el único punto de contacto para los clientes. Load Balancer distribuye los flujos entrantes a las instancias del grupo de backend.
+    SectionInfo2 = Azure Load Balancer admite dos SKU: Básico y Estándar. El SKU Básico está destinado a escenarios de desarrollo/prueba y cargas de trabajo de producción a pequeña escala. El SKU Estándar está destinado a todas las cargas de trabajo de producción.
+    SectionInfo3 = Hay dos tipos de Azure Load Balancer: Público e Interno. Un Load Balancer público tiene una dirección IP pública como frontend. Un Load Balancer interno tiene una dirección IP privada de la red virtual como frontend.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los equilibradores de carga en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de los equilibradores de carga en la suscripción {0}.
+    Heading = Equilibradores de carga
+    TableHeading = Equilibrador de carga
+    TableHeadings = Equilibradores de carga
+    LoadBalancerImage = Imagen de Load Balancer
+    ImageError = No se puede mostrar la imagen de Load Balancer
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    ProvisioningState = Estado de aprovisionamiento
+    SKU = SKU
+    Tier = Nivel
+    Standard = Estándar
+    Basic = Básico
+    Type = Tipo
+    Public = Público
+    Internal = Interno
+    FrontendIPConfigs = Configuraciones de IP de frontend
+    BackendPools = Grupos de backend
+    LoadBalancingRules = Reglas de equilibrio de carga
+    HealthProbes = Sondas de estado
+    InboundNATRules = Reglas NAT de entrada
+    InboundNATPools = Grupos NAT de entrada
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure Log Analytics Workspace (Get-AbrAzLogAnalyticsWorkspace)
+GetAbrAzLogAnalyticsWorkspace = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de LogAnalyticsWorkspace establecido en {0}.
+    Collecting = Recopilando información de Azure Log Analytics Workspace.
+    SectionInfo = Azure Log Analytics es un servicio en Azure que recopila, analiza y actúa sobre los datos de telemetría de entornos en la nube y locales.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los espacios de trabajo de Log Analytics en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de los espacios de trabajo de Log Analytics en la suscripción {0}.
+    Heading = Espacios de trabajo de Log Analytics
+    TableHeading = Espacios de trabajo de Log Analytics
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    WorkspaceID = ID del espacio de trabajo
+    Sku = SKU
+    RetentionDays = Retención (días)
+    DailyQuotaGB = Cuota diaria
+    ProvisioningState = Estado de aprovisionamiento
+    PublicNetworkAccessForIngestion = Acceso a red pública (ingesta)
+    PublicNetworkAccessForQuery = Acceso a red pública (consulta)
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+    Unknown = Desconocido
+    NoQuota = Sin cuota establecida
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure Network Security Group (Get-AbrAzNetworkSecurityGroup)
+GetAbrAzNetworkSecurityGroup = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de NetworkSecurityGroup establecido en {0}.
+    Collecting = Recopilando información de grupo de seguridad de red de Azure.
+    SectionInfo = Un grupo de seguridad de red (NSG) de Azure se utiliza para filtrar el tráfico de red hacia y desde los recursos de Azure en una red virtual de Azure.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los grupos de seguridad de red en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de los grupos de seguridad de red en la suscripción {0}.
+    Image = Arquitectura de grupo de seguridad de red
+    ImageError = No se puede mostrar la imagen del grupo de seguridad de red.
+    Heading = Grupos de seguridad de red
+    TableHeading = Grupo de seguridad de red
+    TableHeadings = Grupos de seguridad de red
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    ProvisioningState = Estado de aprovisionamiento
+    AssociatedWith = Asociado con
+    NetworkInterfaces = Interfaces de red
+    Subnets = Subredes
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure Network Security Group Rules (Get-AbrAzNetworkSecurityGroupRule)
+GetAbrAzNetworkSecurityGroupRule = ConvertFrom-StringData @'
+    Collecting = Recopilando información de reglas de seguridad de NSG de Azure.
+    Heading1 = Reglas de seguridad de entrada
+    TableHeading1 = Reglas de seguridad de entrada
+    Heading2 = Reglas de seguridad de salida
+    TableHeading2 = Reglas de seguridad de salida
+    Priority = Prioridad
+    Name = Nombre
+    Port = Puerto
+    Any = Cualquiera
+    Protocol = Protocolo
+    Source = Origen
+    Destination = Destino
+    Action = Acción
+'@
+
+# Azure Policy (Get-AbrAzPolicy)
+GetAbrAzPolicy = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de Policy establecido en 0.
+    Collecting = Recopilando información de Azure Policy.
+	Heading = Azure Policy
+    SectionInfo = Azure Policy ayuda a aplicar los estándares organizacionales y a evaluar el cumplimiento a escala. A través de su panel de cumplimiento, proporciona una vista agregada para evaluar el estado general del entorno.
+'@
+
+# Azure Policy Assignments (Get-AbrAzPolicyAssignment)
+GetAbrAzPolicyAssignment = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de asignaciones de Policy establecido en {0}.
+    Collecting = Recopilando información de asignaciones de Azure Policy.
+    ParagraphDetail = Las siguientes secciones detallan las asignaciones de directivas en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume las asignaciones de directivas en la suscripción {0}.
+    Heading = Asignaciones de directivas
+    TableHeading = Asignación de directiva
+    TableHeadings = Asignaciones de directivas
+    Name = Nombre
+    Description = Descripción
+    Location = Ubicación
+    Scope = Ámbito
+    Type = Tipo
+    ExcludedScopes = Ámbitos excluidos
+    DefinitionType = Tipo de definición
+    Policy = Directiva
+    Initiative = Iniciativa
+    Unknown = Desconocido
+    PolicyEnforcement = Aplicación de directiva
+    Enforce = Aplicar
+    DoNotEnforce = No aplicar
+'@
+
+# Azure Policy Definitions (Get-AbrAzPolicyDefinition)
+GetAbrAzPolicyDefinition = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de definiciones de Policy establecido en {0}.
+    Collecting = Recopilando información de definiciones de Azure Policy.
+    ParagraphSummary = La siguiente tabla resume las definiciones de directivas en la suscripción {0}.
+    Heading = Definiciones de directivas
+    TableHeading = Definiciones de directivas
+    TableHeadings = Definiciones de directivas
+    Name = Nombre
+    Version = Versión
+    Policies = Directivas
+    Type = Tipo
+    DefinitionType = Tipo de definición
+    Policy = Directiva
+    Initiative = Iniciativa
+    Category = Categoría
+'@
+
+# Azure Private Endpoint (Get-AbrAzPrivateEndpoint)
+GetAbrAzPrivateEndpoint = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de PrivateEndpoint establecido en {0}.
+    Collecting = Recopilando información de Azure Private Endpoint.
+    SectionInfo = Un punto de conexión privado de Azure es una interfaz de red que lo conecta de forma privada y segura a un servicio impulsado por Azure Private Link.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los puntos de conexión privados en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de los puntos de conexión privados en la suscripción {0}.
+    Heading = Puntos de conexión privados
+    TableHeading = Punto de conexión privado
+    TableHeadings = Puntos de conexión privados
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    ProvisioningState = Estado de aprovisionamiento
+    VirtualNetworkSubnet = Red virtual / Subred
+    NetworkInterface = Interfaz de red
+    PrivateLinkResource = Recurso de Private Link
+    PrivateIP = IP privada
+    TargetSubResource = Subrecurso de destino
+    ConnectionStatus = Estado de conexión
+    Response = Respuesta
+    Pending = Pendiente
+    Rejected = Rechazado
+    Disconnected = Desconectado
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure Recovery Services Vault (Get-AbrAzRecoveryServicesVault)
+GetAbrAzRecoveryServicesVault = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de RecoveryServicesVault establecido en {0}.
+    Collecting = Recopilando información de Azure Recovery Services Vault.
+    SectionInfo = Un almacén de Recovery Services es una entidad de almacenamiento en Azure que alberga datos. Los datos son típicamente copias de datos o información de configuración para máquinas virtuales (VM), cargas de trabajo, servidores o estaciones de trabajo.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los almacenes de Recovery Services en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de los almacenes de Recovery Services en la suscripción {0}.
+    Heading = Almacenes de Recovery Services
+    TableHeading = Almacén de Recovery Services
+    TableHeadings = Almacenes de Recovery Services
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    ProvisioningState = Estado de aprovisionamiento
+    PrivateEndpointStateForBackup = Estado de punto de conexión privado para copia de seguridad
+    PrivateEndpointStateForSiteRecovery = Estado de punto de conexión privado para Site Recovery
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure Route Table (Get-AbrAzRouteTable)
+GetAbrAzRouteTable = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de RouteTable establecido en {0}.
+    Collecting = Recopilando información de tabla de rutas de Azure.
+    SectionInfo = Una tabla de rutas de Azure contiene una colección de rutas que se utilizan para determinar hacia dónde se dirige el tráfico de red.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de las tablas de rutas en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de las tablas de rutas en la suscripción {0}.
+    Heading = Tablas de rutas
+    TableHeading = Tabla de rutas
+    TableHeadings = Tablas de rutas
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    ProvisioningState = Estado de aprovisionamiento
+    Routes = Rutas
+    AddressPrefix = Prefijo de dirección
+    NextHopType = Tipo de próximo salto
+    NextHopIpAddress = Dirección IP del próximo salto
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure Blob Storage Service Property (Get-AbrAzSABlobServiceProperty)
+GetAbrAzSABlobServiceProperty = ConvertFrom-StringData @'
+    Collecting = Recopilando propiedades del servicio Azure Blob Storage '{0}'.
+    Heading = Servicio de blobs
+    TableHeading = Servicio de blobs
+    HierarchicalNamespace = Espacio de nombres jerárquico
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+    DefaultAccessTier = Nivel de acceso predeterminado
+    NotApplicable = No aplicable
+    BlobAnonymousAccess = Acceso anónimo a blobs
+    BlobSoftDelete = Eliminación temporal de blobs
+    ContainerSoftDelete = Eliminación temporal de contenedores
+    Versioning = Control de versiones
+    ChangeFeed = Fuente de cambios
+    NfsV3 = NFS v3
+    SFTP = SFTP
+    AllowCrossTenantReplication = Permitir replicación entre inquilinos
+    EnabledDays = Habilitado ({0} días)
+'@
+
+# Azure Storage Account Containers (Get-AbrAzSAContainer)
+GetAbrAzSAContainer = ConvertFrom-StringData @'
+    Collecting = Recopilando información de contenedores de cuenta de almacenamiento de Azure.
+    Processing = Procesando contenedor de cuenta de almacenamiento de Azure '{0}' ({1} de {2}).
+    Heading = Contenedores
+    TableHeading = Contenedores
+    Name = Nombre
+    AnonymousAccessLevel = Nivel de acceso anónimo
+    Private = Privado
+    Blob = Blob
+    Container = Contenedor
+    LeaseState = Estado de concesión
+    LastModified = Última modificación
+    Disabled = Deshabilitado
+'@
+
+# Azure Storage Account Tables (Get-AbrAzSATable)
+GetAbrAzSATable = ConvertFrom-StringData @'
+    Collecting = Recopilando información de tablas de cuenta de almacenamiento de Azure.
+    Processing = Procesando tabla de cuenta de almacenamiento de Azure '{0}' ({1} de {2}).
+    Heading = Tablas
+    TableHeading = Tablas
+    Name = Nombre
+'@
+
+# Azure Storage Account Queues (Get-AbrAzSAQueue)
+GetAbrAzSAQueue = ConvertFrom-StringData @'
+    Collecting = Recopilando información de colas de cuenta de almacenamiento de Azure.
+    Processing = Procesando cola de cuenta de almacenamiento de Azure '{0}' ({1} de {2}).
+    Heading = Colas
+    TableHeading = Colas
+    Name = Nombre
+'@
+
+# Azure Storage Account File Service Property (Get-AbrAzSAFileServiceProperty)
+GetAbrAzSAFileServiceProperty = ConvertFrom-StringData @'
+    Collecting = Recopilando propiedades del servicio Azure File Storage '{0}'.
+    Heading = Servicio de archivos
+    TableHeading = Servicio de archivos
+    LargeFileShare = Recurso compartido de archivos grande
+    NotConfigured = No configurado
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+    IdentityBasedAccess = Acceso basado en identidad
+    SoftDelete = Eliminación temporal
+    EnabledDays = Habilitado ({0} días)
+'@
+
+# Azure Storage Account Share
+GetAbrAzSAShare = ConvertFrom-StringData @'
+    Collecting = Recopilando información de recursos compartidos de cuenta de almacenamiento de Azure.
+    Processing = Procesando recurso compartido de cuenta de almacenamiento de Azure '{0}' ({1} de {2}).
+    Heading = Recursos compartidos
+    TableHeading = Recursos compartidos
+    Name = Nombre
+    ShareUrl = URL del recurso compartido
+    Quota = Cuota
+    Unknown = Desconocido
+    AccessTier = Nivel de acceso
+    TransactionOptimized = Optimizado para transacciones
+    LastModified = Última modificación
+    Snapshot = Instantánea
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+'@
+
+# Azure Subscription (Get-AbrAzSubscription)
+GetAbrAzSubscription = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de suscripción establecido en {0}.
+    Collecting = Recopilando información de suscripción de Azure.
+    Processing = Procesando suscripción de Azure '{0}' ({1} de {2}).
+    Heading = Suscripciones
+    SectionInfo = Una suscripción de Azure es un contenedor lógico que se utiliza para aprovisionar recursos en Microsoft Azure. Contiene los detalles de todos sus recursos como máquinas virtuales (VM), bases de datos y más.
+    ParagraphSummary = La siguiente tabla resume la configuración de las suscripciones en el inquilino {0}.
+    TableHeading = Suscripciones
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    SubscriptionID = ID de suscripción
+    State = Estado
+    NoSubscriptions = No se encontraron suscripciones.
+'@
+
+# Azure Virtual Machine (Get-AbrAzVirtualMachine)
+GetAbrAzVirtualMachine = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de VirtualMachine establecido en {0}.
+    Collecting = Recopilando información de máquina virtual de Azure.
+    Processing = Procesando máquina virtual de Azure '{0}' ({1} de {2}).
+    SectionInfo1 = Una máquina virtual (VM) de Azure es un recurso de computación escalable que proporciona la flexibilidad de la virtualización sin necesidad de comprar y mantener el hardware físico.
+    SectionInfo2 = Las VM de Azure ofrecen varios tamaños y configuraciones para cumplir con diferentes requisitos de carga de trabajo. Se pueden escalar fácilmente hacia arriba o hacia abajo según la demanda.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de las máquinas virtuales en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de las máquinas virtuales en la suscripción {0}.
+    Heading = Máquinas virtuales
+    TableHeading = Máquina virtual
+    TableHeadings = Máquinas virtuales
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    Status = Estado
+    Deallocated = Desasignada
+    Running = En ejecución
+    PrivateIPAddress = Dirección IP privada
+    PrivateIPAssignment = Asignación de IP privada
+    VirtualNetworkSubnet = Red virtual / Subred
+    OsType = Tipo de SO
+    Size = Tamaño
+    vCpus = vCPUs
+    RAM = RAM
+    OperatingSystem = Sistema operativo
+    CustomImage = Imagen personalizada:
+    OsDisk = Disco del SO
+    OSDiskSize = Tamaño del disco del SO
+    OSDiskType = Tipo de disco del SO
+    Unknown = Desconocido
+    NoOfDataDisks = Núm. de discos de datos
+    AzureDiskEncryption = Azure Disk Encryption
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+    BootDiagnostics = Diagnósticos de arranque
+    ManagedStorageAccount = Habilitado con cuenta de almacenamiento administrada
+    CustomStorageAccount = Habilitado con cuenta de almacenamiento personalizada
+    BootDiagnosticsStorageAccount = Cuenta de almacenamiento de diagnósticos de arranque
+    None = Ninguno
+    AzureBackup = Azure Backup
+    Extensions = Extensiones
+    Tags = Etiquetas
+'@
+
+# Azure Virtual Network (Get-AbrAzVirtualNetwork)
+GetAbrAzVirtualNetwork = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de VirtualNetwork establecido en {0}.
+    Collecting = Recopilando información de red virtual de Azure.
+    Processing = Procesando red virtual de Azure '{0}' ({1} de {2}).
+    SectionInfo = Una red virtual (VNet) de Azure es un bloque de construcción fundamental para su red privada en Azure. Permite que muchos tipos de recursos de Azure, como máquinas virtuales (VM) de Azure, se comuniquen de forma segura entre sí, con Internet y con redes locales.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de las redes virtuales en la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume la configuración de las redes virtuales en la suscripción {0}.
+    Heading = Redes virtuales
+    TableHeading = Red virtual
+    TableHeadings = Redes virtuales
+    Peerings = Emparejamientos
+    PeeringsInfo = El emparejamiento de redes virtuales le permite conectar sin problemas dos o más redes virtuales en Azure.
+    SubnetsInfo = Las subredes le permiten segmentar la red virtual en una o más subredes.
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    ProvisioningState = Estado de aprovisionamiento
+    AddressSpace = Espacio de direcciones
+    Unknown = Desconocido
+    Subnets = Subredes
+    DnsServers = Servidores DNS
+    Default = Predeterminado (proporcionado por Azure)
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
+# Azure Virtual Network Peering (Get-AbrAzVirtualNetworkPeering)
+GetAbrAzVirtualNetworkPeering = ConvertFrom-StringData @'
+    Collecting = Recopilando información de emparejamiento de red virtual de Azure.
+    Processing = Procesando emparejamiento de red virtual de Azure '{0}' ({1} de {2}).
+    Heading = Emparejamientos de red virtual
+    TableHeading = Emparejamientos de red virtual
+    Name = Nombre
+    PeeringStatus = Estado de emparejamiento
+	PeeringState = Estado de emparejamiento
+    Peer = Par
+    AddressSpace = Espacio de direcciones
+    GatewayTransit = Tránsito de puerta de enlace
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+    TrafficToRemoteVnet = Tráfico a VNet remota
+    Allow = Permitir
+    BlockRemoteVnet = Bloquear todo el tráfico a la red virtual remota
+    TrafficForwardedFromRemoteVnet = Tráfico reenviado desde VNet remota
+    BlockForwardedTraffic = Bloquear el tráfico que se origina fuera de esta red
+    VnetGateway = Puerta de enlace de VNet o Route Server
+    UseRemoteVnetGateway = Usar la puerta de enlace de la red virtual remota o Route Server
+    UseLocalVnetGateway = Usar la puerta de enlace de esta red virtual o Route Server
+    None = Ninguno
+'@
+
+GetAbrAzVirtualNetworkSubnet = ConvertFrom-StringData @'
+    Collecting = Recopilando información de subred de red virtual de Azure.
+    Processing = Procesando subred de red virtual de Azure '{0}' ({1} de {2}).
+    Heading = Subredes
+    TableHeading = Subred
+    Name = Nombre
+    AddressRange = Rango de direcciones
+    NatGateway = Puerta de enlace NAT
+    None = Ninguno
+    NetworkSecurityGroup = Grupo de seguridad de red
+    RouteTable = Tabla de rutas
+'@
+
+GetAbrAzFirewallPolicy = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de FirewallPolicy establecido en {0}.
+    Collecting = Recopilando información de directiva de Azure Firewall.
+    SectionInfo = Azure Firewall Policy es un recurso de nivel superior que contiene configuraciones de seguridad y operativas para Azure Firewall. Permite definir jerarquías de reglas y aplicar el cumplimiento mediante una estructura de directivas centralizada.
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    ProvisioningState = Estado de aprovisionamiento
+    ParentPolicy = Directiva primaria
+    PolicyTier = Nivel de directiva
+    ThreatIntelMode = Modo de inteligencia de amenazas
+    IntrusionDetectionMode = Modo de detección de intrusos
+    DnsServers = Servidores DNS
+    DnsProxy = Proxy DNS
+    Priority = Prioridad
+    Rules = Reglas
+    Action = Acción
+    InheritedFrom = Heredado de
+    Description = Descripción
+    SourceAddresses = Direcciones de origen
+    SourceIpGroups = Grupos de IP de origen
+    DestinationAddresses = Direcciones de destino
+    DestinationIpGroups = Grupos de IP de destino
+    DestinationFqdns = FQDNs de destino
+    DestinationPorts = Puertos de destino
+    TranslatedAddress = Dirección traducida
+    TranslatedPort = Puerto traducido
+    TranslatedFqdn = FQDN traducido
+    TargetFQDNs = FQDNs de destino
+    TargetUrls = URLs de destino
+    Protocols = Protocolos
+    WebCategories = Categorías web
+    Heading = Directivas de firewall
+    RcgHeading = Grupos de colecciones de reglas
+    RcgTableHeading = Grupos de colecciones de reglas
+    RcTableHeading = Colecciones de reglas
+    AppRuleTableHeading = Regla de aplicación
+    NetRuleTableHeading = Regla de red
+    DnatRuleTableHeading = Regla DNAT
+    NoRuleCollections = No se encontraron colecciones de reglas en {0}.
+    NoParentPolicy = No se puede recuperar la directiva primaria.
+    NoParentPolicyRCG = No se pueden recuperar los grupos de colecciones de reglas de la directiva primaria.
+    TableHeading = Directiva de firewall
+    Alert = Alerta
+    Deny = Denegar
+    Found = Se encontraron {0} grupo(s) de colección de reglas en la directiva {1}.
+    NotFound = No se encontraron grupos de colección de reglas en la directiva {0}.
+    NotSupported = No compatible con directiva estándar
+    Tags = Etiquetas
+    None = Ninguno
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+    Off = Desactivado
+    Default = Predeterminado (proporcionado por Azure)
+    Skipping = Omitiendo referencia nula de grupo de colección de reglas
+'@
+
+# Azure Virtual Desktop
+GetAbrAzDesktopVirtualization = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de DesktopVirtualization establecido en {0}.
+    Collecting = Recopilando información de Azure Virtual Desktop.
+    SectionInfo = Azure Virtual Desktop es un servicio de virtualización de escritorios y aplicaciones que se ejecuta en Azure. Permite a los usuarios conectarse a un escritorio completo o a aplicaciones publicadas desde prácticamente cualquier lugar.
+    HostPoolsSummary = La siguiente tabla resume los grupos de hosts en la suscripción {0}.
+    AppGroupsSummary = La siguiente tabla resume los grupos de aplicaciones en la suscripción {0}.
+    WorkspacesSummary = La siguiente tabla resume los espacios de trabajo AVD en la suscripción {0}.
+    ScalingPlansSummary = La siguiente tabla resume los planes de escalado en la suscripción {0}.
+    WarningNoSessionHosts = ADVERTENCIA: El grupo de hosts '{0}' no tiene hosts de sesión.
+    WarningAtCapacity = ADVERTENCIA: El grupo de hosts '{0}' está al máximo de capacidad ({1}/{2} sesiones).
+    Heading = Azure Virtual Desktop
+    HostPoolsHeading = Grupos de hosts
+    SessionHostsHeading = Hosts de sesión
+    ApplicationGroupsHeading = Grupos de aplicaciones
+    WorkspacesHeading = Espacios de trabajo
+    ScalingPlansHeading = Planes de escalado
+    RdpPropertiesHeading = Propiedades RDP personalizadas
+    AgentUpdateHeading = Configuración de actualización del agente
+    RegistrationHeading = Información de registro
+    ActiveSessionsHeading = Sesiones activas
+    PublishedAppsHeading = Aplicaciones publicadas
+    SchedulesHeading = Programaciones
+    Name = Nombre
+    FriendlyName = Nombre descriptivo
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Type = Tipo
+    Tags = Etiquetas
+    TimeZone = Zona horaria
+    Description = Descripción
+    LoadBalancer = Equilibrador de carga
+    MaxSessionLimit = Límite máximo de sesiones
+    StartVMOnConnect = Iniciar VM al conectar
+    ValidationEnvironment = Entorno de validación
+    Property = Propiedad
+    Value = Valor
+    UpdateType = Tipo de actualización
+    MaintenanceWindow = Ventana de mantenimiento
+    UseLocalTime = Usar hora local
+    ExpirationTime = Fecha de expiración
+    TokenStatus = Estado del token
+    Status = Estado
+    HealthCheck = Comprobación de estado
+    Sessions = Sesiones
+    AllowNewSessions = Permitir nuevas sesiones
+    OSVersion = Versión del SO
+    AgentVersion = Versión del agente
+    LastHeartbeat = Último latido
+    UpdateState = Estado de actualización
+    AssignedUser = Usuario asignado
+    UpdateError = Error de actualización
+    VMResourceId = ID de recurso de VM
+    HealthChecks = Comprobaciones de estado
+    User = Usuario
+    SessionHost = Host de sesión
+    State = Estado
+    Application = Aplicación
+    CreateTime = Fecha de creación
+    HostPool = Grupo de hosts
+    Workspace = Espacio de trabajo
+    FilePath = Ruta del archivo
+    CommandLine = Línea de comandos
+    ShowInPortal = Mostrar en portal
+    ApplicationGroups = Grupos de aplicaciones
+    PublicNetworkAccess = Acceso a red pública
+    ExclusionTag = Etiqueta de exclusión
+    HostPoolType = Tipo de grupo de hosts
+    HostPoolAssignments = Asignaciones de grupo de hosts
+    Days = Días
+    RampUpStart = Inicio de aumento
+    PeakStart = Inicio de pico
+    RampDownStart = Inicio de reducción
+    OffPeakStart = Inicio fuera de pico
+    RampUpAction = Acción de aumento
+    RampUpMinPct = Min de aumento %
+    RampUpCapacityPct = Capacidad de aumento %
+    RampDownAction = Acción de reducción
+    RampDownMinPct = Min de reducción %
+    RampDownCapacityPct = Capacidad de reducción %
+    OffPeakAction = Acción fuera de pico
+    Healthy = Correcto
+    Expired = Expirado
+    Valid = Válido
+    NoActiveToken = Sin token activo
+    None = Ninguno
+    Unassigned = Sin asignar
+    Allowed = Permitido
+'@
+
+}

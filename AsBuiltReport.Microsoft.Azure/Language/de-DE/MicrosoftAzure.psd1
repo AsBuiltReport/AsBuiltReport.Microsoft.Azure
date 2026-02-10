@@ -1,0 +1,1257 @@
+# culture = 'de-DE'
+@{
+
+# Module-wide strings
+InvokeAsBuiltReportMicrosoftAzure = ConvertFrom-StringData @'
+    DefaultOrder = Keine benutzerdefinierte Abschnittsreihenfolge angegeben. Standardreihenfolge wird verwendet.
+    CustomOrder = Benutzerdefinierte Abschnittsreihenfolge aus der JSON-Berichtskonfiguration wird verwendet.
+    Connecting = Verbindung zu Azure-Mandanten-ID '{0}' wird hergestellt.
+    Subscriptions = Abonnements
+    SubscriptionID = Azure-Kontext wird auf Abonnement-ID '{0}' gesetzt.
+    InfoLevelNotFound = InfoLevel für '{0}' nicht gefunden.
+    FunctionNotFound = Funktion '{0}' für Abschnitt '{1}' nicht gefunden.
+    SectionError = Fehler bei der Verarbeitung des Abschnitts '{0}': {1}"
+    TenantNotFound = Azure-Mandant '{0}' nicht gefunden.
+    TokenAccountIdRequired = Azure-Token-Authentifizierung erfordert den AccountId-Parameter. Verwenden Sie {0} mit {1} @{{AccountId="benutzer@domain.com"}}.
+    ConnectingWithToken = Verbindung zu Azure mit Token für Konto {0} im Mandanten {1} wird hergestellt.
+'@
+
+# Country Code to Country Name mapping (Get-CountryName)
+GetCountryName = ConvertFrom-StringData @'
+    CodeNotFound = Ländercode '{0}' nicht gefunden.
+    AF = Afghanistan
+    AX = Åland-Inseln
+    AL = Albanien
+    DZ = Algerien
+    AS = Amerikanisch-Samoa
+    AD = Andorra
+    AO = Angola
+    AQ = Antarktis
+    AG = Antigua und Barbuda
+    AR = Argentinien
+    AM = Armenien
+    AW = Aruba
+    AU = Australien
+    AT = Österreich
+    AZ = Aserbaidschan
+    BS = Bahamas
+    BH = Bahrain
+    BD = Bangladesch
+    BB = Barbados
+    BY = Belarus
+    BE = Belgien
+    BZ = Belize
+    BJ = Benin
+    BM = Bermuda
+    BT = Bhutan
+    BO = Bolivien
+    BQ = Bonaire
+    BA = Bosnien und Herzegowina
+    BW = Botswana
+    BV = Bouvetinsel
+    BR = Brasilien
+    IO = Britisches Territorium im Indischen Ozean
+    VG = Britische Jungferninseln
+    BN = Brunei
+    BG = Bulgarien
+    BF = Burkina Faso
+    BI = Burundi
+    CV = Kap Verde
+    KH = Kambodscha
+    CM = Kamerun
+    CA = Kanada
+    KY = Kaimaninseln
+    CF = Zentralafrikanische Republik
+    TD = Tschad
+    CZ = Tschechien
+    CL = Chile
+    CN = China
+    CX = Weihnachtsinsel
+    CC = Kokosinseln
+    CO = Kolumbien
+    KM = Komoren
+    CG = Kongo
+    CD = Kongo (Demokratische Republik)
+    CK = Cookinseln
+    CR = Costa Rica
+    HR = Kroatien
+    CU = Kuba
+    CW = Curaçao
+    CY = Zypern
+    DK = Dänemark
+    DJ = Dschibuti
+    DM = Dominica
+    DO = Dominikanische Republik
+    EC = Ecuador
+    EG = Ägypten
+    SV = El Salvador
+    GQ = Äquatorialguinea
+    ER = Eritrea
+    EE = Estland
+    SZ = Eswatini
+    ET = Äthiopien
+    FO = Färöer-Inseln
+    FJ = Fidschi
+    FI = Finnland
+    FR = Frankreich
+    GF = Französisch-Guayana
+    PF = Französisch-Polynesien
+    TF = Französische Süd- und Antarktisgebiete
+    GA = Gabun
+    GM = Gambia
+    GE = Georgien
+    DE = Deutschland
+    GH = Ghana
+    GI = Gibraltar
+    GR = Griechenland
+    GL = Grönland
+    GD = Grenada
+    GP = Guadeloupe
+    GU = Guam
+    GT = Guatemala
+    GG = Guernsey
+    GN = Guinea
+    GW = Guinea-Bissau
+    GY = Guyana
+    HT = Haiti
+    HM = Heard und McDonaldinseln
+    HN = Honduras
+    HK = Hongkong SAR
+    HU = Ungarn
+    IS = Island
+    IN = Indien
+    ID = Indonesien
+    IR = Iran
+    IQ = Irak
+    IE = Irland
+    IM = Isle of Man
+    IL = Israel
+    IT = Italien
+    JM = Jamaika
+    JP = Japan
+    JE = Jersey
+    JO = Jordanien
+    KZ = Kasachstan
+    KE = Kenia
+    KI = Kiribati
+    KR = Südkorea
+    KW = Kuwait
+    KG = Kirgisistan
+    LA = Laos
+    LV = Lettland
+    LB = Libanon
+    LS = Lesotho
+    LR = Liberia
+    LY = Libyen
+    LI = Liechtenstein
+    LT = Litauen
+    LU = Luxemburg
+    MO = Macau SAR
+    MG = Madagaskar
+    MW = Malawi
+    MY = Malaysia
+    MV = Malediven
+    ML = Mali
+    MT = Malta
+    MH = Marshallinseln
+    MQ = Martinique
+    MR = Mauretanien
+    MU = Mauritius
+    YT = Mayotte
+    MX = Mexiko
+    FM = Mikronesien
+    MD = Moldau
+    MC = Monaco
+    MN = Mongolei
+    ME = Montenegro
+    MS = Montserrat
+    MA = Marokko
+    MZ = Mosambik
+    MM = Myanmar
+    NA = Namibia
+    NR = Nauru
+    NP = Nepal
+    NL = Niederlande
+    NC = Neukaledonien
+    NZ = Neuseeland
+    NI = Nicaragua
+    NE = Niger
+    NG = Nigeria
+    NU = Niue
+    NF = Norfolkinsel
+    KP = Nordkorea
+    MP = Nördliche Marianen
+    MK = Nordmazedonien
+    NO = Norwegen
+    OM = Oman
+    PK = Pakistan
+    PW = Palau
+    PS = Palästinensische Autonomiegebiete
+    PA = Panama
+    PG = Papua-Neuguinea
+    PY = Paraguay
+    PE = Peru
+    PH = Philippinen
+    PN = Pitcairninseln
+    PL = Polen
+    PT = Portugal
+    PR = Puerto Rico
+    QA = Katar
+    RE = Réunion
+    RO = Rumänien
+    RU = Russland
+    RW = Ruanda
+    BL = Saint-Barthélemy
+    KN = St. Kitts und Nevis
+    LC = St. Lucia
+    MF = Saint-Martin
+    PM = Saint-Pierre und Miquelon
+    VC = St. Vincent und die Grenadinen
+    WS = Samoa
+    SM = San Marino
+    ST = São Tomé und Príncipe
+    SA = Saudi-Arabien
+    SN = Senegal
+    RS = Serbien
+    SC = Seychellen
+    SL = Sierra Leone
+    SG = Singapur
+    SX = Sint Maarten
+    SK = Slowakei
+    SI = Slowenien
+    SB = Salomonen
+    SO = Somalia
+    ZA = Südafrika
+    GS = Südgeorgien und die Südlichen Sandwichinseln
+    SS = Südsudan
+    ES = Spanien
+    LK = Sri Lanka
+    SH = St. Helena, Ascension und Tristan da Cunha
+    SD = Sudan
+    SR = Suriname
+    SJ = Svalbard
+    SE = Schweden
+    CH = Schweiz
+    SY = Syrien
+    TW = Taiwan
+    TJ = Tadschikistan
+    TZ = Tansania
+    TH = Thailand
+    TL = Timor-Leste
+    TG = Togo
+    TK = Tokelau
+    TO = Tonga
+    TT = Trinidad und Tobago
+    TN = Tunesien
+    TR = Türkiye
+    TM = Turkmenistan
+    TC = Turks- und Caicosinseln
+    TV = Tuvalu
+    UG = Uganda
+    UA = Ukraine
+    AE = Vereinigte Arabische Emirate
+    GB = Vereinigtes Königreich
+    US = Vereinigte Staaten
+    UY = Uruguay
+    UM = Amerikanische Überseeinseln
+    VI = Amerikanische Jungferninseln
+    UZ = Usbekistan
+    VU = Vanuatu
+    VA = Vatikanstadt
+    VE = Venezuela
+    VN = Vietnam
+    WF = Wallis und Futuna
+    YE = Jemen
+    ZM = Sambia
+    ZW = Simbabwe
+'@
+
+# Azure Tenant Information (Get-AbrAzTenant)
+GetAbrAzTenant = ConvertFrom-StringData @'
+    InfoLevel = Mandanten-InfoLevel auf {0} gesetzt.
+    Collecting = Azure-Mandanteninformationen werden gesammelt.
+    Heading = Mandant
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    TenantName = Mandantenname
+    TenantID = Mandanten-ID
+    TenantType = Mandantentyp
+    Country = Land
+    Domains = Domänen
+    DefaultDomain = Standarddomäne
+    TableHeading = Mandant
+'@
+
+# Azure Site Recovery Protected Items (Get-AbrAsrProtectedItems)
+GetAbrAsrProtectedItems = ConvertFrom-StringData @'
+    InfoLevel = SiteRecovery-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Site Recovery-Informationen '{0}' werden gesammelt.
+    CollectingItems = Azure Site Recovery geschützte Elemente werden gesammelt.
+    ParagraghSummary = Die folgenden Tabellen enthalten Informationen zu den geschützten Azure Site Recovery-Elementen im Abonnement {0}.
+    Heading = Geschützte Elemente
+    TableHeading = Geschützte Elemente
+    SubHeading = Site Recovery
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    VirtualMachine = Virtueller Computer
+    ReplicationHealth = Replikationszustand
+    State = Status
+    ActiveLocation = Aktiver Standort
+    TargetLocation = Zielstandort
+    FailoverHealth = Failover-Zustand
+'@
+
+# Azure Availability Sets (Get-AbrAzAvailabilitySet)
+GetAbrAzAvailabilitySet = ConvertFrom-StringData @'
+    InfoLevel = Verfügbarkeitsgruppen-InfoLevel auf {0} gesetzt.
+    Collecting = Azure-Verfügbarkeitsgruppen-Informationen werden gesammelt.
+    SectionInfo = Eine Verfügbarkeitsgruppe (AS) ist ein logisches Konstrukt, das Azure informiert, dass enthaltene VM-Instanzen über mehrere Fehler- und Updatedomänen innerhalb einer Azure-Region verteilt werden sollen.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Verfügbarkeitsgruppen im Abonnement {0} zusammen.
+    Heading = Verfügbarkeitsgruppen
+    TableHeading = Verfügbarkeitsgruppen
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    SKU = SKU
+    VirtualMachines = Virtuelle Computer
+    None = Keine
+'@
+
+# Azure Bastion (Get-AbrAzBastion)
+GetAbrAzBastion = ConvertFrom-StringData @'
+    InfoLevel = Bastion-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Bastion-Informationen werden gesammelt.
+    SectionInfo1 = Azure Bastion ist ein Dienst, mit dem Sie über Ihren Browser und das Azure-Portal oder über den nativen SSH- oder RDP-Client auf Ihrem lokalen Computer eine Verbindung zu einem virtuellen Computer herstellen können.
+    SectionInfo2 = Der Azure Bastion-Dienst ist ein vollständig plattformverwalteter PaaS-Dienst, den Sie in Ihrem virtuellen Netzwerk bereitstellen. Er bietet sichere und nahtlose RDP/SSH-Konnektivität zu Ihren virtuellen Computern direkt aus dem Azure-Portal über TLS.
+    SectionInfo3 = Bastion bietet sichere RDP- und SSH-Konnektivität für alle VMs im virtuellen Netzwerk, in dem es bereitgestellt wird. Die Verwendung von Azure Bastion schützt Ihre virtuellen Computer vor der Offenlegung von RDP/SSH-Ports nach außen und bietet dennoch sicheren Zugriff über RDP/SSH.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Bastions im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Bastions im Abonnement {0} zusammen.
+    Heading = Bastion
+    TableHeading = Bastion
+    TableHeadings = Bastions
+    Image = Bastion-Architektur
+    ImageError = Bastion-Bild kann nicht angezeigt werden.
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ProvisioningState = Bereitstellungsstatus
+    VirtualNetworkSubnet = Virtuelles Netzwerk / Subnetz
+    PublicDnsName = Öffentlicher DNS-Name
+    PublicIpAddress = Öffentliche IP-Adresse
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure DNS Private Resolver (Get-AbrAzDnsPrivateResolver)
+GetAbrAzDnsPrivateResolver = ConvertFrom-StringData @'
+    InfoLevel = DnsPrivateResolver-InfoLevel auf {0} gesetzt.
+    Collecting = Azure DNS Private Resolver-Informationen werden gesammelt.
+    SectionInfo = Azure Private DNS Resolver ist ein Dienst, der DNS-Abfragen für private Ressourcen in Azure VNets sicher auflöst und eine nahtlose Kommunikation zwischen lokalen und Cloud-Umgebungen ermöglicht, ohne den Datenverkehr dem öffentlichen Internet auszusetzen.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der DNS Private Resolver im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der DNS Private Resolver im Abonnement {0} zusammen.
+    Heading = DNS Private Resolver
+    TableHeading = Private DNS Resolver
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    InboundEndpoints = Eingehende Endpunkte
+    OutboundEndpoints = Ausgehende Endpunkte
+    VirtualNetwork = Virtuelles Netzwerk
+    ResourceGuid = Ressourcen-GUID
+    CreationTime = Erstellungszeit
+    LastModified = Zuletzt geändert
+    CurrentState = Aktueller Status
+    ProvisioningState = Bereitstellungsstatus
+    EndpointName = Endpunktname
+    IpAddress = IP-Adresse
+    IpAllocation = IP-Zuweisung
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure Storage Account (Get-AbrAzStorageAccount)
+GetAbrAzStorageAccount = ConvertFrom-StringData @'
+    InfoLevel = Speicherkonto-InfoLevel auf {0} gesetzt.
+    Collecting = Azure-Speicherkontoinformationen werden gesammelt.
+    Processing = Azure-Speicherkonto '{0}' wird verarbeitet ({1} von {2}).
+    SectionInfo = Das Azure-Speicherkonto enthält alle Ihre Azure Storage-Datenobjekte, einschließlich Blobs, Dateifreigaben, Warteschlangen, Tabellen und Datenträger. Das Speicherkonto bietet einen eindeutigen Namespace für Ihre Azure Storage-Daten, der von überall auf der Welt über HTTP oder HTTPS zugänglich ist.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration des Speicherkontos im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration des Speicherkontos im Abonnement {0} zusammen.
+    Heading = Speicherkonto
+    TableHeading = Speicherkonto
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    PrimarySecondaryLocation = Primärer/Sekundärer Standort
+    Primary = Primär
+    Secondary = Sekundär
+    DiskState = Datenträgerstatus
+    Performance = Leistung
+    Replication = Replikation
+    LRS = Lokal redundanter Speicher (LRS)
+    ZRS = Zonenredundanter Speicher (ZRS)
+    GRS = Georedundanter Speicher (GRS)
+    RAGRS = Georedundanter Speicher mit Lesezugriff (RA-GRS)
+    PremiumLRS = Premium lokal redundanter Speicher (Premium LRS)
+    PremiumZRS = Premium zonenredundanter Speicher (Premium ZRS)
+    GZRS = Geozonenredundanter Speicher (GZRS)
+    RAGZRS = Geozonenredundanter Speicher mit Lesezugriff (RA-GZRS)
+    AccountKind = Kontotyp
+    Storage = Storage (Allgemein v1)
+    StorageV2 = StorageV2 (Allgemein v2)
+    BlobStorage = Blob Storage
+    BlockBlobStorage = Block Blob Storage
+    FileStorage = File Storage
+    ProvisioningState = Bereitstellungsstatus
+    SecureTransfer = Sichere Übertragung für REST-API
+    StorageAccountKeyAccess = Speicherkontoschlüssel-Zugriff
+    PublicNetworkAccess = Öffentlicher Netzwerkzugriff
+    MinimumTLSVersion = Minimale TLS-Version
+    InfrastructureEncryption = Infrastrukturverschlüsselung
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+    Unknown = Unbekannt
+    Created = Erstellt
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure ExpressRoute Circuit (Get-AbrAzExpressRouteCircuit)
+GetAbrAzExpressRouteCircuit = ConvertFrom-StringData @'
+    InfoLevel = ExpressRoute-InfoLevel auf {0} gesetzt.
+    Collecting = ExpressRoute Circuit-Informationen werden gesammelt.
+    SectionInfo = Ein ExpressRoute-Circuit ermöglicht eine private dedizierte Verbindung zu Azure mit Hilfe eines Konnektivitätsanbieters.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der ExpressRoute-Circuits im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der ExpressRoute-Circuits im Abonnement {0} zusammen.
+    Heading = ExpressRoute Circuit
+    TableHeading = ExpressRoute Circuit
+    TableHeadings = ExpressRoute Circuits
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    CircuitStatus = Circuit-Status
+    Provider = Anbieter
+    ProviderStatus = Anbieterstatus
+    PeeringLocation = Peering-Standort
+    Bandwidth = Bandbreite
+    ServiceKey = Dienstschlüssel
+    SKU = SKU
+    BillingModel = Abrechnungsmodell
+    MeteredData = Getaktet
+    AllowClassicOperations = Klassische Operationen erlauben
+    On = Ein
+    Off = Aus
+    None = Keine
+    Tags = Tags
+'@
+
+# Azure Firewall (Get-AbrAzFirewall)
+GetAbrAzFirewall = ConvertFrom-StringData @'
+    InfoLevel = Firewall-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Firewall-Informationen werden gesammelt.
+    SectionInfo = Azure Firewall ist ein verwalteter, cloudbasierter Netzwerksicherheitsdienst, der Ihre Azure Virtual Network-Ressourcen schützt. Es handelt sich um eine vollständig zustandsbehaftete Firewall als Dienst mit integrierter Hochverfügbarkeit und uneingeschränkter Cloud-Skalierbarkeit.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Firewalls im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Firewalls im Abonnement {0} zusammen.
+    Heading = Firewalls
+    TableHeading = Firewall
+    TableHeadings = Firewalls
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    FirewallPolicy = Firewall-Richtlinie
+    ProvisioningState = Bereitstellungsstatus
+    SKU = SKU
+    Subnet = Subnetz
+    PublicIP = Öffentliche IP
+    PrivateIP = Private IP
+    NatRuleCollections = NAT-Regelsammlungen
+    NetworkRuleCollections = Netzwerkregelsammlungen
+    ApplicationRuleCollections = Anwendungsregelsammlungen
+    NatRules = NAT-Regeln
+    NetworkRules = Netzwerkregeln
+    AppRules = Anwendungsregeln
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure Firewall NAT Rules (Get-AbrAzFirewallNatRule)
+GetAbrAzFirewallNatRule = ConvertFrom-StringData @'
+    Collecting = Azure Firewall NAT-Regelsammlungen werden gesammelt.
+    Heading = NAT-Regelsammlungen
+    TableHeading = NAT-Regelsammlungen
+    Name = Name
+    Priority = Priorität
+    Action = Aktion
+    Rules = Regeln
+    Protocols = Protokolle
+    SourceType = Quelltyp
+    IPAddress = IP-Adresse
+    IPGroup = IP-Gruppe
+    Source = Quelle
+    DestinationAddresses = Zieladressen
+    DestinationType = Zieltyp
+    TranslatedAddress = Übersetzte Adresse
+    TranslatedPort = Übersetzter Port
+    DestinationPorts = Zielports
+    NatRule = NAT-Regel
+'@
+
+# Azure Firewall Network Rules (Get-AbrAzFirewallNetworkRule)
+GetAbrAzFirewallNetworkRule = ConvertFrom-StringData @'
+    Collecting = Azure Firewall-Netzwerkregelsammlungen werden gesammelt.
+    Heading = Netzwerkregelsammlungen
+    TableHeading = Netzwerkregelsammlungen
+    Name = Name
+    Priority = Priorität
+    Action = Aktion
+    Rules = Regeln
+    Protocols = Protokolle
+    SourceType = Quelltyp
+    IPAddress = IP-Adresse
+    IPGroup = IP-Gruppe
+    Source = Quelle
+    DestinationType = Zieltyp
+    Destination = Ziel
+    DestinationPorts = Zielports
+    NetworkAllowRule = Netzwerk-Erlaubnisregel
+    NetworkDenyRule = Netzwerk-Verweigerungsregel
+'@
+
+# Azure Load Balancer Backend Pool (Get-AbrAzLbBackendPool)
+GetAbrAzLbBackendPool = ConvertFrom-StringData @'
+    Collecting = Azure Load Balancer Backend-Pool-Informationen werden gesammelt.
+    Heading = Backend-Pools
+    TableHeading = Backend-Pools
+    Name = Name
+    LoadBalancingRules = Lastenausgleichsregeln
+    None = Keine
+'@
+
+# Azure IP Group (Get-AbrAzIpGroup)
+GetAbrAzIpGroup = ConvertFrom-StringData @'
+    InfoLevel = IPGroup-InfoLevel auf {0} gesetzt.
+    Collecting = Azure IP-Gruppeninformationen werden gesammelt.
+    SectionInfo = Azure IP-Gruppen ermöglichen es Ihnen, IP-Adressen für Azure Firewall-Regeln zu gruppieren und zu verwalten. IP-Gruppen ermöglichen es Ihnen, IP-Adressen einmal zu definieren und in mehreren Firewall-Regeln zu verwenden.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der IP-Gruppen im Abonnement {0} zusammen.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der IP-Gruppen im Abonnement {0}.
+    TableHeading = IP-Gruppe
+    TableHeadings = IP-Gruppen
+    Heading = IP-Gruppen
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ProvisioningState = Bereitstellungsstatus
+    Firewalls = Firewalls
+    IPAddresses = IP-Adressen
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure Key Vault (Get-AbrAzKeyVault)
+GetAbrAzKeyVault = ConvertFrom-StringData @'
+    InfoLevel = KeyVault-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Key Vault-Informationen werden gesammelt.
+    SectionInfo = Azure Key Vault ist eine Schlüsselverwaltungslösung, die es Azure-Benutzern und -Anwendungen ermöglicht, Schlüssel, Geheimnisse und Zertifikate sicher zu speichern und darauf zuzugreifen.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Key Vaults im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Key Vaults im Abonnement {0} zusammen.
+    AzureVM = Azure Virtual Machines für Bereitstellung
+    AzureRM = Azure Resource Manager für Vorlagenbereitstellung
+    ADE = Azure Disk Encryption für Volume-Verschlüsselung
+    Heading = Key Vaults
+    TableHeading = Key Vault
+    TableHeadings = Key Vaults
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    VaultURI = Tresor-URI
+    SkuPricingTier = SKU (Preisstufe)
+    ResourceAccess = Ressourcenzugriff
+    RBACAuthorization = RBAC-Autorisierung
+    SoftDelete = Vorläufiges Löschen
+    PurgeProtection = Löschschutz
+    PublicNetworkAccess = Öffentlicher Netzwerkzugriff
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+    NoAccessEnabled = Kein Zugriff aktiviert
+    EnabledDays = Aktiviert ({0} Tage)
+    Tags = Tags
+    None = Keine
+    days = Tage
+'@
+
+# Azure Load Balancer Health Probe (Get-AbrAzLbHealthProbe)
+GetAbrAzLbHealthProbe = ConvertFrom-StringData @'
+    Collecting = Azure Load Balancer Integritätstest-Informationen werden gesammelt.
+    Heading = Integritätstests
+    TableHeading = Integritätstests
+    Name = Name
+    Protocol = Protokoll
+    Port = Port
+    Interval = Intervall
+    UsedBy = Verwendet von
+    Seconds = {0} Sekunden
+'@
+
+# Azure Load Balancer Frontend IP Configuration (Get-AbrAzLbFrontendIpConfig)
+GetAbrAzLbFrontendIpConfig = ConvertFrom-StringData @'
+    Collecting = Azure Load Balancer Frontend-IP-Konfigurationsinformationen werden gesammelt.
+    Heading = Frontend-IP-Konfiguration
+    TableHeading = Frontend-IP-Konfiguration
+    Name = Name
+    PrivateIPAddress = Private IP-Adresse
+    PrivateIPAllocationMethod = Private IP-Zuweisungsmethode
+    PublicIPAddress = Öffentliche IP-Adresse
+    Subnet = Subnetz
+    LoadBalancingRules = Lastenausgleichsregeln
+    InboundNATRules = Eingehende NAT-Regeln
+    None = Keine
+    Unknown = Unbekannt
+'@
+
+# Azure Load Balancer Inbound NAT Pool (Get-AbrAzLbInboundNatPool)
+GetAbrAzLbInboundNatPool = ConvertFrom-StringData @'
+    Collecting = Azure Load Balancer eingehender NAT-Pool-Informationen werden gesammelt.
+    Heading = Eingehende NAT-Pools
+    TableHeading = Eingehende NAT-Pools
+    Name = Name
+'@
+
+# Azure Load Balancer Load Balancing Rule (Get-AbrAzLbLoadBalancingRule)
+GetAbrAzLbLoadBalancingRule = ConvertFrom-StringData @'
+    Collecting = Azure Load Balancer Lastenausgleichsregeln werden gesammelt.
+    Heading = Lastenausgleichsregeln
+    TableHeading = Lastenausgleichsregel
+    Name = Name
+    FrontendIPAddress = Frontend-IP-Adresse
+    BackendPool = Backend-Pool
+    Protocol = Protokoll
+    Port = Port
+    BackendPort = Backend-Port
+    HealthProbe = Integritätstest
+    IdleTimeout = Leerlauftimeout
+    FloatingIP = Floating IP
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+    Minutes = {0} Minuten
+'@
+
+# Azure Load Balancer (Get-AbrAzLoadBalancer)
+GetAbrAzLoadBalancer = ConvertFrom-StringData @'
+    InfoLevel = LoadBalancer-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Load Balancer-Informationen werden gesammelt.
+    SectionInfo1 = Azure Load Balancer arbeitet auf Schicht 4 des Open Systems Interconnection (OSI)-Modells. Er ist der einzige Kontaktpunkt für Clients. Der Load Balancer verteilt eingehende Datenströme auf Backend-Pool-Instanzen.
+    SectionInfo2 = Azure Load Balancer unterstützt zwei SKUs: Basic und Standard. Die Basic-SKU ist für Entwicklungs-/Testszenarien und kleine Produktionsworkloads gedacht. Die Standard-SKU ist für alle Produktionsworkloads gedacht.
+    SectionInfo3 = Es gibt zwei Arten von Azure Load Balancer: Öffentlich und Intern. Ein öffentlicher Load Balancer hat eine öffentliche IP-Adresse als Frontend. Ein interner Load Balancer hat eine private IP-Adresse aus dem virtuellen Netzwerk als Frontend.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Load Balancer im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Load Balancer im Abonnement {0} zusammen.
+    Heading = Load Balancer
+    TableHeading = Load Balancer
+    TableHeadings = Load Balancer
+    LoadBalancerImage = Load Balancer-Bild
+    ImageError = Load Balancer-Bild kann nicht angezeigt werden
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ProvisioningState = Bereitstellungsstatus
+    SKU = SKU
+    Tier = Stufe
+    Standard = Standard
+    Basic = Basic
+    Type = Typ
+    Public = Öffentlich
+    Internal = Intern
+    FrontendIPConfigs = Frontend-IP-Konfigurationen
+    BackendPools = Backend-Pools
+    LoadBalancingRules = Lastenausgleichsregeln
+    HealthProbes = Integritätstests
+    InboundNATRules = Eingehende NAT-Regeln
+    InboundNATPools = Eingehende NAT-Pools
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure Log Analytics Workspace (Get-AbrAzLogAnalyticsWorkspace)
+GetAbrAzLogAnalyticsWorkspace = ConvertFrom-StringData @'
+    InfoLevel = LogAnalyticsWorkspace-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Log Analytics Workspace-Informationen werden gesammelt.
+    SectionInfo = Azure Log Analytics ist ein Dienst in Azure, der Telemetriedaten aus Cloud- und lokalen Umgebungen sammelt, analysiert und darauf reagiert.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Log Analytics-Arbeitsbereiche im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Log Analytics-Arbeitsbereiche im Abonnement {0} zusammen.
+    Heading = Log Analytics-Arbeitsbereiche
+    TableHeading = Log Analytics-Arbeitsbereiche
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    WorkspaceID = Arbeitsbereichs-ID
+    Sku = SKU
+    RetentionDays = Aufbewahrung (Tage)
+    DailyQuotaGB = Tägliches Kontingent
+    ProvisioningState = Bereitstellungsstatus
+    PublicNetworkAccessForIngestion = Öffentlicher Netzwerkzugriff (Erfassung)
+    PublicNetworkAccessForQuery = Öffentlicher Netzwerkzugriff (Abfrage)
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+    Unknown = Unbekannt
+    NoQuota = Kein Kontingent festgelegt
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure Network Security Group (Get-AbrAzNetworkSecurityGroup)
+GetAbrAzNetworkSecurityGroup = ConvertFrom-StringData @'
+    InfoLevel = NetworkSecurityGroup-InfoLevel auf {0} gesetzt.
+    Collecting = Azure-Netzwerksicherheitsgruppen-Informationen werden gesammelt.
+    SectionInfo = Eine Azure-Netzwerksicherheitsgruppe (NSG) wird verwendet, um den Netzwerkverkehr zu und von Azure-Ressourcen in einem virtuellen Azure-Netzwerk zu filtern.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Netzwerksicherheitsgruppen im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Netzwerksicherheitsgruppen im Abonnement {0} zusammen.
+    Image = Netzwerksicherheitsgruppen-Architektur
+    ImageError = Netzwerksicherheitsgruppen-Bild kann nicht angezeigt werden.
+    Heading = Netzwerksicherheitsgruppen
+    TableHeading = Netzwerksicherheitsgruppe
+    TableHeadings = Netzwerksicherheitsgruppen
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ProvisioningState = Bereitstellungsstatus
+    AssociatedWith = Zugeordnet zu
+    NetworkInterfaces = Netzwerkschnittstellen
+    Subnets = Subnetze
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure Network Security Group Rules (Get-AbrAzNetworkSecurityGroupRule)
+GetAbrAzNetworkSecurityGroupRule = ConvertFrom-StringData @'
+    Collecting = Azure NSG-Sicherheitsregeln werden gesammelt.
+    Heading1 = Eingehende Sicherheitsregeln
+    TableHeading1 = Eingehende Sicherheitsregeln
+    Heading2 = Ausgehende Sicherheitsregeln
+    TableHeading2 = Ausgehende Sicherheitsregeln
+    Priority = Priorität
+    Name = Name
+    Port = Port
+    Any = Beliebig
+    Protocol = Protokoll
+    Source = Quelle
+    Destination = Ziel
+    Action = Aktion
+'@
+
+# Azure Policy (Get-AbrAzPolicy)
+GetAbrAzPolicy = ConvertFrom-StringData @'
+    InfoLevel = Richtlinien-InfoLevel auf 0 gesetzt.
+    Collecting = Azure-Richtlinieninformationen werden gesammelt.
+	Heading = Azure-Richtlinie
+    SectionInfo = Azure Policy hilft bei der Durchsetzung von Organisationsstandards und der Bewertung der Konformität im großen Maßstab. Über das Konformitäts-Dashboard bietet es eine aggregierte Ansicht zur Bewertung des Gesamtzustands der Umgebung.
+'@
+
+# Azure Policy Assignments (Get-AbrAzPolicyAssignment)
+GetAbrAzPolicyAssignment = ConvertFrom-StringData @'
+    InfoLevel = Richtlinienzuweisungen-InfoLevel auf {0} gesetzt.
+    Collecting = Azure-Richtlinienzuweisungen werden gesammelt.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Richtlinienzuweisungen im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Richtlinienzuweisungen im Abonnement {0} zusammen.
+    Heading = Richtlinienzuweisungen
+    TableHeading = Richtlinienzuweisung
+    TableHeadings = Richtlinienzuweisungen
+    Name = Name
+    Description = Beschreibung
+    Location = Standort
+    Scope = Bereich
+    Type = Typ
+    ExcludedScopes = Ausgeschlossene Bereiche
+    DefinitionType = Definitionstyp
+    Policy = Richtlinie
+    Initiative = Initiative
+    Unknown = Unbekannt
+    PolicyEnforcement = Richtliniendurchsetzung
+    Enforce = Erzwingen
+    DoNotEnforce = Nicht erzwingen
+'@
+
+# Azure Policy Definitions (Get-AbrAzPolicyDefinition)
+GetAbrAzPolicyDefinition = ConvertFrom-StringData @'
+    InfoLevel = Richtliniendefinitionen-InfoLevel auf {0} gesetzt.
+    Collecting = Azure-Richtliniendefinitionen werden gesammelt.
+    ParagraphSummary = Die folgende Tabelle fasst die Richtliniendefinitionen im Abonnement {0} zusammen.
+    Heading = Richtliniendefinitionen
+    TableHeading = Richtliniendefinitionen
+    TableHeadings = Richtliniendefinitionen
+    Name = Name
+    Version = Version
+    Policies = Richtlinien
+    Type = Typ
+    DefinitionType = Definitionstyp
+    Policy = Richtlinie
+    Initiative = Initiative
+    Category = Kategorie
+'@
+
+# Azure Private Endpoint (Get-AbrAzPrivateEndpoint)
+GetAbrAzPrivateEndpoint = ConvertFrom-StringData @'
+    InfoLevel = PrivateEndpoint-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Private Endpoint-Informationen werden gesammelt.
+    SectionInfo = Ein Azure Private Endpoint ist eine Netzwerkschnittstelle, die Sie privat und sicher mit einem von Azure Private Link unterstützten Dienst verbindet.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der privaten Endpunkte im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der privaten Endpunkte im Abonnement {0} zusammen.
+    Heading = Private Endpunkte
+    TableHeading = Privater Endpunkt
+    TableHeadings = Private Endpunkte
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ProvisioningState = Bereitstellungsstatus
+    VirtualNetworkSubnet = Virtuelles Netzwerk / Subnetz
+    NetworkInterface = Netzwerkschnittstelle
+    PrivateLinkResource = Private Link-Ressource
+    PrivateIP = Private IP
+    TargetSubResource = Ziel-Unterressource
+    ConnectionStatus = Verbindungsstatus
+    Response = Antwort
+    Pending = Ausstehend
+    Rejected = Abgelehnt
+    Disconnected = Getrennt
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure Recovery Services Vault (Get-AbrAzRecoveryServicesVault)
+GetAbrAzRecoveryServicesVault = ConvertFrom-StringData @'
+    InfoLevel = RecoveryServicesVault-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Recovery Services Vault-Informationen werden gesammelt.
+    SectionInfo = Ein Recovery Services-Tresor ist eine Speicherentität in Azure, die Daten enthält. Die Daten sind in der Regel Kopien von Daten oder Konfigurationsinformationen für virtuelle Computer (VMs), Workloads, Server oder Workstations.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Recovery Services-Tresore im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Recovery Services-Tresore im Abonnement {0} zusammen.
+    Heading = Recovery Services-Tresore
+    TableHeading = Recovery Services-Tresor
+    TableHeadings = Recovery Services-Tresore
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ProvisioningState = Bereitstellungsstatus
+    PrivateEndpointStateForBackup = Privater Endpunktstatus für Sicherung
+    PrivateEndpointStateForSiteRecovery = Privater Endpunktstatus für Site Recovery
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure Route Table (Get-AbrAzRouteTable)
+GetAbrAzRouteTable = ConvertFrom-StringData @'
+    InfoLevel = RouteTable-InfoLevel auf {0} gesetzt.
+    Collecting = Azure-Routentabelleninformationen werden gesammelt.
+    SectionInfo = Eine Azure-Routentabelle enthält eine Sammlung von Routen, die bestimmen, wohin Netzwerkverkehr geleitet wird.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Routentabellen im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Routentabellen im Abonnement {0} zusammen.
+    Heading = Routentabellen
+    TableHeading = Routentabelle
+    TableHeadings = Routentabellen
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ProvisioningState = Bereitstellungsstatus
+    Routes = Routen
+    AddressPrefix = Adresspräfix
+    NextHopType = Nächster Hop-Typ
+    NextHopIpAddress = Nächste Hop-IP-Adresse
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure Blob Storage Service Property (Get-AbrAzSABlobServiceProperty)
+GetAbrAzSABlobServiceProperty = ConvertFrom-StringData @'
+    Collecting = Azure Blob Storage-Diensteigenschaften '{0}' werden gesammelt.
+    Heading = Blob-Dienst
+    TableHeading = Blob-Dienst
+    HierarchicalNamespace = Hierarchischer Namespace
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+    DefaultAccessTier = Standard-Zugriffsebene
+    NotApplicable = Nicht zutreffend
+    BlobAnonymousAccess = Anonymer Blob-Zugriff
+    BlobSoftDelete = Vorläufiges Löschen von Blobs
+    ContainerSoftDelete = Vorläufiges Löschen von Containern
+    Versioning = Versionierung
+    ChangeFeed = Änderungsfeed
+    NfsV3 = NFS v3
+    SFTP = SFTP
+    AllowCrossTenantReplication = Mandantenübergreifende Replikation zulassen
+    EnabledDays = Aktiviert ({0} Tage)
+'@
+
+# Azure Storage Account Containers (Get-AbrAzSAContainer)
+GetAbrAzSAContainer = ConvertFrom-StringData @'
+    Collecting = Azure-Speicherkonto-Containerinformationen werden gesammelt.
+    Processing = Azure-Speicherkonto-Container '{0}' wird verarbeitet ({1} von {2}).
+    Heading = Container
+    TableHeading = Container
+    Name = Name
+    AnonymousAccessLevel = Anonyme Zugriffsebene
+    Private = Privat
+    Blob = Blob
+    Container = Container
+    LeaseState = Lease-Status
+    LastModified = Zuletzt geändert
+    Disabled = Deaktiviert
+'@
+
+# Azure Storage Account Tables (Get-AbrAzSATable)
+GetAbrAzSATable = ConvertFrom-StringData @'
+    Collecting = Azure-Speicherkonto-Tabelleninformationen werden gesammelt.
+    Processing = Azure-Speicherkonto-Tabelle '{0}' wird verarbeitet ({1} von {2}).
+    Heading = Tabellen
+    TableHeading = Tabellen
+    Name = Name
+'@
+
+# Azure Storage Account Queues (Get-AbrAzSAQueue)
+GetAbrAzSAQueue = ConvertFrom-StringData @'
+    Collecting = Azure-Speicherkonto-Warteschlangeninformationen werden gesammelt.
+    Processing = Azure-Speicherkonto-Warteschlange '{0}' wird verarbeitet ({1} von {2}).
+    Heading = Warteschlangen
+    TableHeading = Warteschlangen
+    Name = Name
+'@
+
+# Azure Storage Account File Service Property (Get-AbrAzSAFileServiceProperty)
+GetAbrAzSAFileServiceProperty = ConvertFrom-StringData @'
+    Collecting = Azure File Storage-Diensteigenschaften '{0}' werden gesammelt.
+    Heading = Dateidienst
+    TableHeading = Dateidienst
+    LargeFileShare = Große Dateifreigabe
+    NotConfigured = Nicht konfiguriert
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+    IdentityBasedAccess = Identitätsbasierter Zugriff
+    SoftDelete = Vorläufiges Löschen
+    EnabledDays = Aktiviert ({0} Tage)
+'@
+
+# Azure Storage Account Share
+GetAbrAzSAShare = ConvertFrom-StringData @'
+    Collecting = Azure-Speicherkonto-Freigabeinformationen werden gesammelt.
+    Processing = Azure-Speicherkonto-Freigabe '{0}' wird verarbeitet ({1} von {2}).
+    Heading = Freigaben
+    TableHeading = Freigaben
+    Name = Name
+    ShareUrl = Freigabe-URL
+    Quota = Kontingent
+    Unknown = Unbekannt
+    AccessTier = Zugriffsebene
+    TransactionOptimized = Transaktionsoptimiert
+    LastModified = Zuletzt geändert
+    Snapshot = Momentaufnahme
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+'@
+
+# Azure Subscription (Get-AbrAzSubscription)
+GetAbrAzSubscription = ConvertFrom-StringData @'
+    InfoLevel = Abonnement-InfoLevel auf {0} gesetzt.
+    Collecting = Azure-Abonnementinformationen werden gesammelt.
+    Processing = Azure-Abonnement '{0}' wird verarbeitet ({1} von {2}).
+    Heading = Abonnements
+    SectionInfo = Ein Azure-Abonnement ist ein logischer Container zur Bereitstellung von Ressourcen in Microsoft Azure. Es enthält die Details aller Ihrer Ressourcen wie virtuelle Computer (VMs), Datenbanken und mehr.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Abonnements im Mandanten {0} zusammen.
+    TableHeading = Abonnements
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    SubscriptionID = Abonnement-ID
+    State = Status
+    NoSubscriptions = Keine Abonnements gefunden.
+'@
+
+# Azure Virtual Machine (Get-AbrAzVirtualMachine)
+GetAbrAzVirtualMachine = ConvertFrom-StringData @'
+    InfoLevel = VirtualMachine-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Virtual Machine-Informationen werden gesammelt.
+    Processing = Azure Virtual Machine '{0}' wird verarbeitet ({1} von {2}).
+    SectionInfo1 = Eine Azure Virtual Machine (VM) ist eine skalierbare Compute-Ressource, die die Flexibilität der Virtualisierung bietet, ohne physische Hardware kaufen und warten zu müssen.
+    SectionInfo2 = Azure-VMs bieten verschiedene Größen und Konfigurationen für unterschiedliche Workload-Anforderungen. Sie können je nach Bedarf einfach hoch- oder herunterskaliert werden.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der virtuellen Computer im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der virtuellen Computer im Abonnement {0} zusammen.
+    Heading = Virtuelle Computer
+    TableHeading = Virtueller Computer
+    TableHeadings = Virtuelle Computer
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    Status = Status
+    Deallocated = Aufgehoben
+    Running = Wird ausgeführt
+    PrivateIPAddress = Private IP-Adresse
+    PrivateIPAssignment = Private IP-Zuweisung
+    VirtualNetworkSubnet = Virtuelles Netzwerk / Subnetz
+    OsType = Betriebssystemtyp
+    Size = Größe
+    vCpus = vCPUs
+    RAM = RAM
+    OperatingSystem = Betriebssystem
+    CustomImage = Benutzerdefiniertes Image:
+    OsDisk = Betriebssystemdatenträger
+    OSDiskSize = Betriebssystemdatenträgergröße
+    OSDiskType = Betriebssystemdatenträgertyp
+    Unknown = Unbekannt
+    NoOfDataDisks = Anzahl Datenträger
+    AzureDiskEncryption = Azure Disk Encryption
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+    BootDiagnostics = Startdiagnose
+    ManagedStorageAccount = Aktiviert mit verwaltetem Speicherkonto
+    CustomStorageAccount = Aktiviert mit benutzerdefiniertem Speicherkonto
+    BootDiagnosticsStorageAccount = Startdiagnose-Speicherkonto
+    None = Keine
+    AzureBackup = Azure Backup
+    Extensions = Erweiterungen
+    Tags = Tags
+'@
+
+# Azure Virtual Network (Get-AbrAzVirtualNetwork)
+GetAbrAzVirtualNetwork = ConvertFrom-StringData @'
+    InfoLevel = VirtualNetwork-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Virtual Network-Informationen werden gesammelt.
+    Processing = Azure Virtual Network '{0}' wird verarbeitet ({1} von {2}).
+    SectionInfo = Ein Azure Virtual Network (VNet) ist ein grundlegender Baustein für Ihr privates Netzwerk in Azure. Es ermöglicht vielen Arten von Azure-Ressourcen, wie Azure Virtual Machines (VMs), sicher miteinander, mit dem Internet und mit lokalen Netzwerken zu kommunizieren.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der virtuellen Netzwerke im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der virtuellen Netzwerke im Abonnement {0} zusammen.
+    Heading = Virtuelle Netzwerke
+    TableHeading = Virtuelles Netzwerk
+    TableHeadings = Virtuelle Netzwerke
+    Peerings = Peerings
+    PeeringsInfo = Virtuelles Netzwerk-Peering ermöglicht es Ihnen, zwei oder mehr virtuelle Netzwerke in Azure nahtlos zu verbinden.
+    SubnetsInfo = Subnetze ermöglichen es Ihnen, das virtuelle Netzwerk in ein oder mehrere Unternetzwerke zu segmentieren.
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ProvisioningState = Bereitstellungsstatus
+    AddressSpace = Adressraum
+    Unknown = Unbekannt
+    Subnets = Subnetze
+    DnsServers = DNS-Server
+    Default = Standard (von Azure bereitgestellt)
+    Tags = Tags
+    None = Keine
+'@
+
+# Azure Virtual Network Peering (Get-AbrAzVirtualNetworkPeering)
+GetAbrAzVirtualNetworkPeering = ConvertFrom-StringData @'
+    Collecting = Azure Virtual Network Peering-Informationen werden gesammelt.
+    Processing = Azure Virtual Network Peering '{0}' wird verarbeitet ({1} von {2}).
+    Heading = Virtuelles Netzwerk-Peerings
+    TableHeading = Virtuelles Netzwerk-Peerings
+    Name = Name
+    PeeringStatus = Peering-Status
+	PeeringState = Peering-Zustand
+    Peer = Peer
+    AddressSpace = Adressraum
+    GatewayTransit = Gateway-Transit
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+    TrafficToRemoteVnet = Datenverkehr zum Remote-VNet
+    Allow = Zulassen
+    BlockRemoteVnet = Gesamten Datenverkehr zum Remote-VNet blockieren
+    TrafficForwardedFromRemoteVnet = Weitergeleiteter Datenverkehr vom Remote-VNet
+    BlockForwardedTraffic = Datenverkehr blockieren, der von außerhalb dieses Netzwerks stammt
+    VnetGateway = VNet-Gateway oder Route Server
+    UseRemoteVnetGateway = Gateway oder Route Server des Remote-VNets verwenden
+    UseLocalVnetGateway = Gateway oder Route Server dieses VNets verwenden
+    None = Keine
+'@
+
+GetAbrAzVirtualNetworkSubnet = ConvertFrom-StringData @'
+    Collecting = Azure Virtual Network Subnetz-Informationen werden gesammelt.
+    Processing = Azure Virtual Network Subnetz '{0}' wird verarbeitet ({1} von {2}).
+    Heading = Subnetze
+    TableHeading = Subnetz
+    Name = Name
+    AddressRange = Adressbereich
+    NatGateway = NAT-Gateway
+    None = Keine
+    NetworkSecurityGroup = Netzwerksicherheitsgruppe
+    RouteTable = Routentabelle
+'@
+
+GetAbrAzFirewallPolicy = ConvertFrom-StringData @'
+    InfoLevel = FirewallPolicy-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Firewall-Richtlinieninformationen werden gesammelt.
+    SectionInfo = Azure Firewall Policy ist eine Ressource der obersten Ebene, die Sicherheits- und Betriebseinstellungen für Azure Firewall enthält. Sie ermöglicht die Definition von Regelhierarchien und die Durchsetzung der Konformität mit einer zentralisierten Richtlinienstruktur.
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ProvisioningState = Bereitstellungsstatus
+    ParentPolicy = Übergeordnete Richtlinie
+    PolicyTier = Richtlinienebene
+    ThreatIntelMode = Threat Intel-Modus
+    IntrusionDetectionMode = Angriffserkennungsmodus
+    DnsServers = DNS-Server
+    DnsProxy = DNS-Proxy
+    Priority = Priorität
+    Rules = Regeln
+    Action = Aktion
+    InheritedFrom = Geerbt von
+    Description = Beschreibung
+    SourceAddresses = Quelladressen
+    SourceIpGroups = Quell-IP-Gruppen
+    DestinationAddresses = Zieladressen
+    DestinationIpGroups = Ziel-IP-Gruppen
+    DestinationFqdns = Ziel-FQDNs
+    DestinationPorts = Zielports
+    TranslatedAddress = Übersetzte Adresse
+    TranslatedPort = Übersetzter Port
+    TranslatedFqdn = Übersetzter FQDN
+    TargetFQDNs = Ziel-FQDNs
+    TargetUrls = Ziel-URLs
+    Protocols = Protokolle
+    WebCategories = Webkategorien
+    Heading = Firewall-Richtlinien
+    RcgHeading = Regelsammlungsgruppen
+    RcgTableHeading = Regelsammlungsgruppen
+    RcTableHeading = Regelsammlungen
+    AppRuleTableHeading = Anwendungsregel
+    NetRuleTableHeading = Netzwerkregel
+    DnatRuleTableHeading = DNAT-Regel
+    NoRuleCollections = Keine Regelsammlungen in {0} gefunden.
+    NoParentPolicy = Übergeordnete Richtlinie kann nicht abgerufen werden.
+    NoParentPolicyRCG = Regelsammlungsgruppen der übergeordneten Richtlinie können nicht abgerufen werden.
+    TableHeading = Firewall-Richtlinie
+    Alert = Warnung
+    Deny = Verweigern
+    Found = {0} Regelsammlungsgruppe(n) in Richtlinie {1} gefunden.
+    NotFound = Keine Regelsammlungsgruppen in Richtlinie {0} gefunden.
+    NotSupported = Mit Standard-Richtlinie nicht unterstützt
+    Tags = Tags
+    None = Keine
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+    Off = Aus
+    Default = Standard (von Azure bereitgestellt)
+    Skipping = Null-Regelsammlungsgruppen-Referenz wird übersprungen
+'@
+
+# Azure Virtual Desktop
+GetAbrAzDesktopVirtualization = ConvertFrom-StringData @'
+    InfoLevel = DesktopVirtualization-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Virtual Desktop-Informationen werden gesammelt.
+    SectionInfo = Azure Virtual Desktop ist ein Desktop- und App-Virtualisierungsdienst, der auf Azure ausgeführt wird. Er ermöglicht Benutzern, sich von praktisch überall aus mit einem vollständigen Desktop oder veröffentlichten Anwendungen zu verbinden.
+    HostPoolsSummary = Die folgende Tabelle fasst die Hostpools im Abonnement {0} zusammen.
+    AppGroupsSummary = Die folgende Tabelle fasst die Anwendungsgruppen im Abonnement {0} zusammen.
+    WorkspacesSummary = Die folgende Tabelle fasst die AVD-Arbeitsbereiche im Abonnement {0} zusammen.
+    ScalingPlansSummary = Die folgende Tabelle fasst die Skalierungspläne im Abonnement {0} zusammen.
+    WarningNoSessionHosts = WARNUNG: Der Hostpool '{0}' hat keine Sitzungshosts.
+    WarningAtCapacity = WARNUNG: Der Hostpool '{0}' ist ausgelastet ({1}/{2} Sitzungen).
+    Heading = Azure Virtual Desktop
+    HostPoolsHeading = Hostpools
+    SessionHostsHeading = Sitzungshosts
+    ApplicationGroupsHeading = Anwendungsgruppen
+    WorkspacesHeading = Arbeitsbereiche
+    ScalingPlansHeading = Skalierungspläne
+    RdpPropertiesHeading = Benutzerdefinierte RDP-Eigenschaften
+    AgentUpdateHeading = Agent-Update-Konfiguration
+    RegistrationHeading = Registrierungsinformationen
+    ActiveSessionsHeading = Aktive Sitzungen
+    PublishedAppsHeading = Veröffentlichte Anwendungen
+    SchedulesHeading = Zeitpläne
+    Name = Name
+    FriendlyName = Anzeigename
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Type = Typ
+    Tags = Tags
+    TimeZone = Zeitzone
+    Description = Beschreibung
+    LoadBalancer = Lastenausgleich
+    MaxSessionLimit = Maximales Sitzungslimit
+    StartVMOnConnect = VM bei Verbindung starten
+    ValidationEnvironment = Validierungsumgebung
+    Property = Eigenschaft
+    Value = Wert
+    UpdateType = Aktualisierungstyp
+    MaintenanceWindow = Wartungsfenster
+    UseLocalTime = Lokale Zeit verwenden
+    ExpirationTime = Ablaufdatum
+    TokenStatus = Token-Status
+    Status = Status
+    HealthCheck = Integritätsprüfung
+    Sessions = Sitzungen
+    AllowNewSessions = Neue Sitzungen zulassen
+    OSVersion = Betriebssystemversion
+    AgentVersion = Agent-Version
+    LastHeartbeat = Letzter Heartbeat
+    UpdateState = Aktualisierungsstatus
+    AssignedUser = Zugewiesener Benutzer
+    UpdateError = Aktualisierungsfehler
+    VMResourceId = VM-Ressourcen-ID
+    HealthChecks = Integritätsprüfungen
+    User = Benutzer
+    SessionHost = Sitzungshost
+    State = Status
+    Application = Anwendung
+    CreateTime = Erstellungsdatum
+    HostPool = Hostpool
+    Workspace = Arbeitsbereich
+    FilePath = Dateipfad
+    CommandLine = Befehlszeile
+    ShowInPortal = Im Portal anzeigen
+    ApplicationGroups = Anwendungsgruppen
+    PublicNetworkAccess = Öffentlicher Netzwerkzugriff
+    ExclusionTag = Ausschluss-Tag
+    HostPoolType = Hostpool-Typ
+    HostPoolAssignments = Hostpool-Zuweisungen
+    Days = Tage
+    RampUpStart = Hochfahren Beginn
+    PeakStart = Spitze Beginn
+    RampDownStart = Herunterfahren Beginn
+    OffPeakStart = Außerhalb Spitze Beginn
+    RampUpAction = Hochfahren Aktion
+    RampUpMinPct = Hochfahren Min %
+    RampUpCapacityPct = Hochfahren Kapazität %
+    RampDownAction = Herunterfahren Aktion
+    RampDownMinPct = Herunterfahren Min %
+    RampDownCapacityPct = Herunterfahren Kapazität %
+    OffPeakAction = Außerhalb Spitze Aktion
+    Healthy = Fehlerfrei
+    Expired = Abgelaufen
+    Valid = Gültig
+    NoActiveToken = Kein aktives Token
+    None = Keine
+    Unassigned = Nicht zugewiesen
+    Allowed = Erlaubt
+'@
+
+}
