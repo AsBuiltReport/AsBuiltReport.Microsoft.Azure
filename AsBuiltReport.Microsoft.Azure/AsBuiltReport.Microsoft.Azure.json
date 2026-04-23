@@ -32,7 +32,8 @@
             "AvailabilitySet",
             "RecoveryServicesVault",
             "SiteRecovery",
-            "DesktopVirtualization"
+            "DesktopVirtualization",
+            "NetAppFiles"
         ]
     },
     "Filter": {
@@ -64,7 +65,8 @@
         "Tenant": 0,
         "VirtualNetwork": 1,
         "VirtualMachine": 1,
-        "DesktopVirtualization": 1
+        "DesktopVirtualization": 1,
+        "NetAppFiles": 1
     },
     "HealthCheck": {
         "Bastion": {
@@ -144,6 +146,13 @@
             "RegistrationExpiry": true,
             "NoSessionHosts": true,
             "HostPoolCapacity": true
+        },
+        "NetAppFiles": {
+            "PoolCapacity": true,
+            "AdHealth": true,
+            "SnapshotPolicy": true,
+            "BackupProtection": true,
+            "CustomerManagedKey": true
         }
     }
 }

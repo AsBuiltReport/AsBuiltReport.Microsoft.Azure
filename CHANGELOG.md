@@ -1,5 +1,10 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
+## [Unreleased]
+
+### Added
+* Add support for Azure NetApp Files (NetApp Accounts, Capacity Pools, Volumes, Snapshot Policies, Backup Policies) with per-volume detail, Active Directory and encryption configuration, mount targets, export policy rules, and 5 health checks (pool allocation, AD join status, snapshot policy attachment, backup policy attachment, customer-managed key usage)
+
 ## [0.2.0] - 2026-02-11
 
 ### Added
