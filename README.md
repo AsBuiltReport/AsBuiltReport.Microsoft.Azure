@@ -56,6 +56,7 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 * Key Vaults
 * Load Balancers
 * Log Analytics Workspaces
+* NetApp Files
 * Policies
 * Private DNS Resolvers
 * Private Endpoints
@@ -315,6 +316,7 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | KeyVault              |        1        |        1        |
 | LoadBalancer          |        1        |        2        |
 | LogAnalyticsWorkspace |        1        |        2        |
+| NetAppFiles           |        1        |        4        |
 | NetworkSecurityGroup  |        1        |        2        |
 | Policy > Assignments  |        1        |        2        |
 | Policy > Definitions  |        0        |        1        |
@@ -410,6 +412,17 @@ The **LogAnalyticsWorkspace** schema is used to configure health checks for Azur
 | ProvisioningState               | true / false | true    | Highlights workspaces which are in a critical state                          | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state           |
 | PublicNetworkAccessForIngestion | true / false | true    | Highlights workspaces which have public network access enabled for ingestion | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access for ingestion is enabled |
 | PublicNetworkAccessForQuery     | true / false | true    | Highlights workspaces which have public network access enabled for query     | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access for query is enabled     |
+
+#### NetAppFiles
+The **NetAppFiles** schema is used to configure health checks for Azure NetApp Files.
+
+| Sub-Schema         | Setting      | Default | Description                                                                        | Highlight                                                                                   |
+|--------------------|--------------|---------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| PoolCapacity       | true / false | true    | Highlights capacity pools where the sum of volume quotas exceeds 85% of pool size  | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Capacity pool is nearly fully allocated |
+| AdHealth           | true / false | true    | Highlights NetApp Accounts with Active Directory configurations not in InUse state | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Active Directory join is unhealthy      |
+| SnapshotPolicy     | true / false | true    | Highlights volumes with no snapshot policy attached                                | ![Info](https://placehold.co/15x15/D4E4F7/D4E4F7) Volume has no snapshot policy             |
+| BackupProtection   | true / false | true    | Highlights volumes with no backup policy attached                                  | ![Info](https://placehold.co/15x15/D4E4F7/D4E4F7) Volume has no backup protection           |
+| CustomerManagedKey | true / false | true    | Highlights NetApp Accounts using platform-managed encryption keys                  | ![Info](https://placehold.co/15x15/D4E4F7/D4E4F7) Account is not using customer-managed keys |
 
 #### NetworkSecurityGroup
 The **NetworkSecurityGroup** schema is used to configure health checks for Azure Network Security Groups.
