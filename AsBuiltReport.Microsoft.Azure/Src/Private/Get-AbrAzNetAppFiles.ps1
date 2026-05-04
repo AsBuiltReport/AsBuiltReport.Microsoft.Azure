@@ -38,15 +38,15 @@ function Get-AbrAzNetAppFiles {
 
                         # Cache pools and volumes per-account to avoid repeat API calls
                         $AccountMap = @{}
-                        foreach ($Acct in $AzAnfAccounts) {
-                            $AcctRg = $Acct.Id.Split('/')[4]
-                            $AcctPools = @(Get-AzNetAppFilesPool -ResourceGroupName $AcctRg -AccountName $Acct.Name -ErrorAction SilentlyContinue | Sort-Object Name)
+                        foreach ($NetAppAccount in $AzAnfAccounts) {
+                            $AcctRg = $NetAppAccount.Id.Split('/')[4]
+                            $AcctPools = @(Get-AzNetAppFilesPool -ResourceGroupName $AcctRg -AccountName $NetAppAccount.Name -ErrorAction SilentlyContinue | Sort-Object Name)
                             $AcctPoolVolMap = @{}
-                            foreach ($P in $AcctPools) {
-                                $PoolShortName = $P.Name.Split('/')[-1]
-                                $AcctPoolVolMap[$PoolShortName] = @(Get-AzNetAppFilesVolume -ResourceGroupName $AcctRg -AccountName $Acct.Name -PoolName $PoolShortName -ErrorAction SilentlyContinue | Sort-Object Name)
+                            foreach ($CapacityPool in $AcctPools) {
+                                $PoolShortName = $CapacityPool.Name.Split('/')[-1]
+                                $AcctPoolVolMap[$PoolShortName] = @(Get-AzNetAppFilesVolume -ResourceGroupName $AcctRg -AccountName $NetAppAccount.Name -PoolName $PoolShortName -ErrorAction SilentlyContinue | Sort-Object Name)
                             }
-                            $AccountMap[$Acct.Name] = @{
+                            $AccountMap[$NetAppAccount.Name] = @{
                                 Pools = $AcctPools
                                 Volumes = $AcctPoolVolMap
                                 ResourceGroup = $AcctRg
@@ -59,25 +59,25 @@ function Get-AbrAzNetAppFiles {
                             BlankLine
 
                             $AzAccountInfo = @()
-                            foreach ($Acct in $AzAnfAccounts) {
-                                $KeySourceDisplay = if ($Acct.Encryption -and $Acct.Encryption.KeySource -eq 'Microsoft.KeyVault') {
+                            foreach ($NetAppAccount in $AzAnfAccounts) {
+                                $KeySourceDisplay = if ($NetAppAccount.Encryption -and $NetAppAccount.Encryption.KeySource -eq 'Microsoft.KeyVault') {
                                     $LocalizedData.CustomerManaged
                                 } else {
                                     $LocalizedData.PlatformManaged
                                 }
                                 $InObj = [Ordered]@{
-                                    $LocalizedData.Name = $Acct.Name
-                                    $LocalizedData.ResourceGroup = $Acct.ResourceGroupName
-                                    $LocalizedData.Location = $AzLocationLookup."$($Acct.Location)"
-                                    $LocalizedData.ProvisioningState = $Acct.ProvisioningState
+                                    $LocalizedData.Name = $NetAppAccount.Name
+                                    $LocalizedData.ResourceGroup = $NetAppAccount.ResourceGroupName
+                                    $LocalizedData.Location = $AzLocationLookup."$($NetAppAccount.Location)"
+                                    $LocalizedData.ProvisioningState = $NetAppAccount.ProvisioningState
                                     $LocalizedData.EncryptionKeySource = $KeySourceDisplay
                                 }
 
                                 if ($Options.ShowTags) {
-                                    $InObj[$LocalizedData.Tags] = if ($null -eq $Acct.Tags -or $Acct.Tags.Count -eq 0) {
+                                    $InObj[$LocalizedData.Tags] = if ($null -eq $NetAppAccount.Tags -or $NetAppAccount.Tags.Count -eq 0) {
                                         $LocalizedData.None
                                     } else {
-                                        ($Acct.Tags.Keys | ForEach-Object { "$_`:`t$($Acct.Tags[$_])" }) -join [Environment]::NewLine
+                                        ($NetAppAccount.Tags.Keys | ForEach-Object { "$_`:`t$($NetAppAccount.Tags[$_])" }) -join [Environment]::NewLine
                                     }
                                 }
 
@@ -90,11 +90,11 @@ function Get-AbrAzNetAppFiles {
 
                             if ($InfoLevel.NetAppFiles -ge 2) {
                                 # Per-account detail: AD + encryption
-                                foreach ($Acct in $AzAnfAccounts) {
-                                    $AcctDetail = $AzAccountInfo | Where-Object { $_.$($LocalizedData.Name) -eq $Acct.Name }
-                                    Section -Style NOTOCHeading5 -ExcludeFromTOC "$($Acct.Name)" {
+                                foreach ($NetAppAccount in $AzAnfAccounts) {
+                                    $AcctDetail = $AzAccountInfo | Where-Object { $_.$($LocalizedData.Name) -eq $NetAppAccount.Name }
+                                    Section -Style NOTOCHeading5 -ExcludeFromTOC "$($NetAppAccount.Name)" {
                                         $TableParams = @{
-                                            Name = "NetApp Account - $($Acct.Name)"
+                                            Name = "NetApp Account - $($NetAppAccount.Name)"
                                             List = $true
                                             ColumnWidths = 40, 60
                                         }
@@ -104,10 +104,10 @@ function Get-AbrAzNetAppFiles {
                                         $AcctDetail | Table @TableParams
 
                                         # Active Directory configurations
-                                        if ($Acct.ActiveDirectories -and $Acct.ActiveDirectories.Count -gt 0) {
+                                        if ($NetAppAccount.ActiveDirectories -and $NetAppAccount.ActiveDirectories.Count -gt 0) {
                                             Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.ActiveDirectoryHeading {
                                                 $AdInfo = @()
-                                                foreach ($Ad in $Acct.ActiveDirectories) {
+                                                foreach ($Ad in $NetAppAccount.ActiveDirectories) {
                                                     $AdObj = [Ordered]@{
                                                         $LocalizedData.Domain = if ($Ad.Domain) { $Ad.Domain } else { '--' }
                                                         $LocalizedData.Username = if ($Ad.Username) { $Ad.Username } else { '--' }
@@ -129,7 +129,7 @@ function Get-AbrAzNetAppFiles {
                                                 }
 
                                                 $TableParams = @{
-                                                    Name = "Active Directory - $($Acct.Name)"
+                                                    Name = "Active Directory - $($NetAppAccount.Name)"
                                                     List = $true
                                                     ColumnWidths = 40, 60
                                                 }
@@ -141,15 +141,15 @@ function Get-AbrAzNetAppFiles {
                                         }
 
                                         # Encryption detail if customer-managed
-                                        if ($Acct.Encryption -and $Acct.Encryption.KeySource -eq 'Microsoft.KeyVault') {
+                                        if ($NetAppAccount.Encryption -and $NetAppAccount.Encryption.KeySource -eq 'Microsoft.KeyVault') {
                                             Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.EncryptionHeading {
                                                 $EncObj = [Ordered]@{
                                                     $LocalizedData.EncryptionKeySource = $LocalizedData.CustomerManaged
-                                                    $LocalizedData.EncryptionKeyVault = if ($Acct.Encryption.KeyVaultProperties -and $Acct.Encryption.KeyVaultProperties.KeyVaultUri) { $Acct.Encryption.KeyVaultProperties.KeyVaultUri } else { '--' }
-                                                    $LocalizedData.EncryptionKeyName = if ($Acct.Encryption.KeyVaultProperties -and $Acct.Encryption.KeyVaultProperties.KeyName) { $Acct.Encryption.KeyVaultProperties.KeyName } else { '--' }
+                                                    $LocalizedData.EncryptionKeyVault = if ($NetAppAccount.Encryption.KeyVaultProperties -and $NetAppAccount.Encryption.KeyVaultProperties.KeyVaultUri) { $NetAppAccount.Encryption.KeyVaultProperties.KeyVaultUri } else { '--' }
+                                                    $LocalizedData.EncryptionKeyName = if ($NetAppAccount.Encryption.KeyVaultProperties -and $NetAppAccount.Encryption.KeyVaultProperties.KeyName) { $NetAppAccount.Encryption.KeyVaultProperties.KeyName } else { '--' }
                                                 }
                                                 $TableParams = @{
-                                                    Name = "Encryption - $($Acct.Name)"
+                                                    Name = "Encryption - $($NetAppAccount.Name)"
                                                     List = $true
                                                     ColumnWidths = 40, 60
                                                 }
@@ -178,8 +178,8 @@ function Get-AbrAzNetAppFiles {
 
                         #region Capacity Pools
                         $AllPools = @()
-                        foreach ($Acct in $AzAnfAccounts) {
-                            $AllPools += $AccountMap[$Acct.Name].Pools
+                        foreach ($NetAppAccount in $AzAnfAccounts) {
+                            $AllPools += $AccountMap[$NetAppAccount.Name].Pools
                         }
                         if ($AllPools) {
                             Section -Style Heading5 $LocalizedData.PoolsHeading {
@@ -187,42 +187,42 @@ function Get-AbrAzNetAppFiles {
                                 BlankLine
 
                                 $AzPoolInfo = @()
-                                foreach ($Acct in $AzAnfAccounts) {
-                                    foreach ($P in $AccountMap[$Acct.Name].Pools) {
-                                        $PoolShortName = $P.Name.Split('/')[-1]
-                                        $PoolVols = $AccountMap[$Acct.Name].Volumes[$PoolShortName]
+                                foreach ($NetAppAccount in $AzAnfAccounts) {
+                                    foreach ($CapacityPool in $AccountMap[$NetAppAccount.Name].Pools) {
+                                        $PoolShortName = $CapacityPool.Name.Split('/')[-1]
+                                        $PoolVols = $AccountMap[$NetAppAccount.Name].Volumes[$PoolShortName]
                                         $AllocatedBytes = 0
                                         if ($PoolVols) {
                                             $AllocatedBytes = ($PoolVols | Measure-Object -Property UsageThreshold -Sum).Sum
                                             if ($null -eq $AllocatedBytes) { $AllocatedBytes = 0 }
                                         }
-                                        $PoolSizeGiB = [math]::Round($P.Size / 1GB, 0)
+                                        $PoolSizeGiB = [math]::Round($CapacityPool.Size / 1GB, 0)
                                         $AllocatedGiB = [math]::Round($AllocatedBytes / 1GB, 0)
-                                        $PercentAllocated = if ($P.Size -gt 0) { [math]::Round(($AllocatedBytes / $P.Size) * 100, 1) } else { 0 }
+                                        $PercentAllocated = if ($CapacityPool.Size -gt 0) { [math]::Round(($AllocatedBytes / $CapacityPool.Size) * 100, 1) } else { 0 }
 
                                         $InObj = [Ordered]@{
                                             $LocalizedData.Name = $PoolShortName
-                                            $LocalizedData.Account = $Acct.Name
-                                            $LocalizedData.ResourceGroup = $P.ResourceGroupName
-                                            $LocalizedData.Location = $AzLocationLookup."$($P.Location)"
-                                            $LocalizedData.ServiceLevel = $P.ServiceLevel
-                                            $LocalizedData.QosType = $P.QosType
-                                            $LocalizedData.SizeTiB = [math]::Round($P.Size / 1TB, 2)
+                                            $LocalizedData.Account = $NetAppAccount.Name
+                                            $LocalizedData.ResourceGroup = $CapacityPool.ResourceGroupName
+                                            $LocalizedData.Location = $AzLocationLookup."$($CapacityPool.Location)"
+                                            $LocalizedData.ServiceLevel = $CapacityPool.ServiceLevel
+                                            $LocalizedData.QosType = $CapacityPool.QosType
+                                            $LocalizedData.SizeTiB = [math]::Round($CapacityPool.Size / 1TB, 2)
                                             $LocalizedData.VolumeCount = if ($PoolVols) { $PoolVols.Count } else { 0 }
                                             $LocalizedData.AllocatedGiB = $AllocatedGiB
                                             $LocalizedData.PercentAllocated = $PercentAllocated
-                                            $LocalizedData.TotalThroughput = if ($null -ne $P.TotalThroughputMibps) { $P.TotalThroughputMibps } else { '--' }
-                                            $LocalizedData.UtilizedThroughput = if ($null -ne $P.UtilizedThroughputMibps) { $P.UtilizedThroughputMibps } else { '--' }
-                                            $LocalizedData.CoolAccess = if ($P.CoolAccess) { $LocalizedData.Yes } else { $LocalizedData.No }
-                                            $LocalizedData.EncryptionType = if ($P.EncryptionType) { $P.EncryptionType } else { '--' }
-                                            $LocalizedData.ProvisioningState = $P.ProvisioningState
+                                            $LocalizedData.TotalThroughput = if ($null -ne $CapacityPool.TotalThroughputMibps) { $CapacityPool.TotalThroughputMibps } else { '--' }
+                                            $LocalizedData.UtilizedThroughput = if ($null -ne $CapacityPool.UtilizedThroughputMibps) { $CapacityPool.UtilizedThroughputMibps } else { '--' }
+                                            $LocalizedData.CoolAccess = if ($CapacityPool.CoolAccess) { $LocalizedData.Yes } else { $LocalizedData.No }
+                                            $LocalizedData.EncryptionType = if ($CapacityPool.EncryptionType) { $CapacityPool.EncryptionType } else { '--' }
+                                            $LocalizedData.ProvisioningState = $CapacityPool.ProvisioningState
                                         }
 
                                         if ($Options.ShowTags) {
-                                            $InObj[$LocalizedData.Tags] = if ($null -eq $P.Tags -or $P.Tags.Count -eq 0) {
+                                            $InObj[$LocalizedData.Tags] = if ($null -eq $CapacityPool.Tags -or $CapacityPool.Tags.Count -eq 0) {
                                                 $LocalizedData.None
                                             } else {
-                                                ($P.Tags.Keys | ForEach-Object { "$_`:`t$($P.Tags[$_])" }) -join [Environment]::NewLine
+                                                ($CapacityPool.Tags.Keys | ForEach-Object { "$_`:`t$($CapacityPool.Tags[$_])" }) -join [Environment]::NewLine
                                             }
                                         }
 
@@ -240,11 +240,11 @@ function Get-AbrAzNetAppFiles {
                                 }
 
                                 if ($InfoLevel.NetAppFiles -ge 2) {
-                                    foreach ($Acct in $AzAnfAccounts) {
-                                        foreach ($P in $AccountMap[$Acct.Name].Pools) {
-                                            $PoolShortName = $P.Name.Split('/')[-1]
-                                            $PoolDetail = $AzPoolInfo | Where-Object { $_.$($LocalizedData.Name) -eq $PoolShortName -and $_.$($LocalizedData.Account) -eq $Acct.Name }
-                                            Section -Style NOTOCHeading5 -ExcludeFromTOC "$($Acct.Name) / $PoolShortName" {
+                                    foreach ($NetAppAccount in $AzAnfAccounts) {
+                                        foreach ($CapacityPool in $AccountMap[$NetAppAccount.Name].Pools) {
+                                            $PoolShortName = $CapacityPool.Name.Split('/')[-1]
+                                            $PoolDetail = $AzPoolInfo | Where-Object { $_.$($LocalizedData.Name) -eq $PoolShortName -and $_.$($LocalizedData.Account) -eq $NetAppAccount.Name }
+                                            Section -Style NOTOCHeading5 -ExcludeFromTOC "$($NetAppAccount.Name) / $PoolShortName" {
                                                 $TableParams = @{
                                                     Name = "Capacity Pool - $PoolShortName"
                                                     List = $true
@@ -275,9 +275,9 @@ function Get-AbrAzNetAppFiles {
 
                         #region Volumes
                         $AllVolumes = @()
-                        foreach ($Acct in $AzAnfAccounts) {
-                            foreach ($PoolShortName in $AccountMap[$Acct.Name].Volumes.Keys) {
-                                $AllVolumes += $AccountMap[$Acct.Name].Volumes[$PoolShortName]
+                        foreach ($NetAppAccount in $AzAnfAccounts) {
+                            foreach ($PoolShortName in $AccountMap[$NetAppAccount.Name].Volumes.Keys) {
+                                $AllVolumes += $AccountMap[$NetAppAccount.Name].Volumes[$PoolShortName]
                             }
                         }
                         if ($AllVolumes) {
@@ -286,17 +286,17 @@ function Get-AbrAzNetAppFiles {
                                 BlankLine
 
                                 $AzVolInfo = @()
-                                foreach ($V in $AllVolumes) {
-                                    $VolShortName = $V.Name.Split('/')[-1]
-                                    $ParentAccount = $V.Name.Split('/')[0]
-                                    $ParentPool = $V.Name.Split('/')[1]
-                                    $SnapPolName = if ($V.DataProtection -and $V.DataProtection.Snapshot -and $V.DataProtection.Snapshot.SnapshotPolicyId) {
-                                        $V.DataProtection.Snapshot.SnapshotPolicyId.Split('/')[-1]
+                                foreach ($Volume in $AllVolumes) {
+                                    $VolShortName = $Volume.Name.Split('/')[-1]
+                                    $ParentAccount = $Volume.Name.Split('/')[0]
+                                    $ParentPool = $Volume.Name.Split('/')[1]
+                                    $SnapPolName = if ($Volume.DataProtection -and $Volume.DataProtection.Snapshot -and $Volume.DataProtection.Snapshot.SnapshotPolicyId) {
+                                        $Volume.DataProtection.Snapshot.SnapshotPolicyId.Split('/')[-1]
                                     } else {
                                         $LocalizedData.NoPolicy
                                     }
-                                    $BackupPolName = if ($V.DataProtection -and $V.DataProtection.Backup -and $V.DataProtection.Backup.BackupPolicyId) {
-                                        $V.DataProtection.Backup.BackupPolicyId.Split('/')[-1]
+                                    $BackupPolName = if ($Volume.DataProtection -and $Volume.DataProtection.Backup -and $Volume.DataProtection.Backup.BackupPolicyId) {
+                                        $Volume.DataProtection.Backup.BackupPolicyId.Split('/')[-1]
                                     } else {
                                         $LocalizedData.NoPolicy
                                     }
@@ -305,20 +305,20 @@ function Get-AbrAzNetAppFiles {
                                         $LocalizedData.Name = $VolShortName
                                         $LocalizedData.Account = $ParentAccount
                                         $LocalizedData.Pool = $ParentPool
-                                        $LocalizedData.ServiceLevel = $V.ServiceLevel
-                                        $LocalizedData.QuotaGiB = [math]::Round($V.UsageThreshold / 1GB, 0)
-                                        $LocalizedData.Protocol = ($V.ProtocolTypes -join ', ')
+                                        $LocalizedData.ServiceLevel = $Volume.ServiceLevel
+                                        $LocalizedData.QuotaGiB = [math]::Round($Volume.UsageThreshold / 1GB, 0)
+                                        $LocalizedData.Protocol = ($Volume.ProtocolTypes -join ', ')
                                         $LocalizedData.SnapshotPolicy = $SnapPolName
                                         $LocalizedData.BackupPolicy = $BackupPolName
-                                        $LocalizedData.VolumeType = if ($V.VolumeType) { $V.VolumeType } else { 'Regular' }
-                                        $LocalizedData.ProvisioningState = $V.ProvisioningState
+                                        $LocalizedData.VolumeType = if ($Volume.VolumeType) { $Volume.VolumeType } else { 'Regular' }
+                                        $LocalizedData.ProvisioningState = $Volume.ProvisioningState
                                     }
 
                                     if ($Options.ShowTags) {
-                                        $InObj[$LocalizedData.Tags] = if ($null -eq $V.Tags -or $V.Tags.Count -eq 0) {
+                                        $InObj[$LocalizedData.Tags] = if ($null -eq $Volume.Tags -or $Volume.Tags.Count -eq 0) {
                                             $LocalizedData.None
                                         } else {
-                                            ($V.Tags.Keys | ForEach-Object { "$_`:`t$($V.Tags[$_])" }) -join [Environment]::NewLine
+                                            ($Volume.Tags.Keys | ForEach-Object { "$_`:`t$($Volume.Tags[$_])" }) -join [Environment]::NewLine
                                         }
                                     }
 
@@ -334,54 +334,54 @@ function Get-AbrAzNetAppFiles {
 
                                 if ($InfoLevel.NetAppFiles -ge 3) {
                                     # Per-volume vertical detail sections
-                                    foreach ($V in $AllVolumes) {
-                                        $VolShortName = $V.Name.Split('/')[-1]
-                                        $ParentAccount = $V.Name.Split('/')[0]
-                                        $ParentPool = $V.Name.Split('/')[1]
+                                    foreach ($Volume in $AllVolumes) {
+                                        $VolShortName = $Volume.Name.Split('/')[-1]
+                                        $ParentAccount = $Volume.Name.Split('/')[0]
+                                        $ParentPool = $Volume.Name.Split('/')[1]
                                         Section -Style NOTOCHeading5 -ExcludeFromTOC "$ParentAccount / $ParentPool / $VolShortName" {
-                                            $SnapPolName = if ($V.DataProtection -and $V.DataProtection.Snapshot -and $V.DataProtection.Snapshot.SnapshotPolicyId) {
-                                                $V.DataProtection.Snapshot.SnapshotPolicyId.Split('/')[-1]
+                                            $SnapPolName = if ($Volume.DataProtection -and $Volume.DataProtection.Snapshot -and $Volume.DataProtection.Snapshot.SnapshotPolicyId) {
+                                                $Volume.DataProtection.Snapshot.SnapshotPolicyId.Split('/')[-1]
                                             } else {
                                                 $LocalizedData.NoPolicy
                                             }
-                                            $BackupPolName = if ($V.DataProtection -and $V.DataProtection.Backup -and $V.DataProtection.Backup.BackupPolicyId) {
-                                                $V.DataProtection.Backup.BackupPolicyId.Split('/')[-1]
+                                            $BackupPolName = if ($Volume.DataProtection -and $Volume.DataProtection.Backup -and $Volume.DataProtection.Backup.BackupPolicyId) {
+                                                $Volume.DataProtection.Backup.BackupPolicyId.Split('/')[-1]
                                             } else {
                                                 $LocalizedData.NoPolicy
                                             }
-                                            $SubnetShort = if ($V.SubnetId) { $V.SubnetId.Split('/')[-1] } else { '--' }
-                                            $ZoneDisplay = if ($V.Zones -and $V.Zones.Count -gt 0) { $V.Zones -join ', ' } elseif ($V.ProvisionedAvailabilityZone) { $V.ProvisionedAvailabilityZone } else { '--' }
+                                            $SubnetShort = if ($Volume.SubnetId) { $Volume.SubnetId.Split('/')[-1] } else { '--' }
+                                            $ZoneDisplay = if ($Volume.Zones -and $Volume.Zones.Count -gt 0) { $Volume.Zones -join ', ' } elseif ($Volume.ProvisionedAvailabilityZone) { $Volume.ProvisionedAvailabilityZone } else { '--' }
 
                                             $VolDetail = [Ordered]@{
                                                 $LocalizedData.Name = $VolShortName
                                                 $LocalizedData.Account = $ParentAccount
                                                 $LocalizedData.Pool = $ParentPool
-                                                $LocalizedData.Location = $AzLocationLookup."$($V.Location)"
-                                                $LocalizedData.ServiceLevel = $V.ServiceLevel
-                                                $LocalizedData.VolumeType = if ($V.VolumeType) { $V.VolumeType } else { 'Regular' }
-                                                $LocalizedData.Protocol = ($V.ProtocolTypes -join ', ')
-                                                $LocalizedData.QuotaGiB = [math]::Round($V.UsageThreshold / 1GB, 0)
-                                                $LocalizedData.Throughput = if ($null -ne $V.ThroughputMibps) { $V.ThroughputMibps } else { '--' }
-                                                $LocalizedData.ActualThroughput = if ($null -ne $V.ActualThroughputMibps) { $V.ActualThroughputMibps } else { '--' }
+                                                $LocalizedData.Location = $AzLocationLookup."$($Volume.Location)"
+                                                $LocalizedData.ServiceLevel = $Volume.ServiceLevel
+                                                $LocalizedData.VolumeType = if ($Volume.VolumeType) { $Volume.VolumeType } else { 'Regular' }
+                                                $LocalizedData.Protocol = ($Volume.ProtocolTypes -join ', ')
+                                                $LocalizedData.QuotaGiB = [math]::Round($Volume.UsageThreshold / 1GB, 0)
+                                                $LocalizedData.Throughput = if ($null -ne $Volume.ThroughputMibps) { $Volume.ThroughputMibps } else { '--' }
+                                                $LocalizedData.ActualThroughput = if ($null -ne $Volume.ActualThroughputMibps) { $Volume.ActualThroughputMibps } else { '--' }
                                                 $LocalizedData.Subnet = $SubnetShort
-                                                $LocalizedData.NetworkFeatures = if ($V.NetworkFeatures) { $V.NetworkFeatures } else { '--' }
+                                                $LocalizedData.NetworkFeatures = if ($Volume.NetworkFeatures) { $Volume.NetworkFeatures } else { '--' }
                                                 $LocalizedData.Zone = $ZoneDisplay
-                                                $LocalizedData.SecurityStyle = if ($V.SecurityStyle) { $V.SecurityStyle } else { '--' }
-                                                $LocalizedData.UnixPermission = if ($V.UnixPermission) { $V.UnixPermission } else { '--' }
+                                                $LocalizedData.SecurityStyle = if ($Volume.SecurityStyle) { $Volume.SecurityStyle } else { '--' }
+                                                $LocalizedData.UnixPermission = if ($Volume.UnixPermission) { $Volume.UnixPermission } else { '--' }
                                                 $LocalizedData.SnapshotPolicy = $SnapPolName
                                                 $LocalizedData.BackupPolicy = $BackupPolName
-                                                $LocalizedData.SnapshotDirVisible = if ($V.SnapshotDirectoryVisible) { $LocalizedData.Yes } else { $LocalizedData.No }
-                                                $LocalizedData.KerberosEnabled = if ($V.KerberosEnabled) { $LocalizedData.Yes } else { $LocalizedData.No }
-                                                $LocalizedData.LdapEnabled = if ($V.LdapEnabled) { $LocalizedData.Yes } else { $LocalizedData.No }
-                                                $LocalizedData.SmbEncryption = if ($V.SmbEncryption) { $LocalizedData.Yes } else { $LocalizedData.No }
-                                                $LocalizedData.SmbContinuouslyAvailable = if ($V.SmbContinuouslyAvailable) { $LocalizedData.Yes } else { $LocalizedData.No }
-                                                $LocalizedData.SmbAccessBasedEnumeration = if ($V.SmbAccessBasedEnumeration) { $V.SmbAccessBasedEnumeration } else { '--' }
-                                                $LocalizedData.CoolAccess = if ($V.CoolAccess) { $LocalizedData.Yes } else { $LocalizedData.No }
-                                                $LocalizedData.CoolnessPeriod = if ($V.CoolAccess -and $null -ne $V.CoolnessPeriod) { $V.CoolnessPeriod } else { '--' }
-                                                $LocalizedData.TieringPolicy = if ($V.CoolAccess -and $V.CoolAccessTieringPolicy) { $V.CoolAccessTieringPolicy } else { '--' }
-                                                $LocalizedData.RetrievalPolicy = if ($V.CoolAccess -and $V.CoolAccessRetrievalPolicy) { $V.CoolAccessRetrievalPolicy } else { '--' }
-                                                $LocalizedData.FileSystemId = if ($V.FileSystemId) { $V.FileSystemId } else { '--' }
-                                                $LocalizedData.ProvisioningState = $V.ProvisioningState
+                                                $LocalizedData.SnapshotDirVisible = if ($Volume.SnapshotDirectoryVisible) { $LocalizedData.Yes } else { $LocalizedData.No }
+                                                $LocalizedData.KerberosEnabled = if ($Volume.KerberosEnabled) { $LocalizedData.Yes } else { $LocalizedData.No }
+                                                $LocalizedData.LdapEnabled = if ($Volume.LdapEnabled) { $LocalizedData.Yes } else { $LocalizedData.No }
+                                                $LocalizedData.SmbEncryption = if ($Volume.SmbEncryption) { $LocalizedData.Yes } else { $LocalizedData.No }
+                                                $LocalizedData.SmbContinuouslyAvailable = if ($Volume.SmbContinuouslyAvailable) { $LocalizedData.Yes } else { $LocalizedData.No }
+                                                $LocalizedData.SmbAccessBasedEnumeration = if ($Volume.SmbAccessBasedEnumeration) { $Volume.SmbAccessBasedEnumeration } else { '--' }
+                                                $LocalizedData.CoolAccess = if ($Volume.CoolAccess) { $LocalizedData.Yes } else { $LocalizedData.No }
+                                                $LocalizedData.CoolnessPeriod = if ($Volume.CoolAccess -and $null -ne $Volume.CoolnessPeriod) { $Volume.CoolnessPeriod } else { '--' }
+                                                $LocalizedData.TieringPolicy = if ($Volume.CoolAccess -and $Volume.CoolAccessTieringPolicy) { $Volume.CoolAccessTieringPolicy } else { '--' }
+                                                $LocalizedData.RetrievalPolicy = if ($Volume.CoolAccess -and $Volume.CoolAccessRetrievalPolicy) { $Volume.CoolAccessRetrievalPolicy } else { '--' }
+                                                $LocalizedData.FileSystemId = if ($Volume.FileSystemId) { $Volume.FileSystemId } else { '--' }
+                                                $LocalizedData.ProvisioningState = $Volume.ProvisioningState
                                             }
                                             $VolObj = [PSCustomObject]$VolDetail
                                             if ($Healthcheck.NetAppFiles.SnapshotPolicy) {
@@ -401,14 +401,14 @@ function Get-AbrAzNetAppFiles {
                                             $VolObj | Table @TableParams
 
                                             # Mount Targets
-                                            if ($V.MountTargets -and $V.MountTargets.Count -gt 0) {
+                                            if ($Volume.MountTargets -and $Volume.MountTargets.Count -gt 0) {
                                                 Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.MountTargetsHeading {
                                                     $MtInfo = @()
-                                                    foreach ($Mt in $V.MountTargets) {
+                                                    foreach ($MountTarget in $Volume.MountTargets) {
                                                         $MtInfo += [PSCustomObject][Ordered]@{
-                                                            $LocalizedData.IpAddress = if ($Mt.IPAddress) { $Mt.IPAddress } else { '--' }
-                                                            $LocalizedData.SmbServerFqdn = if ($Mt.SmbServerFqdn) { $Mt.SmbServerFqdn } else { '--' }
-                                                            $LocalizedData.FileSystemId = if ($Mt.FileSystemId) { $Mt.FileSystemId } else { '--' }
+                                                            $LocalizedData.IpAddress = if ($MountTarget.IPAddress) { $MountTarget.IPAddress } else { '--' }
+                                                            $LocalizedData.SmbServerFqdn = if ($MountTarget.SmbServerFqdn) { $MountTarget.SmbServerFqdn } else { '--' }
+                                                            $LocalizedData.FileSystemId = if ($MountTarget.FileSystemId) { $MountTarget.FileSystemId } else { '--' }
                                                         }
                                                     }
                                                     $TableParams = @{
@@ -424,10 +424,10 @@ function Get-AbrAzNetAppFiles {
                                             }
 
                                             # Export Policy Rules
-                                            if ($V.ExportPolicy -and $V.ExportPolicy.Rules -and $V.ExportPolicy.Rules.Count -gt 0) {
+                                            if ($Volume.ExportPolicy -and $Volume.ExportPolicy.Rules -and $Volume.ExportPolicy.Rules.Count -gt 0) {
                                                 Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.ExportPolicyHeading {
                                                     $EpInfo = @()
-                                                    foreach ($Rule in ($V.ExportPolicy.Rules | Sort-Object RuleIndex)) {
+                                                    foreach ($Rule in ($Volume.ExportPolicy.Rules | Sort-Object RuleIndex)) {
                                                         $EpInfo += [PSCustomObject][Ordered]@{
                                                             $LocalizedData.RuleIndex = $Rule.RuleIndex
                                                             $LocalizedData.AllowedClients = if ($Rule.AllowedClients) { $Rule.AllowedClients } else { '--' }
@@ -453,16 +453,16 @@ function Get-AbrAzNetAppFiles {
 
                                             # Snapshots and Quota Rules (InfoLevel 4)
                                             if ($InfoLevel.NetAppFiles -ge 4) {
-                                                $VolRg = $V.Id.Split('/')[4]
+                                                $VolRg = $Volume.Id.Split('/')[4]
                                                 $Snapshots = Get-AzNetAppFilesSnapshot -ResourceGroupName $VolRg -AccountName $ParentAccount -PoolName $ParentPool -VolumeName $VolShortName -ErrorAction SilentlyContinue | Sort-Object Created -Descending
                                                 if ($Snapshots) {
                                                     Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.SnapshotsHeading {
                                                         $SnapInfo = @()
-                                                        foreach ($S in $Snapshots) {
+                                                        foreach ($Snapshot in $Snapshots) {
                                                             $SnapInfo += [PSCustomObject][Ordered]@{
-                                                                $LocalizedData.Name = $S.Name.Split('/')[-1]
-                                                                $LocalizedData.Created = if ($S.Created) { ([datetime]$S.Created).ToString('yyyy-MM-dd HH:mm') } else { '--' }
-                                                                $LocalizedData.ProvisioningState = if ($S.ProvisioningState) { $S.ProvisioningState } else { '--' }
+                                                                $LocalizedData.Name = $Snapshot.Name.Split('/')[-1]
+                                                                $LocalizedData.Created = if ($Snapshot.Created) { ([datetime]$Snapshot.Created).ToString('yyyy-MM-dd HH:mm') } else { '--' }
+                                                                $LocalizedData.ProvisioningState = if ($Snapshot.ProvisioningState) { $Snapshot.ProvisioningState } else { '--' }
                                                             }
                                                         }
                                                         $TableParams = @{
@@ -481,13 +481,13 @@ function Get-AbrAzNetAppFiles {
                                                 if ($QuotaRules) {
                                                     Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.QuotaRulesHeading {
                                                         $QrInfo = @()
-                                                        foreach ($Qr in $QuotaRules) {
+                                                        foreach ($QuotaRule in $QuotaRules) {
                                                             $QrInfo += [PSCustomObject][Ordered]@{
-                                                                $LocalizedData.Name = $Qr.Name.Split('/')[-1]
-                                                                $LocalizedData.Type = $Qr.QuotaType
-                                                                $LocalizedData.AllowedClients = if ($Qr.QuotaTarget) { $Qr.QuotaTarget } else { '--' }
-                                                                $LocalizedData.QuotaGiB = if ($Qr.QuotaSizeInKiBs) { [math]::Round($Qr.QuotaSizeInKiBs / (1024 * 1024), 2) } else { 0 }
-                                                                $LocalizedData.ProvisioningState = if ($Qr.ProvisioningState) { $Qr.ProvisioningState } else { '--' }
+                                                                $LocalizedData.Name = $QuotaRule.Name.Split('/')[-1]
+                                                                $LocalizedData.Type = $QuotaRule.QuotaType
+                                                                $LocalizedData.AllowedClients = if ($QuotaRule.QuotaTarget) { $QuotaRule.QuotaTarget } else { '--' }
+                                                                $LocalizedData.QuotaGiB = if ($QuotaRule.QuotaSizeInKiBs) { [math]::Round($QuotaRule.QuotaSizeInKiBs / (1024 * 1024), 2) } else { 0 }
+                                                                $LocalizedData.ProvisioningState = if ($QuotaRule.ProvisioningState) { $QuotaRule.ProvisioningState } else { '--' }
                                                             }
                                                         }
                                                         $TableParams = @{
@@ -523,14 +523,14 @@ function Get-AbrAzNetAppFiles {
                         #region Snapshot Policies (InfoLevel >= 3)
                         if ($InfoLevel.NetAppFiles -ge 3) {
                             $AllSnapPolicies = @()
-                            foreach ($Acct in $AzAnfAccounts) {
-                                $AcctRg = $AccountMap[$Acct.Name].ResourceGroup
-                                $Pols = Get-AzNetAppFilesSnapshotPolicy -ResourceGroupName $AcctRg -AccountName $Acct.Name -ErrorAction SilentlyContinue
-                                if ($Pols) {
-                                    foreach ($Pol in $Pols) {
+                            foreach ($NetAppAccount in $AzAnfAccounts) {
+                                $AcctRg = $AccountMap[$NetAppAccount.Name].ResourceGroup
+                                $Policies = Get-AzNetAppFilesSnapshotPolicy -ResourceGroupName $AcctRg -AccountName $NetAppAccount.Name -ErrorAction SilentlyContinue
+                                if ($Policies) {
+                                    foreach ($Policy in $Policies) {
                                         $AllSnapPolicies += [PSCustomObject]@{
-                                            Account = $Acct.Name
-                                            Policy  = $Pol
+                                            Account = $NetAppAccount.Name
+                                            Policy  = $Policy
                                         }
                                     }
                                 }
@@ -541,18 +541,18 @@ function Get-AbrAzNetAppFiles {
                                     BlankLine
 
                                     foreach ($Item in $AllSnapPolicies) {
-                                        $Pol = $Item.Policy
-                                        $PolShortName = $Pol.Name.Split('/')[-1]
-                                        $Hourly = if ($Pol.HourlySchedule -and $Pol.HourlySchedule.SnapshotsToKeep) { "Every hour at :$('{0:D2}' -f [int]$Pol.HourlySchedule.Minute), keep $($Pol.HourlySchedule.SnapshotsToKeep)" } else { $LocalizedData.NotConfigured }
-                                        $Daily = if ($Pol.DailySchedule -and $Pol.DailySchedule.SnapshotsToKeep) { "At $('{0:D2}' -f [int]$Pol.DailySchedule.Hour):$('{0:D2}' -f [int]$Pol.DailySchedule.Minute), keep $($Pol.DailySchedule.SnapshotsToKeep)" } else { $LocalizedData.NotConfigured }
-                                        $Weekly = if ($Pol.WeeklySchedule -and $Pol.WeeklySchedule.SnapshotsToKeep) { "$($Pol.WeeklySchedule.Day) at $('{0:D2}' -f [int]$Pol.WeeklySchedule.Hour):$('{0:D2}' -f [int]$Pol.WeeklySchedule.Minute), keep $($Pol.WeeklySchedule.SnapshotsToKeep)" } else { $LocalizedData.NotConfigured }
-                                        $Monthly = if ($Pol.MonthlySchedule -and $Pol.MonthlySchedule.SnapshotsToKeep) { "Day(s) $($Pol.MonthlySchedule.DaysOfMonth) at $('{0:D2}' -f [int]$Pol.MonthlySchedule.Hour):$('{0:D2}' -f [int]$Pol.MonthlySchedule.Minute), keep $($Pol.MonthlySchedule.SnapshotsToKeep)" } else { $LocalizedData.NotConfigured }
+                                        $Policy = $Item.Policy
+                                        $PolShortName = $Policy.Name.Split('/')[-1]
+                                        $Hourly = if ($Policy.HourlySchedule -and $Policy.HourlySchedule.SnapshotsToKeep) { "Every hour at :$('{0:D2}' -f [int]$Policy.HourlySchedule.Minute), keep $($Policy.HourlySchedule.SnapshotsToKeep)" } else { $LocalizedData.NotConfigured }
+                                        $Daily = if ($Policy.DailySchedule -and $Policy.DailySchedule.SnapshotsToKeep) { "At $('{0:D2}' -f [int]$Policy.DailySchedule.Hour):$('{0:D2}' -f [int]$Policy.DailySchedule.Minute), keep $($Policy.DailySchedule.SnapshotsToKeep)" } else { $LocalizedData.NotConfigured }
+                                        $Weekly = if ($Policy.WeeklySchedule -and $Policy.WeeklySchedule.SnapshotsToKeep) { "$($Policy.WeeklySchedule.Day) at $('{0:D2}' -f [int]$Policy.WeeklySchedule.Hour):$('{0:D2}' -f [int]$Policy.WeeklySchedule.Minute), keep $($Policy.WeeklySchedule.SnapshotsToKeep)" } else { $LocalizedData.NotConfigured }
+                                        $Monthly = if ($Policy.MonthlySchedule -and $Policy.MonthlySchedule.SnapshotsToKeep) { "Day(s) $($Policy.MonthlySchedule.DaysOfMonth) at $('{0:D2}' -f [int]$Policy.MonthlySchedule.Hour):$('{0:D2}' -f [int]$Policy.MonthlySchedule.Minute), keep $($Policy.MonthlySchedule.SnapshotsToKeep)" } else { $LocalizedData.NotConfigured }
 
                                         Section -Style NOTOCHeading5 -ExcludeFromTOC "$($Item.Account) / $PolShortName" {
                                             $SpObj = [PSCustomObject][Ordered]@{
                                                 $LocalizedData.Name = $PolShortName
                                                 $LocalizedData.Account = $Item.Account
-                                                $LocalizedData.Enabled = if ($Pol.Enabled) { $LocalizedData.Yes } else { $LocalizedData.No }
+                                                $LocalizedData.Enabled = if ($Policy.Enabled) { $LocalizedData.Yes } else { $LocalizedData.No }
                                                 $LocalizedData.HourlySchedule = $Hourly
                                                 $LocalizedData.DailySchedule = $Daily
                                                 $LocalizedData.WeeklySchedule = $Weekly
@@ -577,14 +577,14 @@ function Get-AbrAzNetAppFiles {
                         #region Backup Policies (InfoLevel >= 3)
                         if ($InfoLevel.NetAppFiles -ge 3) {
                             $AllBackupPolicies = @()
-                            foreach ($Acct in $AzAnfAccounts) {
-                                $AcctRg = $AccountMap[$Acct.Name].ResourceGroup
-                                $Pols = Get-AzNetAppFilesBackupPolicy -ResourceGroupName $AcctRg -AccountName $Acct.Name -ErrorAction SilentlyContinue
-                                if ($Pols) {
-                                    foreach ($Pol in $Pols) {
+                            foreach ($NetAppAccount in $AzAnfAccounts) {
+                                $AcctRg = $AccountMap[$NetAppAccount.Name].ResourceGroup
+                                $Policies = Get-AzNetAppFilesBackupPolicy -ResourceGroupName $AcctRg -AccountName $NetAppAccount.Name -ErrorAction SilentlyContinue
+                                if ($Policies) {
+                                    foreach ($Policy in $Policies) {
                                         $AllBackupPolicies += [PSCustomObject]@{
-                                            Account = $Acct.Name
-                                            Policy  = $Pol
+                                            Account = $NetAppAccount.Name
+                                            Policy  = $Policy
                                         }
                                     }
                                 }
@@ -596,15 +596,15 @@ function Get-AbrAzNetAppFiles {
 
                                     $BpInfo = @()
                                     foreach ($Item in $AllBackupPolicies) {
-                                        $Pol = $Item.Policy
-                                        $PolShortName = $Pol.Name.Split('/')[-1]
+                                        $Policy = $Item.Policy
+                                        $PolShortName = $Policy.Name.Split('/')[-1]
                                         $BpInfo += [PSCustomObject][Ordered]@{
                                             $LocalizedData.Name = $PolShortName
                                             $LocalizedData.Account = $Item.Account
-                                            $LocalizedData.Enabled = if ($Pol.Enabled) { $LocalizedData.Yes } else { $LocalizedData.No }
-                                            $LocalizedData.DailyBackups = if ($null -ne $Pol.DailyBackupsToKeep) { $Pol.DailyBackupsToKeep } else { 0 }
-                                            $LocalizedData.WeeklyBackups = if ($null -ne $Pol.WeeklyBackupsToKeep) { $Pol.WeeklyBackupsToKeep } else { 0 }
-                                            $LocalizedData.MonthlyBackups = if ($null -ne $Pol.MonthlyBackupsToKeep) { $Pol.MonthlyBackupsToKeep } else { 0 }
+                                            $LocalizedData.Enabled = if ($Policy.Enabled) { $LocalizedData.Yes } else { $LocalizedData.No }
+                                            $LocalizedData.DailyBackups = if ($null -ne $Policy.DailyBackupsToKeep) { $Policy.DailyBackupsToKeep } else { 0 }
+                                            $LocalizedData.WeeklyBackups = if ($null -ne $Policy.WeeklyBackupsToKeep) { $Policy.WeeklyBackupsToKeep } else { 0 }
+                                            $LocalizedData.MonthlyBackups = if ($null -ne $Policy.MonthlyBackupsToKeep) { $Policy.MonthlyBackupsToKeep } else { 0 }
                                         }
                                     }
                                     $TableParams = @{
