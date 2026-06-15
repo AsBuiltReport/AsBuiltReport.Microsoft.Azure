@@ -56,6 +56,7 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 * Key Vaults
 * Load Balancers
 * Log Analytics Workspaces
+* Management Groups
 * NetApp Files
 * Policies
 * Private DNS Resolvers
@@ -265,6 +266,8 @@ The **Options** schema allows certain options within the report to be toggled on
 |-----------------|--------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | ShowSectionInfo | true / false | true    | Toggle to enable/disable information relating to Azure resources within each section.                                                                                                                                                                                                  |
 | ShowTags        | true / false | true    | Toggle to enable/disable the display of Azure resource tags. <br><br> _**Note:** Reporting of tags is not currently available on all Azure resources. Tags will only be displayed for Azure resources when the relevant section [InfoLevel](#infolevel) is configured to 2 or higher._ |
+| EnableDiagrams  | true / false | false   | Toggle to enable/disable diagram generation. Requires the [AsBuiltReport.Diagram](https://github.com/AsBuiltReport/AsBuiltReport.Diagram) module.                                                                                                                                      |
+| DiagramTheme    | White / Black | White  | Sets the colour theme for generated diagrams.                                                                                                                                                                                                                                          |
 
 ### Filter
 The **Filter** schema allows report content to be filtered to specific Azure subscriptions within a tenant.
@@ -316,6 +319,7 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | KeyVault              |        1        |        1        |
 | LoadBalancer          |        1        |        2        |
 | LogAnalyticsWorkspace |        1        |        2        |
+| ManagementGroup       |        1        |        1        |
 | NetAppFiles           |        1        |        4        |
 | NetworkSecurityGroup  |        1        |        2        |
 | Policy > Assignments  |        1        |        2        |

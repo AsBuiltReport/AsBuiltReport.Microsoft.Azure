@@ -12,6 +12,8 @@
     "Options": {
         "ShowSectionInfo": true,
         "ShowTags": true,
+        "EnableDiagrams": false,
+        "DiagramTheme": "White",
         "SectionOrder": [
             "StorageAccount",
             "KeyVault",
@@ -51,6 +53,7 @@
         "KeyVault": 1,
         "LogAnalyticsWorkspace": 1,
         "LoadBalancer": 1,
+        "ManagementGroup": 1,
         "NetworkSecurityGroup": 1,
         "Policy": {
 			"Assignments": 1,

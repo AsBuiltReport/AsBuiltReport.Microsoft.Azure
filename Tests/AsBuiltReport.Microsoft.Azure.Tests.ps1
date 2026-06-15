@@ -48,9 +48,9 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $Manifest.RequiredModules.Name | Should -Contain 'AsBuiltReport.Core'
         }
 
-        It 'Should require AsBuiltReport.Core version 1.6.1 or higher' {
+        It 'Should require AsBuiltReport.Core version 1.6.2 or higher' {
             $CoreModule = $Manifest.RequiredModules | Where-Object { $_.Name -eq 'AsBuiltReport.Core' }
-            $CoreModule.Version | Should -BeGreaterOrEqual ([Version]'1.6.1')
+            $CoreModule.Version | Should -BeGreaterOrEqual ([Version]'1.6.2')
         }
 
         It 'Should declare Az as an external module dependency' {
@@ -265,6 +265,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
         BeforeAll {
             $PrivatePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Src\Private'
             $PrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -ErrorAction SilentlyContinue
+            $AllPrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -Recurse -ErrorAction SilentlyContinue
         }
 
         It 'Should have Get-AbrAzStorageAccount function' {
@@ -435,6 +436,20 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
         It 'Should have Get-AbrAzNetworkSecurityGroupRule helper function' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzNetworkSecurityGroupRule.ps1'
         }
+
+        # Management Group
+        It 'Should have Get-AbrAzManagementGroup function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzManagementGroup.ps1'
+        }
+
+        # Diagram functions (require -Recurse search since they live in a subfolder)
+        It 'Should have Get-AbrAzDiagram diagram function' {
+            $AllPrivateFunctions.Name | Should -Contain 'Get-AbrAzDiagram.ps1'
+        }
+
+        It 'Should have Export-AbrAzDiagram diagram function' {
+            $AllPrivateFunctions.Name | Should -Contain 'Export-AbrAzDiagram.ps1'
+        }
     }
 
     Context 'JSON Configuration' {
@@ -564,6 +579,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 
         It 'InfoLevel should include Tenant' {
             $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'Tenant'
+        }
+
+        It 'InfoLevel should include ManagementGroup' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'ManagementGroup'
         }
 
         It 'InfoLevel should include VirtualNetwork' {
@@ -710,6 +729,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 
         It 'Options.ShowTags should be boolean' {
             $JsonConfig.Options.ShowTags | Should -BeOfType [bool]
+        }
+
+        It 'Options.EnableDiagrams should be boolean' {
+            $JsonConfig.Options.EnableDiagrams | Should -BeOfType [bool]
         }
 
         It 'Policy InfoLevel structure should have Assignments and Definitions' {
@@ -1007,6 +1030,10 @@ Describe 'Module File Syntax and Quality' {
 
         It 'Should have GetAbrAzRouteTable localization section' {
             $LocalizedData.GetAbrAzRouteTable | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzManagementGroup localization section' {
+            $LocalizedData.GetAbrAzManagementGroup | Should -Not -BeNullOrEmpty
         }
     }
 

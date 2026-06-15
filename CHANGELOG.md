@@ -2,8 +2,13 @@
 
 ## [Unreleased]
 
+### Fixed
+* Fix empty per-subscription sections appearing in the report when enabled resource types have no matching resources in a given subscription
+
 ### Added
 * Add support for Azure NetApp Files (NetApp Accounts, Capacity Pools, Volumes, Snapshot Policies, Backup Policies) with per-volume detail, Active Directory and encryption configuration, mount targets, export policy rules, and 5 health checks (pool allocation, AD join status, snapshot policy attachment, backup policy attachment, customer-managed key usage)
+* Add support for Management Groups, displaying the full hierarchy with parent/child relationships and direct subscription counts
+* Add optional Management Group hierarchy diagram (`Options.EnableDiagrams: true`) using the AsBuiltReport.Diagram module, showing management group nodes with subscription collections sized to fit a portrait page
 
 ## [0.2.0] - 2026-02-11
 

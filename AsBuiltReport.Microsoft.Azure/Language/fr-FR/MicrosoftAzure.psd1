@@ -1375,4 +1375,26 @@ GetAbrAzNetAppFiles = ConvertFrom-StringData @'
     No = No
 '@
 
+# Azure Management Groups (Get-AbrAzManagementGroup)
+GetAbrAzManagementGroup = ConvertFrom-StringData @'
+    InfoLevel             = InfoLevel du groupe de gestion defini a {0}.
+    Collecting            = Collecte des informations du groupe de gestion Azure.
+    SectionInfo           = Les groupes de gestion Azure fournissent une etendue de gouvernance au-dessus des abonnements. Tous les abonnements au sein d'un groupe de gestion heritent automatiquement des conditions appliquees au groupe de gestion, permettant une politique et un controle d'acces coherents dans l'ensemble de votre patrimoine Azure.
+    Heading               = Groupes de gestion
+    TableHeading          = Groupes de gestion
+    DiagramHeading        = Hierarchie du groupe de gestion
+    DiagramAltText        = Diagramme de hierarchie du groupe de gestion Azure
+    DiagramError          = Impossible de generer le diagramme de hierarchie du groupe de gestion : {0}.
+    Name                  = Nom
+    Id                    = ID du groupe de gestion
+    ParentName            = Groupe parent
+    ChildGroupCount       = Groupes enfants
+    SubscriptionCount     = Abonnements
+    ResourceGroup         = Groupe de ressources
+    Location              = Emplacement
+    NotFound              = Aucun groupe de gestion trouve.
+    None                  = Aucun
+    ErrorMessage          = Impossible de collecter les informations du groupe de gestion:
+'@
+
 }

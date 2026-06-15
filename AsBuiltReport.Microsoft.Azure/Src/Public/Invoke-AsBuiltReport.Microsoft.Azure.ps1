@@ -96,6 +96,32 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         Write-PScriboMessage -Plugin "Module" -Message $LocalizedData.CustomOrder
     }
 
+    # Resource type mapping for per-subscription existence checks
+    $ResourceTypeMap = @{
+        'AvailabilitySet'       = 'Microsoft.Compute/availabilitySets'
+        'Bastion'               = 'Microsoft.Network/bastionHosts'
+        'DesktopVirtualization' = 'Microsoft.DesktopVirtualization/hostpools'
+        'DnsPrivateResolver'    = 'Microsoft.Network/dnsResolvers'
+        'ExpressRoute'          = 'Microsoft.Network/expressRouteCircuits'
+        'ExpressRouteCircuit'   = 'Microsoft.Network/expressRouteCircuits'
+        'Firewall'              = 'Microsoft.Network/azureFirewalls'
+        'FirewallPolicy'        = 'Microsoft.Network/firewallPolicies'
+        'IpGroup'               = 'Microsoft.Network/ipGroups'
+        'KeyVault'              = 'Microsoft.KeyVault/vaults'
+        'LoadBalancer'          = 'Microsoft.Network/loadBalancers'
+        'LogAnalyticsWorkspace' = 'Microsoft.OperationalInsights/workspaces'
+        'NetAppFiles'           = 'Microsoft.NetApp/netAppAccounts'
+        'NetworkSecurityGroup'  = 'Microsoft.Network/networkSecurityGroups'
+        'Policy'                = $null
+        'PrivateEndpoint'       = 'Microsoft.Network/privateEndpoints'
+        'RecoveryServicesVault' = 'Microsoft.RecoveryServices/vaults'
+        'RouteTable'            = 'Microsoft.Network/routeTables'
+        'SiteRecovery'          = 'Microsoft.RecoveryServices/vaults'
+        'StorageAccount'        = 'Microsoft.Storage/storageAccounts'
+        'VirtualMachine'        = 'Microsoft.Compute/virtualMachines'
+        'VirtualNetwork'        = 'Microsoft.Network/virtualNetworks'
+    }
+
     # Function mapping for section names to function names
     $SectionFunctionMap = @{
         "AvailabilitySet" = "Get-AbrAzAvailabilitySet"
@@ -171,54 +197,72 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
 
                 Section -Style Heading1 $($AzTenant.Name) {
                     Get-AbrAzTenant
+                    Get-AbrAzManagementGroup
                     Section -Style Heading2 $LocalizedData.Subscriptions {
                         Get-AbrAzSubscription
 
-                        foreach ($AzSubscription in $AzSubscriptions) {
-                            Section -Style Heading3 $($AzSubscription.Name) {
+                        if (Test-AbrAzInfoLevelEnabled -SectionOrder $SectionOrder -InfoLevel $InfoLevel) {
+                            foreach ($AzSubscription in $AzSubscriptions) {
                                 Write-PScriboMessage ($LocalizedData.SubscriptionID -f $($AzSubscription.Id))
                                 $AzContext = Set-AzContext -Subscription $AzSubscription.Id -Tenant $TenantId
 
-                                # Process sections in the order specified by SectionOrder
-                                foreach ($SectionName in $SectionOrder) {
-                                    try {
-                                        # Get the info level for this section
-                                        $level = if ($InfoLevel.PSObject.Properties.Name -contains $SectionName) {
-                                            $InfoLevel.$SectionName
-                                        } elseif ($InfoLevel.ContainsKey($SectionName)) {
-                                            $InfoLevel[$SectionName]
-                                        } else {
-                                            Write-PScriboMessage ($LocalizedData.InfoLevelNotFound -f $SectionName)
-                                            continue
-                                        }
+                                $SubHasResources = $false
+                                foreach ($SectionName in ($SectionOrder | Where-Object { Test-AbrAzInfoLevelEnabled -SectionOrder @($_) -InfoLevel $InfoLevel })) {
+                                    $ResourceType = $ResourceTypeMap[$SectionName]
+                                    if (-not $ResourceType) {
+                                        $SubHasResources = $true
+                                        break
+                                    }
+                                    if (Get-AzResource -ResourceType $ResourceType -ErrorAction SilentlyContinue | Select-Object -First 1) {
+                                        $SubHasResources = $true
+                                        break
+                                    }
+                                }
 
-                                        # Determine if section is enabled and execute function
-                                        $enabled = switch ($level) {
-                                            { $_ -is [hashtable] -or $_ -is [PSCustomObject] } {
-                                                # For complex objects, sum all property values
-                                                $sum = if ($_ -is [hashtable]) {
-                                                    ($_.Values | Measure-Object -Sum).Sum
+                                if ($SubHasResources) {
+                                    Section -Style Heading3 $($AzSubscription.Name) {
+                                        # Process sections in the order specified by SectionOrder
+                                        foreach ($SectionName in $SectionOrder) {
+                                            try {
+                                                # Get the info level for this section
+                                                $level = if ($InfoLevel.PSObject.Properties.Name -contains $SectionName) {
+                                                    $InfoLevel.$SectionName
+                                                } elseif ($InfoLevel.ContainsKey($SectionName)) {
+                                                    $InfoLevel[$SectionName]
                                                 } else {
-                                                    ($_.PSObject.Properties.Value | ForEach-Object { [int]$_ } | Measure-Object -Sum).Sum
+                                                    Write-PScriboMessage ($LocalizedData.InfoLevelNotFound -f $SectionName)
+                                                    continue
                                                 }
-                                                $sum -gt 0
-                                            }
-                                            default {
-                                                # For simple types (int, int64, string), convert to int and check if > 0
-                                                try { [int]$_ -gt 0 } catch { $false }
-                                            }
-                                        }
 
-                                        if ($enabled) {
-                                            $functionName = $SectionFunctionMap[$SectionName]
-                                            if ($functionName -and (Get-Command $functionName -ErrorAction SilentlyContinue)) {
-                                                & $functionName
-                                            } else {
-                                                Write-PScriboMessage ($LocalizedData.FunctionNotFound -f $functionName, $SectionName)
+                                                # Determine if section is enabled and execute function
+                                                $enabled = switch ($level) {
+                                                    { $_ -is [hashtable] -or $_ -is [PSCustomObject] } {
+                                                        # For complex objects, sum all property values
+                                                        $sum = if ($_ -is [hashtable]) {
+                                                            ($_.Values | Measure-Object -Sum).Sum
+                                                        } else {
+                                                            ($_.PSObject.Properties.Value | ForEach-Object { [int]$_ } | Measure-Object -Sum).Sum
+                                                        }
+                                                        $sum -gt 0
+                                                    }
+                                                    default {
+                                                        # For simple types (int, int64, string), convert to int and check if > 0
+                                                        try { [int]$_ -gt 0 } catch { $false }
+                                                    }
+                                                }
+
+                                                if ($enabled) {
+                                                    $functionName = $SectionFunctionMap[$SectionName]
+                                                    if ($functionName -and (Get-Command $functionName -ErrorAction SilentlyContinue)) {
+                                                        & $functionName
+                                                    } else {
+                                                        Write-PScriboMessage ($LocalizedData.FunctionNotFound -f $functionName, $SectionName)
+                                                    }
+                                                }
+                                            } catch {
+                                                Write-PScriboMessage ($LocalizedData.ErrorProcessing -f $SectionName, $_)
                                             }
                                         }
-                                    } catch {
-                                        Write-PScriboMessage ($LocalizedData.ErrorProcessing -f $SectionName, $_)
                                     }
                                 }
                             }

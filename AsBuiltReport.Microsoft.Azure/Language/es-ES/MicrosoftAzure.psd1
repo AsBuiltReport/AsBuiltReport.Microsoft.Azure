@@ -1375,4 +1375,26 @@ GetAbrAzNetAppFiles = ConvertFrom-StringData @'
     No = No
 '@
 
+# Azure Management Groups (Get-AbrAzManagementGroup)
+GetAbrAzManagementGroup = ConvertFrom-StringData @'
+    InfoLevel             = InfoLevel de grupo de administración establecido en {0}.
+    Collecting            = Recopilando información del grupo de administración de Azure.
+    SectionInfo           = Los grupos de administración de Azure proporcionan un ámbito de gobierno por encima de las suscripciones. Todas las suscripciones dentro de un grupo de administración heredan automáticamente las condiciones aplicadas al grupo de administración, lo que permite una política y control de acceso consistentes en toda su patrimonio de Azure.
+    Heading               = Grupos de administración
+    TableHeading          = Grupos de administración
+    DiagramHeading        = Jerarquía del grupo de administración
+    DiagramAltText        = Diagrama de jerarquía del grupo de administración de Azure
+    DiagramError          = No se puede generar el diagrama de jerarquía del grupo de administración: {0}.
+    Name                  = Nombre
+    Id                    = ID del grupo de administración
+    ParentName            = Grupo principal
+    ChildGroupCount       = Grupos secundarios
+    SubscriptionCount     = Suscripciones
+    ResourceGroup         = Grupo de recursos
+    Location              = Ubicación
+    NotFound              = No se encontraron grupos de administración.
+    None                  = Ninguno
+    ErrorMessage          = No se puede recopilar información del grupo de administración:
+'@
+
 }
