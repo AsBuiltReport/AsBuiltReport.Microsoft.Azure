@@ -288,7 +288,7 @@ GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     InfoLevel = SiteRecovery-InfoLevel auf {0} gesetzt.
     Collecting = Azure Site Recovery-Informationen '{0}' werden gesammelt.
     CollectingItems = Azure Site Recovery geschützte Elemente werden gesammelt.
-    ParagraghSummary = Die folgenden Tabellen enthalten Informationen zu den geschützten Azure Site Recovery-Elementen im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle enthält Informationen zu den geschützten Azure Site Recovery-Elementen im Abonnement {0}.
     Heading = Geschützte Elemente
     TableHeading = Geschützte Elemente
     SubHeading = Site Recovery
@@ -422,6 +422,7 @@ GetAbrAzStorageAccount = ConvertFrom-StringData @'
     Disabled = Deaktiviert
     Unknown = Unbekannt
     Created = Erstellt
+    Locks = Sperren
     Tags = Tags
     None = Keine
 '@
@@ -484,6 +485,7 @@ GetAbrAzFirewall = ConvertFrom-StringData @'
     NatRules = NAT-Regeln
     NetworkRules = Netzwerkregeln
     AppRules = Anwendungsregeln
+    Locks = Sperren
     Tags = Tags
     None = Keine
 '@
@@ -592,6 +594,7 @@ GetAbrAzKeyVault = ConvertFrom-StringData @'
     Disabled = Deaktiviert
     NoAccessEnabled = Kein Zugriff aktiviert
     EnabledDays = Aktiviert ({0} Tage)
+    Locks = Sperren
     Tags = Tags
     None = Keine
     days = Tage
@@ -715,6 +718,7 @@ GetAbrAzLogAnalyticsWorkspace = ConvertFrom-StringData @'
     Disabled = Deaktiviert
     Unknown = Unbekannt
     NoQuota = Kein Kontingent festgelegt
+    Locks = Sperren
     Tags = Tags
     None = Keine
 '@
@@ -859,6 +863,7 @@ GetAbrAzRecoveryServicesVault = ConvertFrom-StringData @'
     ProvisioningState = Bereitstellungsstatus
     PrivateEndpointStateForBackup = Privater Endpunktstatus für Sicherung
     PrivateEndpointStateForSiteRecovery = Privater Endpunktstatus für Site Recovery
+    Locks = Sperren
     Tags = Tags
     None = Keine
 '@
@@ -883,6 +888,7 @@ GetAbrAzRouteTable = ConvertFrom-StringData @'
     AddressPrefix = Adresspräfix
     NextHopType = Nächster Hop-Typ
     NextHopIpAddress = Nächste Hop-IP-Adresse
+    Locks = Sperren
     Tags = Tags
     None = Keine
 '@
@@ -1063,6 +1069,7 @@ GetAbrAzVirtualNetwork = ConvertFrom-StringData @'
     Subnets = Subnetze
     DnsServers = DNS-Server
     Default = Standard (von Azure bereitgestellt)
+    Locks = Sperren
     Tags = Tags
     None = Keine
 '@
@@ -1395,6 +1402,321 @@ GetAbrAzManagementGroup = ConvertFrom-StringData @'
     NotFound              = Keine Verwaltungsgruppen gefunden.
     None                  = Keine
     ErrorMessage          = Fehler beim Sammeln von Management Group-Informationen:
+'@
+
+# Azure Private DNS Zones (Get-AbrAzPrivateDnsZone)
+GetAbrAzPrivateDnsZone = ConvertFrom-StringData @'
+    InfoLevel = PrivateDnsZone-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Private DNS-Zoneninformationen werden gesammelt.
+    SectionInfo = Azure Private DNS-Zonen bieten einen zuverlässigen, sicheren DNS-Dienst zum Verwalten und Auflösen von Domänennamen in einem virtuellen Netzwerk, ohne eine benutzerdefinierte DNS-Lösung hinzufügen zu müssen. Private DNS-Zonen sind im öffentlichen Internet nicht sichtbar und ermöglichen die Verwendung eigener Domänennamen anstelle der von Azure bereitgestellten Namen.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der privaten DNS-Zone(n) im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der privaten DNS-Zone(n) im Abonnement {0} zusammen.
+    Heading = Private DNS-Zonen
+    TableHeading = Private DNS-Zone
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    RecordSets = Ressourceneintragssätze
+    MaxRecordSets = Max. Ressourceneintragssätze
+    VirtualNetworkLinks = VNET-Verknüpfungen
+    VNetLinksWithRegistration = VNET-Verknüpfungen mit automatischer Registrierung
+    ProvisioningState = Bereitstellungsstatus
+    LinkName = Verknüpfungsname
+    VirtualNetwork = Virtuelles Netzwerk
+    AutoRegistration = Automatische Registrierung
+    VirtualNetworkLinkState = Verknüpfungsstatus
+    Locks = Sperren
+    Tags = Tags
+    None = Keine
+    ErrorMessage = Fehler beim Sammeln von Private DNS-Zoneninformationen:
+'@
+
+# Azure Virtual Network Gateway (Get-AbrAzVirtualNetworkGateway)
+GetAbrAzVirtualNetworkGateway = ConvertFrom-StringData @'
+    InfoLevel = VirtualNetworkGateway-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Virtual Network Gateway-Informationen werden gesammelt.
+    SectionInfo = Azure Virtual Network Gateways verbinden Ihre lokalen Netzwerke über Site-to-Site-VPNs mit Azure und verbinden Azure-VNets über VNet-zu-VNet-VPNs miteinander. ExpressRoute-Gateways ermöglichen private, dedizierte Verbindungen zu Azure ohne Nutzung des öffentlichen Internets.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der virtuellen Netzwerkgateways im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der virtuellen Netzwerkgateways im Abonnement {0} zusammen.
+    Heading = Virtuelle Netzwerkgateways
+    TableHeading = Virtuelles Netzwerkgateway
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    VirtualNetwork = Virtuelles Netzwerk
+    GatewayType = Gatewaytyp
+    VpnType = VPN-Typ
+    SKU = SKU
+    Generation = Generation
+    ActiveActive = Aktiv-Aktiv
+    EnableBgp = BGP aktiviert
+    BgpAsn = BGP-ASN
+    BgpPeeringAddress = BGP-Peering-Adresse
+    ProvisioningState = Bereitstellungsstatus
+    Connections = Verbindungen
+    ConnectionName = Name
+    ConnectionType = Verbindungstyp
+    ConnectionStatus = Verbindungsstatus
+    ConnectionProtocol = Protokoll
+    RoutingWeight = Routinggewichtung
+    NotApplicable = N/V
+    Locks = Sperren
+    Tags = Tags
+    None = Keine
+    ErrorMessage = Fehler beim Sammeln von Virtual Network Gateway-Informationen:
+'@
+
+# Azure DDoS Protection Plan (Get-AbrAzDdosProtectionPlan)
+GetAbrAzDdosProtectionPlan = ConvertFrom-StringData @'
+    InfoLevel = DDoSProtectionPlan-InfoLevel auf {0} gesetzt.
+    Collecting = Azure DDoS-Schutzplan-Informationen werden gesammelt.
+    SectionInfo = Azure DDoS-Schutzplaene bieten erweiterte DDoS-Abwehrfunktionen fuer alle Ressourcen in einem virtuellen Netzwerk. Sie bieten Telemetrie, Warnmeldungen und detaillierte Analysen zum Schutz Ihrer Azure-Ressourcen vor DDoS-Angriffen.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der DDoS-Schutzplaene im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der DDoS-Schutzplaene im Abonnement {0} zusammen.
+    Heading = DDoS-Schutzplaene
+    TableHeading = DDoS-Schutzplan
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ProtectedVirtualNetworks = Geschuetzte virtuelle Netzwerke
+    VirtualNetworkName = Virtuelles Netzwerk
+    ProvisioningState = Bereitstellungsstatus
+    Locks = Sperren
+    Tags = Tags
+    None = Keine
+    ErrorMessage = Fehler beim Sammeln von DDoS-Schutzplan-Informationen:
+'@
+
+# Azure Application Gateway (Get-AbrAzApplicationGateway)
+GetAbrAzApplicationGateway = ConvertFrom-StringData @'
+    InfoLevel = ApplicationGateway-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Application Gateway-Informationen werden gesammelt.
+    SectionInfo = Azure Application Gateways sind Lastenausgleicher fuer Webdatenverkehr auf Layer 7. Sie unterstuetzen SSL/TLS-Terminierung, URL-basiertes Routing, Multi-Site-Hosting, Sitzungsaffinitaet und Web Application Firewall-Integration.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Application Gateways im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Application Gateways im Abonnement {0} zusammen.
+    Heading = Application Gateways
+    TableHeading = Application Gateway
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    VirtualNetwork = Virtuelles Netzwerk
+    Subnet = Subnetz
+    SKU = SKU
+    Tier = Stufe
+    Capacity = Kapazitaet
+    WafEnabled = WAF aktiviert
+    WafMode = WAF-Modus
+    Http2Enabled = HTTP/2 aktiviert
+    FrontendIPs = Frontend-IPs
+    OperationalState = Betriebsstatus
+    ProvisioningState = Bereitstellungsstatus
+    Listeners = HTTP-Listener
+    ListenerName = Listener
+    Protocol = Protokoll
+    Port = Port
+    HostName = Hostname
+    BackendPools = Backend-Adresspools
+    PoolName = Poolname
+    BackendTargets = Backend-Ziele
+    RoutingRules = Anforderungsroutingregeln
+    RuleName = Regelname
+    RuleType = Regeltyp
+    BackendPool = Backend-Pool
+    BackendHttpSettings = HTTP-Einstellungen
+    Unlimited = Unbegrenzt
+    NotApplicable = N/V
+    Tags = Tags
+    None = Keine
+    ErrorMessage = Fehler beim Sammeln von Application Gateway-Informationen:
+'@
+
+# Azure Data Collection Rules (Get-AbrAzDataCollectionRule)
+GetAbrAzDataCollectionRule = ConvertFrom-StringData @'
+    InfoLevel = DataCollectionRule-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Datensammlungsregel-Informationen werden gesammelt.
+    SectionInfo = Azure Datensammlungsregeln definieren, welche Ueberwachungsdaten gesammelt werden sollen, woher sie stammen und wohin sie gesendet werden. Sie legen Datenquellen wie Leistungsindikatoren, Windows-Ereignisprotokolle und Syslog fest und leiten diese Daten an Log Analytics-Arbeitsbereiche oder andere Ziele weiter.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Datensammlungsregeln im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Datensammlungsregeln im Abonnement {0} zusammen.
+    Heading = Datensammlungsregeln
+    TableHeading = Datensammlungsregel
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    Description = Beschreibung
+    DataSources = Datenquellen
+    LogAnalyticsDestinations = Log Analytics-Ziele
+    ProvisioningState = Bereitstellungsstatus
+    PerformanceCounters = Leistungsindikatoren
+    WindowsEventLogs = Windows-Ereignisprotokolle
+    Syslog = Syslog
+    Extensions = Erweiterungen
+    LogFiles = Protokolldateien
+    Destinations = Log Analytics-Ziele
+    DestinationName = Name
+    WorkspaceId = Arbeitsbereich-Ressourcen-ID
+    DataFlows = Datenfluesse
+    Streams = Datenstroeme
+    Tags = Tags
+    None = Keine
+    ErrorMessage = Fehler beim Sammeln von Datensammlungsregel-Informationen:
+'@
+
+# Azure Public IP Addresses (Get-AbrAzPublicIpAddress)
+GetAbrAzPublicIpAddress = ConvertFrom-StringData @'
+    InfoLevel = PublicIpAddress-InfoLevel auf {0} gesetzt.
+    Collecting = Azure oeffentliche IP-Adressen-Informationen werden gesammelt.
+    SectionInfo = Azure oeffentliche IP-Adressen stellen internetseitige IP-Adressen fuer Ressourcen wie virtuelle Computer, Lastenausgleicher, VPN-Gateways und Application Gateways bereit. Sie unterstuetzen dynamische und statische Zuweisung und sind in den SKUs Basic und Standard verfuegbar.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der oeffentlichen IP-Adressen im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der oeffentlichen IP-Adressen im Abonnement {0} zusammen.
+    Heading = Oeffentliche IP-Adressen
+    TableHeading = Oeffentliche IP-Adresse
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    SKU = SKU
+    Tier = Stufe
+    IpVersion = IP-Version
+    AllocationMethod = Zuweisungsmethode
+    IpAddress = IP-Adresse
+    DnsLabel = DNS-Bezeichnung
+    Fqdn = FQDN
+    Zones = Verfuegbarkeitszonen
+    AssociatedResource = Zugeordnete Ressource
+    ProvisioningState = Bereitstellungsstatus
+    NotAssigned = Nicht zugewiesen
+    Tags = Tags
+    None = Keine
+    ErrorMessage = Fehler beim Sammeln von oeffentlichen IP-Adressen-Informationen:
+'@
+
+# Azure Network Watchers (Get-AbrAzNetworkWatcher)
+GetAbrAzNetworkWatcher = ConvertFrom-StringData @'
+    InfoLevel = NetworkWatcher-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Network Watcher-Informationen werden gesammelt.
+    SectionInfo = Azure Network Watcher bietet Netzwerkueberwachungs- und Diagnosefunktionen pro Region. NSG-Datenflussprotokolle erfassen Informationen ueber den IP-Datenverkehr durch Netzwerksicherheitsgruppen und koennen optional ueber Traffic Analytics an einen Log Analytics-Arbeitsbereich weitergeleitet werden.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Network Watcher im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Network Watcher im Abonnement {0} zusammen.
+    Heading = Network Watcher
+    TableHeading = Network Watcher
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    FlowLogs = Datenflussprotokolle
+    ProvisioningState = Bereitstellungsstatus
+    FlowLogsHeading = NSG-Datenflussprotokolle
+    FlowLogName = Name
+    TargetResource = Zielressource
+    FlowLogEnabled = Aktiviert
+    RetentionDays = Aufbewahrung (Tage)
+    TrafficAnalytics = Traffic Analytics
+    StorageAccount = Speicherkonto
+    Enabled = Aktiviert
+    Disabled = Deaktiviert
+    Unlimited = Unbegrenzt
+    Tags = Tags
+    None = Keine
+    ErrorMessage = Fehler beim Sammeln von Network Watcher-Informationen:
+'@
+
+# Azure VM Scale Sets (Get-AbrAzVmScaleSet)
+GetAbrAzVmScaleSet = ConvertFrom-StringData @'
+    InfoLevel = VmScaleSet-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Virtual Machine Scale Set-Informationen werden gesammelt.
+    SectionInfo = Azure Virtual Machine Scale Sets (VMSS) ermoeglichen die Bereitstellung und Verwaltung einer Gruppe identischer, lastverteilter virtueller Maschinen. Sie unterstuetzen automatische Skalierung, mehrere Verfuegbarkeitszonen und flexible oder einheitliche Orchestrierungsmodi.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der VM-Skalierungsgruppen im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der VM-Skalierungsgruppen im Abonnement {0} zusammen.
+    Heading = VM-Skalierungsgruppen
+    TableHeading = VM-Skalierungsgruppe
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    VmSize = VM-Groesse
+    Instances = Instanzen
+    OrchestrationMode = Orchestrierungsmodus
+    UpgradePolicy = Upgraderichtlinie
+    Overprovision = Ueberbereitstellung
+    SinglePlacementGroup = Einzelne Platzierungsgruppe
+    Zones = Verfuegbarkeitszonen
+    Identity = Identitaet
+    ProvisioningState = Bereitstellungsstatus
+    Tags = Tags
+    None = Keine
+    ErrorMessage = Fehler beim Sammeln von VM-Skalierungsgruppen-Informationen:
+'@
+
+# Azure Maintenance Configurations (Get-AbrAzMaintenanceConfiguration)
+GetAbrAzMaintenanceConfiguration = ConvertFrom-StringData @'
+    InfoLevel = MaintenanceConfiguration-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Wartungskonfigurationsinformationen werden gesammelt.
+    SectionInfo = Azure-Wartungskonfigurationen definieren geplante Wartungsfenster fuer Azure-Ressourcen. Sie steuern, wann Plattformupdates, BS-Patches und andere Wartungsaktivitaeten angewendet werden, um ungeplante Ausfallzeiten zu reduzieren.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der Wartungskonfigurationen im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der Wartungskonfigurationen im Abonnement {0} zusammen.
+    Heading = Wartungskonfigurationen
+    TableHeading = Wartungskonfiguration
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    Scope = Bereich
+    Visibility = Sichtbarkeit
+    StartDateTime = Startdatum/-uhrzeit
+    ExpirationDateTime = Ablaufdatum/-uhrzeit
+    Duration = Dauer
+    RecurEvery = Wiederholung
+    TimeZone = Zeitzone
+    ProvisioningState = Bereitstellungsstatus
+    NotConfigured = Nicht konfiguriert
+    NoExpiry = Kein Ablaufdatum
+    Tags = Tags
+    None = Keine
+    ErrorMessage = Fehler beim Sammeln von Wartungskonfigurationsinformationen:
+'@
+
+# Azure DNS Forwarding Rulesets (Get-AbrAzDnsForwardingRuleset)
+GetAbrAzDnsForwardingRuleset = ConvertFrom-StringData @'
+    InfoLevel = DnsForwardingRuleset-InfoLevel auf {0} gesetzt.
+    Collecting = Azure DNS-Weiterleitungsregelsatz-Informationen werden gesammelt.
+    SectionInfo = Azure DNS-Weiterleitungsregelsaetze definieren Saetze bedingter Weiterleitungsregeln, die DNS-Abfragen an bestimmte DNS-Server weiterleiten. Sie sind mit ausgehenden Endpunkten des DNS Private Resolvers verbunden und mit virtuellen Netzwerken verknuepft, um das DNS-Aufloesungsverhalten zu steuern.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der DNS-Weiterleitungsregelsaetze im Abonnement {0}.
+    ParagraphSummary = Die folgende Tabelle fasst die Konfiguration der DNS-Weiterleitungsregelsaetze im Abonnement {0} zusammen.
+    Heading = DNS-Weiterleitungsregelsaetze
+    TableHeading = DNS-Weiterleitungsregelsatz
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    ForwardingRules = Weiterleitungsregeln
+    VirtualNetworkLinks = VNET-Verbindungen
+    OutboundEndpoints = Ausgehende Endpunkte
+    ProvisioningState = Bereitstellungsstatus
+    ForwardingRulesHeading = Weiterleitungsregeln
+    RuleName = Name
+    DomainName = Domaenname
+    TargetServers = Ziel-DNS-Server
+    RuleState = Status
+    VNetLinksHeading = VNET-Verbindungen
+    LinkName = Name
+    VirtualNetwork = Virtuelles Netzwerk
+    Tags = Tags
+    None = Keine
+    ErrorMessage = Fehler beim Sammeln von DNS-Weiterleitungsregelsatz-Informationen:
 '@
 
 }

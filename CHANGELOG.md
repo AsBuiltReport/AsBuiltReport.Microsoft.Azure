@@ -1,14 +1,30 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [Unreleased]
-
-### Fixed
-* Fix empty per-subscription sections appearing in the report when enabled resource types have no matching resources in a given subscription
+## [0.3.0] - 2026-06-??
 
 ### Added
 * Add support for Azure NetApp Files (NetApp Accounts, Capacity Pools, Volumes, Snapshot Policies, Backup Policies) with per-volume detail, Active Directory and encryption configuration, mount targets, export policy rules, and 5 health checks (pool allocation, AD join status, snapshot policy attachment, backup policy attachment, customer-managed key usage)
 * Add support for Management Groups, displaying the full hierarchy with parent/child relationships and direct subscription counts
 * Add optional Management Group hierarchy diagram (`Options.EnableDiagrams: true`) using the AsBuiltReport.Diagram module, showing management group nodes with subscription collections sized to fit a portrait page
+* Add `Options.DiagramDpi` setting to control the raster output resolution of generated diagrams (default 96, matching previous behaviour); requires AsBuiltReport.Diagram 1.0.8 or later
+* Add support for Private DNS Zones, including record set and virtual network link counts with per-zone detail and virtual network link sub-sections at InfoLevel 2
+* Add support for Virtual Network Gateways, including gateway type, SKU, BGP settings, active-active mode, generation, and VPN connection detail at InfoLevel 2
+* Add support for DDoS Protection Plans, including protected virtual network count and per-plan protected VNet detail at InfoLevel 2
+* Add support for Application Gateways, including SKU, WAF mode, HTTP/2, and per-gateway HTTP listener, backend pool, and request routing rule detail at InfoLevel 2
+* Add support for Data Collection Rules, including data source types, Log Analytics destination count, and per-rule destination and data flow detail at InfoLevel 2
+* Add support for Public IP Addresses, including SKU, allocation method, IP version, DNS settings, availability zones, and associated resource, with unattached IP health check
+* Add support for Network Watchers and NSG Flow Logs, including retention policy, traffic analytics enablement, and storage account, with health checks for watcher provisioning state and disabled flow logs
+* Add support for VM Scale Sets, including VM size, instance count, orchestration mode, upgrade policy, availability zones, overprovision, single placement group, and identity
+* Add support for Maintenance Configurations, including scope, visibility, maintenance window start time, expiration, duration, recurrence, and timezone
+* Add support for DNS Forwarding Rulesets, including outbound endpoint associations, per-ruleset forwarding rules with target DNS servers, and virtual network links at InfoLevel 2
+* Add Resource Locks reporting to Virtual Networks, Key Vaults, Recovery Services Vaults, Storage Accounts, Firewalls, Private DNS Zones, Route Tables, Virtual Network Gateways, Log Analytics Workspaces, and DDoS Protection Plans; lock name and level (CanNotDelete/ReadOnly) displayed at InfoLevel 2 and above
+
+### Changed
+* Update minimum Az module version requirement from 15.3.0 to 16.0.0
+
+### Fixed
+* Fix empty per-subscription sections appearing in the report when enabled resource types have no matching resources in a given subscription
+* Fix `Get-AbrAsrProtectedItems` - Correct `ParagraghSummary` typo to `ParagraphSummary` in all language files, which caused the introductory paragraph to render empty
 
 ## [0.2.0] - 2026-02-11
 

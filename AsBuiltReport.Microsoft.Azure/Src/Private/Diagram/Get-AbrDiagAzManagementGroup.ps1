@@ -10,6 +10,11 @@ function Get-AbrDiagAzManagementGroup {
     process {
         try {
             $DiagramTheme = if ($Options.DiagramTheme) { $Options.DiagramTheme } else { 'White' }
+            $DiagramDpi = if ($Options.DiagramDpi) { $Options.DiagramDpi } else { 96 }
+            # PScribo's Image -Percent scales off raw pixel count assuming a fixed 96 DPI baseline,
+            # so a higher render DPI must be offset by a proportionally lower Percent to keep the
+            # printed size on the page the same while still gaining pixel density.
+            $DiagramPercent = [Math]::Max(1, [Math]::Round(9600 / $DiagramDpi))
             $FontColor = if ($DiagramTheme -eq 'Black') { '#FFFFFF' } else { '#000000' }
             $EdgeColor = if ($DiagramTheme -eq 'Black') { '#AAAAAA' } else { '#333333' }
             $CellBgColor = if ($DiagramTheme -eq 'Black') { '#2D2D2D' } else { '#FFFFFF' }
@@ -74,6 +79,8 @@ function Get-AbrDiagAzManagementGroup {
                         -ImagesObj $ImagesObj `
                         -inputObject @($MgInfo.DisplayName) `
                         -iconType 'MG' `
+                        -IconWidth 60 `
+                        -IconHeight 60 `
                         -FontColor $FontColor `
                         -CellBackgroundColor $CellBgColor `
                         -NodeObject
@@ -94,6 +101,8 @@ function Get-AbrDiagAzManagementGroup {
                         -Subgraph `
                         -SubgraphLabel $SubLabel `
                         -SubgraphIconType 'Sub' `
+                        -SubgraphIconWidth 60 `
+                        -SubgraphIconHeight 60 `
                         -SubgraphLabelPos 'top' `
                         -ColumnSize 1 `
                         -TableBorderColor $TableBorderColor `
@@ -124,11 +133,11 @@ function Get-AbrDiagAzManagementGroup {
                 -IconPath $IconPath `
                 -ImagesObj $ImagesObj `
                 -MainGraphSize '6.5,9' `
+                -Dpi $DiagramDpi `
                 -DisableMainDiagramLogo
             if ($DiagramResult) {
-                Section -Style NOTOCHeading3 $LocalizedData.DiagramHeading {
-                    Image -Base64 $DiagramResult -Text $LocalizedData.DiagramAltText -Percent 100
-                }
+                Image -Base64 $DiagramResult -Text $LocalizedData.DiagramAltText -Percent $DiagramPercent
+                Blankline
             }
         } catch {
             Write-PScriboMessage -IsWarning $_.Exception.Message

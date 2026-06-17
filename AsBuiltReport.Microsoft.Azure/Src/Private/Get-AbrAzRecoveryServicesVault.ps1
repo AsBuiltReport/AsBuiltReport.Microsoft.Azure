@@ -34,6 +34,14 @@ function Get-AbrAzRecoveryServicesVault {
                             Paragraph $LocalizedData.SectionInfo
                             BlankLine
                         }
+                        $LockMap = @{}
+                        $AllLocks = Get-AzResourceLock -ErrorAction SilentlyContinue
+                        foreach ($Lock in $AllLocks) {
+                            $Key = $Lock.ResourceId.ToLower()
+                            if (-not $LockMap.ContainsKey($Key)) { $LockMap[$Key] = @() }
+                            $LockMap[$Key] += $Lock
+                        }
+
                         $AzRsvInfo = @()
                         foreach ($AzRsv in $AzRsvs) {
                             $InObj = [Ordered]@{
@@ -52,6 +60,12 @@ function Get-AbrAzRecoveryServicesVault {
                                     default { $AzRsv.Properties.PrivateEndpointStateForSiteRecovery }
                                 }
                             }
+                            $InObj[$LocalizedData.Locks] = $(
+                                $rl = $LockMap[$AzRsv.Id.ToLower()]
+                                if ($rl) { ($rl | ForEach-Object { "$($_.Name) ($($_.Properties.Level))" }) -join [Environment]::NewLine }
+                                else { $LocalizedData.None }
+                            )
+
                             $AzRsvInfo += [PSCustomObject]$InObj
                         }
 

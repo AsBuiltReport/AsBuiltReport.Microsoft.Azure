@@ -14,17 +14,26 @@
         "ShowTags": true,
         "EnableDiagrams": false,
         "DiagramTheme": "White",
+        "DiagramDpi": 96,
         "SectionOrder": [
+            "ApplicationGateway",
             "StorageAccount",
             "KeyVault",
             "LogAnalyticsWorkspace",
+            "DataCollectionRule",
             "LoadBalancer",
             "ExpressRoute",
+            "VirtualNetworkGateway",
+            "DdosProtectionPlan",
             "VirtualNetwork",
+            "PublicIpAddress",
+            "NetworkWatcher",
             "NetworkSecurityGroup",
             "PrivateEndpoint",
             "IpGroup",
             "DnsPrivateResolver",
+            "DnsForwardingRuleset",
+            "PrivateDnsZone",
             "Bastion",
             "Policy",
             "Firewall",
@@ -32,6 +41,8 @@
             "RouteTable",
             "VirtualMachine",
             "AvailabilitySet",
+            "VmScaleSet",
+            "MaintenanceConfiguration",
             "RecoveryServicesVault",
             "SiteRecovery",
             "DesktopVirtualization",
@@ -43,9 +54,15 @@
     },
     "InfoLevel": {
         "_comment_": "0 = Disabled, 1 = Enabled / Summary, 2 = Detailed, 3 = Adv. Detailed, 4 = Comprehensive",
+        "ApplicationGateway": 1,
         "AvailabilitySet": 1,
+        "VmScaleSet": 1,
+        "MaintenanceConfiguration": 1,
         "Bastion": 1,
+        "DataCollectionRule": 1,
+        "DdosProtectionPlan": 1,
         "DnsPrivateResolver": 1,
+        "DnsForwardingRuleset": 1,
         "ExpressRoute": 1,
         "Firewall": 1,
         "FirewallPolicy": 1,
@@ -59,7 +76,10 @@
 			"Assignments": 1,
 			"Definitions": 0
 		},
+        "PrivateDnsZone": 1,
         "PrivateEndpoint": 2,
+        "NetworkWatcher": 1,
+        "PublicIpAddress": 1,
         "RecoveryServicesVault": 1,
         "RouteTable": 1,
         "SiteRecovery": 1,
@@ -68,16 +88,31 @@
         "Tenant": 0,
         "VirtualNetwork": 1,
         "VirtualMachine": 1,
+        "VirtualNetworkGateway": 1,
         "DesktopVirtualization": 1,
         "NetAppFiles": 1
     },
     "HealthCheck": {
+        "ApplicationGateway": {
+            "ProvisioningState": true,
+            "OperationalState": true
+        },
         "Bastion": {
+            "ProvisioningState": true
+        },
+        "DataCollectionRule": {
+            "ProvisioningState": true
+        },
+        "DdosProtectionPlan": {
             "ProvisioningState": true
         },
         "DnsPrivateResolver": {
             "ProvisioningState": true,
             "CurrentState": true
+        },
+        "DnsForwardingRuleset": {
+            "ProvisioningState": true,
+            "ForwardingRuleState": true
         },
         "ExpressRoute": {
             "CircuitStatus": true
@@ -110,9 +145,21 @@
             "ProvisioningState": true,
             "OverlyPermissiveRules": true
         },
+        "PrivateDnsZone": {
+            "ProvisioningState": true,
+            "VirtualNetworkLinks": true
+        },
         "PrivateEndpoint": {
             "ProvisioningState": true,
             "ConnectionStatus": true
+        },
+        "NetworkWatcher": {
+            "ProvisioningState": true,
+            "FlowLogEnabled": true
+        },
+        "PublicIpAddress": {
+            "ProvisioningState": true,
+            "Unattached": true
         },
         "RecoveryServicesVault": {
             "ProvisioningState": true,
@@ -124,6 +171,12 @@
         "SiteRecovery": {
             "ReplicationHealth": true,
             "FailoverHealth": true
+        },
+        "VmScaleSet": {
+            "ProvisioningState": true
+        },
+        "MaintenanceConfiguration": {
+            "ProvisioningState": true
         },
         "StorageAccount": {
             "ProvisioningState": true,
@@ -142,6 +195,10 @@
         "VirtualNetwork": {
             "ProvisioningState": true,
             "DnsServers": true
+        },
+        "VirtualNetworkGateway": {
+            "ProvisioningState": true,
+            "ConnectionStatus": true
         },
         "DesktopVirtualization": {
             "SessionHostHealth": true,

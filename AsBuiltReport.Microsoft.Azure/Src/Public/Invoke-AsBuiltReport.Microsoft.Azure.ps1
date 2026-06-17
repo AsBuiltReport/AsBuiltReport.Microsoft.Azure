@@ -47,7 +47,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     )
 
     # Check for required modules
-    Get-RequiredModule -Name 'Az' -Version '15.3.0'
+    Get-RequiredModule -Name 'Az' -Version '16.0.0'
 
     # Display report module information using Core function
     Write-ReportModuleInfo -ModuleName 'Microsoft.Azure'
@@ -65,16 +65,24 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
 
     # Define default section order if not specified in config
     $DefaultSectionOrder = @(
+        "ApplicationGateway",
         "StorageAccount",
         "KeyVault",
         "LogAnalyticsWorkspace",
+        "DataCollectionRule",
         "LoadBalancer",
         "ExpressRoute",
+        "VirtualNetworkGateway",
+        "DdosProtectionPlan",
         "VirtualNetwork",
+        "PublicIpAddress",
+        "NetworkWatcher",
         "NetworkSecurityGroup",
         "PrivateEndpoint",
         "IpGroup",
         "DnsPrivateResolver",
+        "DnsForwardingRuleset",
+        "PrivateDnsZone",
         "Bastion",
         "Policy",
         "Firewall",
@@ -82,6 +90,8 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "RouteTable",
         "VirtualMachine",
         "AvailabilitySet",
+        "VmScaleSet",
+        "MaintenanceConfiguration",
         "RecoveryServicesVault",
         "SiteRecovery",
         "DesktopVirtualization",
@@ -98,10 +108,16 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
 
     # Resource type mapping for per-subscription existence checks
     $ResourceTypeMap = @{
+        'ApplicationGateway'    = 'Microsoft.Network/applicationGateways'
         'AvailabilitySet'       = 'Microsoft.Compute/availabilitySets'
+        'VmScaleSet'                = 'Microsoft.Compute/virtualMachineScaleSets'
+        'MaintenanceConfiguration'  = 'Microsoft.Maintenance/maintenanceConfigurations'
         'Bastion'               = 'Microsoft.Network/bastionHosts'
+        'DataCollectionRule'    = 'Microsoft.Insights/dataCollectionRules'
+        'DdosProtectionPlan'    = 'Microsoft.Network/ddosProtectionPlans'
         'DesktopVirtualization' = 'Microsoft.DesktopVirtualization/hostpools'
         'DnsPrivateResolver'    = 'Microsoft.Network/dnsResolvers'
+        'DnsForwardingRuleset'  = 'Microsoft.Network/dnsForwardingRulesets'
         'ExpressRoute'          = 'Microsoft.Network/expressRouteCircuits'
         'ExpressRouteCircuit'   = 'Microsoft.Network/expressRouteCircuits'
         'Firewall'              = 'Microsoft.Network/azureFirewalls'
@@ -113,20 +129,30 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         'NetAppFiles'           = 'Microsoft.NetApp/netAppAccounts'
         'NetworkSecurityGroup'  = 'Microsoft.Network/networkSecurityGroups'
         'Policy'                = $null
+        'PrivateDnsZone'        = 'Microsoft.Network/privateDnsZones'
         'PrivateEndpoint'       = 'Microsoft.Network/privateEndpoints'
+        'NetworkWatcher'        = 'Microsoft.Network/networkWatchers'
+        'PublicIpAddress'       = 'Microsoft.Network/publicIPAddresses'
         'RecoveryServicesVault' = 'Microsoft.RecoveryServices/vaults'
         'RouteTable'            = 'Microsoft.Network/routeTables'
         'SiteRecovery'          = 'Microsoft.RecoveryServices/vaults'
         'StorageAccount'        = 'Microsoft.Storage/storageAccounts'
         'VirtualMachine'        = 'Microsoft.Compute/virtualMachines'
         'VirtualNetwork'        = 'Microsoft.Network/virtualNetworks'
+        'VirtualNetworkGateway' = 'Microsoft.Network/virtualNetworkGateways'
     }
 
     # Function mapping for section names to function names
     $SectionFunctionMap = @{
+        "ApplicationGateway" = "Get-AbrAzApplicationGateway"
         "AvailabilitySet" = "Get-AbrAzAvailabilitySet"
+        "VmScaleSet" = "Get-AbrAzVmScaleSet"
+        "MaintenanceConfiguration" = "Get-AbrAzMaintenanceConfiguration"
         "Bastion" = "Get-AbrAzBastion"
+        "DataCollectionRule" = "Get-AbrAzDataCollectionRule"
+        "DdosProtectionPlan" = "Get-AbrAzDdosProtectionPlan"
         "DnsPrivateResolver" = "Get-AbrAzDnsPrivateResolver"
+        "DnsForwardingRuleset" = "Get-AbrAzDnsForwardingRuleset"
         "ExpressRouteCircuit" = "Get-AbrAzExpressRouteCircuit"
         "ExpressRoute" = "Get-AbrAzExpressRouteCircuit"  # Alias for backward compatibility
         "Firewall" = "Get-AbrAzFirewall"
@@ -140,10 +166,14 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "Policy" = "Get-AbrAzPolicy"
         "RouteTable" = "Get-AbrAzRouteTable"
         "VirtualMachine" = "Get-AbrAzVirtualMachine"
+        "VirtualNetworkGateway" = "Get-AbrAzVirtualNetworkGateway"
         "RecoveryServicesVault" = "Get-AbrAzRecoveryServicesVault"
         "SiteRecovery" = "Get-AbrAsrProtectedItems"
         "StorageAccount" = "Get-AbrAzStorageAccount"
+        "PrivateDnsZone" = "Get-AbrAzPrivateDnsZone"
         "PrivateEndpoint" = "Get-AbrAzPrivateEndpoint"
+        "NetworkWatcher" = "Get-AbrAzNetworkWatcher"
+        "PublicIpAddress" = "Get-AbrAzPublicIpAddress"
         "DesktopVirtualization" = "Get-AbrAzDesktopVirtualization"
         "NetAppFiles" = "Get-AbrAzNetAppFiles"
     }

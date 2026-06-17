@@ -12,7 +12,7 @@
 RootModule = 'AsBuiltReport.Microsoft.Azure.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.2.0'
+ModuleVersion = '0.3.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @('Desktop', 'Core')
@@ -54,11 +54,11 @@ PowerShellVersion = '5.1'
 RequiredModules = @(
         @{
             ModuleName = 'AsBuiltReport.Core';
-            ModuleVersion = '1.6.2'
+            ModuleVersion = '1.6.4'
         },
         @{
             ModuleName = 'AsBuiltReport.Diagram';
-            ModuleVersion = '0.2.0'
+            ModuleVersion = '1.0.8'
         }
     )
 
@@ -125,7 +125,7 @@ PrivateData = @{
         # RequireLicenseAcceptance = $false
 
         # External dependent modules of this module
-        ExternalModuleDependencies = @('AsBuiltReport.Core', 'AsBuiltReport.Diagram', 'Az')
+        ExternalModuleDependencies = @('Az')
 
     } # End of PSData hashtable
 

@@ -288,7 +288,7 @@ GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     InfoLevel = SiteRecovery InfoLevel set at {0}.
     Collecting = Collecting Azure Site Recovery information '{0}'.
     CollectingItems = Collecting Azure Site Recovery Protected Items information.
-    ParagraghSummary = The following tables provides information for the Azure Site Recovery protected items within the {0} subscription.
+    ParagraphSummary = The following table provides information for the Azure Site Recovery protected items within the {0} subscription.
     Heading = Protected Items
     TableHeading = Protected Items
     SubHeading = Site Recovery
@@ -422,6 +422,7 @@ GetAbrAzStorageAccount = ConvertFrom-StringData @'
     Disabled = Disabled
     Unknown = Unknown
     Created = Created
+    Locks = Locks
     Tags = Tags
     None = None
 '@
@@ -484,6 +485,7 @@ GetAbrAzFirewall = ConvertFrom-StringData @'
     NatRules = NAT Rules
     NetworkRules = Network Rules
     AppRules = Application Rules
+    Locks = Locks
     Tags = Tags
     None = None
 '@
@@ -592,6 +594,7 @@ GetAbrAzKeyVault = ConvertFrom-StringData @'
     Disabled = Disabled
     NoAccessEnabled = No access enabled
     EnabledDays = Enabled ({0} days)
+    Locks = Locks
     Tags = Tags
     None = None
     days = days
@@ -715,6 +718,7 @@ GetAbrAzLogAnalyticsWorkspace = ConvertFrom-StringData @'
     Disabled = Disabled
     Unknown = Unknown
     NoQuota = No Quota Set
+    Locks = Locks
     Tags = Tags
     None = None
 '@
@@ -859,6 +863,7 @@ GetAbrAzRecoveryServicesVault = ConvertFrom-StringData @'
     ProvisioningState = Provisioning State
     PrivateEndpointStateForBackup = Private Endpoint State for Backup
     PrivateEndpointStateForSiteRecovery = Private Endpoint State for Site Recovery
+    Locks = Locks
     Tags = Tags
     None = None
 '@
@@ -883,6 +888,7 @@ GetAbrAzRouteTable = ConvertFrom-StringData @'
     AddressPrefix = Address Prefix
     NextHopType = Next Hop Type
     NextHopIpAddress = Next Hop IP Address
+    Locks = Locks
     Tags = Tags
     None = None
 '@
@@ -1063,6 +1069,7 @@ GetAbrAzVirtualNetwork = ConvertFrom-StringData @'
     Subnets = Subnets
     DnsServers = DNS Servers
     Default = Default (Azure-provided)
+    Locks = Locks
     Tags = Tags
     None = None
 '@
@@ -1395,6 +1402,321 @@ GetAbrAzManagementGroup = ConvertFrom-StringData @'
     NotFound              = No Management Groups found.
     None                  = None
     ErrorMessage          = Unable to collect Management Group information:
+'@
+
+# Azure Private DNS Zones (Get-AbrAzPrivateDnsZone)
+GetAbrAzPrivateDnsZone = ConvertFrom-StringData @'
+    InfoLevel = PrivateDnsZone InfoLevel set at {0}.
+    Collecting = Collecting Azure Private DNS Zone information.
+    SectionInfo = Azure Private DNS Zones provide a reliable, secure DNS service to manage and resolve domain names in a virtual network without the need to add a custom DNS solution. Private DNS zones are not visible on the public internet and allow you to use your own custom domain names rather than the Azure-provided names.
+    ParagraphDetail = The following sections detail the configuration of the private DNS zone(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the private DNS zone(s) within the {0} subscription.
+    Heading = Private DNS Zones
+    TableHeading = Private DNS Zone
+    Name = Name
+    ResourceGroup = Resource Group
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    RecordSets = Record Sets
+    MaxRecordSets = Max Record Sets
+    VirtualNetworkLinks = Virtual Network Links
+    VNetLinksWithRegistration = VNet Links with Auto Registration
+    ProvisioningState = Provisioning State
+    LinkName = Link Name
+    VirtualNetwork = Virtual Network
+    AutoRegistration = Auto Registration
+    VirtualNetworkLinkState = Link State
+    Locks = Locks
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Private DNS Zone information:
+'@
+
+# Azure Virtual Network Gateway (Get-AbrAzVirtualNetworkGateway)
+GetAbrAzVirtualNetworkGateway = ConvertFrom-StringData @'
+    InfoLevel = VirtualNetworkGateway InfoLevel set at {0}.
+    Collecting = Collecting Azure Virtual Network Gateway information.
+    SectionInfo = Azure Virtual Network Gateways connect your on-premises networks to Azure through Site-to-Site VPNs, and connect Azure virtual networks to each other through VNet-to-VNet VPNs. ExpressRoute gateways enable private, dedicated connections to Azure without traversing the public internet.
+    ParagraphDetail = The following sections detail the configuration of the virtual network gateway(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the virtual network gateway(s) within the {0} subscription.
+    Heading = Virtual Network Gateways
+    TableHeading = Virtual Network Gateway
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    VirtualNetwork = Virtual Network
+    GatewayType = Gateway Type
+    VpnType = VPN Type
+    SKU = SKU
+    Generation = Generation
+    ActiveActive = Active-Active
+    EnableBgp = BGP Enabled
+    BgpAsn = BGP ASN
+    BgpPeeringAddress = BGP Peering Address
+    ProvisioningState = Provisioning State
+    Connections = Connections
+    ConnectionName = Name
+    ConnectionType = Connection Type
+    ConnectionStatus = Connection Status
+    ConnectionProtocol = Protocol
+    RoutingWeight = Routing Weight
+    NotApplicable = N/A
+    Locks = Locks
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Virtual Network Gateway information:
+'@
+
+# Azure DDoS Protection Plan (Get-AbrAzDdosProtectionPlan)
+GetAbrAzDdosProtectionPlan = ConvertFrom-StringData @'
+    InfoLevel = DDoSProtectionPlan InfoLevel set at {0}.
+    Collecting = Collecting Azure DDoS Protection Plan information.
+    SectionInfo = Azure DDoS Protection Plans provide enhanced DDoS mitigation capabilities for all resources in a virtual network. They offer telemetry, alerting, and detailed analytics to help protect your Azure resources against DDoS attacks.
+    ParagraphDetail = The following sections detail the configuration of the DDoS Protection Plan(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the DDoS Protection Plan(s) within the {0} subscription.
+    Heading = DDoS Protection Plans
+    TableHeading = DDoS Protection Plan
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    ProtectedVirtualNetworks = Protected Virtual Networks
+    VirtualNetworkName = Virtual Network
+    ProvisioningState = Provisioning State
+    Locks = Locks
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect DDoS Protection Plan information:
+'@
+
+# Azure Application Gateway (Get-AbrAzApplicationGateway)
+GetAbrAzApplicationGateway = ConvertFrom-StringData @'
+    InfoLevel = ApplicationGateway InfoLevel set at {0}.
+    Collecting = Collecting Azure Application Gateway information.
+    SectionInfo = Azure Application Gateways are web traffic load balancers that operate at Layer 7. They support features such as SSL/TLS termination, URL-based routing, multi-site hosting, session affinity, and Web Application Firewall integration.
+    ParagraphDetail = The following sections detail the configuration of the application gateway(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the application gateway(s) within the {0} subscription.
+    Heading = Application Gateways
+    TableHeading = Application Gateway
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    VirtualNetwork = Virtual Network
+    Subnet = Subnet
+    SKU = SKU
+    Tier = Tier
+    Capacity = Capacity
+    WafEnabled = WAF Enabled
+    WafMode = WAF Mode
+    Http2Enabled = HTTP/2 Enabled
+    FrontendIPs = Frontend IPs
+    OperationalState = Operational State
+    ProvisioningState = Provisioning State
+    Listeners = HTTP Listeners
+    ListenerName = Listener
+    Protocol = Protocol
+    Port = Port
+    HostName = Host Name
+    BackendPools = Backend Address Pools
+    PoolName = Pool Name
+    BackendTargets = Backend Targets
+    RoutingRules = Request Routing Rules
+    RuleName = Rule Name
+    RuleType = Rule Type
+    BackendPool = Backend Pool
+    BackendHttpSettings = HTTP Settings
+    Unlimited = Unlimited
+    NotApplicable = N/A
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Application Gateway information:
+'@
+
+# Azure Data Collection Rules (Get-AbrAzDataCollectionRule)
+GetAbrAzDataCollectionRule = ConvertFrom-StringData @'
+    InfoLevel = DataCollectionRule InfoLevel set at {0}.
+    Collecting = Collecting Azure Data Collection Rule information.
+    SectionInfo = Azure Data Collection Rules define what monitoring data to collect, from where, and where to send it. They specify data sources such as performance counters, Windows event logs, and Syslog, and route that data to Log Analytics workspaces or other destinations.
+    ParagraphDetail = The following sections detail the configuration of the data collection rule(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the data collection rule(s) within the {0} subscription.
+    Heading = Data Collection Rules
+    TableHeading = Data Collection Rule
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    Description = Description
+    DataSources = Data Sources
+    LogAnalyticsDestinations = Log Analytics Destinations
+    ProvisioningState = Provisioning State
+    PerformanceCounters = Performance Counters
+    WindowsEventLogs = Windows Event Logs
+    Syslog = Syslog
+    Extensions = Extensions
+    LogFiles = Log Files
+    Destinations = Log Analytics Destinations
+    DestinationName = Name
+    WorkspaceId = Workspace Resource ID
+    DataFlows = Data Flows
+    Streams = Streams
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Data Collection Rule information:
+'@
+
+# Azure Public IP Addresses (Get-AbrAzPublicIpAddress)
+GetAbrAzPublicIpAddress = ConvertFrom-StringData @'
+    InfoLevel = PublicIpAddress InfoLevel set at {0}.
+    Collecting = Collecting Azure Public IP Address information.
+    SectionInfo = Azure Public IP Addresses provide internet-facing IP addresses for resources such as virtual machines, load balancers, VPN gateways, and application gateways. They support both dynamic and static allocation and are available in Basic and Standard SKUs.
+    ParagraphDetail = The following sections detail the configuration of the public IP address(es) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the public IP address(es) within the {0} subscription.
+    Heading = Public IP Addresses
+    TableHeading = Public IP Address
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    SKU = SKU
+    Tier = Tier
+    IpVersion = IP Version
+    AllocationMethod = Allocation Method
+    IpAddress = IP Address
+    DnsLabel = DNS Label
+    Fqdn = FQDN
+    Zones = Availability Zones
+    AssociatedResource = Associated Resource
+    ProvisioningState = Provisioning State
+    NotAssigned = Not Assigned
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Public IP Address information:
+'@
+
+# Azure Network Watchers (Get-AbrAzNetworkWatcher)
+GetAbrAzNetworkWatcher = ConvertFrom-StringData @'
+    InfoLevel = NetworkWatcher InfoLevel set at {0}.
+    Collecting = Collecting Azure Network Watcher information.
+    SectionInfo = Azure Network Watcher provides network monitoring and diagnostic capabilities per region. NSG Flow Logs capture information about IP traffic flowing through Network Security Groups and can optionally route data to a Log Analytics workspace via Traffic Analytics.
+    ParagraphDetail = The following sections detail the configuration of the network watcher(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the network watcher(s) within the {0} subscription.
+    Heading = Network Watchers
+    TableHeading = Network Watcher
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    FlowLogs = Flow Logs
+    ProvisioningState = Provisioning State
+    FlowLogsHeading = NSG Flow Logs
+    FlowLogName = Name
+    TargetResource = Target Resource
+    FlowLogEnabled = Enabled
+    RetentionDays = Retention (Days)
+    TrafficAnalytics = Traffic Analytics
+    StorageAccount = Storage Account
+    Enabled = Enabled
+    Disabled = Disabled
+    Unlimited = Unlimited
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Network Watcher information:
+'@
+
+# Azure VM Scale Sets (Get-AbrAzVmScaleSet)
+GetAbrAzVmScaleSet = ConvertFrom-StringData @'
+    InfoLevel = VmScaleSet InfoLevel set at {0}.
+    Collecting = Collecting Azure Virtual Machine Scale Set information.
+    SectionInfo = Azure Virtual Machine Scale Sets (VMSS) enable deployment and management of a group of identical, load-balanced virtual machines. They support autoscaling, multiple availability zones, and flexible or uniform orchestration modes.
+    ParagraphDetail = The following sections detail the configuration of the virtual machine scale set(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the virtual machine scale set(s) within the {0} subscription.
+    Heading = VM Scale Sets
+    TableHeading = VM Scale Set
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    VmSize = VM Size
+    Instances = Instances
+    OrchestrationMode = Orchestration Mode
+    UpgradePolicy = Upgrade Policy
+    Overprovision = Overprovision
+    SinglePlacementGroup = Single Placement Group
+    Zones = Availability Zones
+    Identity = Identity
+    ProvisioningState = Provisioning State
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Virtual Machine Scale Set information:
+'@
+
+# Azure Maintenance Configurations (Get-AbrAzMaintenanceConfiguration)
+GetAbrAzMaintenanceConfiguration = ConvertFrom-StringData @'
+    InfoLevel = MaintenanceConfiguration InfoLevel set at {0}.
+    Collecting = Collecting Azure Maintenance Configuration information.
+    SectionInfo = Azure Maintenance Configurations define scheduled maintenance windows for Azure resources. They control when platform updates, OS patching, and other maintenance activities are applied, reducing unplanned downtime.
+    ParagraphDetail = The following sections detail the configuration of the maintenance configuration(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the maintenance configuration(s) within the {0} subscription.
+    Heading = Maintenance Configurations
+    TableHeading = Maintenance Configuration
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    Scope = Scope
+    Visibility = Visibility
+    StartDateTime = Start Date/Time
+    ExpirationDateTime = Expiration Date/Time
+    Duration = Duration
+    RecurEvery = Recurrence
+    TimeZone = Time Zone
+    ProvisioningState = Provisioning State
+    NotConfigured = Not Configured
+    NoExpiry = No Expiry
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Maintenance Configuration information:
+'@
+
+# Azure DNS Forwarding Rulesets (Get-AbrAzDnsForwardingRuleset)
+GetAbrAzDnsForwardingRuleset = ConvertFrom-StringData @'
+    InfoLevel = DnsForwardingRuleset InfoLevel set at {0}.
+    Collecting = Collecting Azure DNS Forwarding Ruleset information.
+    SectionInfo = Azure DNS Forwarding Rulesets define sets of conditional forwarding rules that direct DNS queries to specific DNS servers. They are associated with DNS Private Resolver outbound endpoints and linked to virtual networks to control DNS resolution behaviour.
+    ParagraphDetail = The following sections detail the configuration of the DNS forwarding ruleset(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the DNS forwarding ruleset(s) within the {0} subscription.
+    Heading = DNS Forwarding Rulesets
+    TableHeading = DNS Forwarding Ruleset
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    ForwardingRules = Forwarding Rules
+    VirtualNetworkLinks = VNet Links
+    OutboundEndpoints = Outbound Endpoints
+    ProvisioningState = Provisioning State
+    ForwardingRulesHeading = Forwarding Rules
+    RuleName = Name
+    DomainName = Domain Name
+    TargetServers = Target DNS Servers
+    RuleState = State
+    VNetLinksHeading = Virtual Network Links
+    LinkName = Name
+    VirtualNetwork = Virtual Network
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect DNS Forwarding Ruleset information:
 '@
 
 }

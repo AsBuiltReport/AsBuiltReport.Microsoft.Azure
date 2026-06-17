@@ -34,6 +34,14 @@ function Get-AbrAzStorageAccount {
                             Paragraph $LocalizedData.SectionInfo
                             BlankLine
                         }
+                        $LockMap = @{}
+                        $AllLocks = Get-AzResourceLock -ErrorAction SilentlyContinue
+                        foreach ($Lock in $AllLocks) {
+                            $Key = $Lock.ResourceId.ToLower()
+                            if (-not $LockMap.ContainsKey($Key)) { $LockMap[$Key] = @() }
+                            $LockMap[$Key] += $Lock
+                        }
+
                         $AzStorageAccountInfo = @()
                         $Count = 1
                         foreach ($AzStorageAccount in $AzStorageAccounts) {
@@ -95,6 +103,12 @@ function Get-AbrAzStorageAccount {
                                 }
                                 $LocalizedData.Created = $AzStorageAccount.CreationTime
                             }
+
+                            $InObj[$LocalizedData.Locks] = $(
+                                $rl = $LockMap[$AzStorageAccount.Id.ToLower()]
+                                if ($rl) { ($rl | ForEach-Object { "$($_.Name) ($($_.Properties.Level))" }) -join [Environment]::NewLine }
+                                else { $LocalizedData.None }
+                            )
 
                             if ($Options.ShowTags) {
                                 $InObj[$LocalizedData.Tags] = if ([string]::IsNullOrEmpty($AzStorageAccount.Tags)) {

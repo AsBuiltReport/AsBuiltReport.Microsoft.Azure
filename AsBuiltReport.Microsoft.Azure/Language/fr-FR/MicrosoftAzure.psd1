@@ -288,7 +288,7 @@ GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     InfoLevel = InfoLevel de SiteRecovery defini a {0}.
     Collecting = Collecte des informations Azure Site Recovery '{0}'.
     CollectingItems = Collecte des informations des elements proteges Azure Site Recovery.
-    ParagraghSummary = Les tableaux suivants fournissent des informations sur les elements proteges Azure Site Recovery dans l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant fournit des informations sur les elements proteges Azure Site Recovery dans l'abonnement {0}.
     Heading = Elements proteges
     TableHeading = Elements proteges
     SubHeading = Site Recovery
@@ -422,6 +422,7 @@ GetAbrAzStorageAccount = ConvertFrom-StringData @'
     Disabled = Desactive
     Unknown = Inconnu
     Created = Cree
+    Locks = Verrous
     Tags = Balises
     None = Aucun
 '@
@@ -484,6 +485,7 @@ GetAbrAzFirewall = ConvertFrom-StringData @'
     NatRules = Regles NAT
     NetworkRules = Regles reseau
     AppRules = Regles d'application
+    Locks = Verrous
     Tags = Balises
     None = Aucun
 '@
@@ -592,6 +594,7 @@ GetAbrAzKeyVault = ConvertFrom-StringData @'
     Disabled = Desactive
     NoAccessEnabled = Aucun acces active
     EnabledDays = Active ({0} jours)
+    Locks = Verrous
     Tags = Balises
     None = Aucun
     days = jours
@@ -715,6 +718,7 @@ GetAbrAzLogAnalyticsWorkspace = ConvertFrom-StringData @'
     Disabled = Desactive
     Unknown = Inconnu
     NoQuota = Aucun quota defini
+    Locks = Verrous
     Tags = Balises
     None = Aucun
 '@
@@ -859,6 +863,7 @@ GetAbrAzRecoveryServicesVault = ConvertFrom-StringData @'
     ProvisioningState = Etat de provisionnement
     PrivateEndpointStateForBackup = Etat du point de terminaison prive pour la sauvegarde
     PrivateEndpointStateForSiteRecovery = Etat du point de terminaison prive pour Site Recovery
+    Locks = Verrous
     Tags = Balises
     None = Aucun
 '@
@@ -883,6 +888,7 @@ GetAbrAzRouteTable = ConvertFrom-StringData @'
     AddressPrefix = Prefixe d'adresse
     NextHopType = Type de prochain troncon
     NextHopIpAddress = Adresse IP du prochain troncon
+    Locks = Verrous
     Tags = Balises
     None = Aucun
 '@
@@ -1063,6 +1069,7 @@ GetAbrAzVirtualNetwork = ConvertFrom-StringData @'
     Subnets = Sous-reseaux
     DnsServers = Serveurs DNS
     Default = Par defaut (fourni par Azure)
+    Locks = Verrous
     Tags = Balises
     None = Aucun
 '@
@@ -1395,6 +1402,321 @@ GetAbrAzManagementGroup = ConvertFrom-StringData @'
     NotFound              = Aucun groupe de gestion trouve.
     None                  = Aucun
     ErrorMessage          = Impossible de collecter les informations du groupe de gestion:
+'@
+
+# Azure Private DNS Zones (Get-AbrAzPrivateDnsZone)
+GetAbrAzPrivateDnsZone = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de zone DNS privee defini a {0}.
+    Collecting = Collecte des informations de zone DNS privee Azure.
+    SectionInfo = Les zones DNS privees Azure fournissent un service DNS fiable et securise pour gerer et resoudre les noms de domaine dans un reseau virtuel sans avoir besoin d'ajouter une solution DNS personnalisee. Les zones DNS privees ne sont pas visibles sur Internet et permettent d'utiliser des noms de domaine personnalises plutot que les noms fournis par Azure.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des zones DNS privees dans l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des zones DNS privees dans l'abonnement {0}.
+    Heading = Zones DNS privees
+    TableHeading = Zone DNS privee
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    RecordSets = Jeux d'enregistrements
+    MaxRecordSets = Max. jeux d'enregistrements
+    VirtualNetworkLinks = Liens de reseau virtuel
+    VNetLinksWithRegistration = Liens de reseau virtuel avec enregistrement automatique
+    ProvisioningState = Etat d'approvisionnement
+    LinkName = Nom du lien
+    VirtualNetwork = Reseau virtuel
+    AutoRegistration = Enregistrement automatique
+    VirtualNetworkLinkState = Etat du lien
+    Locks = Verrous
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations de zone DNS privee:
+'@
+
+# Azure Virtual Network Gateway (Get-AbrAzVirtualNetworkGateway)
+GetAbrAzVirtualNetworkGateway = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de passerelle de reseau virtuel defini a {0}.
+    Collecting = Collecte des informations de passerelle de reseau virtuel Azure.
+    SectionInfo = Les passerelles de reseau virtuel Azure connectent vos reseaux locaux a Azure via des VPN de site a site et connectent des reseaux virtuels Azure entre eux via des VPN de reseau virtuel a reseau virtuel. Les passerelles ExpressRoute permettent des connexions privees et dediees a Azure sans traverser Internet.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des passerelles de reseau virtuel dans l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des passerelles de reseau virtuel dans l'abonnement {0}.
+    Heading = Passerelles de reseau virtuel
+    TableHeading = Passerelle de reseau virtuel
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    VirtualNetwork = Reseau virtuel
+    GatewayType = Type de passerelle
+    VpnType = Type de VPN
+    SKU = SKU
+    Generation = Generation
+    ActiveActive = Actif-Actif
+    EnableBgp = BGP active
+    BgpAsn = ASN BGP
+    BgpPeeringAddress = Adresse de peering BGP
+    ProvisioningState = Etat d'approvisionnement
+    Connections = Connexions
+    ConnectionName = Nom
+    ConnectionType = Type de connexion
+    ConnectionStatus = Etat de connexion
+    ConnectionProtocol = Protocole
+    RoutingWeight = Poids de routage
+    NotApplicable = S/O
+    Locks = Verrous
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations de passerelle de reseau virtuel:
+'@
+
+# Azure DDoS Protection Plan (Get-AbrAzDdosProtectionPlan)
+GetAbrAzDdosProtectionPlan = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel du plan de protection DDoS defini a {0}.
+    Collecting = Collecte des informations de plan de protection DDoS Azure.
+    SectionInfo = Les plans de protection DDoS Azure fournissent des capacites de mitigation DDoS ameliorees pour toutes les ressources d'un reseau virtuel. Ils offrent la telemetrie, des alertes et des analyses detaillees pour proteger les ressources Azure contre les attaques DDoS.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des plans de protection DDoS dans l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des plans de protection DDoS dans l'abonnement {0}.
+    Heading = Plans de protection DDoS
+    TableHeading = Plan de protection DDoS
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    ProtectedVirtualNetworks = Reseaux virtuels proteges
+    VirtualNetworkName = Reseau virtuel
+    ProvisioningState = Etat d'approvisionnement
+    Locks = Verrous
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations de plan de protection DDoS:
+'@
+
+# Azure Application Gateway (Get-AbrAzApplicationGateway)
+GetAbrAzApplicationGateway = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de passerelle d'application defini a {0}.
+    Collecting = Collecte des informations de passerelle d'application Azure.
+    SectionInfo = Les passerelles d'application Azure sont des equilibreurs de charge de trafic web qui operent au niveau de la couche 7. Elles prennent en charge la terminaison SSL/TLS, le routage base sur les URL, l'hebergement multisites, l'affinite de session et l'integration du pare-feu d'applications web.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des passerelles d'application dans l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des passerelles d'application dans l'abonnement {0}.
+    Heading = Passerelles d'application
+    TableHeading = Passerelle d'application
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    VirtualNetwork = Reseau virtuel
+    Subnet = Sous-reseau
+    SKU = SKU
+    Tier = Niveau
+    Capacity = Capacite
+    WafEnabled = WAF active
+    WafMode = Mode WAF
+    Http2Enabled = HTTP/2 active
+    FrontendIPs = IPs frontend
+    OperationalState = Etat operationnel
+    ProvisioningState = Etat d'approvisionnement
+    Listeners = Ecouteurs HTTP
+    ListenerName = Ecouteur
+    Protocol = Protocole
+    Port = Port
+    HostName = Nom d'hote
+    BackendPools = Pools d'adresses backend
+    PoolName = Nom du pool
+    BackendTargets = Cibles backend
+    RoutingRules = Regles de routage des requetes
+    RuleName = Nom de regle
+    RuleType = Type de regle
+    BackendPool = Pool backend
+    BackendHttpSettings = Parametres HTTP
+    Unlimited = Illimite
+    NotApplicable = S/O
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations de passerelle d'application:
+'@
+
+# Azure Data Collection Rules (Get-AbrAzDataCollectionRule)
+GetAbrAzDataCollectionRule = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de regle de collecte de donnees defini a {0}.
+    Collecting = Collecte des informations de regle de collecte de donnees Azure.
+    SectionInfo = Les regles de collecte de donnees Azure definissent quelles donnees de surveillance collecter, d'ou elles proviennent et ou les envoyer. Elles specifient des sources de donnees telles que les compteurs de performances, les journaux d'evenements Windows et Syslog, et acheminent ces donnees vers des espaces de travail Log Analytics ou d'autres destinations.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des regles de collecte de donnees dans l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des regles de collecte de donnees dans l'abonnement {0}.
+    Heading = Regles de collecte de donnees
+    TableHeading = Regle de collecte de donnees
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    Description = Description
+    DataSources = Sources de donnees
+    LogAnalyticsDestinations = Destinations Log Analytics
+    ProvisioningState = Etat d'approvisionnement
+    PerformanceCounters = Compteurs de performances
+    WindowsEventLogs = Journaux d'evenements Windows
+    Syslog = Syslog
+    Extensions = Extensions
+    LogFiles = Fichiers journaux
+    Destinations = Destinations Log Analytics
+    DestinationName = Nom
+    WorkspaceId = ID de ressource de l'espace de travail
+    DataFlows = Flux de donnees
+    Streams = Flux
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations de regle de collecte de donnees:
+'@
+
+# Azure Public IP Addresses (Get-AbrAzPublicIpAddress)
+GetAbrAzPublicIpAddress = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel d'adresse IP publique defini a {0}.
+    Collecting = Collecte des informations d'adresse IP publique Azure.
+    SectionInfo = Les adresses IP publiques Azure fournissent des adresses IP accessibles depuis Internet pour des ressources telles que les machines virtuelles, les equilibreurs de charge, les passerelles VPN et les passerelles d'application. Elles prennent en charge l'allocation dynamique et statique et sont disponibles dans les SKU De base et Standard.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des adresses IP publiques dans l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des adresses IP publiques dans l'abonnement {0}.
+    Heading = Adresses IP publiques
+    TableHeading = Adresse IP publique
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    SKU = SKU
+    Tier = Niveau
+    IpVersion = Version IP
+    AllocationMethod = Methode d'allocation
+    IpAddress = Adresse IP
+    DnsLabel = Etiquette DNS
+    Fqdn = FQDN
+    Zones = Zones de disponibilite
+    AssociatedResource = Ressource associee
+    ProvisioningState = Etat d'approvisionnement
+    NotAssigned = Non attribuee
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations d'adresse IP publique:
+'@
+
+# Azure Network Watchers (Get-AbrAzNetworkWatcher)
+GetAbrAzNetworkWatcher = ConvertFrom-StringData @'
+    InfoLevel = Niveau d'information NetworkWatcher defini sur {0}.
+    Collecting = Collecte des informations Azure Network Watcher.
+    SectionInfo = Azure Network Watcher fournit des capacites de surveillance et de diagnostic reseau par region. Les journaux de flux NSG capturent des informations sur le trafic IP traversant les groupes de securite reseau et peuvent optionnellement acheminer les donnees vers un espace de travail Log Analytics via Traffic Analytics.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des moniteurs reseau de l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des moniteurs reseau de l'abonnement {0}.
+    Heading = Network Watchers
+    TableHeading = Network Watcher
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    FlowLogs = Journaux de flux
+    ProvisioningState = Etat d'approvisionnement
+    FlowLogsHeading = Journaux de flux NSG
+    FlowLogName = Nom
+    TargetResource = Ressource cible
+    FlowLogEnabled = Actif
+    RetentionDays = Retention (jours)
+    TrafficAnalytics = Traffic Analytics
+    StorageAccount = Compte de stockage
+    Enabled = Actif
+    Disabled = Inactif
+    Unlimited = Illimite
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations de Network Watcher:
+'@
+
+# Azure VM Scale Sets (Get-AbrAzVmScaleSet)
+GetAbrAzVmScaleSet = ConvertFrom-StringData @'
+    InfoLevel = Niveau d'information VmScaleSet defini sur {0}.
+    Collecting = Collecte des informations sur les groupes de machines virtuelles identiques Azure.
+    SectionInfo = Les groupes de machines virtuelles identiques (VMSS) Azure permettent le deploiement et la gestion d'un groupe de machines virtuelles identiques et a charge equilibree. Ils prennent en charge la mise a l'echelle automatique, plusieurs zones de disponibilite et les modes d'orchestration flexible ou uniforme.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des groupes de machines virtuelles identiques de l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des groupes de machines virtuelles identiques de l'abonnement {0}.
+    Heading = Groupes de machines virtuelles identiques
+    TableHeading = Groupe de machines virtuelles identiques
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    VmSize = Taille de VM
+    Instances = Instances
+    OrchestrationMode = Mode d'orchestration
+    UpgradePolicy = Strategie de mise a niveau
+    Overprovision = Surprovisionnement
+    SinglePlacementGroup = Groupe de placement unique
+    Zones = Zones de disponibilite
+    Identity = Identite
+    ProvisioningState = Etat d'approvisionnement
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations des groupes de machines virtuelles identiques:
+'@
+
+# Azure Maintenance Configurations (Get-AbrAzMaintenanceConfiguration)
+GetAbrAzMaintenanceConfiguration = ConvertFrom-StringData @'
+    InfoLevel = Niveau d'information MaintenanceConfiguration defini sur {0}.
+    Collecting = Collecte des informations de configuration de maintenance Azure.
+    SectionInfo = Les configurations de maintenance Azure definissent des fenetres de maintenance planifiees pour les ressources Azure. Elles controlent le moment ou les mises a jour de la plateforme, l'application des correctifs du systeme d'exploitation et d'autres activites de maintenance sont appliquees, reduisant ainsi les temps d'arret non planifies.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des configurations de maintenance de l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des configurations de maintenance de l'abonnement {0}.
+    Heading = Configurations de maintenance
+    TableHeading = Configuration de maintenance
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    Scope = Portee
+    Visibility = Visibilite
+    StartDateTime = Date/heure de debut
+    ExpirationDateTime = Date/heure d'expiration
+    Duration = Duree
+    RecurEvery = Periodicite
+    TimeZone = Fuseau horaire
+    ProvisioningState = Etat d'approvisionnement
+    NotConfigured = Non configure
+    NoExpiry = Sans expiration
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations de configuration de maintenance:
+'@
+
+# Azure DNS Forwarding Rulesets (Get-AbrAzDnsForwardingRuleset)
+GetAbrAzDnsForwardingRuleset = ConvertFrom-StringData @'
+    InfoLevel = Niveau d'information DnsForwardingRuleset defini sur {0}.
+    Collecting = Collecte des informations sur les ensembles de regles de transfert DNS Azure.
+    SectionInfo = Les ensembles de regles de transfert DNS Azure definissent des ensembles de regles de transfert conditionnel qui dirigent les requetes DNS vers des serveurs DNS specifiques. Ils sont associes aux points de terminaison sortants du resolveur DNS prive et lies aux reseaux virtuels pour controler le comportement de resolution DNS.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des ensembles de regles de transfert DNS de l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des ensembles de regles de transfert DNS de l'abonnement {0}.
+    Heading = Ensembles de regles de transfert DNS
+    TableHeading = Ensemble de regles de transfert DNS
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    ForwardingRules = Regles de transfert
+    VirtualNetworkLinks = Liens de reseau virtuel
+    OutboundEndpoints = Points de terminaison sortants
+    ProvisioningState = Etat d'approvisionnement
+    ForwardingRulesHeading = Regles de transfert
+    RuleName = Nom
+    DomainName = Nom de domaine
+    TargetServers = Serveurs DNS cibles
+    RuleState = Etat
+    VNetLinksHeading = Liens de reseau virtuel
+    LinkName = Nom
+    VirtualNetwork = Reseau virtuel
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations des ensembles de regles de transfert DNS:
 '@
 
 }
