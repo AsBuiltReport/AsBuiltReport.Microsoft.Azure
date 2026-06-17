@@ -172,7 +172,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 
         It 'Should have at least one private function' {
             $PrivatePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Src\Private'
-            $PrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -ErrorAction SilentlyContinue
+            $PrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -Recurse -ErrorAction SilentlyContinue
             $PrivateFunctions.Count | Should -BeGreaterThan 0
         }
     }
@@ -264,8 +264,8 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
     Context 'Private Functions' {
         BeforeAll {
             $PrivatePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Src\Private'
-            $PrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -ErrorAction SilentlyContinue
-            $AllPrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -Recurse -ErrorAction SilentlyContinue
+            $PrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -Recurse -ErrorAction SilentlyContinue
+            $AllPrivateFunctions = $PrivateFunctions
         }
 
         It 'Should have Get-AbrAzStorageAccount function' {
@@ -794,7 +794,7 @@ Describe 'Module File Syntax and Quality' {
             $LanguagePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Language\en-US'
             $LocalizedData = Import-LocalizedData -BaseDirectory $LanguagePath -FileName 'MicrosoftAzure.psd1'
             $ModuleRoot = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure'
-            $PrivateFunctions = Get-ChildItem -Path "$ModuleRoot\Src\Private" -Filter '*.ps1' -ErrorAction SilentlyContinue
+            $PrivateFunctions = Get-ChildItem -Path "$ModuleRoot\Src\Private" -Filter '*.ps1' -Recurse -ErrorAction SilentlyContinue
         }
 
         It 'Should have valid PowerShell localization data files' {
