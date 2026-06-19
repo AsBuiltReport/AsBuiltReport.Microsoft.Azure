@@ -47,11 +47,13 @@ Please refer to the AsBuiltReport [website](https://www.asbuiltreport.com) for m
 The Microsoft Azure As Built Report currently supports reporting for the following Azure resources;
 
 * Application Gateways
+* Automation Accounts
 * Availability Sets
 * Bastion Hosts
 * Data Collection Rules
 * DDoS Protection Plans
 * Desktop Virtualization
+* Diagnostic Settings
 * DNS Forwarding Rulesets
 * ExpressRoute Circuits
 * Firewalls
@@ -73,6 +75,7 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 * Storage Accounts
 * Subscriptions
 * Tenants
+* User Assigned Managed Identities
 * Virtual Machine Scale Sets
 * Virtual Machines
 * Virtual Network Gateways
@@ -320,10 +323,12 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | Sub-Schema            | Default Setting | Maximum Setting |
 |-----------------------|:---------------:|:---------------:|
 | ApplicationGateway    |        1        |        2        |
+| AutomationAccount     |        1        |        2        |
 | AvailabilitySet       |        1        |        1        |
 | Bastion               |        1        |        2        |
 | DataCollectionRule    |        1        |        2        |
 | DdosProtectionPlan    |        1        |        2        |
+| DiagnosticSetting     |        1        |        2        |
 | DesktopVirtualization |        1        |        4        |
 | DnsForwardingRuleset  |        1        |        2        |
 | DnsPrivateResolver    |        1        |        2        |
@@ -349,6 +354,7 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | StorageAccount        |        1        |        2        |
 | Subscription          |        1        |        1        |
 | Tenant                |        1        |        1        |
+| UserAssignedManagedIdentity |        1        |        2        |
 | VmScaleSet            |        1        |        2        |
 | VirtualMachine        |        1        |        2        |
 | VirtualNetworkGateway |        1        |        2        |
@@ -364,6 +370,13 @@ The **ApplicationGateway** schema is used to configure health checks for Azure A
 |-------------------|--------------|---------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | ProvisioningState | true / false | true    | Highlights Application Gateways in a failed provisioning state          | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 | OperationalState  | true / false | true    | Highlights Application Gateways that are not in a Running state         | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Gateway is not in Running state      |
+
+#### AutomationAccount
+The **AutomationAccount** schema is used to configure health checks for Azure Automation Accounts.
+
+| Sub-Schema | Setting      | Default | Description                                                   | Highlight                                                                                   |
+|------------|--------------|---------|---------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| State      | true / false | true    | Highlights Automation Accounts not in an Ok operational state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 
 #### Bastion
 The **Bastion** schema is used to configure health checks for Azure Bastion.
@@ -396,6 +409,13 @@ The **DesktopVirtualization** schema is used to configure health checks for Azur
 | RegistrationExpiry | true / false | true    | Highlights host pools with expired registration tokens             | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Registration token has expired               |
 | NoSessionHosts     | true / false | true    | Warns when a host pool has no session hosts configured             | Displays warning message in report                                                                  |
 | HostPoolCapacity   | true / false | true    | Warns when a host pool is at maximum session capacity              | Displays warning message in report                                                                  |
+
+#### DiagnosticSetting
+The **DiagnosticSetting** schema is used to configure health checks for Azure Diagnostic Settings.
+
+| Sub-Schema    | Setting      | Default | Description                                                   | Highlight                                                                               |
+|---------------|--------------|---------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| NoLogsEnabled | true / false | true    | Highlights Diagnostic Settings with no log categories enabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) No log categories are enabled    |
 
 #### DnsForwardingRuleset
 The **DnsForwardingRuleset** schema is used to configure health checks for Azure DNS Forwarding Rulesets.

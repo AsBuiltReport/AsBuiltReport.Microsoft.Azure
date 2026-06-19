@@ -1688,6 +1688,89 @@ GetAbrAzMaintenanceConfiguration = ConvertFrom-StringData @'
     ErrorMessage = Unable to collect Maintenance Configuration information:
 '@
 
+# Azure User Assigned Managed Identities (Get-AbrAzUserAssignedManagedIdentity)
+GetAbrAzUserAssignedManagedIdentity = ConvertFrom-StringData @'
+    InfoLevel = UserAssignedManagedIdentity InfoLevel set at {0}.
+    Collecting = Collecting Azure User Assigned Managed Identity information.
+    SectionInfo = Azure User Assigned Managed Identities are standalone Azure resources that provide an Azure AD identity for services to use when authenticating to resources that support Azure Active Directory authentication. They exist independently of any Azure service or resource and can be assigned to multiple resources.
+    ParagraphDetail = The following sections detail the configuration of the user assigned managed identity/identities within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the user assigned managed identity/identities within the {0} subscription.
+    Heading = User Assigned Managed Identities
+    TableHeading = User Assigned Managed Identity
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    ClientID = Client ID
+    PrincipalID = Principal ID
+    TenantID = Tenant ID
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect User Assigned Managed Identity information:
+'@
+
+# Azure Automation Accounts (Get-AbrAzAutomationAccount)
+GetAbrAzAutomationAccount = ConvertFrom-StringData @'
+    InfoLevel = AutomationAccount InfoLevel set at {0}.
+    Collecting = Collecting Azure Automation Account information.
+    SectionInfo = Azure Automation Accounts provide cloud-based automation and configuration management, supporting process automation via runbooks, configuration management, and update management across Azure and on-premises environments.
+    ParagraphDetail = The following sections detail the configuration of the automation account(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the automation account(s) within the {0} subscription.
+    Heading = Automation Accounts
+    TableHeading = Automation Account
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    State = State
+    RunbooksHeading = Runbooks
+    RunbookType = Type
+    LastModified = Last Modified
+    VariablesHeading = Variables
+    Encrypted = Encrypted
+    Description = Description
+    SchedulesHeading = Schedules
+    Enabled = Enabled
+    Frequency = Frequency
+    NextRun = Next Run
+    CredentialsHeading = Credentials
+    UserName = Username
+    Yes = Yes
+    No = No
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Automation Account information:
+'@
+
+# Azure Diagnostic Settings (Get-AbrAzDiagnosticSetting)
+GetAbrAzDiagnosticSetting = ConvertFrom-StringData @'
+    InfoLevel = DiagnosticSetting InfoLevel set at {0}.
+    Collecting = Collecting Azure Diagnostic Setting information.
+    SectionInfo = Azure Diagnostic Settings configure the export of platform logs and metrics from Azure resources to destinations such as Log Analytics workspaces, storage accounts, and Event Hubs for monitoring, auditing, and analysis.
+    ParagraphDetail = The following sections detail the configuration of the diagnostic setting(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the diagnostic setting(s) within the {0} subscription.
+    Heading = Diagnostic Settings
+    TableHeading = Diagnostic Setting
+    ResourceName = Resource Name
+    ResourceType = Resource Type
+    ResourceGroup = Resource Group
+    Name = Name
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    LogAnalyticsWorkspace = Log Analytics Workspace
+    StorageAccount = Storage Account
+    EventHub = Event Hub
+    LogCategoriesEnabled = Log Categories (Enabled)
+    MetricsEnabled = Metrics Enabled
+    Yes = Yes
+    No = No
+    None = None
+    ErrorMessage = Unable to collect Diagnostic Setting information:
+'@
+
 # Azure DNS Forwarding Rulesets (Get-AbrAzDnsForwardingRuleset)
 GetAbrAzDnsForwardingRuleset = ConvertFrom-StringData @'
     InfoLevel = DnsForwardingRuleset InfoLevel set at {0}.

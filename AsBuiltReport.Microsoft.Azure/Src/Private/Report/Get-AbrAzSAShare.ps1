@@ -36,7 +36,7 @@ function Get-AbrAzSAShare {
 
     process {
         Try {
-            $AzSAShares = Get-AzStorageAccount -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName | Get-AzStorageShare -ErrorAction SilentlyContinue | Sort-Object Name
+            $AzSAShares = Get-AzRmStorageShare -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName -ErrorAction SilentlyContinue | Where-Object { -not $_.SnapshotTime } | Sort-Object Name
             if ($AzSAShares) {
                 Write-PscriboMessage $LocalizedData.Collecting
                 Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.Heading {
@@ -47,18 +47,23 @@ function Get-AbrAzSAShare {
                         $Count ++
                         $InObj = [Ordered]@{
                             $LocalizedData.Name = $AzSAShare.Name
-                            $LocalizedData.ShareURL = $AzSAShare.CloudFileShare.Uri.AbsoluteUri
-                            $LocalizedData.Quota = $(if ([string]::IsNullOrEmpty($AzSAShare.ShareProperties.QuotaInGB)) {
+                            $LocalizedData.ShareURL = "https://$StorageAccountName.file.core.windows.net/$($AzSAShare.Name)"
+                            $LocalizedData.Quota = $(if ($null -eq $AzSAShare.QuotaGiB) {
                                 $LocalizedData.Unknown
                             } else {
-                                Convert-DataSize -Size ($AzSAShare.ShareProperties.QuotaInGB) -DecimalPlaces 2
+                                Convert-DataSize -Size ($AzSAShare.QuotaGiB)
                             })
-                            $LocalizedData.AccessTier = Switch ($AzSAShare.ShareProperties.AccessTier) {
+                            $LocalizedData.AccessTier = Switch ($AzSAShare.AccessTier) {
                                 'TransactionOptimized' { $LocalizedData.TransactionOptimized }
-                                default {$AzSAShare.ShareProperties.AccessTier}
+                                $null { $LocalizedData.None }
+                                default { $AzSAShare.AccessTier }
                             }
-                            $LocalizedData.LastModified = $AzSAShare.LastModified.UtcDateTime.ToShortDateString()
-                            $LocalizedData.Snapshot = $(if ($AzSAShare.IsSnapshot) {
+                            $LocalizedData.LastModified = if ($AzSAShare.LastModifiedTime) {
+                                $AzSAShare.LastModifiedTime.ToShortDateString()
+                            } else {
+                                $LocalizedData.None
+                            }
+                            $LocalizedData.Snapshot = $(if ($AzSAShare.SnapshotTime) {
                                 $LocalizedData.Enabled
                             } else {
                                 $LocalizedData.Disabled

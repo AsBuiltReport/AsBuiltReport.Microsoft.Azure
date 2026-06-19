@@ -36,7 +36,8 @@ function Get-AbrAzSATable {
 
     process {
         Try {
-            $AzSATables = Get-AzStorageAccount -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName | Get-AzStorageTable -ErrorAction SilentlyContinue | Sort-Object Name
+            $AzStorageContext = New-AzStorageContext -StorageAccountName $StorageAccountName -UseConnectedAccount -ErrorAction SilentlyContinue
+            $AzSATables = Get-AzStorageTable -Context $AzStorageContext -ErrorAction SilentlyContinue | Sort-Object Name
             if ($AzSATables) {
                 Write-PscriboMessage $LocalizedData.Collecting
                 Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.Heading {

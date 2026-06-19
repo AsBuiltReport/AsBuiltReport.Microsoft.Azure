@@ -12,15 +12,16 @@
     "Options": {
         "ShowSectionInfo": true,
         "ShowTags": true,
-        "EnableDiagrams": false,
+        "EnableDiagrams": true,
         "DiagramTheme": "White",
-        "DiagramDpi": 96,
+        "DiagramDpi": 600,
         "SectionOrder": [
             "ApplicationGateway",
             "StorageAccount",
             "KeyVault",
             "LogAnalyticsWorkspace",
             "DataCollectionRule",
+            "DiagnosticSetting",
             "LoadBalancer",
             "ExpressRoute",
             "VirtualNetworkGateway",
@@ -36,6 +37,7 @@
             "PrivateDnsZone",
             "Bastion",
             "Policy",
+            "UserAssignedManagedIdentity",
             "Firewall",
             "FirewallPolicy",
             "RouteTable",
@@ -43,6 +45,7 @@
             "AvailabilitySet",
             "VmScaleSet",
             "MaintenanceConfiguration",
+            "AutomationAccount",
             "RecoveryServicesVault",
             "SiteRecovery",
             "DesktopVirtualization",
@@ -59,8 +62,10 @@
         "VmScaleSet": 1,
         "MaintenanceConfiguration": 1,
         "Bastion": 1,
+        "AutomationAccount": 1,
         "DataCollectionRule": 1,
         "DdosProtectionPlan": 1,
+        "DiagnosticSetting": 1,
         "DnsPrivateResolver": 1,
         "DnsForwardingRuleset": 1,
         "ExpressRoute": 1,
@@ -90,9 +95,13 @@
         "VirtualMachine": 1,
         "VirtualNetworkGateway": 1,
         "DesktopVirtualization": 1,
-        "NetAppFiles": 1
+        "NetAppFiles": 1,
+        "UserAssignedManagedIdentity": 1
     },
     "HealthCheck": {
+        "AutomationAccount": {
+            "State": true
+        },
         "ApplicationGateway": {
             "ProvisioningState": true,
             "OperationalState": true
@@ -102,6 +111,9 @@
         },
         "DataCollectionRule": {
             "ProvisioningState": true
+        },
+        "DiagnosticSetting": {
+            "NoLogsEnabled": true
         },
         "DdosProtectionPlan": {
             "ProvisioningState": true

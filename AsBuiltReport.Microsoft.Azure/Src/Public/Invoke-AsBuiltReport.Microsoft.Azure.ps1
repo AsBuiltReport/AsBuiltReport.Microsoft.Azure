@@ -70,6 +70,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "KeyVault",
         "LogAnalyticsWorkspace",
         "DataCollectionRule",
+        "DiagnosticSetting",
         "LoadBalancer",
         "ExpressRoute",
         "VirtualNetworkGateway",
@@ -85,6 +86,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "PrivateDnsZone",
         "Bastion",
         "Policy",
+        "UserAssignedManagedIdentity",
         "Firewall",
         "FirewallPolicy",
         "RouteTable",
@@ -92,6 +94,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "AvailabilitySet",
         "VmScaleSet",
         "MaintenanceConfiguration",
+        "AutomationAccount",
         "RecoveryServicesVault",
         "SiteRecovery",
         "DesktopVirtualization",
@@ -108,7 +111,8 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
 
     # Resource type mapping for per-subscription existence checks
     $ResourceTypeMap = @{
-        'ApplicationGateway'    = 'Microsoft.Network/applicationGateways'
+        'ApplicationGateway'       = 'Microsoft.Network/applicationGateways'
+        'AutomationAccount'        = 'Microsoft.Automation/automationAccounts'
         'AvailabilitySet'       = 'Microsoft.Compute/availabilitySets'
         'VmScaleSet'                = 'Microsoft.Compute/virtualMachineScaleSets'
         'MaintenanceConfiguration'  = 'Microsoft.Maintenance/maintenanceConfigurations'
@@ -128,7 +132,9 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         'LogAnalyticsWorkspace' = 'Microsoft.OperationalInsights/workspaces'
         'NetAppFiles'           = 'Microsoft.NetApp/netAppAccounts'
         'NetworkSecurityGroup'  = 'Microsoft.Network/networkSecurityGroups'
+        'DiagnosticSetting'     = $null
         'Policy'                = $null
+        'UserAssignedManagedIdentity' = 'Microsoft.ManagedIdentity/userAssignedIdentities'
         'PrivateDnsZone'        = 'Microsoft.Network/privateDnsZones'
         'PrivateEndpoint'       = 'Microsoft.Network/privateEndpoints'
         'NetworkWatcher'        = 'Microsoft.Network/networkWatchers'
@@ -145,6 +151,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
     # Function mapping for section names to function names
     $SectionFunctionMap = @{
         "ApplicationGateway" = "Get-AbrAzApplicationGateway"
+        "AutomationAccount" = "Get-AbrAzAutomationAccount"
         "AvailabilitySet" = "Get-AbrAzAvailabilitySet"
         "VmScaleSet" = "Get-AbrAzVmScaleSet"
         "MaintenanceConfiguration" = "Get-AbrAzMaintenanceConfiguration"
@@ -163,7 +170,9 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "LoadBalancer" = "Get-AbrAzLoadBalancer"
         "VirtualNetwork" = "Get-AbrAzVirtualNetwork"
         "NetworkSecurityGroup" = "Get-AbrAzNetworkSecurityGroup"
+        "DiagnosticSetting" = "Get-AbrAzDiagnosticSetting"
         "Policy" = "Get-AbrAzPolicy"
+        "UserAssignedManagedIdentity" = "Get-AbrAzUserAssignedManagedIdentity"
         "RouteTable" = "Get-AbrAzRouteTable"
         "VirtualMachine" = "Get-AbrAzVirtualMachine"
         "VirtualNetworkGateway" = "Get-AbrAzVirtualNetworkGateway"
@@ -238,11 +247,12 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
 
                                 $SubHasResources = $false
                                 foreach ($SectionName in ($SectionOrder | Where-Object { Test-AbrAzInfoLevelEnabled -SectionOrder @($_) -InfoLevel $InfoLevel })) {
-                                    $ResourceType = $ResourceTypeMap[$SectionName]
-                                    if (-not $ResourceType) {
+                                    if (-not $ResourceTypeMap.ContainsKey($SectionName)) {
                                         $SubHasResources = $true
                                         break
                                     }
+                                    $ResourceType = $ResourceTypeMap[$SectionName]
+                                    if ($null -eq $ResourceType) { continue }
                                     if (Get-AzResource -ResourceType $ResourceType -ErrorAction SilentlyContinue | Select-Object -First 1) {
                                         $SubHasResources = $true
                                         break

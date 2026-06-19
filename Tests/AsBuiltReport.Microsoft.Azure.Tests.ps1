@@ -360,6 +360,18 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAsrProtectedItems.ps1'
         }
 
+        It 'Should have Get-AbrAzUserAssignedManagedIdentity function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzUserAssignedManagedIdentity.ps1'
+        }
+
+        It 'Should have Get-AbrAzAutomationAccount function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzAutomationAccount.ps1'
+        }
+
+        It 'Should have Get-AbrAzDiagnosticSetting function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzDiagnosticSetting.ps1'
+        }
+
         It 'Should have Get-CountryName function' {
             $PrivateFunctions.Name | Should -Contain 'Get-CountryName.ps1'
         }
@@ -487,6 +499,18 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $JsonConfig.Options.SectionOrder | Should -Contain 'LoadBalancer'
         }
 
+        It 'SectionOrder should contain UserAssignedManagedIdentity' {
+            $JsonConfig.Options.SectionOrder | Should -Contain 'UserAssignedManagedIdentity'
+        }
+
+        It 'SectionOrder should contain AutomationAccount' {
+            $JsonConfig.Options.SectionOrder | Should -Contain 'AutomationAccount'
+        }
+
+        It 'SectionOrder should contain DiagnosticSetting' {
+            $JsonConfig.Options.SectionOrder | Should -Contain 'DiagnosticSetting'
+        }
+
         It 'Should have an InfoLevel section' {
             $JsonConfig.InfoLevel | Should -Not -BeNullOrEmpty
         }
@@ -585,6 +609,18 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'ManagementGroup'
         }
 
+        It 'InfoLevel should include UserAssignedManagedIdentity' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'UserAssignedManagedIdentity'
+        }
+
+        It 'InfoLevel should include AutomationAccount' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'AutomationAccount'
+        }
+
+        It 'InfoLevel should include DiagnosticSetting' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'DiagnosticSetting'
+        }
+
         It 'InfoLevel should include VirtualNetwork' {
             $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'VirtualNetwork'
         }
@@ -651,6 +687,14 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 
         It 'HealthCheck should include VirtualNetwork checks' {
             $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'VirtualNetwork'
+        }
+
+        It 'HealthCheck should include AutomationAccount checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'AutomationAccount'
+        }
+
+        It 'HealthCheck should include DiagnosticSetting checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'DiagnosticSetting'
         }
     }
 
@@ -1034,6 +1078,19 @@ Describe 'Module File Syntax and Quality' {
 
         It 'Should have GetAbrAzManagementGroup localization section' {
             $LocalizedData.GetAbrAzManagementGroup | Should -Not -BeNullOrEmpty
+        }
+
+        # Verify new v0.3.0 functions have localization
+        It 'Should have GetAbrAzUserAssignedManagedIdentity localization section' {
+            $LocalizedData.GetAbrAzUserAssignedManagedIdentity | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzAutomationAccount localization section' {
+            $LocalizedData.GetAbrAzAutomationAccount | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzDiagnosticSetting localization section' {
+            $LocalizedData.GetAbrAzDiagnosticSetting | Should -Not -BeNullOrEmpty
         }
     }
 

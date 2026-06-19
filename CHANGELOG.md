@@ -6,7 +6,7 @@
 * Add support for Azure NetApp Files (NetApp Accounts, Capacity Pools, Volumes, Snapshot Policies, Backup Policies) with per-volume detail, Active Directory and encryption configuration, mount targets, export policy rules, and 5 health checks (pool allocation, AD join status, snapshot policy attachment, backup policy attachment, customer-managed key usage)
 * Add support for Management Groups, displaying the full hierarchy with parent/child relationships and direct subscription counts
 * Add optional Management Group hierarchy diagram (`Options.EnableDiagrams: true`) using the AsBuiltReport.Diagram module, showing management group nodes with subscription collections sized to fit a portrait page
-* Add `Options.DiagramDpi` setting to control the raster output resolution of generated diagrams (default 96, matching previous behaviour); requires AsBuiltReport.Diagram 1.0.8 or later
+* Add `Options.DiagramDpi` setting to control the raster output resolution of generated diagrams
 * Add support for Private DNS Zones, including record set and virtual network link counts with per-zone detail and virtual network link sub-sections at InfoLevel 2
 * Add support for Virtual Network Gateways, including gateway type, SKU, BGP settings, active-active mode, generation, and VPN connection detail at InfoLevel 2
 * Add support for DDoS Protection Plans, including protected virtual network count and per-plan protected VNet detail at InfoLevel 2
@@ -18,13 +18,18 @@
 * Add support for Maintenance Configurations, including scope, visibility, maintenance window start time, expiration, duration, recurrence, and timezone
 * Add support for DNS Forwarding Rulesets, including outbound endpoint associations, per-ruleset forwarding rules with target DNS servers, and virtual network links at InfoLevel 2
 * Add Resource Locks reporting to Virtual Networks, Key Vaults, Recovery Services Vaults, Storage Accounts, Firewalls, Private DNS Zones, Route Tables, Virtual Network Gateways, Log Analytics Workspaces, and DDoS Protection Plans; lock name and level (CanNotDelete/ReadOnly) displayed at InfoLevel 2 and above
+* Add support for User Assigned Managed Identities, displaying Client ID, Principal ID, and Tenant ID with per-identity detail at InfoLevel 2
+* Add support for Automation Accounts, including account state health check and per-account Runbooks, Variables, Schedules, and Credentials sub-sections at InfoLevel 2
+* Add support for Diagnostic Settings via cross-resource sweep, displaying Log Analytics workspace, storage account, and Event Hub destinations alongside enabled log category count and metrics status; settings with no log categories enabled flagged as a health check
 
 ### Changed
 * Update minimum Az module version requirement from 15.3.0 to 16.0.0
 
 ### Fixed
-* Fix empty per-subscription sections appearing in the report when enabled resource types have no matching resources in a given subscription
+* Fix empty per-subscription sections appearing in the report when all enabled resource types have no matching resources in a given subscription
 * Fix `Get-AbrAsrProtectedItems` - Correct `ParagraghSummary` typo to `ParagraphSummary` in all language files, which caused the introductory paragraph to render empty
+* Fix `Get-AbrAzSAShare` and `Get-AbrAzSAContainer` - Switch from data plane API (`Get-AzStorageShare`, `Get-AzStorageContainer`) to ARM management plane (`Get-AzRmStorageShare`, `Get-AzRmStorageContainer`) to resolve 403 Forbidden errors when storage account shared key access is disabled
+* Fix `Get-AbrAzSAQueue` and `Get-AbrAzSATable` - Use `New-AzStorageContext -UseConnectedAccount` for OAuth-based data plane access to resolve 403 Forbidden errors when storage account shared key access is disabled
 
 ## [0.2.0] - 2026-02-11
 

@@ -1688,6 +1688,89 @@ GetAbrAzMaintenanceConfiguration = ConvertFrom-StringData @'
     ErrorMessage = Impossible de collecter les informations de configuration de maintenance:
 '@
 
+# Azure User Assigned Managed Identities (Get-AbrAzUserAssignedManagedIdentity)
+GetAbrAzUserAssignedManagedIdentity = ConvertFrom-StringData @'
+    InfoLevel = Niveau d'information UserAssignedManagedIdentity defini sur {0}.
+    Collecting = Collecte des informations sur les identites managees affectees par l'utilisateur Azure.
+    SectionInfo = Les identites managees affectees par l'utilisateur Azure sont des ressources Azure autonomes qui fournissent une identite Azure AD pour les services qui s'authentifient aupres de ressources prenant en charge l'authentification Azure Active Directory. Elles existent independamment de tout service ou ressource Azure et peuvent etre affectees a plusieurs ressources.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des identites managees affectees par l'utilisateur de l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des identites managees affectees par l'utilisateur de l'abonnement {0}.
+    Heading = Identites managees affectees par l'utilisateur
+    TableHeading = Identite managee affectee par l'utilisateur
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    ClientID = ID client
+    PrincipalID = ID du principal
+    TenantID = ID du locataire
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations sur les identites managees affectees par l'utilisateur:
+'@
+
+# Azure Automation Accounts (Get-AbrAzAutomationAccount)
+GetAbrAzAutomationAccount = ConvertFrom-StringData @'
+    InfoLevel = Niveau d'information AutomationAccount defini sur {0}.
+    Collecting = Collecte des informations sur les comptes Azure Automation.
+    SectionInfo = Les comptes Azure Automation fournissent l'automatisation et la gestion de la configuration dans le cloud, avec prise en charge de l'automatisation des processus via des runbooks, la gestion de la configuration et la gestion des mises a jour dans les environnements Azure et locaux.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des comptes Automation de l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des comptes Automation de l'abonnement {0}.
+    Heading = Comptes Automation
+    TableHeading = Compte Automation
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    State = Etat
+    RunbooksHeading = Runbooks
+    RunbookType = Type
+    LastModified = Derniere modification
+    VariablesHeading = Variables
+    Encrypted = Chiffre
+    Description = Description
+    SchedulesHeading = Planifications
+    Enabled = Active
+    Frequency = Frequence
+    NextRun = Prochaine execution
+    CredentialsHeading = Informations d'identification
+    UserName = Nom d'utilisateur
+    Yes = Oui
+    No = Non
+    Tags = Balises
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations sur les comptes Automation:
+'@
+
+# Azure Diagnostic Settings (Get-AbrAzDiagnosticSetting)
+GetAbrAzDiagnosticSetting = ConvertFrom-StringData @'
+    InfoLevel = Niveau d'information DiagnosticSetting defini sur {0}.
+    Collecting = Collecte des informations sur les parametres de diagnostic Azure.
+    SectionInfo = Les parametres de diagnostic Azure configurent l'exportation des journaux de plateforme et des metriques depuis les ressources Azure vers des destinations telles que les espaces de travail Log Analytics, les comptes de stockage et les Event Hubs pour la surveillance, l'audit et l'analyse.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des parametres de diagnostic de l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume la configuration des parametres de diagnostic de l'abonnement {0}.
+    Heading = Parametres de diagnostic
+    TableHeading = Parametre de diagnostic
+    ResourceName = Nom de la ressource
+    ResourceType = Type de ressource
+    ResourceGroup = Groupe de ressources
+    Name = Nom
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    LogAnalyticsWorkspace = Espace de travail Log Analytics
+    StorageAccount = Compte de stockage
+    EventHub = Event Hub
+    LogCategoriesEnabled = Categories de journaux (activees)
+    MetricsEnabled = Metriques activees
+    Yes = Oui
+    No = Non
+    None = Aucun
+    ErrorMessage = Impossible de collecter les informations sur les parametres de diagnostic:
+'@
+
 # Azure DNS Forwarding Rulesets (Get-AbrAzDnsForwardingRuleset)
 GetAbrAzDnsForwardingRuleset = ConvertFrom-StringData @'
     InfoLevel = Niveau d'information DnsForwardingRuleset defini sur {0}.
