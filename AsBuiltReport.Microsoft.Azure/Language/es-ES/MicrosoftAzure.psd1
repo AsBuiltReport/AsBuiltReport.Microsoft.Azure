@@ -1415,6 +1415,7 @@ GetAbrAzPrivateDnsZone = ConvertFrom-StringData @'
     TableHeading = Zona DNS privada
     Name = Nombre
     ResourceGroup = Grupo de recursos
+    Location = Ubicación
     Subscription = Suscripción
     SubscriptionID = ID de suscripción
     RecordSets = Conjuntos de registros

@@ -57,6 +57,7 @@ function Get-AbrAzPrivateDnsZone {
                             $InObj = [Ordered]@{
                                 $LocalizedData.Name                      = $AzPrivateDnsZone.Name
                                 $LocalizedData.ResourceGroup             = $AzPrivateDnsZone.ResourceGroupName
+                                $LocalizedData.Location                  = if ($AzLocationLookup."$($AzPrivateDnsZone.Location)") { $AzLocationLookup."$($AzPrivateDnsZone.Location)" } else { $AzPrivateDnsZone.Location }
                                 $LocalizedData.Subscription              = "$($AzSubscriptionLookup.(($AzPrivateDnsZone.ResourceId).split('/')[2]))"
                                 $LocalizedData.SubscriptionID            = ($AzPrivateDnsZone.ResourceId).split('/')[2]
                                 $LocalizedData.RecordSets                = $AzPrivateDnsZone.Properties.NumberOfRecordSets
@@ -139,8 +140,8 @@ function Get-AbrAzPrivateDnsZone {
                             $TableParams = @{
                                 Name         = "$($LocalizedData.TableHeading) - $($AzSubscription.Name)"
                                 List         = $false
-                                Columns      = $LocalizedData.Name, $LocalizedData.ResourceGroup, $LocalizedData.RecordSets, $LocalizedData.VirtualNetworkLinks, $LocalizedData.ProvisioningState
-                                ColumnWidths = 30, 25, 15, 15, 15
+                                Columns      = $LocalizedData.Name, $LocalizedData.ResourceGroup, $LocalizedData.Location, $LocalizedData.RecordSets, $LocalizedData.VirtualNetworkLinks, $LocalizedData.ProvisioningState
+                                ColumnWidths = 25, 20, 15, 15, 10, 15
                             }
                             if ($Report.ShowTableCaptions) {
                                 $TableParams['Caption'] = "- $($TableParams.Name)"

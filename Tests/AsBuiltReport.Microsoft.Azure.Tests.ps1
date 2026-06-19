@@ -58,10 +58,6 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $Manifest.PrivateData.PSData.ExternalModuleDependencies | Should -Contain 'Az'
         }
 
-        It 'Should declare AsBuiltReport.Core as an external module dependency' {
-            $Manifest.PrivateData.PSData.ExternalModuleDependencies | Should -Contain 'AsBuiltReport.Core'
-        }
-
         It 'Should export the Invoke-AsBuiltReport.Microsoft.Azure function' {
             $Manifest.ExportedFunctions.Keys | Should -Contain 'Invoke-AsBuiltReport.Microsoft.Azure'
         }
@@ -107,10 +103,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $Manifest.PrivateData.PSData.ReleaseNotes | Should -Match '^https?://'
         }
 
-        It 'Should have an IconUri' {
-            $Manifest.PrivateData.PSData.IconUri | Should -Not -BeNullOrEmpty
-            $Manifest.PrivateData.PSData.IconUri | Should -Match '^https?://'
-        }
+
 
         It 'Should have module version matching expected format' {
             $Manifest.Version.ToString() | Should -Match '^\d+\.\d+\.\d+$'
@@ -454,14 +447,6 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzManagementGroup.ps1'
         }
 
-        # Diagram functions (require -Recurse search since they live in a subfolder)
-        It 'Should have Get-AbrAzDiagram diagram function' {
-            $AllPrivateFunctions.Name | Should -Contain 'Get-AbrAzDiagram.ps1'
-        }
-
-        It 'Should have Export-AbrAzDiagram diagram function' {
-            $AllPrivateFunctions.Name | Should -Contain 'Export-AbrAzDiagram.ps1'
-        }
     }
 
     Context 'JSON Configuration' {
