@@ -302,6 +302,15 @@ GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     TargetLocation = Zielstandort
     FailoverHealth = Failover-Zustand
     NoTestFailover = Es wurde kein Test-Failover durchgeführt
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der geschützten Azure Site Recovery-Elemente im Abonnement {0}.
+    ReplicationProvider = Replikationsanbieter
+    Rpo = RPO (Min.)
+    LastRpoCalculated = Letzte RPO-Berechnung
+    LastHeartbeat = Letzter Heartbeat
+    RecoveryVmSize = Größe der Wiederherstellungs-VM
+    RecoveryAvailabilityZone = Verfügbarkeitszone der Wiederherstellung
+    NotAvailable = N/V
+    None = Keine
 '@
 
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)

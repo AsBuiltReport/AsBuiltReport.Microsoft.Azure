@@ -49,20 +49,63 @@ function Get-AbrAsrProtectedItems {
                                         $AsrReplicationProtectedItems | Where-Object { $_.'TestFailoverStateDescription' -eq 'None' } | Set-Style -Style Warning -Property 'TestFailoverStateDescription'
                                     }
                                     if ($AsrReplicationProtectedItems) {
-                                        Section -Style NOTOCHeading5 -ExcludeFromTOC $LocalizedData.Heading {
-                                            Paragraph ($LocalizedData.ParagraphSummary -f $AzSubscription.Name)
-                                            BlankLine
-                                            $TableParams = @{
-                                                Name         = "$($LocalizedData.TableHeading) - $($AzRsv.Name)"
-                                                List         = $false
-                                                Headers      = $LocalizedData.VirtualMachine, $LocalizedData.ReplicationHealth, $LocalizedData.State, $LocalizedData.ActiveLocation, $LocalizedData.TargetLocation, $LocalizedData.FailoverHealth
-                                                Columns      = 'friendlyname', 'replicationhealth', 'protectionstatedescription', 'PrimaryFabricFriendlyName', 'RecoveryFabricFriendlyName', 'TestFailoverStateDescription'
-                                                ColumnWidths = 21, 15, 15, 17, 17, 15
+                                        if ($InfoLevel.SiteRecovery -ge 2) {
+                                            Paragraph ($LocalizedData.ParagraphDetail -f $AzSubscription.Name)
+                                            foreach ($Item in $AsrReplicationProtectedItems) {
+                                                Section -Style NOTOCHeading5 -ExcludeFromTOC $Item.FriendlyName {
+                                                    $InObj = [Ordered]@{
+                                                        $LocalizedData.VirtualMachine       = $Item.FriendlyName
+                                                        $LocalizedData.ReplicationProvider  = $Item.ReplicationProvider
+                                                        $LocalizedData.ReplicationHealth    = $Item.ReplicationHealth
+                                                        $LocalizedData.State                = $Item.ProtectionStateDescription
+                                                        $LocalizedData.ActiveLocation       = $Item.PrimaryFabricFriendlyName
+                                                        $LocalizedData.TargetLocation       = $Item.RecoveryFabricFriendlyName
+                                                        $LocalizedData.FailoverHealth       = $Item.TestFailoverStateDescription
+                                                    }
+                                                    if ($Item.ReplicationProvider -eq 'A2A' -and $Item.ProviderSpecificDetails) {
+                                                        $InObj[$LocalizedData.Rpo] = $(
+                                                            if ($null -ne $Item.ProviderSpecificDetails.RpoInSeconds) {
+                                                                [math]::Round($Item.ProviderSpecificDetails.RpoInSeconds / 60, 1)
+                                                            } else {
+                                                                $LocalizedData.NotAvailable
+                                                            }
+                                                        )
+                                                        $InObj[$LocalizedData.LastRpoCalculated]     = $Item.ProviderSpecificDetails.LastRpoCalculatedTime
+                                                        $InObj[$LocalizedData.LastHeartbeat]         = $Item.ProviderSpecificDetails.LastHeartbeat
+                                                        $InObj[$LocalizedData.RecoveryVmSize]        = $Item.ProviderSpecificDetails.RecoveryAzureVMSize
+                                                        $InObj[$LocalizedData.RecoveryAvailabilityZone] = Switch ($Item.ProviderSpecificDetails.RecoveryAvailabilityZone) {
+                                                            $null   { $LocalizedData.None }
+                                                            default { $Item.ProviderSpecificDetails.RecoveryAvailabilityZone }
+                                                        }
+                                                    }
+                                                    $DetailObj = [PSCustomObject]$InObj
+                                                    $TableParams = @{
+                                                        Name         = "$($LocalizedData.TableHeading) - $($Item.FriendlyName)"
+                                                        List         = $true
+                                                        ColumnWidths = 40, 60
+                                                    }
+                                                    if ($Report.ShowTableCaptions) {
+                                                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                                                    }
+                                                    $DetailObj | Table @TableParams
+                                                }
                                             }
-                                            if ($Report.ShowTableCaptions) {
-                                                $TableParams['Caption'] = "- $($TableParams.Name)"
+                                        } else {
+                                            Section -Style NOTOCHeading5 -ExcludeFromTOC $LocalizedData.Heading {
+                                                Paragraph ($LocalizedData.ParagraphSummary -f $AzSubscription.Name)
+                                                BlankLine
+                                                $TableParams = @{
+                                                    Name         = "$($LocalizedData.TableHeading) - $($AzRsv.Name)"
+                                                    List         = $false
+                                                    Headers      = $LocalizedData.VirtualMachine, $LocalizedData.ReplicationHealth, $LocalizedData.State, $LocalizedData.ActiveLocation, $LocalizedData.TargetLocation, $LocalizedData.FailoverHealth
+                                                    Columns      = 'friendlyname', 'replicationhealth', 'protectionstatedescription', 'PrimaryFabricFriendlyName', 'RecoveryFabricFriendlyName', 'TestFailoverStateDescription'
+                                                    ColumnWidths = 21, 15, 15, 17, 17, 15
+                                                }
+                                                if ($Report.ShowTableCaptions) {
+                                                    $TableParams['Caption'] = "- $($TableParams.Name)"
+                                                }
+                                                $AsrReplicationProtectedItems | Table @TableParams
                                             }
-                                            $AsrReplicationProtectedItems | Table @TableParams
                                         }
                                     }
                                 }
