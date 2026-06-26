@@ -357,6 +357,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzAsrPolicy.ps1'
         }
 
+        It 'Should have Get-AbrAzAsrRecoveryPlan function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzAsrRecoveryPlan.ps1'
+        }
+
         It 'Should have Get-AbrAzUserAssignedManagedIdentity function' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzUserAssignedManagedIdentity.ps1'
         }

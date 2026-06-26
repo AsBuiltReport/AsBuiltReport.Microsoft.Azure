@@ -49,6 +49,7 @@
             "RecoveryServicesVault",
             "SiteRecovery",
             "AsrPolicy",
+            "AsrRecoveryPlan",
             "DesktopVirtualization",
             "NetAppFiles"
         ]
@@ -90,6 +91,7 @@
         "RouteTable": 1,
         "SiteRecovery": 1,
         "AsrPolicy": 1,
+        "AsrRecoveryPlan": 1,
         "StorageAccount": 1,
         "Subscription": 1,
         "Tenant": 0,

@@ -332,6 +332,24 @@ GetAbrAzAsrPolicy = ConvertFrom-StringData @'
     NotApplicable = N/V
 '@
 
+# Azure Site Recovery Wiederherstellungspläne (Get-AbrAzAsrRecoveryPlan)
+GetAbrAzAsrRecoveryPlan = ConvertFrom-StringData @'
+    InfoLevel = AsrRecoveryPlan-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Site Recovery-Wiederherstellungsplaninformationen für '{0}' werden gesammelt.
+    SectionInfo = Azure Site Recovery-Wiederherstellungspläne koordinieren das Failover und die Wiederherstellung von Gruppen virtueller Maschinen und ermöglichen koordinierte DR-Vorgänge.
+    Heading = Wiederherstellungspläne
+    TableHeadings = Wiederherstellungspläne
+    ParagraphSummary = Die folgende Tabelle fasst die Azure Site Recovery-Wiederherstellungspläne zusammen, die für den Recovery Services-Tresor {0} konfiguriert sind.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Azure Site Recovery-Wiederherstellungspläne, die für den Recovery Services-Tresor {0} konfiguriert sind.
+    Name = Name
+    PrimaryFabric = Primärer Standort
+    RecoveryFabric = Wiederherstellungsstandort
+    GroupCount = Gruppen
+    ProtectedItemCount = Geschützte Elemente
+    FailoverDeploymentModel = Failover-Bereitstellungsmodell
+    None = Keine
+'@
+
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)
 GetAbrAzAvailabilitySet = ConvertFrom-StringData @'
     InfoLevel = Verfügbarkeitsgruppen-InfoLevel auf {0} gesetzt.
