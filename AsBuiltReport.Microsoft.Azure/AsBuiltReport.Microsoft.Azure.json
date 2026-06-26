@@ -50,6 +50,7 @@
             "SiteRecovery",
             "AsrPolicy",
             "AsrRecoveryPlan",
+            "AsrNetworkMapping",
             "DesktopVirtualization",
             "NetAppFiles"
         ]
@@ -92,6 +93,7 @@
         "SiteRecovery": 1,
         "AsrPolicy": 1,
         "AsrRecoveryPlan": 1,
+        "AsrNetworkMapping": 1,
         "StorageAccount": 1,
         "Subscription": 1,
         "Tenant": 0,
@@ -194,6 +196,9 @@
         },
         "AsrPolicy": {
             "AppConsistentSnapshot": true
+        },
+        "AsrNetworkMapping": {
+            "MappingState": true
         },
         "VmScaleSet": {
             "ProvisioningState": true

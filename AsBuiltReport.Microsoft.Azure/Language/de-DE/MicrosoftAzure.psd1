@@ -350,6 +350,22 @@ GetAbrAzAsrRecoveryPlan = ConvertFrom-StringData @'
     None = Keine
 '@
 
+# Azure Site Recovery Netzwerkzuordnungen (Get-AbrAzAsrNetworkMapping)
+GetAbrAzAsrNetworkMapping = ConvertFrom-StringData @'
+    InfoLevel = AsrNetworkMapping-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Site Recovery-Netzwerkzuordnungsinformationen für '{0}' werden gesammelt.
+    SectionInfo = Azure Site Recovery-Netzwerkzuordnungen definieren die Beziehung zwischen Quell- und Zielnetzwerken, die bei Failover-Vorgängen verwendet werden.
+    Heading = Netzwerkzuordnungen
+    TableHeadings = Netzwerkzuordnungen
+    ParagraphSummary = Die folgende Tabelle fasst die Azure Site Recovery-Netzwerkzuordnungen zusammen, die für den Recovery Services-Tresor {0} konfiguriert sind.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Azure Site Recovery-Netzwerkzuordnungen, die für den Recovery Services-Tresor {0} konfiguriert sind.
+    Name = Name
+    PrimaryNetwork = Primäres Netzwerk
+    RecoveryNetwork = Wiederherstellungsnetzwerk
+    MappingState = Zuordnungsstatus
+    None = Keine
+'@
+
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)
 GetAbrAzAvailabilitySet = ConvertFrom-StringData @'
     InfoLevel = Verfügbarkeitsgruppen-InfoLevel auf {0} gesetzt.

@@ -350,6 +350,22 @@ GetAbrAzAsrRecoveryPlan = ConvertFrom-StringData @'
     None = None
 '@
 
+# Azure Site Recovery Network Mappings (Get-AbrAzAsrNetworkMapping)
+GetAbrAzAsrNetworkMapping = ConvertFrom-StringData @'
+    InfoLevel = AsrNetworkMapping InfoLevel set at {0}.
+    Collecting = Collecting Azure Site Recovery Network Mapping information for '{0}'.
+    SectionInfo = Azure Site Recovery network mappings define the relationship between source and target virtual networks used during failover operations.
+    Heading = Network Mappings
+    TableHeadings = Network Mappings
+    ParagraphSummary = The following table summarises the Azure Site Recovery network mappings configured for the {0} recovery services vault.
+    ParagraphDetail = The following sections detail the Azure Site Recovery network mappings configured for the {0} recovery services vault.
+    Name = Name
+    PrimaryNetwork = Primary Network
+    RecoveryNetwork = Recovery Network
+    MappingState = Mapping State
+    None = None
+'@
+
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)
 GetAbrAzAvailabilitySet = ConvertFrom-StringData @'
     InfoLevel = AvailabilitySet InfoLevel set at {0}.

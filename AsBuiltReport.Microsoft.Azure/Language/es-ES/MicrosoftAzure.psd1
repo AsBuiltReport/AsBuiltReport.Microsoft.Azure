@@ -350,6 +350,22 @@ GetAbrAzAsrRecoveryPlan = ConvertFrom-StringData @'
     None = Ninguno
 '@
 
+# Asignaciones de red de Azure Site Recovery (Get-AbrAzAsrNetworkMapping)
+GetAbrAzAsrNetworkMapping = ConvertFrom-StringData @'
+    InfoLevel = Nivel de información de AsrNetworkMapping establecido en {0}.
+    Collecting = Recopilando información de asignación de red de Azure Site Recovery para '{0}'.
+    SectionInfo = Las asignaciones de red de Azure Site Recovery definen la relación entre las redes virtuales de origen y destino utilizadas durante las operaciones de conmutación por error.
+    Heading = Asignaciones de red
+    TableHeadings = Asignaciones de red
+    ParagraphSummary = La siguiente tabla resume las asignaciones de red de Azure Site Recovery configuradas para el almacén de Recovery Services {0}.
+    ParagraphDetail = Las siguientes secciones detallan las asignaciones de red de Azure Site Recovery configuradas para el almacén de Recovery Services {0}.
+    Name = Nombre
+    PrimaryNetwork = Red principal
+    RecoveryNetwork = Red de recuperación
+    MappingState = Estado de asignación
+    None = Ninguno
+'@
+
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)
 GetAbrAzAvailabilitySet = ConvertFrom-StringData @'
     InfoLevel = InfoLevel de conjunto de disponibilidad establecido en {0}.

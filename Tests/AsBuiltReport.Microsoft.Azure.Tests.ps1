@@ -361,6 +361,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzAsrRecoveryPlan.ps1'
         }
 
+        It 'Should have Get-AbrAzAsrNetworkMapping function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzAsrNetworkMapping.ps1'
+        }
+
         It 'Should have Get-AbrAzUserAssignedManagedIdentity function' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzUserAssignedManagedIdentity.ps1'
         }

@@ -350,6 +350,22 @@ GetAbrAzAsrRecoveryPlan = ConvertFrom-StringData @'
     None = Aucun
 '@
 
+# Mappages réseau Azure Site Recovery (Get-AbrAzAsrNetworkMapping)
+GetAbrAzAsrNetworkMapping = ConvertFrom-StringData @'
+    InfoLevel = Niveau d'information AsrNetworkMapping défini à {0}.
+    Collecting = Collecte des informations de mappage réseau Azure Site Recovery pour '{0}'.
+    SectionInfo = Les mappages réseau Azure Site Recovery définissent la relation entre les réseaux virtuels source et cible utilisés lors des opérations de basculement.
+    Heading = Mappages réseau
+    TableHeadings = Mappages réseau
+    ParagraphSummary = Le tableau suivant résume les mappages réseau Azure Site Recovery configurés pour le coffre Recovery Services {0}.
+    ParagraphDetail = Les sections suivantes détaillent les mappages réseau Azure Site Recovery configurés pour le coffre Recovery Services {0}.
+    Name = Nom
+    PrimaryNetwork = Réseau principal
+    RecoveryNetwork = Réseau de récupération
+    MappingState = État du mappage
+    None = Aucun
+'@
+
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)
 GetAbrAzAvailabilitySet = ConvertFrom-StringData @'
     InfoLevel = InfoLevel du groupe a haute disponibilite defini a {0}.
