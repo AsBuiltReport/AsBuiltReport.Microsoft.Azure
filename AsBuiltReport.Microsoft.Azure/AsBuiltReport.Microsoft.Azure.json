@@ -182,7 +182,8 @@
         },
         "SiteRecovery": {
             "ReplicationHealth": true,
-            "FailoverHealth": true
+            "FailoverHealth": true,
+            "NoTestFailover": true
         },
         "VmScaleSet": {
             "ProvisioningState": true

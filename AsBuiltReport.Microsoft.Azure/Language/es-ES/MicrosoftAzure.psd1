@@ -301,6 +301,7 @@ GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     ActiveLocation = Ubicación activa
     TargetLocation = Ubicación de destino
     FailoverHealth = Estado de conmutación por error
+    NoTestFailover = No se ha realizado ninguna conmutación por error de prueba
 '@
 
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)

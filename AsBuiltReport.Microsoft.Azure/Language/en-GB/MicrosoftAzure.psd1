@@ -301,6 +301,7 @@ GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     ActiveLocation = Active Location
     TargetLocation = Target Location
     FailoverHealth = Failover Health
+    NoTestFailover = No test failover has been performed
 '@
 
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)

@@ -301,6 +301,7 @@ GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     ActiveLocation = Emplacement actif
     TargetLocation = Emplacement cible
     FailoverHealth = Etat du basculement
+    NoTestFailover = Aucun basculement de test n'a été effectué
 '@
 
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)
