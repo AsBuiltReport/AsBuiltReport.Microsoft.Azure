@@ -33,9 +33,10 @@ function Get-AbrAzAsrNetworkMapping {
                         $AsrFabrics = Get-AzRecoveryServicesAsrFabric -ErrorAction SilentlyContinue
                         $AllNetworkMappings = @()
                         foreach ($Fabric in $AsrFabrics) {
-                            $Mappings = Get-AzRecoveryServicesAsrNetworkMapping -Fabric $Fabric -ErrorAction SilentlyContinue
-                            if ($Mappings) {
-                                $AllNetworkMappings += $Mappings
+                            $AsrNetworks = Get-AzRecoveryServicesAsrNetwork -Fabric $Fabric -ErrorAction SilentlyContinue
+                            foreach ($AsrNetwork in $AsrNetworks) {
+                                $Mappings = Get-AzRecoveryServicesAsrNetworkMapping -Fabric $Fabric -Network $AsrNetwork -ErrorAction SilentlyContinue
+                                if ($Mappings) { $AllNetworkMappings += $Mappings }
                             }
                         }
                         $AllNetworkMappings = $AllNetworkMappings | Sort-Object Name
