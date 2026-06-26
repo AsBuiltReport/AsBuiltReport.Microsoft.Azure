@@ -175,7 +175,10 @@
         },
         "RecoveryServicesVault": {
             "ProvisioningState": true,
-            "PrivateEndpointStateForBackup": true
+            "PrivateEndpointStateForBackup": true,
+            "SoftDeleteEnabled": true,
+            "ImmutabilityEnabled": true,
+            "PublicNetworkAccess": true
         },
         "RouteTable": {
             "ProvisioningState": true
