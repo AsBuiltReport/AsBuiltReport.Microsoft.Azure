@@ -313,6 +313,25 @@ GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     None = Aucune
 '@
 
+# Stratégies de réplication Azure Site Recovery (Get-AbrAzAsrPolicy)
+GetAbrAzAsrPolicy = ConvertFrom-StringData @'
+    InfoLevel = Niveau d'information AsrPolicy défini à {0}.
+    Collecting = Collecte des informations sur les stratégies Azure Site Recovery pour '{0}'.
+    SectionInfo = Les stratégies de réplication Azure Site Recovery définissent les objectifs de point de récupération (RPO) et l'historique des points de récupération pour les machines virtuelles répliquées.
+    Heading = Stratégies de réplication
+    TableHeadings = Stratégies de réplication
+    ParagraphSummary = Le tableau suivant résume les stratégies de réplication Azure Site Recovery configurées pour le coffre Recovery Services {0}.
+    ParagraphDetail = Les sections suivantes détaillent les stratégies de réplication Azure Site Recovery configurées pour le coffre Recovery Services {0}.
+    Name = Nom
+    Provider = Fournisseur
+    RpoThreshold = Seuil RPO (mins)
+    RecoveryPointHistory = Historique des points de récupération (hrs)
+    AppConsistentFrequency = Instantané cohérent avec l'application (mins)
+    CrashConsistentFrequency = Instantané cohérent après incident (mins)
+    MultiVmSync = Synchronisation multi-VM
+    NotApplicable = N/D
+'@
+
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)
 GetAbrAzAvailabilitySet = ConvertFrom-StringData @'
     InfoLevel = InfoLevel du groupe a haute disponibilite defini a {0}.

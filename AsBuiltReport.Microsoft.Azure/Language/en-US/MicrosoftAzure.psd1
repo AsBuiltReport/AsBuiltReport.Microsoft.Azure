@@ -313,6 +313,25 @@ GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     None = None
 '@
 
+# Azure Site Recovery Replication Policies (Get-AbrAzAsrPolicy)
+GetAbrAzAsrPolicy = ConvertFrom-StringData @'
+    InfoLevel = AsrPolicy InfoLevel set at {0}.
+    Collecting = Collecting Azure Site Recovery Policy information for '{0}'.
+    SectionInfo = Azure Site Recovery replication policies define recovery point objectives (RPO) and recovery point history for replicated virtual machines.
+    Heading = Replication Policies
+    TableHeadings = Replication Policies
+    ParagraphSummary = The following table summarises the Azure Site Recovery replication policies configured for the {0} recovery services vault.
+    ParagraphDetail = The following sections detail the Azure Site Recovery replication policies configured for the {0} recovery services vault.
+    Name = Name
+    Provider = Provider
+    RpoThreshold = RPO Threshold (mins)
+    RecoveryPointHistory = Recovery Point History (hrs)
+    AppConsistentFrequency = App-Consistent Snapshot (mins)
+    CrashConsistentFrequency = Crash-Consistent Snapshot (mins)
+    MultiVmSync = Multi-VM Sync
+    NotApplicable = N/A
+'@
+
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)
 GetAbrAzAvailabilitySet = ConvertFrom-StringData @'
     InfoLevel = AvailabilitySet InfoLevel set at {0}.

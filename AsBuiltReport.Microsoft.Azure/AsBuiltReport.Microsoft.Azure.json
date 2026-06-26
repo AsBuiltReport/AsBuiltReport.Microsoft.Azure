@@ -48,6 +48,7 @@
             "AutomationAccount",
             "RecoveryServicesVault",
             "SiteRecovery",
+            "AsrPolicy",
             "DesktopVirtualization",
             "NetAppFiles"
         ]
@@ -88,6 +89,7 @@
         "RecoveryServicesVault": 1,
         "RouteTable": 1,
         "SiteRecovery": 1,
+        "AsrPolicy": 1,
         "StorageAccount": 1,
         "Subscription": 1,
         "Tenant": 0,
@@ -187,6 +189,9 @@
             "ReplicationHealth": true,
             "FailoverHealth": true,
             "NoTestFailover": true
+        },
+        "AsrPolicy": {
+            "AppConsistentSnapshot": true
         },
         "VmScaleSet": {
             "ProvisioningState": true

@@ -142,6 +142,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         'RecoveryServicesVault' = 'Microsoft.RecoveryServices/vaults'
         'RouteTable'            = 'Microsoft.Network/routeTables'
         'SiteRecovery'          = 'Microsoft.RecoveryServices/vaults'
+        'AsrPolicy'             = 'Microsoft.RecoveryServices/vaults'
         'StorageAccount'        = 'Microsoft.Storage/storageAccounts'
         'VirtualMachine'        = 'Microsoft.Compute/virtualMachines'
         'VirtualNetwork'        = 'Microsoft.Network/virtualNetworks'
@@ -178,6 +179,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "VirtualNetworkGateway" = "Get-AbrAzVirtualNetworkGateway"
         "RecoveryServicesVault" = "Get-AbrAzRecoveryServicesVault"
         "SiteRecovery" = "Get-AbrAsrProtectedItems"
+        "AsrPolicy" = "Get-AbrAzAsrPolicy"
         "StorageAccount" = "Get-AbrAzStorageAccount"
         "PrivateDnsZone" = "Get-AbrAzPrivateDnsZone"
         "PrivateEndpoint" = "Get-AbrAzPrivateEndpoint"

@@ -313,6 +313,25 @@ GetAbrAsrProtectedItems = ConvertFrom-StringData @'
     None = Keine
 '@
 
+# Azure Site Recovery Replikationsrichtlinien (Get-AbrAzAsrPolicy)
+GetAbrAzAsrPolicy = ConvertFrom-StringData @'
+    InfoLevel = AsrPolicy-InfoLevel auf {0} gesetzt.
+    Collecting = Azure Site Recovery-Richtlinieninformationen für '{0}' werden gesammelt.
+    SectionInfo = Azure Site Recovery-Replikationsrichtlinien definieren Recovery Point Objectives (RPO) und den Wiederherstellungspunktverlauf für replizierte virtuelle Maschinen.
+    Heading = Replikationsrichtlinien
+    TableHeadings = Replikationsrichtlinien
+    ParagraphSummary = Die folgende Tabelle fasst die Azure Site Recovery-Replikationsrichtlinien zusammen, die für den Recovery Services-Tresor {0} konfiguriert sind.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Azure Site Recovery-Replikationsrichtlinien, die für den Recovery Services-Tresor {0} konfiguriert sind.
+    Name = Name
+    Provider = Anbieter
+    RpoThreshold = RPO-Schwellenwert (Min.)
+    RecoveryPointHistory = Wiederherstellungspunktverlauf (Std.)
+    AppConsistentFrequency = App-konsistente Momentaufnahme (Min.)
+    CrashConsistentFrequency = Absturzkonsistente Momentaufnahme (Min.)
+    MultiVmSync = Multi-VM-Synchronisierung
+    NotApplicable = N/V
+'@
+
 # Azure Availability Sets (Get-AbrAzAvailabilitySet)
 GetAbrAzAvailabilitySet = ConvertFrom-StringData @'
     InfoLevel = Verfügbarkeitsgruppen-InfoLevel auf {0} gesetzt.

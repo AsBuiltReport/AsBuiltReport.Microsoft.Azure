@@ -353,6 +353,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAsrProtectedItems.ps1'
         }
 
+        It 'Should have Get-AbrAzAsrPolicy function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzAsrPolicy.ps1'
+        }
+
         It 'Should have Get-AbrAzUserAssignedManagedIdentity function' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzUserAssignedManagedIdentity.ps1'
         }
@@ -957,6 +961,7 @@ Describe 'Module File Syntax and Quality' {
                 'Get-AbrAzVirtualNetworkPeering',    # VNet peering
                 'Get-AbrAzVirtualNetworkSubnet',     # VNet subnet
                 'Get-AbrAsrProtectedItems',          # Site Recovery items
+                'Get-AbrAzAsr',                      # ASR sub-functions (policies, plans, mappings)
                 'Get-AbrAzPolicy'                    # Policy sub-functions
             )
 
