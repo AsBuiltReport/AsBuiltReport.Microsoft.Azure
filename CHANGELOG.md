@@ -3,6 +3,12 @@
 ## [0.3.0] - 2026-06-??
 
 ### Added
+* Add InfoLevel 2 detail view for ASR protected items, showing per-VM sections with replication provider, health, state, active/target locations, test failover status, and A2A-specific RPO, last heartbeat, recovery VM size, and availability zone properties
+* Add support for ASR Replication Policies (`AsrPolicy`) with summary table at InfoLevel 1 and per-policy detail at InfoLevel 2; `AppConsistentSnapshot` health check warns when app-consistent snapshot frequency is disabled
+* Add support for ASR Recovery Plans (`AsrRecoveryPlan`) with summary table at InfoLevel 1 and per-plan detail at InfoLevel 2
+* Add support for ASR Network Mappings (`AsrNetworkMapping`) with summary table at InfoLevel 1; `MappingState` health check warns on non-Paired mappings
+* Add `StorageRedundancy`, `CrossRegionRestore`, `SoftDeleteState`, `SoftDeleteRetentionDays`, `ImmutabilityState`, and `PublicNetworkAccess` properties to Recovery Services Vault detail view
+* Add `SoftDeleteEnabled`, `ImmutabilityEnabled`, and `PublicNetworkAccess` health checks to Recovery Services Vault
 * Add support for Azure NetApp Files (NetApp Accounts, Capacity Pools, Volumes, Snapshot Policies, Backup Policies) with per-volume detail, Active Directory and encryption configuration, mount targets, export policy rules, and 5 health checks (pool allocation, AD join status, snapshot policy attachment, backup policy attachment, customer-managed key usage)
 * Add support for Management Groups, displaying the full hierarchy with parent/child relationships and direct subscription counts
 * Add optional Management Group hierarchy diagram (`Options.EnableDiagrams: true`) using the AsBuiltReport.Diagram module, showing management group nodes with subscription collections sized to fit a portrait page
@@ -26,6 +32,8 @@
 * Update minimum Az module version requirement from 15.3.0 to 16.0.0
 
 ### Fixed
+* Fix `Get-AbrAsrProtectedItems` - Remove A2A-only filter so all replication providers (HyperV2Azure, InMageAzureV2, etc.) are included in the report
+* Fix `Get-AbrAsrProtectedItems` - Correct `FailoverHealth` health check direction: now highlights items where test failover has failed (Critical); new `NoTestFailover` health check warns on items with no test failover performed
 * Fix empty per-subscription sections appearing in the report when all enabled resource types have no matching resources in a given subscription
 * Fix `Get-AbrAsrProtectedItems` - Correct `ParagraghSummary` typo to `ParagraphSummary` in all language files, which caused the introductory paragraph to render empty
 * Fix `Get-AbrAzSAShare` and `Get-AbrAzSAContainer` - Switch from data plane API (`Get-AzStorageShare`, `Get-AzStorageContainer`) to ARM management plane (`Get-AzRmStorageShare`, `Get-AzRmStorageContainer`) to resolve 403 Forbidden errors when storage account shared key access is disabled

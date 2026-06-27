@@ -282,7 +282,7 @@ The **Options** schema allows certain options within the report to be toggled on
 | EnableDiagrams  | true / false | true   | Toggle to enable/disable diagram generation. Requires the [AsBuiltReport.Diagram](https://github.com/AsBuiltReport/AsBuiltReport.Diagram) module.                                                                                                                                      |
 | DiagramTheme    | White / Black | White  | Sets the colour theme for generated diagrams.                                                                                                                                                                                                                                          |
 | DiagramDpi      | 72 - 600     | 600      | Sets the raster output resolution (dots per inch) for generated diagrams. Higher values increase image sharpness without changing the printed size on the page. Requires [AsBuiltReport.Diagram](https://github.com/AsBuiltReport/AsBuiltReport.Diagram) 1.0.8 or later.             |
-| SectionOrder    | Array of section name strings | Default order | Controls the order in which per-subscription resource sections appear in the report. Omit the setting or provide an empty array to use the default order. Any section name omitted from the array will not be rendered, regardless of its [InfoLevel](#infolevel) setting. Valid section names: `ApplicationGateway`, `AutomationAccount`, `AvailabilitySet`, `Bastion`, `DataCollectionRule`, `DdosProtectionPlan`, `DesktopVirtualization`, `DiagnosticSetting`, `DnsForwardingRuleset`, `DnsPrivateResolver`, `ExpressRoute`, `Firewall`, `FirewallPolicy`, `IpGroup`, `KeyVault`, `LoadBalancer`, `LogAnalyticsWorkspace`, `MaintenanceConfiguration`, `NetAppFiles`, `NetworkSecurityGroup`, `NetworkWatcher`, `Policy`, `PrivateDnsZone`, `PrivateEndpoint`, `PublicIpAddress`, `RecoveryServicesVault`, `RouteTable`, `SiteRecovery`, `StorageAccount`, `UserAssignedManagedIdentity`, `VirtualMachine`, `VirtualNetwork`, `VirtualNetworkGateway`, `VmScaleSet`. |
+| SectionOrder    | Array of section name strings | Default order | Controls the order in which per-subscription resource sections appear in the report. Omit the setting or provide an empty array to use the default order. Any section name omitted from the array will not be rendered, regardless of its [InfoLevel](#infolevel) setting. Valid section names: `ApplicationGateway`, `AsrNetworkMapping`, `AsrPolicy`, `AsrRecoveryPlan`, `AutomationAccount`, `AvailabilitySet`, `Bastion`, `DataCollectionRule`, `DdosProtectionPlan`, `DesktopVirtualization`, `DiagnosticSetting`, `DnsForwardingRuleset`, `DnsPrivateResolver`, `ExpressRoute`, `Firewall`, `FirewallPolicy`, `IpGroup`, `KeyVault`, `LoadBalancer`, `LogAnalyticsWorkspace`, `MaintenanceConfiguration`, `NetAppFiles`, `NetworkSecurityGroup`, `NetworkWatcher`, `Policy`, `PrivateDnsZone`, `PrivateEndpoint`, `PublicIpAddress`, `RecoveryServicesVault`, `RouteTable`, `SiteRecovery`, `StorageAccount`, `UserAssignedManagedIdentity`, `VirtualMachine`, `VirtualNetwork`, `VirtualNetworkGateway`, `VmScaleSet`. |
 
 ### Filter
 The **Filter** schema allows report content to be filtered to specific Azure subscriptions within a tenant.
@@ -349,9 +349,12 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | Policy > Definitions  |        0        |        1        |
 | PrivateDnsZone        |        1        |        2        |
 | PublicIpAddress       |        1        |        2        |
+| AsrPolicy             |        1        |        2        |
+| AsrRecoveryPlan       |        1        |        2        |
+| AsrNetworkMapping     |        1        |        1        |
 | RecoveryServicesVault |        1        |        2        |
 | RouteTable            |        1        |        2        |
-| SiteRecovery          |        1        |        1        |
+| SiteRecovery          |        1        |        2        |
 | StorageAccount        |        1        |        2        |
 | Subscription          |        1        |        1        |
 | Tenant                |        1        |        1        |
@@ -540,13 +543,30 @@ The **PublicIpAddress** schema is used to configure health checks for Azure Publ
 | ProvisioningState | true / false | true    | Highlights Public IP Addresses in a failed provisioning state                   | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 | Unattached        | true / false | true    | Highlights Public IP Addresses not associated with any resource (potential waste) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) IP address is not associated with any resource |
 
+#### AsrPolicy
+The **AsrPolicy** schema is used to configure health checks for Azure Site Recovery Replication Policies.
+
+| Sub-Schema             | Setting      | Default | Description                                                                                     | Highlight                                                                                      |
+|------------------------|--------------|---------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| AppConsistentSnapshot  | true / false | true    | Highlights replication policies where app-consistent snapshot frequency is disabled (set to 0) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) App-consistent snapshots are disabled   |
+
+#### AsrNetworkMapping
+The **AsrNetworkMapping** schema is used to configure health checks for Azure Site Recovery Network Mappings.
+
+| Sub-Schema   | Setting      | Default | Description                                                            | Highlight                                                                            |
+|--------------|--------------|---------|------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| MappingState | true / false | true    | Highlights ASR network mappings that are not in a Paired state         | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Network mapping is not Paired  |
+
 #### RecoveryServicesVault
 The **RecoveryServicesVault** schema is used to configure health checks for Azure Recovery Services Vault.
 
-| Sub-Schema                    | Setting      | Default | Description                                                        | Highlight                                                                                            |
-|-------------------------------|--------------|---------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| ProvisioningState             | true / false | true    | Highlights Recovery Services Vaults in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state          |
-| PrivateEndpointStateForBackup | true / false | true    | Highlights vaults without private endpoints configured for backup  | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Private endpoint for backup is not configured |
+| Sub-Schema                    | Setting      | Default | Description                                                                         | Highlight                                                                                            |
+|-------------------------------|--------------|---------|-------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| ProvisioningState             | true / false | true    | Highlights Recovery Services Vaults in a failed provisioning state                  | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state          |
+| PrivateEndpointStateForBackup | true / false | true    | Highlights vaults without private endpoints configured for backup                   | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Private endpoint for backup is not configured |
+| SoftDeleteEnabled             | true / false | true    | Highlights vaults where soft delete is disabled                                     | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Soft delete is disabled                       |
+| ImmutabilityEnabled           | true / false | true    | Highlights vaults where immutability is not enabled                                 | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Vault immutability is not enabled             |
+| PublicNetworkAccess           | true / false | true    | Highlights vaults with public network access enabled                                | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access is enabled              |
 
 #### RouteTable
 The **RouteTable** schema is used to configure health checks for Azure Route Tables.
@@ -556,12 +576,13 @@ The **RouteTable** schema is used to configure health checks for Azure Route Tab
 | ProvisioningState | true / false | true    | Highlights Route Tables in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 
 #### SiteRecovery
-The **SiteRecovery** schema is used to configure health checks for Azure Site Recovery.
+The **SiteRecovery** schema is used to configure health checks for Azure Site Recovery protected items.
 
-| Sub-Schema        | Setting      | Default | Description                                               | Highlight                                                                                                                       |
-|-------------------|--------------|---------|-----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
-| ReplicationHealth | true / false | true    | Highlights replicated items which are in a critical state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Replication health is in a critical state                               |
-| FailoverHealth    | true / false | true    | Highlights the failover health status of replicated items | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) A successful test failover has not been performed on the replicated item |
+| Sub-Schema        | Setting      | Default | Description                                                                          | Highlight                                                                                                              |
+|-------------------|--------------|---------|--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| ReplicationHealth | true / false | true    | Highlights replicated items which are in a critical replication health state         | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Replication health is in a critical state                      |
+| FailoverHealth    | true / false | true    | Highlights replicated items where the last test failover has failed                  | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Test failover has failed                                        |
+| NoTestFailover    | true / false | true    | Highlights replicated items where no test failover has ever been performed           | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) No test failover has been performed on the replicated item       |
 
 #### StorageAccount
 The **StorageAccount** schema is used to configure health checks for Azure Storage Account.
