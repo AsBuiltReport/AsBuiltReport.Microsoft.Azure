@@ -72,7 +72,7 @@ function Get-AbrAzAsrPolicy {
 
                                 if ($Healthcheck.AsrPolicy.AppConsistentSnapshot) {
                                     $PolicyInfo | Where-Object {
-                                        $_.$($LocalizedData.AppConsistentFrequency) -eq '0' -or
+                                        $_.$($LocalizedData.AppConsistentFrequency) -eq 0 -or
                                         $_.$($LocalizedData.AppConsistentFrequency) -eq $LocalizedData.NotApplicable
                                     } | Set-Style -Style Warning -Property $LocalizedData.AppConsistentFrequency
                                 }

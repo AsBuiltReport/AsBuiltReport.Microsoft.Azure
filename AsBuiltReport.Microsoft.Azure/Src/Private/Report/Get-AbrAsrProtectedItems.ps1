@@ -35,22 +35,29 @@ function Get-AbrAsrProtectedItems {
                         $AsrFabrics = Get-AzRecoveryServicesAsrFabric -ErrorAction SilentlyContinue
                         if ($AsrPolicy) {
                             Write-PscriboMessage $LocalizedData.CollectingItems
+                            $AllFabricItems = [Ordered]@{}
+                            foreach ($AsrFabric in $AsrFabrics) {
+                                $AsrContainer = Get-AzRecoveryServicesAsrProtectionContainer -Fabric $AsrFabric -ErrorAction SilentlyContinue
+                                $AsrReplicationProtectedItems = Get-AzRecoveryServicesAsrReplicationProtectedItem -ProtectionContainer $AsrContainer -ErrorAction SilentlyContinue | Sort-Object FriendlyName
+                                if ($Healthcheck.SiteRecovery.ReplicationHealth) {
+                                    $AsrReplicationProtectedItems | Where-Object { $_.'replicationhealth' -eq 'Critical' } | Set-Style -Style Critical -Property 'replicationhealth'
+                                }
+                                if ($Healthcheck.SiteRecovery.FailoverHealth) {
+                                    $AsrReplicationProtectedItems | Where-Object { $_.'TestFailoverStateDescription' -eq 'Failed' } | Set-Style -Style Critical -Property 'TestFailoverStateDescription'
+                                }
+                                if ($Healthcheck.SiteRecovery.NoTestFailover) {
+                                    $AsrReplicationProtectedItems | Where-Object { $_.'TestFailoverStateDescription' -eq 'None' } | Set-Style -Style Warning -Property 'TestFailoverStateDescription'
+                                }
+                                $AllFabricItems[$AsrFabric.Name] = $AsrReplicationProtectedItems
+                            }
                             Section -Style Heading4 $LocalizedData.SubHeading {
+                                if ($InfoLevel.SiteRecovery -ge 2) {
+                                    Paragraph ($LocalizedData.ParagraphDetail -f $AzSubscription.Name)
+                                }
                                 foreach ($AsrFabric in $AsrFabrics) {
-                                    $AsrContainer = Get-AzRecoveryServicesAsrProtectionContainer -Fabric $AsrFabric -ErrorAction SilentlyContinue
-                                    $AsrReplicationProtectedItems = Get-AzRecoveryServicesAsrReplicationProtectedItem -ProtectionContainer $AsrContainer -ErrorAction SilentlyContinue | Sort-Object FriendlyName
-                                    if ($Healthcheck.SiteRecovery.ReplicationHealth) {
-                                        $AsrReplicationProtectedItems | Where-Object { $_.'replicationhealth' -eq 'Critical' } | Set-Style -Style Critical -Property 'replicationhealth'
-                                    }
-                                    if ($Healthcheck.SiteRecovery.FailoverHealth) {
-                                        $AsrReplicationProtectedItems | Where-Object { $_.'TestFailoverStateDescription' -eq 'Failed' } | Set-Style -Style Critical -Property 'TestFailoverStateDescription'
-                                    }
-                                    if ($Healthcheck.SiteRecovery.NoTestFailover) {
-                                        $AsrReplicationProtectedItems | Where-Object { $_.'TestFailoverStateDescription' -eq 'None' } | Set-Style -Style Warning -Property 'TestFailoverStateDescription'
-                                    }
+                                    $AsrReplicationProtectedItems = $AllFabricItems[$AsrFabric.Name]
                                     if ($AsrReplicationProtectedItems) {
                                         if ($InfoLevel.SiteRecovery -ge 2) {
-                                            Paragraph ($LocalizedData.ParagraphDetail -f $AzSubscription.Name)
                                             foreach ($Item in $AsrReplicationProtectedItems) {
                                                 Section -Style NOTOCHeading5 -ExcludeFromTOC $Item.FriendlyName {
                                                     $InObj = [Ordered]@{

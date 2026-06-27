@@ -68,7 +68,7 @@ function Get-AbrAzAsrNetworkMapping {
                                 }
 
                                 if ($Healthcheck.AsrNetworkMapping.MappingState) {
-                                    $MappingInfo | Where-Object { $_.$($LocalizedData.MappingState) -ne 'Paired' } | Set-Style -Style Warning -Property $LocalizedData.MappingState
+                                    $MappingInfo | Where-Object { $_.$($LocalizedData.MappingState) -notin @('Paired', $LocalizedData.None) } | Set-Style -Style Warning -Property $LocalizedData.MappingState
                                 }
 
                                 if ($InfoLevel.AsrNetworkMapping -ge 2) {

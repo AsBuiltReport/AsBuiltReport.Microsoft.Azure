@@ -1090,6 +1090,18 @@ Describe 'Module File Syntax and Quality' {
         It 'Should have GetAbrAzDiagnosticSetting localization section' {
             $LocalizedData.GetAbrAzDiagnosticSetting | Should -Not -BeNullOrEmpty
         }
+
+        It 'Should have GetAbrAzAsrPolicy localization section' {
+            $LocalizedData.GetAbrAzAsrPolicy | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzAsrRecoveryPlan localization section' {
+            $LocalizedData.GetAbrAzAsrRecoveryPlan | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzAsrNetworkMapping localization section' {
+            $LocalizedData.GetAbrAzAsrNetworkMapping | Should -Not -BeNullOrEmpty
+        }
     }
 
     Context 'Code Style and Standards' {
