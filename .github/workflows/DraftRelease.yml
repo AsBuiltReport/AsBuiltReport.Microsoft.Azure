@@ -1,0 +1,35 @@
+name: Create Draft Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  draft-release:
+    name: Create Draft GitHub Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract release notes from CHANGELOG
+        shell: pwsh
+        run: |
+          $changelog = Get-Content -Path CHANGELOG.md -Raw
+          # Match content between the first ## [ heading and the next one
+          if ($changelog -match '(?s)(## \[\d+\.\d+\.\d+\].*?)(?=\r?\n## \[|\z)') {
+            $Matches[1].Trim() | Set-Content -Path release-notes.md -NoNewline
+          } else {
+            "No changelog entry found for this release." | Set-Content -Path release-notes.md
+          }
+
+      - name: Create draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          make_latest: false
+          body_path: release-notes.md
