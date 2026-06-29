@@ -15,8 +15,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify tag is on main or master
+        id: verify
+        run: |
+          if git merge-base --is-ancestor "${{ github.sha }}" origin/main 2>/dev/null || \
+             git merge-base --is-ancestor "${{ github.sha }}" origin/master 2>/dev/null; then
+            echo "on_main=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag is not on main/master — skipping release creation."
+            echo "on_main=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Extract release notes from CHANGELOG
+        if: steps.verify.outputs.on_main == 'true'
         shell: pwsh
         run: |
           $changelog = Get-Content -Path CHANGELOG.md -Raw
@@ -28,6 +42,7 @@ jobs:
           }
 
       - name: Create draft release
+        if: steps.verify.outputs.on_main == 'true'
         uses: softprops/action-gh-release@v2
         with:
           draft: true
