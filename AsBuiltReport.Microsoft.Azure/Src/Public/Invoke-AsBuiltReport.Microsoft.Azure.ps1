@@ -222,15 +222,25 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         }
 
         if ($AzAccount) {
-            $AzTenant = Get-AzTenant -TenantId $TenantId
-            $AzLocations = Get-AzLocation
+            try {
+                $AzTenant = Get-AzTenant -TenantId $TenantId -ErrorAction Stop
+                $AzLocations = Get-AzLocation -ErrorAction Stop
+            } catch {
+                Write-PScriboMessage -IsWarning ($LocalizedData.AzureApiError -f $_.Exception.Message)
+                continue
+            }
             $AzLocationLookup = @{}
             foreach ($AzLocation in $AzLocations) {
                 $AzLocationLookup.($AzLocation.Location) = $AzLocation.DisplayName
             }
             if ($AzTenant) {
                 # Create a Lookup Hashtable for all Azure Subscriptions
-                $AzSubscriptions = Get-AzSubscription -TenantId $TenantId | Sort-Object Name
+                try {
+                    $AzSubscriptions = Get-AzSubscription -TenantId $TenantId -ErrorAction Stop | Sort-Object Name
+                } catch {
+                    Write-PScriboMessage -IsWarning ($LocalizedData.AzureApiError -f $_.Exception.Message)
+                    continue
+                }
                 $AzSubscriptionLookup = @{}
                 foreach ($AzSubscription in $AzSubscriptions) {
                     $AzSubscriptionLookup.($AzSubscription.SubscriptionId) = $AzSubscription.Name
@@ -238,8 +248,13 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
 
                 # Filter Subscriptions
                 if ($Filter.Subscription -ne "*") {
-                    $AzSubscriptions = foreach ($AzSubscription in $Filter.Subscription) {
-                        Get-AzSubscription -TenantId $TenantId -SubscriptionId $AzSubscription | Sort-Object Name
+                    try {
+                        $AzSubscriptions = foreach ($AzSubscription in $Filter.Subscription) {
+                            Get-AzSubscription -TenantId $TenantId -SubscriptionId $AzSubscription -ErrorAction Stop | Sort-Object Name
+                        }
+                    } catch {
+                        Write-PScriboMessage -IsWarning ($LocalizedData.AzureApiError -f $_.Exception.Message)
+                        continue
                     }
                 }
 

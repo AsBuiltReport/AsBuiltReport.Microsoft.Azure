@@ -38,6 +38,7 @@
 * Fix `Get-AbrAsrProtectedItems` - Correct `ParagraghSummary` typo to `ParagraphSummary` in all language files, which caused the introductory paragraph to render empty
 * Fix `Get-AbrAzSAShare` and `Get-AbrAzSAContainer` - Switch from data plane API (`Get-AzStorageShare`, `Get-AzStorageContainer`) to ARM management plane (`Get-AzRmStorageShare`, `Get-AzRmStorageContainer`) to resolve 403 Forbidden errors when storage account shared key access is disabled
 * Fix `Get-AbrAzSAQueue` and `Get-AbrAzSATable` - Use `New-AzStorageContext -UseConnectedAccount` for OAuth-based data plane access to resolve 403 Forbidden errors when storage account shared key access is disabled
+* Fix unhandled `Error while copying content to a stream` exception in `Invoke-AsBuiltReport.Microsoft.Azure` caused by `Get-AzTenant`, `Get-AzLocation`, and `Get-AzSubscription` being called without error handling after authentication; failures are now caught and reported as warnings
 
 ## [0.2.0] - 2026-02-11
 

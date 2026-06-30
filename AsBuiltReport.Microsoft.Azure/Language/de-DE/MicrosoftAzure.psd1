@@ -11,6 +11,7 @@ InvokeAsBuiltReportMicrosoftAzure = ConvertFrom-StringData @'
     InfoLevelNotFound = InfoLevel für '{0}' nicht gefunden.
     FunctionNotFound = Funktion '{0}' für Abschnitt '{1}' nicht gefunden.
     SectionError = Fehler bei der Verarbeitung des Abschnitts '{0}': {1}"
+    AzureApiError = Azure-API-Aufruf fehlgeschlagen: {0}
     TenantNotFound = Azure-Mandant '{0}' nicht gefunden.
     TokenAccountIdRequired = Azure-Token-Authentifizierung erfordert den AccountId-Parameter. Verwenden Sie {0} mit {1} @{{AccountId="benutzer@domain.com"}}.
     ConnectingWithToken = Verbindung zu Azure mit Token für Konto {0} im Mandanten {1} wird hergestellt.

@@ -11,6 +11,7 @@ InvokeAsBuiltReportMicrosoftAzure = ConvertFrom-StringData @'
     InfoLevelNotFound = InfoLevel pour '{0}' non trouve.
     FunctionNotFound = Fonction '{0}' pour la section '{1}' non trouvee.
     SectionError = Erreur lors du traitement de la section '{0}' : {1}"
+    AzureApiError = Echec de l'appel API Azure : {0}
     TenantNotFound = Locataire Azure '{0}' non trouve.
     TokenAccountIdRequired = L'authentification par jeton Azure necessite le parametre AccountId. Utilisez {0} avec {1} @{{AccountId="utilisateur@domaine.com"}}.
     ConnectingWithToken = Connexion a Azure par jeton pour le compte {0} dans le locataire {1}.
