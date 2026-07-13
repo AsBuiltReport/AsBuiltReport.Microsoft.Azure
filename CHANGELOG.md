@@ -1,6 +1,6 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [0.3.0] - 2026-07-??
+## [0.3.0] - 2026-07-13
 
 ### Added
 * Add InfoLevel 2 detail view for ASR protected items, showing per-VM sections with replication provider, health, state, active/target locations, test failover status, and A2A-specific RPO, last heartbeat, recovery VM size, and availability zone properties
@@ -44,6 +44,7 @@
 * Fix `Get-AbrAzSAShare` and `Get-AbrAzSAContainer` - Switch from data plane API (`Get-AzStorageShare`, `Get-AzStorageContainer`) to ARM management plane (`Get-AzRmStorageShare`, `Get-AzRmStorageContainer`) to resolve 403 Forbidden errors when storage account shared key access is disabled
 * Fix `Get-AbrAzSAQueue` and `Get-AbrAzSATable` - Use `New-AzStorageContext -UseConnectedAccount` for OAuth-based data plane access to resolve 403 Forbidden errors when storage account shared key access is disabled
 * Fix unhandled `Error while copying content to a stream` exception in `Invoke-AsBuiltReport.Microsoft.Azure` caused by `Get-AzTenant`, `Get-AzLocation`, and `Get-AzSubscription` being called without error handling after authentication; failures are now caught and reported as warnings
+* Fix `Get-AbrAzLoadBalancer` - Correct `LoadBalancerImage` to `Image` in all language files; the mismatched localization key caused the Load Balancer architecture diagram to fail rendering and fall back to the `ImageError` message
 
 ## [0.2.0] - 2026-02-11
 
