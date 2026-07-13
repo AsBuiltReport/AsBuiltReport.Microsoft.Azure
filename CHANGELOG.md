@@ -1,6 +1,6 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [0.3.0] - 2026-06-??
+## [0.3.0] - 2026-07-??
 
 ### Added
 * Add InfoLevel 2 detail view for ASR protected items, showing per-VM sections with replication provider, health, state, active/target locations, test failover status, and A2A-specific RPO, last heartbeat, recovery VM size, and availability zone properties
@@ -27,6 +27,11 @@
 * Add support for User Assigned Managed Identities, displaying Client ID, Principal ID, and Tenant ID with per-identity detail at InfoLevel 2
 * Add support for Automation Accounts, including account state health check and per-account Runbooks, Variables, Schedules, and Credentials sub-sections at InfoLevel 2
 * Add support for Diagnostic Settings via cross-resource sweep, displaying Log Analytics workspace, storage account, and Event Hub destinations alongside enabled log category count and metrics status; settings with no log categories enabled flagged as a health check
+* Add support for Network Virtual Appliances (`Get-AbrAzNetworkVirtualAppliance`)
+  — identifies third-party NVAs (Palo Alto, Fortinet, Cisco, Check Point, F5, Barracuda,
+  SonicWall, Juniper, Riverbed) via Marketplace image publisher with optional tag-based
+  fallback (`Options.NvaTag`). InfoLevel 3 cross-references associated UDR route tables.
+  Configurable publisher list via `Options.NvaPublishers`.
 
 ### Changed
 * Update minimum Az module version requirement from 15.3.0 to 16.0.0

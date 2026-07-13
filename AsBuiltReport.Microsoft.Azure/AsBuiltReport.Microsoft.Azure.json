@@ -15,6 +15,8 @@
         "EnableDiagrams": true,
         "DiagramTheme": "White",
         "DiagramDpi": 600,
+        "NvaPublishers": ["fortinet"],
+        "NvaTag": "",
         "SectionOrder": [
             "ApplicationGateway",
             "StorageAccount",
@@ -41,6 +43,7 @@
             "Firewall",
             "FirewallPolicy",
             "RouteTable",
+            "NetworkVirtualAppliance",
             "VirtualMachine",
             "AvailabilitySet",
             "VmScaleSet",
@@ -84,6 +87,7 @@
         "ManagementGroup": 1,
         "NetAppFiles": 1,
         "NetworkSecurityGroup": 1,
+        "NetworkVirtualAppliance": 1,
         "NetworkWatcher": 1,
         "Policy": {
 			"Assignments": 1,
@@ -182,6 +186,9 @@
         "NetworkSecurityGroup": {
             "ProvisioningState": true,
             "OverlyPermissiveRules": true
+        },
+        "NetworkVirtualAppliance": {
+            "Status": true
         },
         "NetworkWatcher": {
             "ProvisioningState": true,

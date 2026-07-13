@@ -1872,4 +1872,47 @@ GetAbrAzDnsForwardingRuleset = ConvertFrom-StringData @'
     ErrorMessage = Fehler beim Sammeln von DNS-Weiterleitungsregelsatz-Informationen:
 '@
 
+# Azure Network Virtual Appliance (Get-AbrAzNetworkVirtualAppliance)
+GetAbrAzNetworkVirtualAppliance = ConvertFrom-StringData @'
+    InfoLevel = NetworkVirtualAppliance-InfoLevel auf {0} gesetzt.
+    Collecting = Azure-Netzwerk-Virtual-Appliance-Informationen werden gesammelt.
+    Processing = Verarbeitung der Azure-Netzwerk-Virtual-Appliance '{0}'.
+    SectionInfo = Netzwerk-Virtual-Appliances (NVAs) sind Netzwerk- und Sicherheitsprodukte von Drittanbietern, die als virtuelle Maschinen in Azure bereitgestellt werden. Zu den gaengigen NVA-Workloads zaehlen Firewalls der naechsten Generation, SD-WAN-Gateways, WAN-Optimierer und Anwendungsbereitstellungscontroller. NVAs werden anhand ihres Azure-Marketplace-Imageherausgebers und optional anhand eines Ressourcen-Tags identifiziert. Benutzerdefinierte Routen (UDRs) mit dem naechsten Hop-Typ Virtual Appliance werden abgeglichen, um zu zeigen, welche Datenverkehrsfluesse durch jede NVA geleitet werden.
+    ParagraphSummary = Die folgende Tabelle fasst die im Abonnement {0} identifizierten Netzwerk-Virtual-Appliances zusammen.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Konfiguration der im Abonnement {0} identifizierten Netzwerk-Virtual-Appliances.
+    Heading = Netzwerk-Virtual-Appliances
+    TableHeading = Netzwerk-Virtual-Appliance
+    TableHeadings = Netzwerk-Virtual-Appliances
+    Name = Name
+    ResourceGroup = Ressourcengruppe
+    Location = Standort
+    Subscription = Abonnement
+    SubscriptionID = Abonnement-ID
+    Vendor = Anbieter
+    Publisher = Herausgeber
+    Offer = Angebot
+    Sku = SKU
+    ImageVersion = Imageversion
+    Status = Status
+    Running = Wird ausgefuehrt
+    Deallocated = Freigegeben
+    Size = VM-Groesse
+    PrivateIPAddress = Private IP-Adresse
+    VirtualNetworkSubnet = Virtuelles Netzwerk / Subnetz
+    NetworkInterfaces = Netzwerkschnittstellen
+    DetectedBy = Erkannt durch
+    DetectedByPublisher = Marketplace-Herausgeber
+    DetectedByTag = Ressourcen-Tag
+    DetectedBoth = Marketplace-Herausgeber und Ressourcen-Tag
+    TagIdentified = Per Tag identifizierte NVA
+    AssociatedRoutes = Zugehoerige UDR-Routen
+    NoAssociatedRoutes = Es wurden keine UDR-Routen mit dem naechsten Hop-Typ Virtual Appliance gefunden, die auf diese NVA verweisen.
+    RouteTable = Routentabelle
+    RouteName = Routenname
+    AddressPrefix = Adresspraefix
+    NextHopIpAddress = Naechste Hop-IP-Adresse
+    Tags = Tags
+    None = Keine
+'@
+
 }

@@ -1872,4 +1872,47 @@ GetAbrAzDnsForwardingRuleset = ConvertFrom-StringData @'
     ErrorMessage = Impossible de collecter les informations des ensembles de regles de transfert DNS:
 '@
 
+# Azure Network Virtual Appliance (Get-AbrAzNetworkVirtualAppliance)
+GetAbrAzNetworkVirtualAppliance = ConvertFrom-StringData @'
+    InfoLevel = Niveau d'information NetworkVirtualAppliance defini sur {0}.
+    Collecting = Collecte des informations sur les appliances virtuelles reseau Azure.
+    Processing = Traitement de l'appliance virtuelle reseau Azure '{0}'.
+    SectionInfo = Les appliances virtuelles reseau (NVA) sont des produits reseau et de securite tiers deployes sous forme de machines virtuelles dans Azure. Les charges de travail NVA courantes incluent les pare-feux nouvelle generation, les passerelles SD-WAN, les optimiseurs WAN et les controleurs de distribution d'applications. Les NVA sont identifiees par leur editeur d'image Marketplace Azure et, eventuellement, par une balise de ressource. Les routes definies par l'utilisateur (UDR) dont le type de prochain troncon est Appliance virtuelle sont mises en correspondance pour indiquer quels flux de trafic sont diriges via chaque NVA.
+    ParagraphSummary = Le tableau suivant resume les appliances virtuelles reseau identifiees dans l'abonnement {0}.
+    ParagraphDetail = Les sections suivantes detaillent la configuration des appliances virtuelles reseau identifiees dans l'abonnement {0}.
+    Heading = Appliances virtuelles reseau
+    TableHeading = Appliance virtuelle reseau
+    TableHeadings = Appliances virtuelles reseau
+    Name = Nom
+    ResourceGroup = Groupe de ressources
+    Location = Emplacement
+    Subscription = Abonnement
+    SubscriptionID = ID d'abonnement
+    Vendor = Fournisseur
+    Publisher = Editeur
+    Offer = Offre
+    Sku = SKU
+    ImageVersion = Version de l'image
+    Status = Statut
+    Running = En cours d'execution
+    Deallocated = Desallouee
+    Size = Taille de la VM
+    PrivateIPAddress = Adresse IP privee
+    VirtualNetworkSubnet = Reseau virtuel / Sous-reseau
+    NetworkInterfaces = Interfaces reseau
+    DetectedBy = Detectee par
+    DetectedByPublisher = Editeur Marketplace
+    DetectedByTag = Balise de ressource
+    DetectedBoth = Editeur Marketplace et balise de ressource
+    TagIdentified = NVA identifiee par balise
+    AssociatedRoutes = Routes UDR associees
+    NoAssociatedRoutes = Aucune route UDR avec un prochain troncon de type Appliance virtuelle n'a ete trouvee pointant vers cette NVA.
+    RouteTable = Table de routage
+    RouteName = Nom de la route
+    AddressPrefix = Prefixe d'adresse
+    NextHopIpAddress = Adresse IP du prochain troncon
+    Tags = Balises
+    None = Aucun
+'@
+
 }

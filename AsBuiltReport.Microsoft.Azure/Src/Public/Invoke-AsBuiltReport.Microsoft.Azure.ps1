@@ -180,6 +180,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "Policy" = "Get-AbrAzPolicy"
         "UserAssignedManagedIdentity" = "Get-AbrAzUserAssignedManagedIdentity"
         "RouteTable" = "Get-AbrAzRouteTable"
+        "NetworkVirtualAppliance"  = "Get-AbrAzNetworkVirtualAppliance"
         "VirtualMachine" = "Get-AbrAzVirtualMachine"
         "VirtualNetworkGateway" = "Get-AbrAzVirtualNetworkGateway"
         "RecoveryServicesVault" = "Get-AbrAzRecoveryServicesVault"

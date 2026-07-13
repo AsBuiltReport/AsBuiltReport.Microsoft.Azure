@@ -1872,4 +1872,47 @@ GetAbrAzDnsForwardingRuleset = ConvertFrom-StringData @'
     ErrorMessage = No se puede recopilar información del conjunto de reglas de reenvío DNS:
 '@
 
+# Azure Network Virtual Appliance (Get-AbrAzNetworkVirtualAppliance)
+GetAbrAzNetworkVirtualAppliance = ConvertFrom-StringData @'
+    InfoLevel = Nivel de información de NetworkVirtualAppliance establecido en {0}.
+    Collecting = Recopilando información de dispositivos virtuales de red de Azure.
+    Processing = Procesando el dispositivo virtual de red de Azure '{0}'.
+    SectionInfo = Los dispositivos virtuales de red (NVA) son productos de red y seguridad de terceros implementados como máquinas virtuales en Azure. Las cargas de trabajo NVA habituales incluyen firewalls de próxima generación, puertas de enlace SD-WAN, optimizadores WAN y controladores de entrega de aplicaciones. Los NVA se identifican por el editor de la imagen de Azure Marketplace y, opcionalmente, por una etiqueta de recurso. Las rutas definidas por el usuario (UDR) con un tipo de próximo salto de Dispositivo virtual se correlacionan para mostrar qué flujos de tráfico se dirigen a través de cada NVA.
+    ParagraphSummary = La siguiente tabla resume los dispositivos virtuales de red identificados en la suscripción {0}.
+    ParagraphDetail = Las siguientes secciones detallan la configuración de los dispositivos virtuales de red identificados en la suscripción {0}.
+    Heading = Dispositivos virtuales de red
+    TableHeading = Dispositivo virtual de red
+    TableHeadings = Dispositivos virtuales de red
+    Name = Nombre
+    ResourceGroup = Grupo de recursos
+    Location = Ubicación
+    Subscription = Suscripción
+    SubscriptionID = ID de suscripción
+    Vendor = Proveedor
+    Publisher = Editor
+    Offer = Oferta
+    Sku = SKU
+    ImageVersion = Versión de la imagen
+    Status = Estado
+    Running = En ejecución
+    Deallocated = Desasignado
+    Size = Tamaño de VM
+    PrivateIPAddress = Dirección IP privada
+    VirtualNetworkSubnet = Red virtual / Subred
+    NetworkInterfaces = Interfaces de red
+    DetectedBy = Detectado por
+    DetectedByPublisher = Editor de Marketplace
+    DetectedByTag = Etiqueta de recurso
+    DetectedBoth = Editor de Marketplace y etiqueta de recurso
+    TagIdentified = NVA identificado por etiqueta
+    AssociatedRoutes = Rutas UDR asociadas
+    NoAssociatedRoutes = No se encontraron rutas UDR con un próximo salto de tipo Dispositivo virtual que apunten a este NVA.
+    RouteTable = Tabla de rutas
+    RouteName = Nombre de la ruta
+    AddressPrefix = Prefijo de dirección
+    NextHopIpAddress = Dirección IP del próximo salto
+    Tags = Etiquetas
+    None = Ninguno
+'@
+
 }

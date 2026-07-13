@@ -1872,4 +1872,47 @@ GetAbrAzDnsForwardingRuleset = ConvertFrom-StringData @'
     ErrorMessage = Unable to collect DNS Forwarding Ruleset information:
 '@
 
+# Azure Network Virtual Appliance (Get-AbrAzNetworkVirtualAppliance)
+GetAbrAzNetworkVirtualAppliance = ConvertFrom-StringData @'
+    InfoLevel = NetworkVirtualAppliance InfoLevel set at {0}.
+    Collecting = Collecting Azure Network Virtual Appliance information.
+    Processing = Processing Azure Network Virtual Appliance '{0}'.
+    SectionInfo = Network Virtual Appliances (NVAs) are third-party network and security products deployed as virtual machines in Azure. Common NVA workloads include next-generation firewalls, SD-WAN gateways, WAN optimisers, and application delivery controllers. NVAs are identified by their Azure Marketplace image publisher and, optionally, by a resource tag. User-defined routes (UDRs) with a next-hop type of Virtual Appliance are cross-referenced to show which traffic flows are steered through each NVA.
+    ParagraphSummary = The following table summarizes the Network Virtual Appliances identified within the {0} subscription.
+    ParagraphDetail = The following sections detail the configuration of the Network Virtual Appliances identified within the {0} subscription.
+    Heading = Network Virtual Appliances
+    TableHeading = Network Virtual Appliance
+    TableHeadings = Network Virtual Appliances
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    Vendor = Vendor
+    Publisher = Publisher
+    Offer = Offer
+    Sku = SKU
+    ImageVersion = Image Version
+    Status = Status
+    Running = Running
+    Deallocated = Deallocated
+    Size = VM Size
+    PrivateIPAddress = Private IP Address
+    VirtualNetworkSubnet = Virtual Network / Subnet
+    NetworkInterfaces = Network Interfaces
+    DetectedBy = Detected By
+    DetectedByPublisher = Marketplace publisher
+    DetectedByTag = Resource tag
+    DetectedBoth = Marketplace publisher and resource tag
+    TagIdentified = Tag-identified NVA
+    AssociatedRoutes = Associated UDR Routes
+    NoAssociatedRoutes = No UDR routes with a Virtual Appliance next hop were found pointing to this NVA.
+    RouteTable = Route Table
+    RouteName = Route Name
+    AddressPrefix = Address Prefix
+    NextHopIpAddress = Next Hop IP Address
+    Tags = Tags
+    None = None
+'@
+
 }
