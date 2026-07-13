@@ -56,6 +56,17 @@ function Get-AbrAzNetworkVirtualAppliance {
 
                 Write-PScriboMessage $LocalizedData.Collecting
 
+                #region --- Pre-collect route tables and load balancers for UDR cross-reference (InfoLevel 3) ---
+                $AllRouteTables = @()
+                $AllLoadBalancers = @()
+                if ($InfoLevel.NetworkVirtualAppliance -ge 3) {
+                    $AllRouteTables = Get-AzRouteTable -ErrorAction SilentlyContinue
+                    # NVA HA pairs are commonly deployed behind an Internal Load Balancer, with UDRs
+                    # pointing at the ILB's frontend IP rather than any individual appliance NIC.
+                    $AllLoadBalancers = Get-AzLoadBalancer -ErrorAction SilentlyContinue
+                }
+                #endregion
+
                 #region --- Collect all VMs and filter to NVAs ---
                 $AzVms = Get-AzVM -Status | Sort-Object Name
                 $NvaVms = @()
@@ -111,11 +122,38 @@ function Get-AbrAzNetworkVirtualAppliance {
 
                     #region --- Associated UDR route tables (InfoLevel 3) ---
                     $AssociatedRouteTables = @()
-                    if ($InfoLevel.NetworkVirtualAppliance -ge 3 -and $PrivateIp) {
-                        $AllRouteTables = Get-AzRouteTable -ErrorAction SilentlyContinue
+                    if ($InfoLevel.NetworkVirtualAppliance -ge 3) {
+                        # Match against every private IP owned by this NVA (all NICs, not just the primary),
+                        # plus the frontend private IP of any Load Balancer whose backend pool includes one of
+                        # those NICs, since HA NVA pairs are commonly fronted by an Internal Load Balancer and
+                        # UDRs route to the ILB's frontend IP rather than to an individual appliance NIC.
+                        $MatchIps = [System.Collections.Generic.HashSet[string]]::new()
+                        foreach ($NicRef in $AzVm.NetworkProfile.NetworkInterfaces) {
+                            $Nic = if ($NicRef.Id -eq $PrimaryNicId) {
+                                $PrimaryNic
+                            } else {
+                                Get-AzNetworkInterface -Name $NicRef.Id.Split('/')[-1] -ResourceGroupName $NicRef.Id.Split('/')[4] -ErrorAction SilentlyContinue
+                            }
+                            foreach ($IpConfig in $Nic.IpConfigurations) {
+                                if ($IpConfig.PrivateIpAddress) { [void]$MatchIps.Add($IpConfig.PrivateIpAddress) }
+                                foreach ($Lb in $AllLoadBalancers) {
+                                    foreach ($Pool in $Lb.BackendAddressPools) {
+                                        $IsPoolMember = ($Pool.BackendIpConfigurations.Id -contains $IpConfig.Id) -or
+                                            ($Pool.LoadBalancerBackendAddresses.NetworkInterfaceIpConfiguration.Id -contains $IpConfig.Id) -or
+                                            ($Pool.LoadBalancerBackendAddresses.IpAddress -contains $IpConfig.PrivateIpAddress)
+                                        if ($IsPoolMember) {
+                                            foreach ($Frontend in $Lb.FrontendIpConfigurations) {
+                                                if ($Frontend.PrivateIpAddress) { [void]$MatchIps.Add($Frontend.PrivateIpAddress) }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         foreach ($Rt in $AllRouteTables) {
                             $MatchingRoutes = $Rt.Routes | Where-Object {
-                                $_.NextHopType -eq 'VirtualAppliance' -and $_.NextHopIpAddress -eq $PrivateIp
+                                $_.NextHopType -eq 'VirtualAppliance' -and $MatchIps.Contains($_.NextHopIpAddress)
                             }
                             if ($MatchingRoutes) {
                                 foreach ($Route in $MatchingRoutes) {

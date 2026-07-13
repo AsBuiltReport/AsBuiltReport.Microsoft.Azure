@@ -30,8 +30,10 @@
 * Add support for Network Virtual Appliances (`Get-AbrAzNetworkVirtualAppliance`)
   — identifies third-party NVAs (Palo Alto, Fortinet, Cisco, Check Point, F5, Barracuda,
   SonicWall, Juniper, Riverbed) via Marketplace image publisher with optional tag-based
-  fallback (`Options.NvaTag`). InfoLevel 3 cross-references associated UDR route tables.
-  Configurable publisher list via `Options.NvaPublishers`.
+  fallback (`Options.NvaTag`). InfoLevel 3 cross-references associated UDR route tables,
+  matching against all NIC private IPs on the appliance as well as the frontend private
+  IP of any Load Balancer fronting an NVA HA pair. Configurable publisher list via
+  `Options.NvaPublishers`.
 
 ### Changed
 * Update minimum Az module version requirement from 15.3.0 to 16.0.0
