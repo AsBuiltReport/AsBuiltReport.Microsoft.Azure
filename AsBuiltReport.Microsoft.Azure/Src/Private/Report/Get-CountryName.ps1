@@ -1,4 +1,23 @@
 function Get-CountryName {
+    <#
+    .SYNOPSIS
+        Resolves an ISO 3166-1 alpha-2 country code to a localised country name.
+    .DESCRIPTION
+        Accepts a two-letter ISO 3166-1 alpha-2 country code and returns the corresponding
+        country name from the active report localisation data. Input is normalised to
+        uppercase before lookup. Returns a localised "not found" message if the code is
+        not present in the lookup table.
+    .PARAMETER CountryCode
+        ISO 3166-1 alpha-2 country code (e.g. 'US', 'GB', 'DE'). Case-insensitive.
+    .EXAMPLE
+        Get-CountryName -CountryCode 'AU'
+    .NOTES
+        Version:    0.1.0
+        Author:     Tim Carman
+        Github:     tpcarman
+    .LINK
+        https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]

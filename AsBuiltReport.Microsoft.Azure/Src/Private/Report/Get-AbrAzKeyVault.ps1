@@ -36,6 +36,14 @@ function Get-AbrAzKeyVault {
                         }
                         Paragraph ($LocalizedData.ParagraphSummary -f $AzSubscription.Name)
                         BlankLine
+                        $LockMap = @{}
+                        $AllLocks = Get-AzResourceLock -ErrorAction SilentlyContinue
+                        foreach ($Lock in $AllLocks) {
+                            $Key = $Lock.ResourceId.ToLower()
+                            if (-not $LockMap.ContainsKey($Key)) { $LockMap[$Key] = @() }
+                            $LockMap[$Key] += $Lock
+                        }
+
                         $AzKeyVaultInfo = @()
                         foreach ($AzKeyVault in $AzKeyVaults) {
                             $AzKeyVault = Get-AzKeyVault -Name $AzKeyVault.VaultName
@@ -83,6 +91,12 @@ function Get-AbrAzKeyVault {
                                     $LocalizedData.Disabled
                                 })
                             }
+
+                            $InObj[$LocalizedData.Locks] = $(
+                                $rl = $LockMap[$AzKeyVault.ResourceId.ToLower()]
+                                if ($rl) { ($rl | ForEach-Object { "$($_.Name) ($($_.Properties.Level))" }) -join [Environment]::NewLine }
+                                else { $LocalizedData.None }
+                            )
 
                             if ($Options.ShowTags) {
                                 $InObj[$LocalizedData.Tags] = if ([string]::IsNullOrEmpty($AzKeyVault.Tags)) {

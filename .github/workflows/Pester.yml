@@ -59,6 +59,10 @@ jobs:
         run: |
           Install-Module -Name AsBuiltReport.Core -MinimumVersion 1.6.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
 
+      - name: Install AsBuiltReport.Diagram
+        run: |
+          Install-Module -Name AsBuiltReport.Diagram -MinimumVersion 1.0.8 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
+
       - name: Run Pester Tests
         run: |
           $CodeCoverageParam = @{}

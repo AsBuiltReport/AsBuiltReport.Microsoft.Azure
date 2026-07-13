@@ -42,6 +42,14 @@ function Get-AbrAzVirtualNetwork {
                                 BlankLine
                             }
                         }
+                        $LockMap = @{}
+                        $AllLocks = Get-AzResourceLock -ErrorAction SilentlyContinue
+                        foreach ($Lock in $AllLocks) {
+                            $Key = $Lock.ResourceId.ToLower()
+                            if (-not $LockMap.ContainsKey($Key)) { $LockMap[$Key] = @() }
+                            $LockMap[$Key] += $Lock
+                        }
+
                         $AzVirtualNetworkInfo = @()
                         $Count = 1
                         foreach ($AzVirtualNetwork in $AzVirtualNetworks) {
@@ -65,6 +73,12 @@ function Get-AbrAzVirtualNetwork {
                                     $LocalizedData.Default
                                 })
                             }
+
+                            $InObj[$LocalizedData.Locks] = $(
+                                $rl = $LockMap[$AzVirtualNetwork.Id.ToLower()]
+                                if ($rl) { ($rl | ForEach-Object { "$($_.Name) ($($_.Properties.Level))" }) -join [Environment]::NewLine }
+                                else { $LocalizedData.None }
+                            )
 
                             if ($Options.ShowTags) {
                                 $InObj[$LocalizedData.Tags] = if ([string]::IsNullOrEmpty($AzVirtualNetwork.Tag)) {

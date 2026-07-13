@@ -34,6 +34,14 @@ function Get-AbrAzLogAnalyticsWorkspace {
                             Paragraph $LocalizedData.SectionInfo
                             BlankLine
                         }
+                        $LockMap = @{}
+                        $AllLocks = Get-AzResourceLock -ErrorAction SilentlyContinue
+                        foreach ($Lock in $AllLocks) {
+                            $Key = $Lock.ResourceId.ToLower()
+                            if (-not $LockMap.ContainsKey($Key)) { $LockMap[$Key] = @() }
+                            $LockMap[$Key] += $Lock
+                        }
+
                         $AzLogAnalyticsWorkspaceInfo = @()
                         foreach ($AzLogAnalyticsWorkspace in $AzLogAnalyticsWorkspaces) {
                             $InObj = [Ordered]@{
@@ -62,6 +70,12 @@ function Get-AbrAzLogAnalyticsWorkspace {
                                     default { $LocalizedData.Unknown }
                                 }
                             }
+
+                            $InObj[$LocalizedData.Locks] = $(
+                                $rl = $LockMap[$AzLogAnalyticsWorkspace.ResourceId.ToLower()]
+                                if ($rl) { ($rl | ForEach-Object { "$($_.Name) ($($_.Properties.Level))" }) -join [Environment]::NewLine }
+                                else { $LocalizedData.None }
+                            )
 
                             if ($Options.ShowTags) {
                                 $InObj[$LocalizedData.Tags] = if ([string]::IsNullOrEmpty($AzLogAnalyticsWorkspace.Tags)) {

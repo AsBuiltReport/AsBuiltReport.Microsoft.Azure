@@ -48,18 +48,14 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $Manifest.RequiredModules.Name | Should -Contain 'AsBuiltReport.Core'
         }
 
-        It 'Should require AsBuiltReport.Core version 1.6.1 or higher' {
+        It 'Should require AsBuiltReport.Core version 1.6.2 or higher' {
             $CoreModule = $Manifest.RequiredModules | Where-Object { $_.Name -eq 'AsBuiltReport.Core' }
-            $CoreModule.Version | Should -BeGreaterOrEqual ([Version]'1.6.1')
+            $CoreModule.Version | Should -BeGreaterOrEqual ([Version]'1.6.2')
         }
 
         It 'Should declare Az as an external module dependency' {
             $Manifest.PrivateData.PSData.ExternalModuleDependencies | Should -Not -BeNullOrEmpty
             $Manifest.PrivateData.PSData.ExternalModuleDependencies | Should -Contain 'Az'
-        }
-
-        It 'Should declare AsBuiltReport.Core as an external module dependency' {
-            $Manifest.PrivateData.PSData.ExternalModuleDependencies | Should -Contain 'AsBuiltReport.Core'
         }
 
         It 'Should export the Invoke-AsBuiltReport.Microsoft.Azure function' {
@@ -107,10 +103,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $Manifest.PrivateData.PSData.ReleaseNotes | Should -Match '^https?://'
         }
 
-        It 'Should have an IconUri' {
-            $Manifest.PrivateData.PSData.IconUri | Should -Not -BeNullOrEmpty
-            $Manifest.PrivateData.PSData.IconUri | Should -Match '^https?://'
-        }
+
 
         It 'Should have module version matching expected format' {
             $Manifest.Version.ToString() | Should -Match '^\d+\.\d+\.\d+$'
@@ -172,7 +165,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 
         It 'Should have at least one private function' {
             $PrivatePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Src\Private'
-            $PrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -ErrorAction SilentlyContinue
+            $PrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -Recurse -ErrorAction SilentlyContinue
             $PrivateFunctions.Count | Should -BeGreaterThan 0
         }
     }
@@ -264,7 +257,8 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
     Context 'Private Functions' {
         BeforeAll {
             $PrivatePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Src\Private'
-            $PrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -ErrorAction SilentlyContinue
+            $PrivateFunctions = Get-ChildItem -Path $PrivatePath -Filter '*.ps1' -Recurse -ErrorAction SilentlyContinue
+            $AllPrivateFunctions = $PrivateFunctions
         }
 
         It 'Should have Get-AbrAzStorageAccount function' {
@@ -359,6 +353,30 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAsrProtectedItems.ps1'
         }
 
+        It 'Should have Get-AbrAzAsrPolicy function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzAsrPolicy.ps1'
+        }
+
+        It 'Should have Get-AbrAzAsrRecoveryPlan function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzAsrRecoveryPlan.ps1'
+        }
+
+        It 'Should have Get-AbrAzAsrNetworkMapping function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzAsrNetworkMapping.ps1'
+        }
+
+        It 'Should have Get-AbrAzUserAssignedManagedIdentity function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzUserAssignedManagedIdentity.ps1'
+        }
+
+        It 'Should have Get-AbrAzAutomationAccount function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzAutomationAccount.ps1'
+        }
+
+        It 'Should have Get-AbrAzDiagnosticSetting function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzDiagnosticSetting.ps1'
+        }
+
         It 'Should have Get-CountryName function' {
             $PrivateFunctions.Name | Should -Contain 'Get-CountryName.ps1'
         }
@@ -435,6 +453,64 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
         It 'Should have Get-AbrAzNetworkSecurityGroupRule helper function' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzNetworkSecurityGroupRule.ps1'
         }
+
+        # Management Group
+        It 'Should have Get-AbrAzManagementGroup function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzManagementGroup.ps1'
+        }
+
+        It 'Should have Get-AbrAzApplicationGateway function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzApplicationGateway.ps1'
+        }
+
+        It 'Should have Get-AbrAzDataCollectionRule function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzDataCollectionRule.ps1'
+        }
+
+        It 'Should have Get-AbrAzDdosProtectionPlan function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzDdosProtectionPlan.ps1'
+        }
+
+        It 'Should have Get-AbrAzDesktopVirtualization function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzDesktopVirtualization.ps1'
+        }
+
+        It 'Should have Get-AbrAzDnsForwardingRuleset function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzDnsForwardingRuleset.ps1'
+        }
+
+        It 'Should have Get-AbrAzMaintenanceConfiguration function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzMaintenanceConfiguration.ps1'
+        }
+
+        It 'Should have Get-AbrAzNetAppFiles function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzNetAppFiles.ps1'
+        }
+
+        It 'Should have Get-AbrAzNetworkVirtualAppliance function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzNetworkVirtualAppliance.ps1'
+        }
+
+        It 'Should have Get-AbrAzNetworkWatcher function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzNetworkWatcher.ps1'
+        }
+
+        It 'Should have Get-AbrAzPrivateDnsZone function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzPrivateDnsZone.ps1'
+        }
+
+        It 'Should have Get-AbrAzPublicIpAddress function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzPublicIpAddress.ps1'
+        }
+
+        It 'Should have Get-AbrAzVirtualNetworkGateway function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVirtualNetworkGateway.ps1'
+        }
+
+        It 'Should have Get-AbrAzVmScaleSet function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVmScaleSet.ps1'
+        }
+
     }
 
     Context 'JSON Configuration' {
@@ -465,11 +541,23 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
         }
 
         It 'SectionOrder should contain expected sections' {
-            $JsonConfig.Options.SectionOrder | Should -Contain 'StorageAccount'
-            $JsonConfig.Options.SectionOrder | Should -Contain 'VirtualMachine'
-            $JsonConfig.Options.SectionOrder | Should -Contain 'VirtualNetwork'
-            $JsonConfig.Options.SectionOrder | Should -Contain 'KeyVault'
-            $JsonConfig.Options.SectionOrder | Should -Contain 'LoadBalancer'
+            $ExpectedSections = @(
+                'StorageAccount', 'VirtualMachine', 'VirtualNetwork', 'KeyVault', 'LoadBalancer',
+                'UserAssignedManagedIdentity', 'AutomationAccount', 'DiagnosticSetting',
+                'ApplicationGateway', 'AsrNetworkMapping', 'AsrPolicy', 'AsrRecoveryPlan', 'AvailabilitySet',
+                'Bastion', 'DataCollectionRule', 'DdosProtectionPlan', 'DesktopVirtualization', 'DnsForwardingRuleset',
+                'DnsPrivateResolver', 'ExpressRoute', 'Firewall', 'FirewallPolicy', 'IpGroup', 'LogAnalyticsWorkspace',
+                'MaintenanceConfiguration', 'NetAppFiles', 'NetworkSecurityGroup', 'NetworkVirtualAppliance',
+                'NetworkWatcher', 'Policy', 'PrivateDnsZone', 'PrivateEndpoint', 'PublicIpAddress',
+                'RecoveryServicesVault', 'RouteTable', 'SiteRecovery', 'VirtualNetworkGateway', 'VmScaleSet'
+            )
+
+            $MissingSections = $ExpectedSections | Where-Object { $_ -notin $JsonConfig.Options.SectionOrder }
+
+            if ($MissingSections.Count -gt 0) {
+                $ErrorMessage = "SectionOrder is missing expected section(s):`n" + ($MissingSections -join "`n")
+                $MissingSections.Count | Should -Be 0 -Because $ErrorMessage
+            }
         }
 
         It 'Should have an InfoLevel section' {
@@ -566,8 +654,88 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'Tenant'
         }
 
+        It 'InfoLevel should include ManagementGroup' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'ManagementGroup'
+        }
+
+        It 'InfoLevel should include UserAssignedManagedIdentity' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'UserAssignedManagedIdentity'
+        }
+
+        It 'InfoLevel should include AutomationAccount' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'AutomationAccount'
+        }
+
+        It 'InfoLevel should include DiagnosticSetting' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'DiagnosticSetting'
+        }
+
         It 'InfoLevel should include VirtualNetwork' {
             $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'VirtualNetwork'
+        }
+
+        It 'InfoLevel should include ApplicationGateway' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'ApplicationGateway'
+        }
+
+        It 'InfoLevel should include AsrNetworkMapping' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'AsrNetworkMapping'
+        }
+
+        It 'InfoLevel should include AsrPolicy' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'AsrPolicy'
+        }
+
+        It 'InfoLevel should include AsrRecoveryPlan' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'AsrRecoveryPlan'
+        }
+
+        It 'InfoLevel should include DataCollectionRule' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'DataCollectionRule'
+        }
+
+        It 'InfoLevel should include DdosProtectionPlan' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'DdosProtectionPlan'
+        }
+
+        It 'InfoLevel should include DesktopVirtualization' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'DesktopVirtualization'
+        }
+
+        It 'InfoLevel should include DnsForwardingRuleset' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'DnsForwardingRuleset'
+        }
+
+        It 'InfoLevel should include MaintenanceConfiguration' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'MaintenanceConfiguration'
+        }
+
+        It 'InfoLevel should include NetAppFiles' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'NetAppFiles'
+        }
+
+        It 'InfoLevel should include NetworkVirtualAppliance' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'NetworkVirtualAppliance'
+        }
+
+        It 'InfoLevel should include NetworkWatcher' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'NetworkWatcher'
+        }
+
+        It 'InfoLevel should include PrivateDnsZone' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'PrivateDnsZone'
+        }
+
+        It 'InfoLevel should include PublicIpAddress' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'PublicIpAddress'
+        }
+
+        It 'InfoLevel should include VirtualNetworkGateway' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'VirtualNetworkGateway'
+        }
+
+        It 'InfoLevel should include VmScaleSet' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'VmScaleSet'
         }
 
         It 'HealthCheck should include Bastion checks' {
@@ -632,6 +800,74 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 
         It 'HealthCheck should include VirtualNetwork checks' {
             $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'VirtualNetwork'
+        }
+
+        It 'HealthCheck should include AutomationAccount checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'AutomationAccount'
+        }
+
+        It 'HealthCheck should include DiagnosticSetting checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'DiagnosticSetting'
+        }
+
+        It 'HealthCheck should include ApplicationGateway checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'ApplicationGateway'
+        }
+
+        It 'HealthCheck should include AsrNetworkMapping checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'AsrNetworkMapping'
+        }
+
+        It 'HealthCheck should include AsrPolicy checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'AsrPolicy'
+        }
+
+        It 'HealthCheck should include DataCollectionRule checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'DataCollectionRule'
+        }
+
+        It 'HealthCheck should include DdosProtectionPlan checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'DdosProtectionPlan'
+        }
+
+        It 'HealthCheck should include DesktopVirtualization checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'DesktopVirtualization'
+        }
+
+        It 'HealthCheck should include DnsForwardingRuleset checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'DnsForwardingRuleset'
+        }
+
+        It 'HealthCheck should include NetAppFiles checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'NetAppFiles'
+        }
+
+        It 'HealthCheck should include NetworkVirtualAppliance checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'NetworkVirtualAppliance'
+        }
+
+        It 'HealthCheck should include NetworkWatcher checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'NetworkWatcher'
+        }
+
+        It 'HealthCheck should include PrivateDnsZone checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'PrivateDnsZone'
+        }
+
+        It 'HealthCheck should include PublicIpAddress checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'PublicIpAddress'
+        }
+
+        It 'HealthCheck should include SiteRecovery checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'SiteRecovery'
+        }
+
+        It 'HealthCheck should include VirtualNetworkGateway checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'VirtualNetworkGateway'
+        }
+
+        It 'HealthCheck should include VmScaleSet checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'VmScaleSet'
         }
     }
 
@@ -712,6 +948,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $JsonConfig.Options.ShowTags | Should -BeOfType [bool]
         }
 
+        It 'Options.EnableDiagrams should be boolean' {
+            $JsonConfig.Options.EnableDiagrams | Should -BeOfType [bool]
+        }
+
         It 'Policy InfoLevel structure should have Assignments and Definitions' {
             $JsonConfig.InfoLevel.Policy.PSObject.Properties.Name | Should -Contain 'Assignments'
             $JsonConfig.InfoLevel.Policy.PSObject.Properties.Name | Should -Contain 'Definitions'
@@ -771,7 +1011,7 @@ Describe 'Module File Syntax and Quality' {
             $LanguagePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Language\en-US'
             $LocalizedData = Import-LocalizedData -BaseDirectory $LanguagePath -FileName 'MicrosoftAzure.psd1'
             $ModuleRoot = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure'
-            $PrivateFunctions = Get-ChildItem -Path "$ModuleRoot\Src\Private" -Filter '*.ps1' -ErrorAction SilentlyContinue
+            $PrivateFunctions = Get-ChildItem -Path "$ModuleRoot\Src\Private" -Filter '*.ps1' -Recurse -ErrorAction SilentlyContinue
         }
 
         It 'Should have valid PowerShell localization data files' {
@@ -905,6 +1145,7 @@ Describe 'Module File Syntax and Quality' {
                 'Get-AbrAzVirtualNetworkPeering',    # VNet peering
                 'Get-AbrAzVirtualNetworkSubnet',     # VNet subnet
                 'Get-AbrAsrProtectedItems',          # Site Recovery items
+                'Get-AbrAzAsr',                      # ASR sub-functions (policies, plans, mappings)
                 'Get-AbrAzPolicy'                    # Policy sub-functions
             )
 
@@ -976,38 +1217,6 @@ Describe 'Module File Syntax and Quality' {
             }
         }
 
-        # Verify new v0.2.0 functions have localization
-        It 'Should have GetAbrAzAvailabilitySet localization section' {
-            $LocalizedData.GetAbrAzAvailabilitySet | Should -Not -BeNullOrEmpty
-        }
-
-        It 'Should have GetAbrAzBastion localization section' {
-            $LocalizedData.GetAbrAzBastion | Should -Not -BeNullOrEmpty
-        }
-
-        It 'Should have GetAbrAzFirewallPolicy localization section' {
-            $LocalizedData.GetAbrAzFirewallPolicy | Should -Not -BeNullOrEmpty
-        }
-
-        It 'Should have GetAbrAzPrivateEndpoint localization section' {
-            $LocalizedData.GetAbrAzPrivateEndpoint | Should -Not -BeNullOrEmpty
-        }
-
-        It 'Should have GetAbrAzDnsPrivateResolver localization section' {
-            $LocalizedData.GetAbrAzDnsPrivateResolver | Should -Not -BeNullOrEmpty
-        }
-
-        It 'Should have GetAbrAzExpressRouteCircuit localization section' {
-            $LocalizedData.GetAbrAzExpressRouteCircuit | Should -Not -BeNullOrEmpty
-        }
-
-        It 'Should have GetAbrAzIpGroup localization section' {
-            $LocalizedData.GetAbrAzIpGroup | Should -Not -BeNullOrEmpty
-        }
-
-        It 'Should have GetAbrAzRouteTable localization section' {
-            $LocalizedData.GetAbrAzRouteTable | Should -Not -BeNullOrEmpty
-        }
     }
 
     Context 'Code Style and Standards' {

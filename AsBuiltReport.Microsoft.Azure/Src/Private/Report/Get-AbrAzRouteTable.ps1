@@ -35,6 +35,14 @@ function Get-AbrAzRouteTable {
                             BlankLine
                         }
 
+                        $LockMap = @{}
+                        $AllLocks = Get-AzResourceLock -ErrorAction SilentlyContinue
+                        foreach ($Lock in $AllLocks) {
+                            $Key = $Lock.ResourceId.ToLower()
+                            if (-not $LockMap.ContainsKey($Key)) { $LockMap[$Key] = @() }
+                            $LockMap[$Key] += $Lock
+                        }
+
                         if ($InfoLevel.RouteTable -ge 3) {
                             Paragraph ($LocalizedData.ParagraphDetail -f $AzSubscription.Name)
                             BlankLine
@@ -56,6 +64,12 @@ function Get-AbrAzRouteTable {
                                         List = $true
                                         ColumnWidths = 40, 60
                                     }
+
+                                    $InObj[$LocalizedData.Locks] = $(
+                                        $rl = $LockMap[$AzRouteTable.Id.ToLower()]
+                                        if ($rl) { ($rl | ForEach-Object { "$($_.Name) ($($_.Properties.Level))" }) -join [Environment]::NewLine }
+                                        else { $LocalizedData.None }
+                                    )
 
                                     if ($Options.ShowTags) {
                                         $InObj[$LocalizedData.Tags] = if ([string]::IsNullOrEmpty($AzRouteTable.Tag)) {

@@ -36,7 +36,7 @@ function Get-AbrAzSAContainer {
 
     process {
         Try {
-            $AzSAContainers = Get-AzStorageAccount -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName | Get-AzStorageContainer -ErrorAction SilentlyContinue | Sort-Object Name
+            $AzSAContainers = Get-AzRmStorageContainer -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName -ErrorAction SilentlyContinue | Sort-Object Name
             if ($AzSAContainers) {
                 Write-PscriboMessage $LocalizedData.Collecting
                 Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.Heading {
@@ -47,14 +47,18 @@ function Get-AbrAzSAContainer {
                         $Count ++
                         $InObj = [Ordered]@{
                             $LocalizedData.Name = $AzSAContainer.Name
-                            $LocalizedData.LastModified = $AzSAContainer.LastModified.UtcDateTime.ToShortDateString()
+                            $LocalizedData.LastModified = if ($AzSAContainer.LastModifiedTime) {
+                                $AzSAContainer.LastModifiedTime.ToShortDateString()
+                            } else {
+                                $LocalizedData.None
+                            }
                             $LocalizedData.AnonymousAccessLevel = switch ($AzSAContainer.PublicAccess) {
                                 "None" { $LocalizedData.Private }
                                 "Blob" { $LocalizedData.Blob }
                                 "Container" { $LocalizedData.Container }
                                 default { $AzSAContainer.PublicAccess }
                             }
-                            $LocalizedData.LeaseState = $AzSAContainer.BlobContainerProperties.LeaseState
+                            $LocalizedData.LeaseState = $AzSAContainer.LeaseState
                         }
                         $AzSAContInfo += [PSCustomObject]$InObj
                     }

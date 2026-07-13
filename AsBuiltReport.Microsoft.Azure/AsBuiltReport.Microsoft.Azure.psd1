@@ -12,7 +12,7 @@
 RootModule = 'AsBuiltReport.Microsoft.Azure.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.2.0'
+ModuleVersion = '0.3.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @('Desktop', 'Core')
@@ -54,7 +54,11 @@ PowerShellVersion = '5.1'
 RequiredModules = @(
         @{
             ModuleName = 'AsBuiltReport.Core';
-            ModuleVersion = '1.6.1'
+            ModuleVersion = '1.6.4'
+        },
+        @{
+            ModuleName = 'AsBuiltReport.Diagram';
+            ModuleVersion = '1.0.8'
         }
     )
 
@@ -109,7 +113,7 @@ PrivateData = @{
         ProjectUri = 'https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure'
 
         # A URL to an icon representing this module.
-        IconUri = 'https://raw.githubusercontent.com/AsBuiltReport/.github/main/profile/images/AsBuiltReport.png'
+        # IconUri = 'https://raw.githubusercontent.com/AsBuiltReport/.github/main/profile/images/AsBuiltReport.png'
 
         # ReleaseNotes of this module
         ReleaseNotes = 'https://raw.githubusercontent.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/master/CHANGELOG.md'
@@ -121,7 +125,7 @@ PrivateData = @{
         # RequireLicenseAcceptance = $false
 
         # External dependent modules of this module
-        ExternalModuleDependencies = @('AsBuiltReport.Core', 'Az')
+        ExternalModuleDependencies = @('Az')
 
     } # End of PSData hashtable
 

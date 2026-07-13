@@ -1,7 +1,7 @@
-function Get-AbrAzSAQueue {
+function Get-AbrAzSATable {
     <#
     .SYNOPSIS
-        Used by As Built Report to retrieve Azure Storage Account Queue information
+        Used by As Built Report to retrieve Azure Storage Account Table information
     .DESCRIPTION
 
     .NOTES
@@ -31,25 +31,26 @@ function Get-AbrAzSAQueue {
     )
 
     begin {
-        $LocalizedData = $reportTranslate.GetAbrAzSAQueue
+        $LocalizedData = $reportTranslate.GetAbrAzSATable
     }
 
     process {
         Try {
-            $AzSAQueues = Get-AzStorageAccount -ResourceGroupName $ResourceGroupName -StorageAccountName $StorageAccountName | Get-AzStorageQueue -ErrorAction SilentlyContinue | Sort-Object Name
-            if ($AzSAQueues) {
+            $AzStorageContext = New-AzStorageContext -StorageAccountName $StorageAccountName -UseConnectedAccount -ErrorAction SilentlyContinue
+            $AzSATables = Get-AzStorageTable -Context $AzStorageContext -ErrorAction SilentlyContinue | Sort-Object Name
+            if ($AzSATables) {
                 Write-PscriboMessage $LocalizedData.Collecting
                 Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.Heading {
-                    $AzSAQueueInfo = @()
+                    $AzSATableInfo = @()
                     $Count = 1
-                    foreach ($AzSAQueue in $AzSAQueues) {
-                        Write-PscriboMessage ($LocalizedData.Processing -f ($AzSAQueue.Name),$Count,($AzSAQueues.Count))
+                    foreach ($AzSATable in $AzSATables) {
+                        Write-PscriboMessage ($LocalizedData.Processing -f ($AzSATable.Name),$Count,($AzSATables.Count))
                         $Count ++
                         $InObj = [Ordered]@{
-                            $LocalizedData.Name = $AzSAQueue.Name
-                            'Url' = $AzSAQueue.uri.AbsoluteUri
+                            $LocalizedData.Name = $AzSATable.Name
+                            'Url' = $AzSATable.uri.AbsoluteUri
                         }
-                        $AzSAQueueInfo += [PSCustomObject]$InObj
+                        $AzSATableInfo += [PSCustomObject]$InObj
                     }
 
                     $TableParams = @{
@@ -60,7 +61,7 @@ function Get-AbrAzSAQueue {
                     if ($Report.ShowTableCaptions) {
                         $TableParams['Caption'] = "- $($TableParams.Name)"
                     }
-                    $AzSAQueueInfo | Table @TableParams
+                    $AzSATableInfo | Table @TableParams
                 }
             }
         } Catch {
