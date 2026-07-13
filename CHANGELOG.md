@@ -47,6 +47,7 @@
 * Fix `Get-AbrAzSAQueue` and `Get-AbrAzSATable` - Use `New-AzStorageContext -UseConnectedAccount` for OAuth-based data plane access to resolve 403 Forbidden errors when storage account shared key access is disabled
 * Fix unhandled `Error while copying content to a stream` exception in `Invoke-AsBuiltReport.Microsoft.Azure` caused by `Get-AzTenant`, `Get-AzLocation`, and `Get-AzSubscription` being called without error handling after authentication; failures are now caught and reported as warnings
 * Fix `Get-AbrAzLoadBalancer` - Correct `LoadBalancerImage` to `Image` in all language files; the mismatched localization key caused the Load Balancer architecture diagram to fail rendering and fall back to the `ImageError` message
+* Fix `Release.yml` - Install `AsBuiltReport.Diagram` module prior to module manifest validation and publish steps; the missing required module caused the release pipeline to fail
 
 ## [0.2.0] - 2026-02-11
 
