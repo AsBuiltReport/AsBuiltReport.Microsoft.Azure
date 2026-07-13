@@ -23,8 +23,8 @@ function Get-AbrDiagAzManagementGroup {
             $ModuleBase = (Get-Module -Name 'AsBuiltReport.Microsoft.Azure').ModuleBase
             $IconPath = [System.IO.FileInfo](Join-Path $ModuleBase 'Icons')
             $ImagesObj = @{
-                'MG'    = 'management-groups.png'
-                'Sub'   = 'subscriptions.png'
+                'MG' = 'management-groups.png'
+                'Sub' = 'subscriptions.png'
                 'Blank' = 'blank.png'
             }
 
@@ -42,12 +42,12 @@ function Get-AbrDiagAzManagementGroup {
                     Where-Object { $_.Type -like '*managementGroups*' } |
                     Select-Object -ExpandProperty Name)
                 $MgList.Add(@{
-                    Id            = $CurrentMG.Name
-                    DisplayName   = $CurrentMG.DisplayName
-                    ParentId      = $Item.ParentId
-                    Subscriptions = $DirectSubs
-                    ChildMgIds    = $ChildMgIds
-                })
+                        Id = $CurrentMG.Name
+                        DisplayName = $CurrentMG.DisplayName
+                        ParentId = $Item.ParentId
+                        Subscriptions = $DirectSubs
+                        ChildMgIds = $ChildMgIds
+                    })
                 foreach ($MgChild in $CurrentMG.Children) {
                     if ($MgChild.Type -like '*managementGroups*') {
                         $MgQueue.Enqueue(@{ MG = $MgChild; ParentId = $CurrentMG.Name })
@@ -117,11 +117,11 @@ function Get-AbrDiagAzManagementGroup {
                     $SafeId = 'MG_' + ($MgInfo.Id -replace '[^a-zA-Z0-9]', '_')
                     if ($null -ne $MgInfo.ParentId -and $HasSubsInSubtree.Contains($MgInfo.ParentId)) {
                         $SafeParentId = 'MG_' + ($MgInfo.ParentId -replace '[^a-zA-Z0-9]', '_')
-                        edge $SafeParentId $SafeId @{ color = $EdgeColor; style = 'solid' }
+                        Edge $SafeParentId $SafeId @{ color = $EdgeColor; style = 'solid' }
                     }
                     if ($MgInfo.Subscriptions.Count -gt 0) {
                         $SubNodeId = 'Sub_' + ($MgInfo.Id -replace '[^a-zA-Z0-9]', '_')
-                        edge $SafeId $SubNodeId @{ color = $EdgeColor; style = 'solid' }
+                        Edge $SafeId $SubNodeId @{ color = $EdgeColor; style = 'solid' }
                     }
                 }
             }
@@ -137,7 +137,7 @@ function Get-AbrDiagAzManagementGroup {
                 -DisableMainDiagramLogo
             if ($DiagramResult) {
                 Image -Base64 $DiagramResult -Text $LocalizedData.DiagramAltText -Percent $DiagramPercent
-                Blankline
+                BlankLine
             }
         } catch {
             Write-PScriboMessage -IsWarning $_.Exception.Message
