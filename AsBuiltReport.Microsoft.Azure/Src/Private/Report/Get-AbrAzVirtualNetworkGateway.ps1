@@ -124,7 +124,7 @@ function Get-AbrAzVirtualNetworkGateway {
                                                 $InObj = [Ordered]@{
                                                     $LocalizedData.ConnectionName     = $Connection.Name
                                                     $LocalizedData.ConnectionType     = $Connection.ConnectionType
-                                                    $LocalizedData.ConnectionStatus   = $Connection.ConnectionStatus
+                                                    $LocalizedData.ConnectionStatus   = if ($Connection.ConnectionStatus) { $Connection.ConnectionStatus } else { $LocalizedData.NotApplicable }
                                                     $LocalizedData.ConnectionProtocol = if ($Connection.ConnectionProtocol) { $Connection.ConnectionProtocol } else { $LocalizedData.NotApplicable }
                                                     $LocalizedData.RoutingWeight      = $Connection.RoutingWeight
                                                     $LocalizedData.EnableBgp          = $Connection.EnableBgp
@@ -134,7 +134,7 @@ function Get-AbrAzVirtualNetworkGateway {
                                             }
 
                                             if ($Healthcheck.VirtualNetworkGateway.ConnectionStatus) {
-                                                $ConnectionInfo | Where-Object { $_.$($LocalizedData.ConnectionStatus) -ne 'Connected' } | Set-Style -Style Warning -Property $LocalizedData.ConnectionStatus
+                                                $ConnectionInfo | Where-Object { $_.$($LocalizedData.ConnectionStatus) -notin @('Connected', $LocalizedData.NotApplicable) } | Set-Style -Style Warning -Property $LocalizedData.ConnectionStatus
                                             }
 
                                             $TableParams = @{
