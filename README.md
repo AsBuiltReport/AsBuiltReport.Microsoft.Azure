@@ -324,13 +324,16 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | Sub-Schema            | Default Setting | Maximum Setting |
 |-----------------------|:---------------:|:---------------:|
 | ApplicationGateway    |        1        |        2        |
+| AsrNetworkMapping     |        1        |        1        |
+| AsrPolicy             |        1        |        2        |
+| AsrRecoveryPlan       |        1        |        2        |
 | AutomationAccount     |        1        |        2        |
 | AvailabilitySet       |        1        |        1        |
 | Bastion               |        1        |        2        |
 | DataCollectionRule    |        1        |        2        |
 | DdosProtectionPlan    |        1        |        2        |
-| DiagnosticSetting     |        1        |        2        |
 | DesktopVirtualization |        1        |        4        |
+| DiagnosticSetting     |        1        |        2        |
 | DnsForwardingRuleset  |        1        |        2        |
 | DnsPrivateResolver    |        1        |        2        |
 | ExpressRoute          |        1        |        2        |
@@ -349,9 +352,6 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | Policy > Definitions  |        0        |        1        |
 | PrivateDnsZone        |        1        |        2        |
 | PublicIpAddress       |        1        |        2        |
-| AsrPolicy             |        1        |        2        |
-| AsrRecoveryPlan       |        1        |        2        |
-| AsrNetworkMapping     |        1        |        1        |
 | RecoveryServicesVault |        1        |        2        |
 | RouteTable            |        1        |        2        |
 | SiteRecovery          |        1        |        2        |
@@ -359,10 +359,10 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | Subscription          |        1        |        1        |
 | Tenant                |        1        |        1        |
 | UserAssignedManagedIdentity |        1        |        2        |
-| VmScaleSet            |        1        |        2        |
 | VirtualMachine        |        1        |        2        |
-| VirtualNetworkGateway |        1        |        2        |
 | VirtualNetwork        |        1        |        2        |
+| VirtualNetworkGateway |        1        |        2        |
+| VmScaleSet            |        1        |        2        |
 
 ### Healthcheck
 The **Healthcheck** schema is used to toggle health checks on or off.
@@ -374,6 +374,20 @@ The **ApplicationGateway** schema is used to configure health checks for Azure A
 |-------------------|--------------|---------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | ProvisioningState | true / false | true    | Highlights Application Gateways in a failed provisioning state          | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 | OperationalState  | true / false | true    | Highlights Application Gateways that are not in a Running state         | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Gateway is not in Running state      |
+
+#### AsrNetworkMapping
+The **AsrNetworkMapping** schema is used to configure health checks for Azure Site Recovery Network Mappings.
+
+| Sub-Schema   | Setting      | Default | Description                                                            | Highlight                                                                            |
+|--------------|--------------|---------|------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| MappingState | true / false | true    | Highlights ASR network mappings that are not in a Paired state         | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Network mapping is not Paired  |
+
+#### AsrPolicy
+The **AsrPolicy** schema is used to configure health checks for Azure Site Recovery Replication Policies.
+
+| Sub-Schema             | Setting      | Default | Description                                                                                     | Highlight                                                                                      |
+|------------------------|--------------|---------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| AppConsistentSnapshot  | true / false | true    | Highlights replication policies where app-consistent snapshot frequency is disabled (set to 0) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) App-consistent snapshots are disabled   |
 
 #### AutomationAccount
 The **AutomationAccount** schema is used to configure health checks for Azure Automation Accounts.
@@ -511,13 +525,13 @@ The **NetworkSecurityGroup** schema is used to configure health checks for Azure
 | ProvisioningState     | true / false | true    | Highlights NSGs in a failed provisioning state                                        | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state      |
 | OverlyPermissiveRules | true / false | true    | Highlights NSG rules with overly permissive source addresses (*, 0.0.0.0/0, Internet) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Rule has overly permissive source address |
 
-#### PrivateEndpoint
-The **PrivateEndpoint** schema is used to configure health checks for Azure Private Endpoints.
+#### NetworkWatcher
+The **NetworkWatcher** schema is used to configure health checks for Azure Network Watchers.
 
-| Sub-Schema        | Setting      | Default | Description                                                      | Highlight                                                                                   |
-|-------------------|--------------|---------|------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Private Endpoints in a failed provisioning state      | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-| ConnectionStatus  | true / false | true    | Highlights Private Endpoints with connection status not Approved | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Connection is not Approved          |
+| Sub-Schema        | Setting      | Default | Description                                                                     | Highlight                                                                                   |
+|-------------------|--------------|---------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| ProvisioningState | true / false | true    | Highlights Network Watchers in a failed provisioning state                      | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| FlowLogEnabled    | true / false | true    | Highlights NSG Flow Logs that are not enabled                                   | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Flow log is not enabled               |
 
 #### PrivateDnsZone
 The **PrivateDnsZone** schema is used to configure health checks for Azure Private DNS Zones.
@@ -527,13 +541,13 @@ The **PrivateDnsZone** schema is used to configure health checks for Azure Priva
 | ProvisioningState   | true / false | true    | Highlights Private DNS Zones in a failed provisioning state            | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 | VirtualNetworkLinks | true / false | true    | Highlights Private DNS Zones with no virtual network links configured  | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) No virtual network links configured  |
 
-#### NetworkWatcher
-The **NetworkWatcher** schema is used to configure health checks for Azure Network Watchers.
+#### PrivateEndpoint
+The **PrivateEndpoint** schema is used to configure health checks for Azure Private Endpoints.
 
-| Sub-Schema        | Setting      | Default | Description                                                                     | Highlight                                                                                   |
-|-------------------|--------------|---------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Network Watchers in a failed provisioning state                      | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-| FlowLogEnabled    | true / false | true    | Highlights NSG Flow Logs that are not enabled                                   | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Flow log is not enabled               |
+| Sub-Schema        | Setting      | Default | Description                                                      | Highlight                                                                                   |
+|-------------------|--------------|---------|------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| ProvisioningState | true / false | true    | Highlights Private Endpoints in a failed provisioning state      | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ConnectionStatus  | true / false | true    | Highlights Private Endpoints with connection status not Approved | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Connection is not Approved          |
 
 #### PublicIpAddress
 The **PublicIpAddress** schema is used to configure health checks for Azure Public IP Addresses.
@@ -542,20 +556,6 @@ The **PublicIpAddress** schema is used to configure health checks for Azure Publ
 |-------------------|--------------|---------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | ProvisioningState | true / false | true    | Highlights Public IP Addresses in a failed provisioning state                   | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 | Unattached        | true / false | true    | Highlights Public IP Addresses not associated with any resource (potential waste) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) IP address is not associated with any resource |
-
-#### AsrPolicy
-The **AsrPolicy** schema is used to configure health checks for Azure Site Recovery Replication Policies.
-
-| Sub-Schema             | Setting      | Default | Description                                                                                     | Highlight                                                                                      |
-|------------------------|--------------|---------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| AppConsistentSnapshot  | true / false | true    | Highlights replication policies where app-consistent snapshot frequency is disabled (set to 0) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) App-consistent snapshots are disabled   |
-
-#### AsrNetworkMapping
-The **AsrNetworkMapping** schema is used to configure health checks for Azure Site Recovery Network Mappings.
-
-| Sub-Schema   | Setting      | Default | Description                                                            | Highlight                                                                            |
-|--------------|--------------|---------|------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| MappingState | true / false | true    | Highlights ASR network mappings that are not in a Paired state         | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Network mapping is not Paired  |
 
 #### RecoveryServicesVault
 The **RecoveryServicesVault** schema is used to configure health checks for Azure Recovery Services Vault.
@@ -596,20 +596,6 @@ The **StorageAccount** schema is used to configure health checks for Azure Stora
 | PublicNetworkAccess     | true / false | true    | Highlights storage accounts which have public network access enabled      | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access is enabled      |
 | MinimumTlsVersion       | true / false | true    | Highlights storage accounts which have TLS 1.0 or TLS 1.1 configured      | ![Citical](https://placehold.co/15x15/FEDDD7/FEDDD7) TLS version 1.0 or 1.1 configured     |
 
-#### MaintenanceConfiguration
-The **MaintenanceConfiguration** schema is used to configure health checks for Azure Maintenance Configurations.
-
-| Sub-Schema        | Setting      | Default | Description                                                                      | Highlight                                                                                   |
-|-------------------|--------------|---------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Maintenance Configurations in a failed provisioning state             | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-
-#### VmScaleSet
-The **VmScaleSet** schema is used to configure health checks for Azure Virtual Machine Scale Sets.
-
-| Sub-Schema        | Setting      | Default | Description                                                                      | Highlight                                                                                   |
-|-------------------|--------------|---------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights VM Scale Sets in a failed provisioning state                          | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-
 #### VirtualMachine
 The **VirtualMachine** schema is used to configure health checks for Azure Virtual Machines.
 
@@ -635,6 +621,13 @@ The **VirtualNetworkGateway** schema is used to configure health checks for Azur
 |-------------------|--------------|---------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | ProvisioningState | true / false | true    | Highlights Virtual Network Gateways in a failed provisioning state          | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 | ConnectionStatus  | true / false | true    | Highlights VPN connections that are not Connected (InfoLevel 2+)            | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Connection is not in Connected state |
+
+#### VmScaleSet
+The **VmScaleSet** schema is used to configure health checks for Azure Virtual Machine Scale Sets.
+
+| Sub-Schema        | Setting      | Default | Description                                                                      | Highlight                                                                                   |
+|-------------------|--------------|---------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| ProvisioningState | true / false | true    | Highlights VM Scale Sets in a failed provisioning state                          | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 
 ## :computer: Examples
 <!-- ********** Add some examples. Use other AsBuiltReport modules as a guide. ********** -->

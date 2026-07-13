@@ -61,56 +61,62 @@
     "InfoLevel": {
         "_comment_": "0 = Disabled, 1 = Enabled / Summary, 2 = Detailed, 3 = Adv. Detailed, 4 = Comprehensive",
         "ApplicationGateway": 1,
-        "AvailabilitySet": 1,
-        "VmScaleSet": 1,
-        "MaintenanceConfiguration": 1,
-        "Bastion": 1,
+        "AsrNetworkMapping": 1,
+        "AsrPolicy": 1,
+        "AsrRecoveryPlan": 1,
         "AutomationAccount": 1,
+        "AvailabilitySet": 1,
+        "Bastion": 1,
         "DataCollectionRule": 1,
         "DdosProtectionPlan": 1,
+        "DesktopVirtualization": 1,
         "DiagnosticSetting": 1,
-        "DnsPrivateResolver": 1,
         "DnsForwardingRuleset": 1,
+        "DnsPrivateResolver": 1,
         "ExpressRoute": 1,
         "Firewall": 1,
         "FirewallPolicy": 1,
         "IpGroup": 1,
         "KeyVault": 1,
-        "LogAnalyticsWorkspace": 1,
         "LoadBalancer": 1,
+        "LogAnalyticsWorkspace": 1,
+        "MaintenanceConfiguration": 1,
         "ManagementGroup": 1,
+        "NetAppFiles": 1,
         "NetworkSecurityGroup": 1,
+        "NetworkWatcher": 1,
         "Policy": {
 			"Assignments": 1,
 			"Definitions": 0
 		},
         "PrivateDnsZone": 1,
         "PrivateEndpoint": 2,
-        "NetworkWatcher": 1,
         "PublicIpAddress": 1,
         "RecoveryServicesVault": 1,
         "RouteTable": 1,
         "SiteRecovery": 1,
-        "AsrPolicy": 1,
-        "AsrRecoveryPlan": 1,
-        "AsrNetworkMapping": 1,
         "StorageAccount": 1,
         "Subscription": 1,
         "Tenant": 0,
-        "VirtualNetwork": 1,
+        "UserAssignedManagedIdentity": 1,
         "VirtualMachine": 1,
+        "VirtualNetwork": 1,
         "VirtualNetworkGateway": 1,
-        "DesktopVirtualization": 1,
-        "NetAppFiles": 1,
-        "UserAssignedManagedIdentity": 1
+        "VmScaleSet": 1
     },
     "HealthCheck": {
-        "AutomationAccount": {
-            "State": true
-        },
         "ApplicationGateway": {
             "ProvisioningState": true,
             "OperationalState": true
+        },
+        "AsrNetworkMapping": {
+            "MappingState": true
+        },
+        "AsrPolicy": {
+            "AppConsistentSnapshot": true
+        },
+        "AutomationAccount": {
+            "State": true
         },
         "Bastion": {
             "ProvisioningState": true
@@ -118,19 +124,26 @@
         "DataCollectionRule": {
             "ProvisioningState": true
         },
-        "DiagnosticSetting": {
-            "NoLogsEnabled": true
-        },
         "DdosProtectionPlan": {
             "ProvisioningState": true
         },
-        "DnsPrivateResolver": {
-            "ProvisioningState": true,
-            "CurrentState": true
+        "DesktopVirtualization": {
+            "SessionHostHealth": true,
+            "DrainMode": true,
+            "RegistrationExpiry": true,
+            "NoSessionHosts": true,
+            "HostPoolCapacity": true
+        },
+        "DiagnosticSetting": {
+            "NoLogsEnabled": true
         },
         "DnsForwardingRuleset": {
             "ProvisioningState": true,
             "ForwardingRuleState": true
+        },
+        "DnsPrivateResolver": {
+            "ProvisioningState": true,
+            "CurrentState": true
         },
         "ExpressRoute": {
             "CircuitStatus": true
@@ -159,9 +172,20 @@
             "PublicNetworkAccessForIngestion": true,
             "PublicNetworkAccessForQuery": true
         },
+        "NetAppFiles": {
+            "PoolCapacity": true,
+            "AdHealth": true,
+            "SnapshotPolicy": true,
+            "BackupProtection": true,
+            "CustomerManagedKey": true
+        },
         "NetworkSecurityGroup": {
             "ProvisioningState": true,
             "OverlyPermissiveRules": true
+        },
+        "NetworkWatcher": {
+            "ProvisioningState": true,
+            "FlowLogEnabled": true
         },
         "PrivateDnsZone": {
             "ProvisioningState": true,
@@ -170,10 +194,6 @@
         "PrivateEndpoint": {
             "ProvisioningState": true,
             "ConnectionStatus": true
-        },
-        "NetworkWatcher": {
-            "ProvisioningState": true,
-            "FlowLogEnabled": true
         },
         "PublicIpAddress": {
             "ProvisioningState": true,
@@ -189,23 +209,6 @@
         "RouteTable": {
             "ProvisioningState": true
         },
-        "SiteRecovery": {
-            "ReplicationHealth": true,
-            "FailoverHealth": true,
-            "NoTestFailover": true
-        },
-        "AsrPolicy": {
-            "AppConsistentSnapshot": true
-        },
-        "AsrNetworkMapping": {
-            "MappingState": true
-        },
-        "VmScaleSet": {
-            "ProvisioningState": true
-        },
-        "MaintenanceConfiguration": {
-            "ProvisioningState": true
-        },
         "StorageAccount": {
             "ProvisioningState": true,
             "StorageAccountKeyAccess": true,
@@ -213,6 +216,11 @@
             "BlobAnonymousAccess": true,
             "PublicNetworkAccess": true,
             "MinimumTlsVersion": true
+        },
+        "SiteRecovery": {
+            "ReplicationHealth": true,
+            "FailoverHealth": true,
+            "NoTestFailover": true
         },
         "VirtualMachine": {
             "Status": true,
@@ -228,19 +236,8 @@
             "ProvisioningState": true,
             "ConnectionStatus": true
         },
-        "DesktopVirtualization": {
-            "SessionHostHealth": true,
-            "DrainMode": true,
-            "RegistrationExpiry": true,
-            "NoSessionHosts": true,
-            "HostPoolCapacity": true
-        },
-        "NetAppFiles": {
-            "PoolCapacity": true,
-            "AdHealth": true,
-            "SnapshotPolicy": true,
-            "BackupProtection": true,
-            "CustomerManagedKey": true
+        "VmScaleSet": {
+            "ProvisioningState": true
         }
     }
 }

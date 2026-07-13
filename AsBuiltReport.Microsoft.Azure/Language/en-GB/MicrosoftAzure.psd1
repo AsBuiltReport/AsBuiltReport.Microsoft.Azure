@@ -1751,7 +1751,6 @@ GetAbrAzMaintenanceConfiguration = ConvertFrom-StringData @'
     Duration = Duration
     RecurEvery = Recurrence
     TimeZone = Time Zone
-    ProvisioningState = Provisioning State
     NotConfigured = Not Configured
     NoExpiry = No Expiry
     Tags = Tags

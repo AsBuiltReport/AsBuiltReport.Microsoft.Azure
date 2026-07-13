@@ -1751,7 +1751,6 @@ GetAbrAzMaintenanceConfiguration = ConvertFrom-StringData @'
     Duration = Duree
     RecurEvery = Periodicite
     TimeZone = Fuseau horaire
-    ProvisioningState = Etat d'approvisionnement
     NotConfigured = Non configure
     NoExpiry = Sans expiration
     Tags = Balises

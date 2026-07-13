@@ -1751,7 +1751,6 @@ GetAbrAzMaintenanceConfiguration = ConvertFrom-StringData @'
     Duration = Duración
     RecurEvery = Periodicidad
     TimeZone = Zona horaria
-    ProvisioningState = Estado de aprovisionamiento
     NotConfigured = No configurado
     NoExpiry = Sin expiración
     Tags = Etiquetas

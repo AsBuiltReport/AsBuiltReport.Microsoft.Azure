@@ -30,14 +30,6 @@ function Get-AbrAzMaintenanceConfiguration {
                 if ($AzMaintenanceConfigs) {
                     Write-PScriboMessage $LocalizedData.Collecting
 
-                    # PSMaintenanceConfiguration does not expose ResourceGroupName or ProvisioningState directly;
-                    # fetch via Get-AzResource with expanded properties to populate both fields.
-                    $AzMcResourceMap = @{}
-                    $AzMcResources = Get-AzResource -ResourceType 'Microsoft.Maintenance/maintenanceConfigurations' -ExpandProperties -ErrorAction SilentlyContinue
-                    foreach ($Res in $AzMcResources) {
-                        $AzMcResourceMap[$Res.ResourceId.ToLower()] = $Res
-                    }
-
                     Section -Style Heading4 $LocalizedData.Heading {
                         if ($Options.ShowSectionInfo) {
                             Paragraph $LocalizedData.SectionInfo
@@ -46,9 +38,7 @@ function Get-AbrAzMaintenanceConfiguration {
 
                         $AzMcInfo = @()
                         foreach ($AzMc in $AzMaintenanceConfigs) {
-                            $AzMcResource = $AzMcResourceMap[$AzMc.Id.ToLower()]
                             $ResourceGroup = ($AzMc.Id).split('/')[4]
-                            $ProvisioningState = if ($AzMcResource) { $AzMcResource.Properties.ProvisioningState } else { $LocalizedData.None }
                             $StartDateTime = if ($AzMc.MaintenanceWindow.StartDateTime) {
                                 $AzMc.MaintenanceWindow.StartDateTime
                             } else {
@@ -87,7 +77,6 @@ function Get-AbrAzMaintenanceConfiguration {
                                 $LocalizedData.Duration          = $Duration
                                 $LocalizedData.RecurEvery        = $RecurEvery
                                 $LocalizedData.TimeZone          = $TimeZone
-                                $LocalizedData.ProvisioningState = $ProvisioningState
                             }
 
                             if ($Options.ShowTags) {
@@ -99,10 +88,6 @@ function Get-AbrAzMaintenanceConfiguration {
                             }
 
                             $AzMcInfo += [PSCustomObject]$InObj
-                        }
-
-                        if ($Healthcheck.MaintenanceConfiguration.ProvisioningState) {
-                            $AzMcInfo | Where-Object { $_.$($LocalizedData.ProvisioningState) -ne 'Succeeded' } | Set-Style -Style Critical -Property $LocalizedData.ProvisioningState
                         }
 
                         if ($InfoLevel.MaintenanceConfiguration -ge 2) {
@@ -127,8 +112,8 @@ function Get-AbrAzMaintenanceConfiguration {
                             $TableParams = @{
                                 Name         = "$($LocalizedData.TableHeading) - $($AzSubscription.Name)"
                                 List         = $false
-                                Columns      = $LocalizedData.Name, $LocalizedData.Location, $LocalizedData.Scope, $LocalizedData.RecurEvery, $LocalizedData.Duration, $LocalizedData.ProvisioningState
-                                ColumnWidths = 25, 15, 20, 15, 10, 15
+                                Columns      = $LocalizedData.Name, $LocalizedData.Location, $LocalizedData.Scope, $LocalizedData.RecurEvery, $LocalizedData.Duration
+                                ColumnWidths = 30, 15, 25, 15, 15
                             }
                             if ($Report.ShowTableCaptions) {
                                 $TableParams['Caption'] = "- $($TableParams.Name)"
