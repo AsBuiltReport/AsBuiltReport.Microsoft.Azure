@@ -73,7 +73,9 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 * Private DNS Zones
 * Private Endpoints
 * Public IP Addresses
+* Recovery Services Vaults
 * Route Tables
+* Site Recovery
 * Storage Accounts
 * Subscriptions
 * Tenants
