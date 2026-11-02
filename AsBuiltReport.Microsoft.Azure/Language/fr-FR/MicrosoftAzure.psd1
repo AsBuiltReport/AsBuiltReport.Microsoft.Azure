@@ -1951,6 +1951,7 @@ GetAbrAzVirtualNetworkManager = ConvertFrom-StringData @'
     Collecting = Collecte des informations Azure Virtual Network Manager.
     Processing = Traitement d'Azure Virtual Network Manager '{0}' ({1} sur {2}).
     ProcessingError = Impossible de traiter Azure Virtual Network Manager '{0}' : {1}
+    DeploymentStatusError = Impossible de collecter l'etat de deploiement d'Azure Virtual Network Manager '{0}' : {1}
     SectionInfo = Azure Virtual Network Manager est un service de gestion qui vous permet de regrouper, configurer, deployer et gerer des reseaux virtuels de maniere globale entre les abonnements. Les groupes de reseaux definissent les reseaux virtuels a gerer, et les configurations de connectivite et d'administration de la securite sont appliquees a ces groupes pour controler de maniere centralisee la connexion et la securisation des reseaux virtuels.
     ParagraphDetail = Les sections suivantes detaillent la configuration des gestionnaires de reseau virtuel dans l'abonnement {0}.
     ParagraphSummary = Le tableau suivant resume la configuration des gestionnaires de reseau virtuel dans l'abonnement {0}.
@@ -1995,6 +1996,133 @@ GetAbrAzVnmNetworkGroup = ConvertFrom-StringData @'
     StaticMemberError = Impossible de collecter les membres statiques du groupe de reseaux '{0}' : {1}
     CollectionError = Impossible de collecter les groupes de reseaux d'Azure Virtual Network Manager '{0}' : {1}
     Unavailable = Les informations des groupes de reseaux d'Azure Virtual Network Manager '{0}' n'ont pas pu etre recuperees. Verifiez les autorisations et reessayez.
+'@
+
+# Azure Virtual Network Manager Connectivity Configurations (Get-AbrAzVnmConnectivityConfiguration)
+GetAbrAzVnmConnectivityConfiguration = ConvertFrom-StringData @'
+    Collecting = Collecte des configurations de connectivite pour Azure Virtual Network Manager '{0}'.
+    Heading = Configurations de connectivite
+    TableHeading = Configuration de connectivite
+    TableHeadings = Configurations de connectivite
+    NetworkGroupTableHeading = Groupes de reseaux de connectivite
+    Name = Nom
+    Topology = Topologie
+    HubAndSpoke = Hub and spoke
+    Mesh = Maillage
+    Hubs = Hubs
+    NetworkGroups = Groupes de reseaux
+    DeployedRegions = Regions deployees
+    Description = Description
+    ProvisioningState = Etat de provisionnement
+    GlobalMesh = Maillage global
+    DeleteExistingPeering = Supprimer le peering existant
+    AddressOverlap = Chevauchement d'adresses
+    PrivateEndpointScale = Echelle des points de terminaison prives
+    PeeringEnforcement = Application du peering
+    NetworkGroup = Groupe de reseaux
+    DirectConnectivity = Connectivite directe
+    Global = Global
+    UseHubGateway = Utiliser la passerelle du hub
+    Yes = Oui
+    No = Non
+    None = Aucun
+    Unknown = Inconnu
+    NotConfigured = Non configure
+    CollectionError = Impossible de collecter les configurations de connectivite d'Azure Virtual Network Manager '{0}' : {1}
+    Unavailable = Les configurations de connectivite d'Azure Virtual Network Manager '{0}' n'ont pas pu etre recuperees. Verifiez les autorisations et reessayez.
+'@
+
+# Azure Virtual Network Manager Security Admin Configurations (Get-AbrAzVnmSecurityAdminConfiguration)
+GetAbrAzVnmSecurityAdminConfiguration = ConvertFrom-StringData @'
+    Collecting = Collecte des configurations d'administration de la securite pour Azure Virtual Network Manager '{0}'.
+    Heading = Configurations d'administration de la securite
+    TableHeading = Configuration d'administration de la securite
+    TableHeadings = Configurations d'administration de la securite
+    RuleCollectionTableHeading = Collections de regles d'administration de la securite
+    RuleTableHeading = Regles d'administration de la securite
+    Name = Nom
+    Description = Description
+    RuleCollections = Collections de regles
+    DeployedRegions = Regions deployees
+    ProvisioningState = Etat de provisionnement
+    ApplyOnNetworkIntentPolicyBasedServices = Appliquer aux services bases sur des strategies d'intention reseau
+    AddressSpaceAggregation = Agregation de l'espace d'adressage
+    NetworkGroups = Groupes de reseaux
+    Rules = Regles
+    Priority = Priorite
+    Access = Action
+    Allow = Autoriser
+    AlwaysAllow = Toujours autoriser
+    Deny = Refuser
+    Direction = Direction
+    Inbound = Entrant
+    Outbound = Sortant
+    Protocol = Protocole
+    Source = Source
+    Destination = Destination
+    DestinationPorts = Ports de destination
+    None = Aucun
+    Unknown = Inconnu
+    NotConfigured = Non configure
+    RuleCollectionError = Impossible de collecter les collections de regles de la configuration d'administration de la securite '{0}' : {1}
+    RuleError = Impossible de collecter les regles de la collection de regles d'administration de la securite '{0}' : {1}
+    CollectionError = Impossible de collecter les configurations d'administration de la securite d'Azure Virtual Network Manager '{0}' : {1}
+    Unavailable = Les configurations d'administration de la securite d'Azure Virtual Network Manager '{0}' n'ont pas pu etre recuperees. Verifiez les autorisations et reessayez.
+'@
+
+# Azure Virtual Network Manager Routing Configurations (Get-AbrAzVnmRoutingConfiguration)
+GetAbrAzVnmRoutingConfiguration = ConvertFrom-StringData @'
+    Collecting = Collecte des configurations de routage pour Azure Virtual Network Manager '{0}'.
+    Heading = Configurations de routage
+    TableHeading = Configuration de routage
+    TableHeadings = Configurations de routage
+    RuleCollectionTableHeading = Collections de regles de routage
+    RuleTableHeading = Regles de routage
+    Name = Nom
+    Description = Description
+    RuleCollections = Collections de regles
+    DeployedRegions = Regions deployees
+    ProvisioningState = Etat de provisionnement
+    RouteTableUsageMode = Mode d'utilisation de la table de routage
+    NetworkGroups = Groupes de reseaux
+    BgpRoutePropagation = Propagation des routes BGP
+    Enabled = Active
+    Disabled = Desactive
+    Rules = Regles
+    Destination = Destination
+    DestinationType = Type de destination
+    NextHopType = Type du prochain troncon
+    NextHopAddress = Adresse du prochain troncon
+    None = Aucun
+    Unknown = Inconnu
+    NotConfigured = Non configure
+    RuleCollectionError = Impossible de collecter les collections de regles de la configuration de routage '{0}' : {1}
+    RuleError = Impossible de collecter les regles de la collection de regles de routage '{0}' : {1}
+    CollectionError = Impossible de collecter les configurations de routage d'Azure Virtual Network Manager '{0}' : {1}
+    Unavailable = Les configurations de routage d'Azure Virtual Network Manager '{0}' n'ont pas pu etre recuperees. Verifiez les autorisations et reessayez.
+'@
+
+# Azure Virtual Network Manager Configuration Deployments (Get-AbrAzVnmDeploymentStatus)
+GetAbrAzVnmDeploymentStatus = ConvertFrom-StringData @'
+    Collecting = Collecte des deploiements de configuration pour Azure Virtual Network Manager '{0}'.
+    Heading = Deploiements de configuration
+    TableHeadings = Deploiements de configuration
+    Region = Region
+    DeploymentType = Type de deploiement
+    Connectivity = Connectivite
+    SecurityAdmin = Administrateur de la securite
+    Routing = Routage
+    Status = Etat
+    Deployed = Deploye
+    Deploying = Deploiement en cours
+    NotStarted = Non demarre
+    Failed = Echec
+    CommitTime = Heure de validation
+    Configurations = Configurations
+    None = Aucun
+    DeploymentError = Le deploiement {0} vers {1} a signale une erreur : {2}
+    CollectionError = Impossible de signaler les deploiements de configuration d'Azure Virtual Network Manager '{0}' : {1}
+    Unavailable = Les deploiements de configuration d'Azure Virtual Network Manager '{0}' n'ont pas pu etre recuperes. Verifiez les autorisations et reessayez.
 '@
 
 }

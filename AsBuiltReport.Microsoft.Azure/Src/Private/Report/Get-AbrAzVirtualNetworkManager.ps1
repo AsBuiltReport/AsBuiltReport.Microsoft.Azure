@@ -4,7 +4,8 @@ function Get-AbrAzVirtualNetworkManager {
         Used by As Built Report to retrieve Azure Virtual Network Manager information
     .DESCRIPTION
         Documents the Azure Virtual Network Manager instances within the current subscription, including
-        their management scope, enabled features and network groups, in Word/HTML/Text formats using PScribo.
+        their management scope, enabled features, network groups, connectivity, security admin and routing
+        configurations, and configuration deployments, in Word/HTML/Text formats using PScribo.
     .NOTES
         Version:        0.3.1
         Author:         Tim Carman
@@ -44,6 +45,8 @@ function Get-AbrAzVirtualNetworkManager {
                         }
 
                         $AzNetworkManagerInfo = @()
+                        $ScopeAccessMap = @{}
+                        $DeploymentStatusMap = @{}
                         $Count = 1
                         foreach ($AzNetworkManager in $AzNetworkManagers) {
                             Write-PScriboMessage ($LocalizedData.Processing -f ($AzNetworkManager.Name), $Count, ($AzNetworkManagers.Count))
@@ -108,6 +111,32 @@ function Get-AbrAzVirtualNetworkManager {
                                 }
 
                                 $AzNetworkManagerInfo += [PSCustomObject]$InObj
+                                $ScopeAccessMap[$AzNetworkManager.Name] = @($AzNetworkManager.NetworkManagerScopeAccesses)
+
+                                # Deployment status is shared by the configuration sections and the deployment table, so collect it once per manager
+                                if ($InfoLevel.VirtualNetworkManager -ge 2) {
+                                    Try {
+                                        $AzDeployments = @()
+                                        $SkipToken = $null
+                                        do {
+                                            $DeploymentParams = @{
+                                                NetworkManagerName = $AzNetworkManager.Name
+                                                ResourceGroupName = $AzNetworkManager.ResourceGroupName
+                                                ErrorAction = 'Stop'
+                                            }
+                                            if ($SkipToken) {
+                                                $DeploymentParams['SkipToken'] = $SkipToken
+                                            }
+                                            $AzDeploymentResult = Get-AzNetworkManagerDeploymentStatus @DeploymentParams
+                                            $AzDeployments += @($AzDeploymentResult.Value | Where-Object { $_ })
+                                            $SkipToken = $AzDeploymentResult.SkipToken
+                                        } while ($SkipToken)
+                                        $DeploymentStatusMap[$AzNetworkManager.Name] = $AzDeployments
+                                    } Catch {
+                                        Write-PScriboMessage -IsWarning ($LocalizedData.DeploymentStatusError -f $AzNetworkManager.Name, $_.Exception.Message)
+                                        $DeploymentStatusMap[$AzNetworkManager.Name] = $null
+                                    }
+                                }
                             } Catch {
                                 Write-PScriboMessage -IsWarning ($LocalizedData.ProcessingError -f $AzNetworkManager.Name, $_.Exception.Message)
                             }
@@ -132,8 +161,25 @@ function Get-AbrAzVirtualNetworkManager {
                                     }
                                     $AzNetworkManager | Table @TableParams
 
+                                    $NetworkManagerName = $AzNetworkManager.($LocalizedData.Name)
+                                    $NetworkManagerResourceGroup = $AzNetworkManager.($LocalizedData.ResourceGroup)
+                                    $NetworkManagerDeployments = $DeploymentStatusMap[$NetworkManagerName]
+                                    $NetworkManagerScopeAccesses = $ScopeAccessMap[$NetworkManagerName]
+
                                     # Network Groups
-                                    Get-AbrAzVnmNetworkGroup -NetworkManagerName $($AzNetworkManager.($LocalizedData.Name)) -ResourceGroupName $($AzNetworkManager.($LocalizedData.ResourceGroup))
+                                    Get-AbrAzVnmNetworkGroup -NetworkManagerName $NetworkManagerName -ResourceGroupName $NetworkManagerResourceGroup
+                                    # Configurations are only reported for the features the network manager has enabled
+                                    if ($NetworkManagerScopeAccesses -contains 'Connectivity') {
+                                        Get-AbrAzVnmConnectivityConfiguration -NetworkManagerName $NetworkManagerName -ResourceGroupName $NetworkManagerResourceGroup -DeploymentStatus $NetworkManagerDeployments
+                                    }
+                                    if ($NetworkManagerScopeAccesses -contains 'SecurityAdmin') {
+                                        Get-AbrAzVnmSecurityAdminConfiguration -NetworkManagerName $NetworkManagerName -ResourceGroupName $NetworkManagerResourceGroup -DeploymentStatus $NetworkManagerDeployments
+                                    }
+                                    if ($NetworkManagerScopeAccesses -contains 'Routing') {
+                                        Get-AbrAzVnmRoutingConfiguration -NetworkManagerName $NetworkManagerName -ResourceGroupName $NetworkManagerResourceGroup -DeploymentStatus $NetworkManagerDeployments
+                                    }
+                                    # Configuration Deployments
+                                    Get-AbrAzVnmDeploymentStatus -NetworkManagerName $NetworkManagerName -DeploymentStatus $NetworkManagerDeployments
                                 }
                             }
                         } else {

@@ -5,6 +5,7 @@
 ### Added
 * Add support for Virtual Network hub-spoke topology information and diagrams
 * Add support for Azure Virtual Network Managers (`VirtualNetworkManager`), with a summary table at InfoLevel 1, per-manager scope, features, locks and network groups at InfoLevel 2, and network group static members at InfoLevel 3; `ProvisioningState` health check highlights failed provisioning
+* Add Azure Virtual Network Manager connectivity, security admin and routing configurations, with deployed regions per configuration at InfoLevel 2 and configuration settings, rule collections and rules at InfoLevel 3, plus a configuration deployments table by region; `DeploymentStatus`, `UndeployedConfiguration` and `PermissiveSecurityAdminRule` health checks highlight failed deployments, configurations with no effect and inbound Always Allow rules from any source
 
 ### Changed
 * Extract NVA detection logic shared by `Get-AbrAzNetworkVirtualAppliance` and `Get-AbrAzNetworkTopology` into `Test-AbrAzNvaVm`

@@ -527,6 +527,22 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVnmNetworkGroup.ps1'
         }
 
+        It 'Should have Get-AbrAzVnmConnectivityConfiguration helper function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVnmConnectivityConfiguration.ps1'
+        }
+
+        It 'Should have Get-AbrAzVnmSecurityAdminConfiguration helper function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVnmSecurityAdminConfiguration.ps1'
+        }
+
+        It 'Should have Get-AbrAzVnmRoutingConfiguration helper function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVnmRoutingConfiguration.ps1'
+        }
+
+        It 'Should have Get-AbrAzVnmDeploymentStatus helper function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVnmDeploymentStatus.ps1'
+        }
+
         It 'Should have Get-AbrAzVmScaleSet function' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVmScaleSet.ps1'
         }
@@ -1213,6 +1229,22 @@ Describe 'Module File Syntax and Quality' {
 
         It 'Should have GetAbrAzVnmNetworkGroup localization section' {
             $LocalizedData.GetAbrAzVnmNetworkGroup | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzVnmConnectivityConfiguration localization section' {
+            $LocalizedData.GetAbrAzVnmConnectivityConfiguration | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzVnmSecurityAdminConfiguration localization section' {
+            $LocalizedData.GetAbrAzVnmSecurityAdminConfiguration | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzVnmRoutingConfiguration localization section' {
+            $LocalizedData.GetAbrAzVnmRoutingConfiguration | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzVnmDeploymentStatus localization section' {
+            $LocalizedData.GetAbrAzVnmDeploymentStatus | Should -Not -BeNullOrEmpty
         }
 
         # Test for specific critical localization strings that are commonly used

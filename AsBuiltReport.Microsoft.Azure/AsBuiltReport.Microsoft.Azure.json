@@ -257,7 +257,10 @@
             "ConnectionStatus": true
         },
         "VirtualNetworkManager": {
-            "ProvisioningState": true
+            "ProvisioningState": true,
+            "DeploymentStatus": true,
+            "UndeployedConfiguration": true,
+            "PermissiveSecurityAdminRule": true
         },
         "VmScaleSet": {
             "ProvisioningState": true

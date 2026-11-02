@@ -1951,6 +1951,7 @@ GetAbrAzVirtualNetworkManager = ConvertFrom-StringData @'
     Collecting = Recopilando información de Azure Virtual Network Manager.
     Processing = Procesando Azure Virtual Network Manager '{0}' ({1} de {2}).
     ProcessingError = No se pudo procesar Azure Virtual Network Manager '{0}': {1}
+    DeploymentStatusError = No se pudo recopilar el estado de implementación de Azure Virtual Network Manager '{0}': {1}
     SectionInfo = Azure Virtual Network Manager es un servicio de administración que le permite agrupar, configurar, implementar y administrar redes virtuales de forma global entre suscripciones. Los grupos de red definen las redes virtuales que se administran, y las configuraciones de conectividad y de administrador de seguridad se aplican a esos grupos para controlar de forma centralizada cómo se conectan y protegen las redes virtuales.
     ParagraphDetail = Las siguientes secciones detallan la configuración de los administradores de red virtual en la suscripción {0}.
     ParagraphSummary = La siguiente tabla resume la configuración de los administradores de red virtual en la suscripción {0}.
@@ -1995,6 +1996,133 @@ GetAbrAzVnmNetworkGroup = ConvertFrom-StringData @'
     StaticMemberError = No se pudieron recopilar los miembros estáticos del grupo de red '{0}': {1}
     CollectionError = No se pudieron recopilar los grupos de red de Azure Virtual Network Manager '{0}': {1}
     Unavailable = No se pudo recuperar la información de grupos de red de Azure Virtual Network Manager '{0}'. Compruebe los permisos e inténtelo de nuevo.
+'@
+
+# Azure Virtual Network Manager Connectivity Configurations (Get-AbrAzVnmConnectivityConfiguration)
+GetAbrAzVnmConnectivityConfiguration = ConvertFrom-StringData @'
+    Collecting = Recopilando información de configuraciones de conectividad para Azure Virtual Network Manager '{0}'.
+    Heading = Configuraciones de conectividad
+    TableHeading = Configuración de conectividad
+    TableHeadings = Configuraciones de conectividad
+    NetworkGroupTableHeading = Grupos de red de conectividad
+    Name = Nombre
+    Topology = Topología
+    HubAndSpoke = Concentrador y radio
+    Mesh = Malla
+    Hubs = Concentradores
+    NetworkGroups = Grupos de red
+    DeployedRegions = Regiones implementadas
+    Description = Descripción
+    ProvisioningState = Estado de aprovisionamiento
+    GlobalMesh = Malla global
+    DeleteExistingPeering = Eliminar emparejamiento existente
+    AddressOverlap = Superposición de direcciones
+    PrivateEndpointScale = Escala de puntos de conexión privados
+    PeeringEnforcement = Aplicación de emparejamiento
+    NetworkGroup = Grupo de red
+    DirectConnectivity = Conectividad directa
+    Global = Global
+    UseHubGateway = Usar puerta de enlace del concentrador
+    Yes = Sí
+    No = No
+    None = Ninguno
+    Unknown = Desconocido
+    NotConfigured = No configurado
+    CollectionError = No se pudieron recopilar las configuraciones de conectividad de Azure Virtual Network Manager '{0}': {1}
+    Unavailable = No se pudo recuperar la información de configuraciones de conectividad de Azure Virtual Network Manager '{0}'. Compruebe los permisos e inténtelo de nuevo.
+'@
+
+# Azure Virtual Network Manager Security Admin Configurations (Get-AbrAzVnmSecurityAdminConfiguration)
+GetAbrAzVnmSecurityAdminConfiguration = ConvertFrom-StringData @'
+    Collecting = Recopilando información de configuraciones de administrador de seguridad para Azure Virtual Network Manager '{0}'.
+    Heading = Configuraciones de administrador de seguridad
+    TableHeading = Configuración de administrador de seguridad
+    TableHeadings = Configuraciones de administrador de seguridad
+    RuleCollectionTableHeading = Colecciones de reglas de administrador de seguridad
+    RuleTableHeading = Reglas de administrador de seguridad
+    Name = Nombre
+    Description = Descripción
+    RuleCollections = Colecciones de reglas
+    DeployedRegions = Regiones implementadas
+    ProvisioningState = Estado de aprovisionamiento
+    ApplyOnNetworkIntentPolicyBasedServices = Aplicar en servicios basados en directivas de intención de red
+    AddressSpaceAggregation = Agregación del espacio de direcciones
+    NetworkGroups = Grupos de red
+    Rules = Reglas
+    Priority = Prioridad
+    Access = Acción
+    Allow = Permitir
+    AlwaysAllow = Permitir siempre
+    Deny = Denegar
+    Direction = Dirección
+    Inbound = Entrante
+    Outbound = Saliente
+    Protocol = Protocolo
+    Source = Origen
+    Destination = Destino
+    DestinationPorts = Puertos de destino
+    None = Ninguno
+    Unknown = Desconocido
+    NotConfigured = No configurado
+    RuleCollectionError = No se pudieron recopilar las colecciones de reglas de la configuración de administrador de seguridad '{0}': {1}
+    RuleError = No se pudieron recopilar las reglas de la colección de reglas de administrador de seguridad '{0}': {1}
+    CollectionError = No se pudieron recopilar las configuraciones de administrador de seguridad de Azure Virtual Network Manager '{0}': {1}
+    Unavailable = No se pudo recuperar la información de configuraciones de administrador de seguridad de Azure Virtual Network Manager '{0}'. Compruebe los permisos e inténtelo de nuevo.
+'@
+
+# Azure Virtual Network Manager Routing Configurations (Get-AbrAzVnmRoutingConfiguration)
+GetAbrAzVnmRoutingConfiguration = ConvertFrom-StringData @'
+    Collecting = Recopilando información de configuraciones de enrutamiento para Azure Virtual Network Manager '{0}'.
+    Heading = Configuraciones de enrutamiento
+    TableHeading = Configuración de enrutamiento
+    TableHeadings = Configuraciones de enrutamiento
+    RuleCollectionTableHeading = Colecciones de reglas de enrutamiento
+    RuleTableHeading = Reglas de enrutamiento
+    Name = Nombre
+    Description = Descripción
+    RuleCollections = Colecciones de reglas
+    DeployedRegions = Regiones implementadas
+    ProvisioningState = Estado de aprovisionamiento
+    RouteTableUsageMode = Modo de uso de la tabla de rutas
+    NetworkGroups = Grupos de red
+    BgpRoutePropagation = Propagación de rutas BGP
+    Enabled = Habilitado
+    Disabled = Deshabilitado
+    Rules = Reglas
+    Destination = Destino
+    DestinationType = Tipo de destino
+    NextHopType = Tipo de próximo salto
+    NextHopAddress = Dirección del próximo salto
+    None = Ninguno
+    Unknown = Desconocido
+    NotConfigured = No configurado
+    RuleCollectionError = No se pudieron recopilar las colecciones de reglas de la configuración de enrutamiento '{0}': {1}
+    RuleError = No se pudieron recopilar las reglas de la colección de reglas de enrutamiento '{0}': {1}
+    CollectionError = No se pudieron recopilar las configuraciones de enrutamiento de Azure Virtual Network Manager '{0}': {1}
+    Unavailable = No se pudo recuperar la información de configuraciones de enrutamiento de Azure Virtual Network Manager '{0}'. Compruebe los permisos e inténtelo de nuevo.
+'@
+
+# Azure Virtual Network Manager Configuration Deployments (Get-AbrAzVnmDeploymentStatus)
+GetAbrAzVnmDeploymentStatus = ConvertFrom-StringData @'
+    Collecting = Recopilando información de implementaciones de configuración para Azure Virtual Network Manager '{0}'.
+    Heading = Implementaciones de configuración
+    TableHeadings = Implementaciones de configuración
+    Region = Región
+    DeploymentType = Tipo de implementación
+    Connectivity = Conectividad
+    SecurityAdmin = Administrador de seguridad
+    Routing = Enrutamiento
+    Status = Estado
+    Deployed = Implementado
+    Deploying = Implementando
+    NotStarted = No iniciado
+    Failed = Error
+    CommitTime = Hora de confirmación
+    Configurations = Configuraciones
+    None = Ninguno
+    DeploymentError = La implementación de {0} en {1} notificó un error: {2}
+    CollectionError = No se pudieron notificar las implementaciones de configuración de Azure Virtual Network Manager '{0}': {1}
+    Unavailable = No se pudo recuperar la información de implementaciones de configuración de Azure Virtual Network Manager '{0}'. Compruebe los permisos e inténtelo de nuevo.
 '@
 
 }

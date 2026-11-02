@@ -1951,6 +1951,7 @@ GetAbrAzVirtualNetworkManager = ConvertFrom-StringData @'
     Collecting = Collecting Azure Virtual Network Manager information.
     Processing = Processing Azure Virtual Network Manager '{0}' ({1} of {2}).
     ProcessingError = Unable to process Azure Virtual Network Manager '{0}': {1}
+    DeploymentStatusError = Unable to collect deployment status for Azure Virtual Network Manager '{0}': {1}
     SectionInfo = Azure Virtual Network Manager is a management service that enables you to group, configure, deploy and manage virtual networks globally across subscriptions. Network groups define the virtual networks to manage, and connectivity and security admin configurations are applied to those groups to centrally control how virtual networks are connected and secured.
     ParagraphDetail = The following sections detail the configuration of the virtual network managers within the {0} subscription.
     ParagraphSummary = The following table summarises the configuration of the virtual network managers within the {0} subscription.
@@ -1995,6 +1996,133 @@ GetAbrAzVnmNetworkGroup = ConvertFrom-StringData @'
     StaticMemberError = Unable to collect static members for network group '{0}': {1}
     CollectionError = Unable to collect network groups for Azure Virtual Network Manager '{0}': {1}
     Unavailable = Network group information for Azure Virtual Network Manager '{0}' could not be retrieved. Check permissions and try again.
+'@
+
+# Azure Virtual Network Manager Connectivity Configurations (Get-AbrAzVnmConnectivityConfiguration)
+GetAbrAzVnmConnectivityConfiguration = ConvertFrom-StringData @'
+    Collecting = Collecting connectivity configuration information for Azure Virtual Network Manager '{0}'.
+    Heading = Connectivity Configurations
+    TableHeading = Connectivity Configuration
+    TableHeadings = Connectivity Configurations
+    NetworkGroupTableHeading = Connectivity Network Groups
+    Name = Name
+    Topology = Topology
+    HubAndSpoke = Hub and Spoke
+    Mesh = Mesh
+    Hubs = Hubs
+    NetworkGroups = Network Groups
+    DeployedRegions = Deployed Regions
+    Description = Description
+    ProvisioningState = Provisioning State
+    GlobalMesh = Global Mesh
+    DeleteExistingPeering = Delete Existing Peering
+    AddressOverlap = Address Overlap
+    PrivateEndpointScale = Private Endpoint Scale
+    PeeringEnforcement = Peering Enforcement
+    NetworkGroup = Network Group
+    DirectConnectivity = Direct Connectivity
+    Global = Global
+    UseHubGateway = Use Hub Gateway
+    Yes = Yes
+    No = No
+    None = None
+    Unknown = Unknown
+    NotConfigured = Not Configured
+    CollectionError = Unable to collect connectivity configurations for Azure Virtual Network Manager '{0}': {1}
+    Unavailable = Connectivity configuration information for Azure Virtual Network Manager '{0}' could not be retrieved. Check permissions and try again.
+'@
+
+# Azure Virtual Network Manager Security Admin Configurations (Get-AbrAzVnmSecurityAdminConfiguration)
+GetAbrAzVnmSecurityAdminConfiguration = ConvertFrom-StringData @'
+    Collecting = Collecting security admin configuration information for Azure Virtual Network Manager '{0}'.
+    Heading = Security Admin Configurations
+    TableHeading = Security Admin Configuration
+    TableHeadings = Security Admin Configurations
+    RuleCollectionTableHeading = Security Admin Rule Collections
+    RuleTableHeading = Security Admin Rules
+    Name = Name
+    Description = Description
+    RuleCollections = Rule Collections
+    DeployedRegions = Deployed Regions
+    ProvisioningState = Provisioning State
+    ApplyOnNetworkIntentPolicyBasedServices = Apply on Network Intent Policy Based Services
+    AddressSpaceAggregation = Address Space Aggregation
+    NetworkGroups = Network Groups
+    Rules = Rules
+    Priority = Priority
+    Access = Action
+    Allow = Allow
+    AlwaysAllow = Always Allow
+    Deny = Deny
+    Direction = Direction
+    Inbound = Inbound
+    Outbound = Outbound
+    Protocol = Protocol
+    Source = Source
+    Destination = Destination
+    DestinationPorts = Destination Ports
+    None = None
+    Unknown = Unknown
+    NotConfigured = Not Configured
+    RuleCollectionError = Unable to collect rule collections for security admin configuration '{0}': {1}
+    RuleError = Unable to collect rules for security admin rule collection '{0}': {1}
+    CollectionError = Unable to collect security admin configurations for Azure Virtual Network Manager '{0}': {1}
+    Unavailable = Security admin configuration information for Azure Virtual Network Manager '{0}' could not be retrieved. Check permissions and try again.
+'@
+
+# Azure Virtual Network Manager Routing Configurations (Get-AbrAzVnmRoutingConfiguration)
+GetAbrAzVnmRoutingConfiguration = ConvertFrom-StringData @'
+    Collecting = Collecting routing configuration information for Azure Virtual Network Manager '{0}'.
+    Heading = Routing Configurations
+    TableHeading = Routing Configuration
+    TableHeadings = Routing Configurations
+    RuleCollectionTableHeading = Routing Rule Collections
+    RuleTableHeading = Routing Rules
+    Name = Name
+    Description = Description
+    RuleCollections = Rule Collections
+    DeployedRegions = Deployed Regions
+    ProvisioningState = Provisioning State
+    RouteTableUsageMode = Route Table Usage Mode
+    NetworkGroups = Network Groups
+    BgpRoutePropagation = BGP Route Propagation
+    Enabled = Enabled
+    Disabled = Disabled
+    Rules = Rules
+    Destination = Destination
+    DestinationType = Destination Type
+    NextHopType = Next Hop Type
+    NextHopAddress = Next Hop Address
+    None = None
+    Unknown = Unknown
+    NotConfigured = Not Configured
+    RuleCollectionError = Unable to collect rule collections for routing configuration '{0}': {1}
+    RuleError = Unable to collect rules for routing rule collection '{0}': {1}
+    CollectionError = Unable to collect routing configurations for Azure Virtual Network Manager '{0}': {1}
+    Unavailable = Routing configuration information for Azure Virtual Network Manager '{0}' could not be retrieved. Check permissions and try again.
+'@
+
+# Azure Virtual Network Manager Configuration Deployments (Get-AbrAzVnmDeploymentStatus)
+GetAbrAzVnmDeploymentStatus = ConvertFrom-StringData @'
+    Collecting = Collecting configuration deployment information for Azure Virtual Network Manager '{0}'.
+    Heading = Configuration Deployments
+    TableHeadings = Configuration Deployments
+    Region = Region
+    DeploymentType = Deployment Type
+    Connectivity = Connectivity
+    SecurityAdmin = Security Admin
+    Routing = Routing
+    Status = Status
+    Deployed = Deployed
+    Deploying = Deploying
+    NotStarted = Not Started
+    Failed = Failed
+    CommitTime = Commit Time
+    Configurations = Configurations
+    None = None
+    DeploymentError = {0} deployment to {1} reported an error: {2}
+    CollectionError = Unable to report configuration deployments for Azure Virtual Network Manager '{0}': {1}
+    Unavailable = Configuration deployment information for Azure Virtual Network Manager '{0}' could not be retrieved. Check permissions and try again.
 '@
 
 }

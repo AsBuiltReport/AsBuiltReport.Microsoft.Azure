@@ -657,6 +657,9 @@ The **VirtualNetworkManager** schema is used to configure health checks for Azur
 | Sub-Schema        | Setting      | Default | Description                                                         | Highlight                                                                                 |
 |-------------------|--------------|---------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
 | ProvisioningState | true / false | true    | Highlights Virtual Network Managers in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| DeploymentStatus  | true / false | true    | Highlights configuration deployments that have failed or are not yet complete (InfoLevel 2+) | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Deployment has failed<br>![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Deployment is not started or still deploying |
+| UndeployedConfiguration | true / false | true | Highlights connectivity, security admin and routing configurations that are not deployed to any region (InfoLevel 2+) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Configuration is not deployed and has no effect |
+| PermissiveSecurityAdminRule | true / false | true | Highlights inbound Always Allow security admin rules from any source or the Internet (InfoLevel 3+) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Rule bypasses NSGs for traffic from any source |
 
 #### VmScaleSet
 The **VmScaleSet** schema is used to configure health checks for Azure Virtual Machine Scale Sets.
