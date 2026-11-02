@@ -519,6 +519,14 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVirtualNetworkGateway.ps1'
         }
 
+        It 'Should have Get-AbrAzVirtualNetworkManager function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVirtualNetworkManager.ps1'
+        }
+
+        It 'Should have Get-AbrAzVnmNetworkGroup helper function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVnmNetworkGroup.ps1'
+        }
+
         It 'Should have Get-AbrAzVmScaleSet function' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVmScaleSet.ps1'
         }
@@ -565,7 +573,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
                 'DnsPrivateResolver', 'ExpressRoute', 'Firewall', 'FirewallPolicy', 'IpGroup', 'LogAnalyticsWorkspace',
                 'MaintenanceConfiguration', 'NetAppFiles', 'NetworkSecurityGroup', 'NetworkVirtualAppliance',
                 'NetworkWatcher', 'Policy', 'PrivateDnsZone', 'PrivateEndpoint', 'PublicIpAddress',
-                'RecoveryServicesVault', 'RouteTable', 'SiteRecovery', 'VirtualNetworkGateway', 'VmScaleSet'
+                'RecoveryServicesVault', 'RouteTable', 'SiteRecovery', 'VirtualNetworkGateway', 'VirtualNetworkManager', 'VmScaleSet'
             )
 
             $MissingSections = $ExpectedSections | Where-Object { $_ -notin $JsonConfig.Options.SectionOrder }
@@ -779,6 +787,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'VirtualNetworkGateway'
         }
 
+        It 'InfoLevel should include VirtualNetworkManager' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'VirtualNetworkManager'
+        }
+
         It 'InfoLevel should include VmScaleSet' {
             $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'VmScaleSet'
         }
@@ -909,6 +921,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 
         It 'HealthCheck should include VirtualNetworkGateway checks' {
             $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'VirtualNetworkGateway'
+        }
+
+        It 'HealthCheck should include VirtualNetworkManager checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'VirtualNetworkManager'
         }
 
         It 'HealthCheck should include VmScaleSet checks' {
@@ -1191,6 +1207,14 @@ Describe 'Module File Syntax and Quality' {
             $LocalizedData.GetCountryName | Should -Not -BeNullOrEmpty
         }
 
+        It 'Should have GetAbrAzVirtualNetworkManager localization section' {
+            $LocalizedData.GetAbrAzVirtualNetworkManager | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzVnmNetworkGroup localization section' {
+            $LocalizedData.GetAbrAzVnmNetworkGroup | Should -Not -BeNullOrEmpty
+        }
+
         # Test for specific critical localization strings that are commonly used
         It 'Common localization strings should exist in main Get-AbrAz* sections' {
             $AzFunctions = $PrivateFunctions | Where-Object { $_.BaseName -match '^Get-AbrAz' }
@@ -1208,7 +1232,8 @@ Describe 'Module File Syntax and Quality' {
                 'Get-AbrAzVirtualNetworkSubnet',     # VNet subnet
                 'Get-AbrAsrProtectedItems',          # Site Recovery items
                 'Get-AbrAzAsr',                      # ASR sub-functions (policies, plans, mappings)
-                'Get-AbrAzPolicy'                    # Policy sub-functions
+                'Get-AbrAzPolicy',                   # Policy sub-functions
+                'Get-AbrAzVnm'                       # Virtual Network Manager sub-functions
             )
 
             # Collect all missing keys instead of failing on first one

@@ -1945,4 +1945,56 @@ GetAbrAzNetworkVirtualAppliance = ConvertFrom-StringData @'
     None = None
 '@
 
+# Azure Virtual Network Manager (Get-AbrAzVirtualNetworkManager)
+GetAbrAzVirtualNetworkManager = ConvertFrom-StringData @'
+    InfoLevel = VirtualNetworkManager InfoLevel set at {0}.
+    Collecting = Collecting Azure Virtual Network Manager information.
+    Processing = Processing Azure Virtual Network Manager '{0}' ({1} of {2}).
+    ProcessingError = Unable to process Azure Virtual Network Manager '{0}': {1}
+    SectionInfo = Azure Virtual Network Manager is a management service that enables you to group, configure, deploy and manage virtual networks globally across subscriptions. Network groups define the virtual networks to manage, and connectivity and security admin configurations are applied to those groups to centrally control how virtual networks are connected and secured.
+    ParagraphDetail = The following sections detail the configuration of the virtual network managers within the {0} subscription.
+    ParagraphSummary = The following table summarises the configuration of the virtual network managers within the {0} subscription.
+    Heading = Virtual Network Managers
+    TableHeading = Virtual Network Manager
+    TableHeadings = Virtual Network Managers
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    ProvisioningState = Provisioning State
+    Description = Description
+    Features = Features
+    Connectivity = Connectivity
+    SecurityAdmin = Security Admin
+    Routing = Routing
+    ManagementGroupScope = Management Group Scope
+    SubscriptionScope = Subscription Scope
+    Locks = Locks
+    Tags = Tags
+    None = None
+'@
+
+# Azure Virtual Network Manager Network Groups (Get-AbrAzVnmNetworkGroup)
+GetAbrAzVnmNetworkGroup = ConvertFrom-StringData @'
+    Collecting = Collecting network group information for Azure Virtual Network Manager '{0}'.
+    Heading = Network Groups
+    TableHeadings = Network Groups
+    StaticMemberTableHeading = Static Members
+    Name = Name
+    MemberType = Member Type
+    VirtualNetwork = Virtual Network
+    Subnet = Subnet
+    StaticMembers = Static Members
+    Description = Description
+    Member = Member
+    ResourceGroup = Resource Group
+    Subscription = Subscription
+    Unknown = Unknown
+    None = None
+    StaticMemberError = Unable to collect static members for network group '{0}': {1}
+    CollectionError = Unable to collect network groups for Azure Virtual Network Manager '{0}': {1}
+    Unavailable = Network group information for Azure Virtual Network Manager '{0}' could not be retrieved. Check permissions and try again.
+'@
+
 }

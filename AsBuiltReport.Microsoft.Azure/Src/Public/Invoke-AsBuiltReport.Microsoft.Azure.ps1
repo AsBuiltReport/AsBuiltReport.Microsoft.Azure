@@ -77,6 +77,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "VirtualNetworkGateway",
         "DdosProtectionPlan",
         "VirtualNetwork",
+        "VirtualNetworkManager",
         "PublicIpAddress",
         "NetworkWatcher",
         "NetworkSecurityGroup",
@@ -153,6 +154,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         'VirtualMachine'        = 'Microsoft.Compute/virtualMachines'
         'VirtualNetwork'        = 'Microsoft.Network/virtualNetworks'
         'VirtualNetworkGateway' = 'Microsoft.Network/virtualNetworkGateways'
+        'VirtualNetworkManager' = 'Microsoft.Network/networkManagers'
     }
 
     # Function mapping for section names to function names
@@ -184,6 +186,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "NetworkVirtualAppliance"  = "Get-AbrAzNetworkVirtualAppliance"
         "VirtualMachine" = "Get-AbrAzVirtualMachine"
         "VirtualNetworkGateway" = "Get-AbrAzVirtualNetworkGateway"
+        "VirtualNetworkManager" = "Get-AbrAzVirtualNetworkManager"
         "RecoveryServicesVault" = "Get-AbrAzRecoveryServicesVault"
         "SiteRecovery" = "Get-AbrAsrProtectedItems"
         "AsrPolicy" = "Get-AbrAzAsrPolicy"

@@ -26,6 +26,7 @@
             "VirtualNetworkGateway",
             "DdosProtectionPlan",
             "VirtualNetwork",
+            "VirtualNetworkManager",
             "PublicIpAddress",
             "NetworkWatcher",
             "NetworkSecurityGroup",
@@ -104,6 +105,7 @@
         "VirtualMachine": 1,
         "VirtualNetwork": 1,
         "VirtualNetworkGateway": 1,
+        "VirtualNetworkManager": 1,
         "VmScaleSet": 1
     },
     "Diagram": {
@@ -253,6 +255,9 @@
         "VirtualNetworkGateway": {
             "ProvisioningState": true,
             "ConnectionStatus": true
+        },
+        "VirtualNetworkManager": {
+            "ProvisioningState": true
         },
         "VmScaleSet": {
             "ProvisioningState": true
