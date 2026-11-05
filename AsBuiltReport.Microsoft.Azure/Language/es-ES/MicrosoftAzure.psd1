@@ -880,6 +880,35 @@ GetAbrAzPolicyDefinition = ConvertFrom-StringData @'
     Category = Categoría
 '@
 
+# Azure Policy Exemptions (Get-AbrAzPolicyExemption)
+GetAbrAzPolicyExemption = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de exenciones de directiva establecido en {0}.
+    Collecting = Recopilando información de exenciones de Azure Policy.
+    ParagraphDetail = Las siguientes secciones detallan las exenciones de directiva que se aplican a la suscripción {0}.
+    ParagraphSummary = La siguiente tabla resume las exenciones de directiva que se aplican a la suscripción {0}.
+    Heading = Exenciones de directiva
+    TableHeading = Exención de directiva
+    TableHeadings = Exenciones de directiva
+    Name = Nombre
+    Description = Descripción
+    Scope = Ámbito
+    ScopeType = Tipo de ámbito
+    ManagementGroup = Grupo de administración
+    Subscription = Suscripción
+    ResourceGroup = Grupo de recursos
+    Resource = Recurso
+    Category = Categoría
+    PolicyAssignment = Asignación de directiva
+    PolicyDefinitions = Directivas exentas
+    AllPolicies = Todas
+    ExpiresOn = Expira el (UTC)
+    NoExpiry = Nunca
+    Status = Estado
+    Active = Activa
+    Expired = Expirada
+    ErrorMessage = No se puede recopilar información de exenciones de directiva:
+'@
+
 # Azure Private Endpoint (Get-AbrAzPrivateEndpoint)
 GetAbrAzPrivateEndpoint = ConvertFrom-StringData @'
     InfoLevel = InfoLevel de PrivateEndpoint establecido en {0}.

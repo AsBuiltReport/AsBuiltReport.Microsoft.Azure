@@ -353,6 +353,7 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | NetworkWatcher              |        1        |        2        |
 | Policy > Assignments        |        1        |        2        |
 | Policy > Definitions        |        0        |        1        |
+| Policy > Exemptions         |        1        |        2        |
 | PrivateDnsZone              |        1        |        2        |
 | PublicIpAddress             |        1        |        2        |
 | RecoveryServicesVault       |        1        |        2        |
@@ -557,6 +558,13 @@ The **NetworkWatcher** schema is used to configure health checks for Azure Netwo
 |-------------------|--------------|---------|------------------------------------------------------------|-------------------------------------------------------------------------------------------|
 | ProvisioningState | true / false | true    | Highlights Network Watchers in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 | FlowLogEnabled    | true / false | true    | Highlights NSG Flow Logs that are not enabled              | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Flow log is not enabled              |
+
+#### Policy
+The **Policy** schema is used to configure health checks for Azure Policy.
+
+| Sub-Schema        | Setting      | Default | Description                                    | Highlight                                                                       |
+|-------------------|--------------|---------|------------------------------------------------|---------------------------------------------------------------------------------|
+| ExpiredExemptions | true / false | true    | Highlights policy exemptions that have expired | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Policy exemption has expired |
 
 #### PrivateDnsZone
 The **PrivateDnsZone** schema is used to configure health checks for Azure Private DNS Zones.

@@ -4,6 +4,7 @@
 
 ### Added
 * Add support for Virtual Network hub-spoke topology information and diagrams
+* Add support for Azure Policy exemptions (`Policy.Exemptions`), including those on resource groups and resources, with a summary table at InfoLevel 1 and per-exemption detail at InfoLevel 2; `ExpiredExemptions` health check highlights exemptions that have expired
 
 ### Changed
 * Extract NVA detection logic shared by `Get-AbrAzNetworkVirtualAppliance` and `Get-AbrAzNetworkTopology` into `Test-AbrAzNvaVm`

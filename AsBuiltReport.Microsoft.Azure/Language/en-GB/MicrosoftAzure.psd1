@@ -880,6 +880,35 @@ GetAbrAzPolicyDefinition = ConvertFrom-StringData @'
     Category = Category
 '@
 
+# Azure Policy Exemptions (Get-AbrAzPolicyExemption)
+GetAbrAzPolicyExemption = ConvertFrom-StringData @'
+    InfoLevel = Policy Exemptions InfoLevel set at {0}.
+    Collecting = Collecting Azure Policy Exemption information.
+    ParagraphDetail = The following sections detail the policy exemptions that apply to the {0} subscription.
+    ParagraphSummary = The following table summarises the policy exemptions that apply to the {0} subscription.
+    Heading = Policy Exemptions
+    TableHeading = Policy Exemption
+    TableHeadings = Policy Exemptions
+    Name = Name
+    Description = Description
+    Scope = Scope
+    ScopeType = Scope Type
+    ManagementGroup = Management Group
+    Subscription = Subscription
+    ResourceGroup = Resource Group
+    Resource = Resource
+    Category = Category
+    PolicyAssignment = Policy Assignment
+    PolicyDefinitions = Exempted Policies
+    AllPolicies = All
+    ExpiresOn = Expires On (UTC)
+    NoExpiry = Never
+    Status = Status
+    Active = Active
+    Expired = Expired
+    ErrorMessage = Unable to collect Policy Exemption information:
+'@
+
 # Azure Private Endpoint (Get-AbrAzPrivateEndpoint)
 GetAbrAzPrivateEndpoint = ConvertFrom-StringData @'
     InfoLevel = PrivateEndpoint InfoLevel set at {0}.

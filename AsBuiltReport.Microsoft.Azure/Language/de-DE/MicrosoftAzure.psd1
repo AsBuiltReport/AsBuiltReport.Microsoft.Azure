@@ -880,6 +880,35 @@ GetAbrAzPolicyDefinition = ConvertFrom-StringData @'
     Category = Kategorie
 '@
 
+# Azure Policy Exemptions (Get-AbrAzPolicyExemption)
+GetAbrAzPolicyExemption = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel der Richtlinienausnahmen auf {0} gesetzt.
+    Collecting = Azure-Richtlinienausnahmen werden gesammelt.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Richtlinienausnahmen, die fuer das Abonnement {0} gelten.
+    ParagraphSummary = Die folgende Tabelle fasst die Richtlinienausnahmen zusammen, die fuer das Abonnement {0} gelten.
+    Heading = Richtlinienausnahmen
+    TableHeading = Richtlinienausnahme
+    TableHeadings = Richtlinienausnahmen
+    Name = Name
+    Description = Beschreibung
+    Scope = Bereich
+    ScopeType = Bereichstyp
+    ManagementGroup = Verwaltungsgruppe
+    Subscription = Abonnement
+    ResourceGroup = Ressourcengruppe
+    Resource = Ressource
+    Category = Kategorie
+    PolicyAssignment = Richtlinienzuweisung
+    PolicyDefinitions = Ausgenommene Richtlinien
+    AllPolicies = Alle
+    ExpiresOn = Laeuft ab am (UTC)
+    NoExpiry = Nie
+    Status = Status
+    Active = Aktiv
+    Expired = Abgelaufen
+    ErrorMessage = Fehler beim Sammeln von Richtlinienausnahmen:
+'@
+
 # Azure Private Endpoint (Get-AbrAzPrivateEndpoint)
 GetAbrAzPrivateEndpoint = ConvertFrom-StringData @'
     InfoLevel = PrivateEndpoint-InfoLevel auf {0} gesetzt.

@@ -880,6 +880,35 @@ GetAbrAzPolicyDefinition = ConvertFrom-StringData @'
     Category = Categorie
 '@
 
+# Azure Policy Exemptions (Get-AbrAzPolicyExemption)
+GetAbrAzPolicyExemption = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel des exemptions de strategie defini a {0}.
+    Collecting = Collecte des informations d'exemption Azure Policy.
+    ParagraphDetail = Les sections suivantes detaillent les exemptions de strategie qui s'appliquent a l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume les exemptions de strategie qui s'appliquent a l'abonnement {0}.
+    Heading = Exemptions de strategie
+    TableHeading = Exemption de strategie
+    TableHeadings = Exemptions de strategie
+    Name = Nom
+    Description = Description
+    Scope = Etendue
+    ScopeType = Type d'etendue
+    ManagementGroup = Groupe d'administration
+    Subscription = Abonnement
+    ResourceGroup = Groupe de ressources
+    Resource = Ressource
+    Category = Categorie
+    PolicyAssignment = Affectation de strategie
+    PolicyDefinitions = Strategies exemptees
+    AllPolicies = Toutes
+    ExpiresOn = Expire le (UTC)
+    NoExpiry = Jamais
+    Status = Statut
+    Active = Active
+    Expired = Expiree
+    ErrorMessage = Impossible de collecter les informations d'exemption de strategie:
+'@
+
 # Azure Private Endpoint (Get-AbrAzPrivateEndpoint)
 GetAbrAzPrivateEndpoint = ConvertFrom-StringData @'
     InfoLevel = InfoLevel du point de terminaison prive defini a {0}.
