@@ -24,6 +24,7 @@
             "LoadBalancer",
             "ExpressRoute",
             "VirtualNetworkGateway",
+            "VirtualWan",
             "DdosProtectionPlan",
             "VirtualNetwork",
             "PublicIpAddress",
@@ -104,6 +105,7 @@
         "VirtualMachine": 1,
         "VirtualNetwork": 1,
         "VirtualNetworkGateway": 1,
+        "VirtualWan": 1,
         "VmScaleSet": 1
     },
     "Diagram": {
@@ -253,6 +255,10 @@
         "VirtualNetworkGateway": {
             "ProvisioningState": true,
             "ConnectionStatus": true
+        },
+        "VirtualWan": {
+            "ProvisioningState": true,
+            "RoutingState": true
         },
         "VmScaleSet": {
             "ProvisioningState": true

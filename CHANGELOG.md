@@ -4,6 +4,7 @@
 
 ### Added
 * Add support for Virtual Network hub-spoke topology information and diagrams
+* Add support for Azure Virtual WANs and virtual hubs (`VirtualWan`), with summary tables at InfoLevel 1 and per-resource detail at InfoLevel 2; `ProvisioningState` and `RoutingState` health checks highlight resources that have not provisioned successfully and hub routers that are failed or still provisioning
 
 ### Changed
 * Extract NVA detection logic shared by `Get-AbrAzNetworkVirtualAppliance` and `Get-AbrAzNetworkTopology` into `Test-AbrAzNvaVm`

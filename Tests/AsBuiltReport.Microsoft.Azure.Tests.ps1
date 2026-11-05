@@ -519,6 +519,14 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVirtualNetworkGateway.ps1'
         }
 
+        It 'Should have Get-AbrAzVirtualWan function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVirtualWan.ps1'
+        }
+
+        It 'Should have Get-AbrAzVirtualHub function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVirtualHub.ps1'
+        }
+
         It 'Should have Get-AbrAzVmScaleSet function' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVmScaleSet.ps1'
         }
@@ -565,7 +573,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
                 'DnsPrivateResolver', 'ExpressRoute', 'Firewall', 'FirewallPolicy', 'IpGroup', 'LogAnalyticsWorkspace',
                 'MaintenanceConfiguration', 'NetAppFiles', 'NetworkSecurityGroup', 'NetworkVirtualAppliance',
                 'NetworkWatcher', 'Policy', 'PrivateDnsZone', 'PrivateEndpoint', 'PublicIpAddress',
-                'RecoveryServicesVault', 'RouteTable', 'SiteRecovery', 'VirtualNetworkGateway', 'VmScaleSet'
+                'RecoveryServicesVault', 'RouteTable', 'SiteRecovery', 'VirtualNetworkGateway', 'VirtualWan', 'VmScaleSet'
             )
 
             $MissingSections = $ExpectedSections | Where-Object { $_ -notin $JsonConfig.Options.SectionOrder }
@@ -779,6 +787,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'VirtualNetworkGateway'
         }
 
+        It 'InfoLevel should include VirtualWan' {
+            $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'VirtualWan'
+        }
+
         It 'InfoLevel should include VmScaleSet' {
             $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'VmScaleSet'
         }
@@ -909,6 +921,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 
         It 'HealthCheck should include VirtualNetworkGateway checks' {
             $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'VirtualNetworkGateway'
+        }
+
+        It 'HealthCheck should include VirtualWan checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'VirtualWan'
         }
 
         It 'HealthCheck should include VmScaleSet checks' {
@@ -1206,6 +1222,7 @@ Describe 'Module File Syntax and Quality' {
                 'Get-AbrAzNetworkSecurityGroupRule', # NSG rules
                 'Get-AbrAzVirtualNetworkPeering',    # VNet peering
                 'Get-AbrAzVirtualNetworkSubnet',     # VNet subnet
+                'Get-AbrAzVirtualHub',               # Virtual WAN hubs
                 'Get-AbrAsrProtectedItems',          # Site Recovery items
                 'Get-AbrAzAsr',                      # ASR sub-functions (policies, plans, mappings)
                 'Get-AbrAzPolicy'                    # Policy sub-functions

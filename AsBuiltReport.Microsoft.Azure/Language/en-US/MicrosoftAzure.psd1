@@ -1945,4 +1945,63 @@ GetAbrAzNetworkVirtualAppliance = ConvertFrom-StringData @'
     None = None
 '@
 
+# Azure Virtual WAN (Get-AbrAzVirtualWan)
+GetAbrAzVirtualWan = ConvertFrom-StringData @'
+    InfoLevel = VirtualWan InfoLevel set at {0}.
+    Collecting = Collecting Azure Virtual WAN information.
+    SectionInfo = Azure Virtual WAN is a networking service that brings many networking, security, and routing functions together into a single operational interface. Each Virtual WAN contains one or more virtual hubs that connect branches, users, and virtual networks.
+    ParagraphDetail = The following sections detail the configuration of the Virtual WAN(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the Virtual WAN(s) within the {0} subscription.
+    Heading = Virtual WANs
+    TableHeading = Virtual WAN
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    VirtualWanType = Virtual WAN Type
+    BranchToBranchTraffic = Branch-to-Branch Traffic
+    VirtualHubs = Virtual Hubs
+    Enabled = Enabled
+    Disabled = Disabled
+    ProvisioningState = Provisioning State
+    Locks = Locks
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Virtual WAN information:
+'@
+
+# Azure Virtual WAN Hub (Get-AbrAzVirtualHub)
+GetAbrAzVirtualHub = ConvertFrom-StringData @'
+    Collecting = Collecting Azure Virtual WAN hub information.
+    ParagraphDetail = The following sections detail the configuration of the virtual hub(s) within the {0} subscription.
+    ParagraphSummary = The following table summarizes the configuration of the virtual hub(s) within the {0} subscription.
+    Heading = Virtual Hubs
+    TableHeading = Virtual Hub
+    Name = Name
+    ResourceGroup = Resource Group
+    Location = Location
+    Subscription = Subscription
+    SubscriptionID = Subscription ID
+    VirtualWan = Virtual WAN
+    AddressPrefix = Address Prefix
+    SKU = SKU
+    RoutingState = Routing State
+    HubRoutingPreference = Hub Routing Preference
+    VirtualRouterAsn = Virtual Router ASN
+    VirtualRouterIps = Virtual Router IPs
+    RoutingInfrastructureUnits = Routing Infrastructure Units
+    VpnGateway = VPN Gateway
+    P2SVpnGateway = Point-to-Site VPN Gateway
+    ExpressRouteGateway = ExpressRoute Gateway
+    AzureFirewall = Azure Firewall
+    SecurityPartnerProvider = Security Partner Provider
+    ProvisioningState = Provisioning State
+    NotApplicable = N/A
+    Locks = Locks
+    Tags = Tags
+    None = None
+    ErrorMessage = Unable to collect Virtual WAN hub information:
+'@
+
 }
