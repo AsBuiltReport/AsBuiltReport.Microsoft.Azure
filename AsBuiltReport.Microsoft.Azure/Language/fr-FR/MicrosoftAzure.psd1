@@ -1998,6 +1998,27 @@ GetAbrAzVnmNetworkGroup = ConvertFrom-StringData @'
     Unavailable = Les informations des groupes de reseaux d'Azure Virtual Network Manager '{0}' n'ont pas pu etre recuperees. Verifiez les autorisations et reessayez.
 '@
 
+# Azure Virtual Network Manager IPAM Pools (Get-AbrAzVnmIpamPool)
+GetAbrAzVnmIpamPool = ConvertFrom-StringData @'
+    Collecting = Collecte des informations sur les pools IPAM pour Azure Virtual Network Manager '{0}'.
+    Heading = Pools IPAM
+    TableHeadings = Pools IPAM
+    StaticCidrTableHeading = CIDR statiques
+    Name = Nom
+    Location = Emplacement
+    AddressPrefixes = Prefixes d'adresse
+    ParentPool = Pool parent
+    StaticCidrs = CIDR statiques
+    TotalIpAddresses = Nombre total d'adresses IP
+    ProvisioningState = Etat de provisionnement
+    Description = Description
+    None = Aucun
+    Unknown = Inconnu
+    StaticCidrError = Impossible de collecter les CIDR statiques du pool IPAM '{0}' : {1}
+    CollectionError = Impossible de collecter les pools IPAM d'Azure Virtual Network Manager '{0}' : {1}
+    Unavailable = Les informations sur les pools IPAM d'Azure Virtual Network Manager '{0}' n'ont pas pu etre recuperees. Verifiez les autorisations et reessayez.
+'@
+
 # Azure Virtual Network Manager Connectivity Configurations (Get-AbrAzVnmConnectivityConfiguration)
 GetAbrAzVnmConnectivityConfiguration = ConvertFrom-StringData @'
     Collecting = Collecte des configurations de connectivite pour Azure Virtual Network Manager '{0}'.

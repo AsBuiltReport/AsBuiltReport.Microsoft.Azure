@@ -539,6 +539,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVnmRoutingConfiguration.ps1'
         }
 
+        It 'Should have Get-AbrAzVnmIpamPool helper function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVnmIpamPool.ps1'
+        }
+
         It 'Should have Get-AbrAzVnmDeploymentStatus helper function' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVnmDeploymentStatus.ps1'
         }
@@ -1241,6 +1245,10 @@ Describe 'Module File Syntax and Quality' {
 
         It 'Should have GetAbrAzVnmRoutingConfiguration localization section' {
             $LocalizedData.GetAbrAzVnmRoutingConfiguration | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Should have GetAbrAzVnmIpamPool localization section' {
+            $LocalizedData.GetAbrAzVnmIpamPool | Should -Not -BeNullOrEmpty
         }
 
         It 'Should have GetAbrAzVnmDeploymentStatus localization section' {

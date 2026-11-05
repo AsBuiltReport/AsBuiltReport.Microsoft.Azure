@@ -4,8 +4,8 @@ function Get-AbrAzVirtualNetworkManager {
         Used by As Built Report to retrieve Azure Virtual Network Manager information
     .DESCRIPTION
         Documents the Azure Virtual Network Manager instances within the current subscription, including
-        their management scope, enabled features, network groups, connectivity, security admin and routing
-        configurations, and configuration deployments, in Word/HTML/Text formats using PScribo.
+        their management scope, enabled features, network groups, IPAM pools, connectivity, security admin and
+        routing configurations, and configuration deployments, in Word/HTML/Text formats using PScribo.
     .NOTES
         Version:        0.3.1
         Author:         Tim Carman
@@ -168,6 +168,8 @@ function Get-AbrAzVirtualNetworkManager {
 
                                     # Network Groups
                                     Get-AbrAzVnmNetworkGroup -NetworkManagerName $NetworkManagerName -ResourceGroupName $NetworkManagerResourceGroup
+                                    # IPAM Pools
+                                    Get-AbrAzVnmIpamPool -NetworkManagerName $NetworkManagerName -ResourceGroupName $NetworkManagerResourceGroup
                                     # Configurations are only reported for the features the network manager has enabled
                                     if ($NetworkManagerScopeAccesses -contains 'Connectivity') {
                                         Get-AbrAzVnmConnectivityConfiguration -NetworkManagerName $NetworkManagerName -ResourceGroupName $NetworkManagerResourceGroup -DeploymentStatus $NetworkManagerDeployments
