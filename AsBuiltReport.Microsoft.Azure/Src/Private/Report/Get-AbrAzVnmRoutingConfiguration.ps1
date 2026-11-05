@@ -3,8 +3,7 @@ function Get-AbrAzVnmRoutingConfiguration {
     .SYNOPSIS
         Used by As Built Report to retrieve Azure Virtual Network Manager routing configuration information
     .DESCRIPTION
-        Documents the routing configurations of an Azure Virtual Network Manager and, at InfoLevel 3 and above,
-        the rule collections and routing rules of each configuration, in Word/HTML/Text formats using PScribo.
+        Documents the routing configurations of an Azure Virtual Network Manager and, at InfoLevel 3 and above, the rule collections and routing rules of each configuration, in Word/HTML/Text formats using PScribo.
     .NOTES
         Version:        0.3.1
         Author:         Tim Carman
