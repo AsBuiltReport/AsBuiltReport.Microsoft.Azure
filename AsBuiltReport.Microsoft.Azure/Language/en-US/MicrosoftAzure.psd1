@@ -860,6 +860,9 @@ GetAbrAzPolicyAssignment = ConvertFrom-StringData @'
     PolicyEnforcement = Policy Enforcement
     Enforce = Enforce
     DoNotEnforce = Do Not Enforce
+    ResourceAssignmentsHeading = Resource Group and Resource Assignments
+    ParagraphResourceAssignments = The following table summarizes the policy assignments on resource groups and resources within the {0} subscription.
+    ParagraphResourceAssignmentCount = A further {0} policy assignment(s) apply to resource groups and resources within the {1} subscription. Set the Policy Assignments InfoLevel to 2 to include them.
 '@
 
 # Azure Policy Definitions (Get-AbrAzPolicyDefinition)

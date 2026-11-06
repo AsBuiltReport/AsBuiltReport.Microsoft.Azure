@@ -351,7 +351,7 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | NetworkTopology             |        1        |        1        |
 | NetworkVirtualAppliance     |        1        |        3        |
 | NetworkWatcher              |        1        |        2        |
-| Policy > Assignments        |        1        |        2        |
+| Policy > Assignments        |        1        |        3        |
 | Policy > Definitions        |        0        |        1        |
 | Policy > Exemptions         |        1        |        2        |
 | PrivateDnsZone              |        1        |        2        |
@@ -367,6 +367,8 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | VirtualNetwork              |        1        |        2        |
 | VirtualNetworkGateway       |        1        |        2        |
 | VmScaleSet                  |        1        |        2        |
+
+> **Note:** Policy assignments on resource groups and resources can be numerous, so `Policy > Assignments` reports them as a count at InfoLevel 1, as a compact table at InfoLevel 2, and in full at InfoLevel 3.
 
 > **Note:** `NetworkTopology` collects its own Virtual Network, peering, Gateway, Firewall, and Network Virtual Appliance data independently of the `VirtualNetwork`, `VirtualNetworkGateway`, `Firewall`, and `NetworkVirtualAppliance` `InfoLevel` settings — only `NetworkTopology` itself controls whether the diagram is collected and rendered, so a hub is never misclassified as a spoke, or the diagram omitted entirely, just because another section is disabled or set to a lower level elsewhere in the report.
 

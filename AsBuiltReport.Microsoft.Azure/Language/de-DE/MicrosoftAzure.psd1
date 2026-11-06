@@ -860,6 +860,9 @@ GetAbrAzPolicyAssignment = ConvertFrom-StringData @'
     PolicyEnforcement = Richtliniendurchsetzung
     Enforce = Erzwingen
     DoNotEnforce = Nicht erzwingen
+    ResourceAssignmentsHeading = Zuweisungen fuer Ressourcengruppen und Ressourcen
+    ParagraphResourceAssignments = Die folgende Tabelle fasst die Richtlinienzuweisungen fuer Ressourcengruppen und Ressourcen im Abonnement {0} zusammen.
+    ParagraphResourceAssignmentCount = Weitere {0} Richtlinienzuweisung(en) gelten fuer Ressourcengruppen und Ressourcen im Abonnement {1}. Setzen Sie den InfoLevel der Richtlinienzuweisungen auf 2, um sie einzubeziehen.
 '@
 
 # Azure Policy Definitions (Get-AbrAzPolicyDefinition)

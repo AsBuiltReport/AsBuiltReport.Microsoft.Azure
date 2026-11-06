@@ -42,13 +42,10 @@ function Get-AbrAzPolicyExemption {
                         foreach ($AzPolicyExemption in $AzPolicyExemptions) {
                             # Exemptions have no scope property, so it is taken from the resource ID
                             $ExemptionScope = $AzPolicyExemption.Id -replace '/providers/Microsoft\.Authorization/policyExemptions/[^/]+$', ''
-                            $ScopeName = $ExemptionScope.Split('/')[-1]
+                            $ScopeName = Resolve-AbrAzPolicyScopeName -Scope $ExemptionScope
                             $ScopeType = switch -Regex ($ExemptionScope) {
                                 '^/providers/Microsoft\.Management/managementGroups/[^/]+$' { $LocalizedData.ManagementGroup }
-                                '^/subscriptions/[^/]+$' {
-                                    if ($AzSubscriptionLookup[$ScopeName]) { $ScopeName = $AzSubscriptionLookup[$ScopeName] }
-                                    $LocalizedData.Subscription
-                                }
+                                '^/subscriptions/[^/]+$' { $LocalizedData.Subscription }
                                 '^/subscriptions/[^/]+/resourceGroups/[^/]+$' { $LocalizedData.ResourceGroup }
                                 default { $LocalizedData.Resource }
                             }

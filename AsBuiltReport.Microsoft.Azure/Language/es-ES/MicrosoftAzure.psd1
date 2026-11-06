@@ -860,6 +860,9 @@ GetAbrAzPolicyAssignment = ConvertFrom-StringData @'
     PolicyEnforcement = Aplicación de directiva
     Enforce = Aplicar
     DoNotEnforce = No aplicar
+    ResourceAssignmentsHeading = Asignaciones de grupos de recursos y recursos
+    ParagraphResourceAssignments = La siguiente tabla resume las asignaciones de directivas en grupos de recursos y recursos de la suscripción {0}.
+    ParagraphResourceAssignmentCount = Otras {0} asignaciones de directivas se aplican a grupos de recursos y recursos de la suscripción {1}. Establezca el InfoLevel de las asignaciones de directivas en 2 para incluirlas.
 '@
 
 # Azure Policy Definitions (Get-AbrAzPolicyDefinition)

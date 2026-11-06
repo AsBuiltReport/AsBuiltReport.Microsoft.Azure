@@ -860,6 +860,9 @@ GetAbrAzPolicyAssignment = ConvertFrom-StringData @'
     PolicyEnforcement = Application de la strategie
     Enforce = Appliquer
     DoNotEnforce = Ne pas appliquer
+    ResourceAssignmentsHeading = Affectations de groupes de ressources et de ressources
+    ParagraphResourceAssignments = Le tableau suivant resume les affectations de strategie sur les groupes de ressources et les ressources de l'abonnement {0}.
+    ParagraphResourceAssignmentCount = {0} autre(s) affectation(s) de strategie s'appliquent aux groupes de ressources et aux ressources de l'abonnement {1}. Definissez l'InfoLevel des affectations de strategie sur 2 pour les inclure.
 '@
 
 # Azure Policy Definitions (Get-AbrAzPolicyDefinition)
