@@ -93,12 +93,19 @@ function Get-AbrAzSubscription {
                                     }
                                     $LockTarget = if ($ScopeType -eq $LocalizedData.Subscription) { $AzSubscription.Name } else { $LockScope.Split('/')[-1] }
 
+                                    # Uses the portal's names for lock types. The default shows any other value as Azure returns it.
+                                    $LockType = switch ($AzResourceLock.Properties.Level) {
+                                        'CanNotDelete' { $LocalizedData.LockTypeDelete }
+                                        'ReadOnly' { $LocalizedData.LockTypeReadOnly }
+                                        default { $AzResourceLock.Properties.Level }
+                                    }
+
                                     $InObj = [Ordered]@{
                                         $LocalizedData.Subscription = $AzSubscription.Name
                                         $LocalizedData.Name = $AzResourceLock.Name
+                                        $LocalizedData.Type = $LockType
                                         $LocalizedData.Scope = $ScopeType
                                         $LocalizedData.AppliesTo = $LockTarget
-                                        $LocalizedData.Level = $AzResourceLock.Properties.Level
                                         $LocalizedData.Notes = if ($AzResourceLock.Properties.Notes) { $AzResourceLock.Properties.Notes } else { '--' }
                                     }
                                     $AzLockInfo += [PSCustomObject]$InObj
@@ -205,7 +212,7 @@ function Get-AbrAzSubscription {
                         $TableParams = @{
                             Name = "$($LocalizedData.LockHeading) - $($AzTenant.Name)"
                             List = $false
-                            ColumnWidths = 20, 18, 12, 18, 12, 20
+                            ColumnWidths = 20, 18, 12, 12, 18, 20
                         }
                         if ($Report.ShowTableCaptions) {
                             $TableParams['Caption'] = "- $($TableParams.Name)"

@@ -1119,7 +1119,9 @@ GetAbrAzSubscription = ConvertFrom-StringData @'
     Resource = Ressource
     Scope = Etendue
     AppliesTo = S'applique a
-    Level = Niveau
+    Type = Type
+    LockTypeDelete = Suppression
+    LockTypeReadOnly = Lecture seule
     Notes = Remarques
 '@
 

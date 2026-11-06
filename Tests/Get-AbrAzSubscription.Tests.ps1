@@ -306,11 +306,35 @@ Describe 'Get-AbrAzSubscription' {
             $Rows['lock-kv'].($script:Text.AppliesTo) | Should -Be 'kv-1'
         }
 
-        It 'Reports the level and notes, showing -- when there are no notes' {
+        It 'Reports the columns in the agreed order' {
+            Invoke-Subscription -Level 3
+            (Get-TableRow $script:Text.LockHeading)[0].PSObject.Properties.Name | Should -Be @(
+                $script:Text.Subscription, $script:Text.Name, $script:Text.Type, $script:Text.Scope, $script:Text.AppliesTo, $script:Text.Notes
+            )
+        }
+
+        It 'Uses the portal names for lock types' {
+            Invoke-Subscription -Level 3
+            $Rows = @{}
+            foreach ($Row in (Get-TableRow $script:Text.LockHeading)) { $Rows[$Row.Name] = $Row }
+            $Rows['lock-rg'].Type | Should -Be 'Delete'
+            $Rows['lock-kv'].Type | Should -Be 'Read-Only'
+        }
+
+        # A value the switch does not map must still be reported, rather than leaving the cell empty
+        It 'Shows any other lock level as Azure returns it' {
+            $script:Locks['Sub-B'] = @(New-TestLock 'lock-new' '/subscriptions/Sub-B' -Level 'NotSpecified')
+            Invoke-Subscription -Level 3
+            $Row = Get-TableRow $script:Text.LockHeading | Where-Object { $_.($script:Text.Name) -eq 'lock-new' }
+            $Row.($script:Text.Type) | Should -Be 'NotSpecified'
+        }
+
+        It 'Reports the type and notes, showing -- when there are no notes' {
             Invoke-Subscription -Level 3
             $Rows = @{}
             foreach ($Row in (Get-TableRow $script:Text.LockHeading)) { $Rows[$Row.($script:Text.Name)] = $Row }
-            $Rows['lock-kv'].($script:Text.Level) | Should -Be 'ReadOnly'
+            $Rows['lock-kv'].($script:Text.Type) | Should -Be $script:Text.LockTypeReadOnly
+            $Rows['lock-rg'].($script:Text.Type) | Should -Be $script:Text.LockTypeDelete
             $Rows['lock-kv'].($script:Text.Notes) | Should -Be '--'
             $Rows['lock-rg'].($script:Text.Notes) | Should -Be 'Protects the hub'
         }
