@@ -167,7 +167,7 @@ function Get-AbrAzRoleAssignment {
                                             $TableParams = @{
                                                 Name = "$($LocalizedData.AssignmentDetailHeading) - $($AzSubscription.Name)"
                                                 List = $false
-                                                ColumnWidths = 32, 18, 35, 15
+                                                ColumnWidths = 32, 18, 34, 16
                                             }
                                             if ($Report.ShowTableCaptions) {
                                                 $TableParams['Caption'] = "- $($TableParams.Name)"
