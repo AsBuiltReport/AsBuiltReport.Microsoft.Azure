@@ -35,10 +35,12 @@ function Get-AbrAzDnsPrivateResolver {
                             Blankline
                         }
                         $AzDnsPrivateResolverInfo = @()
+                        $AzDnsResolverEndpoints = @{}
                         foreach ($AzDnsPrivateResolver in $AzDnsPrivateResolvers) {
                             $AzResourceGroupName = ($AzDnsPrivateResolver.Id).split('/')[4]
-                            $AzDnsResolverInboundEndpoint = Get-AzDnsResolverInboundEndpoint -DnsResolverName $AzDnsPrivateResolver.Name -ResourceGroupName $AzResourceGroupName
-                            $AzDnsResolverOutboundEndpoint = Get-AzDnsResolverOutboundEndpoint -DnsResolverName $AzDnsPrivateResolver.Name -ResourceGroupName $AzResourceGroupName
+                            $AzDnsResolverInboundEndpoint = @(Get-AzDnsResolverInboundEndpoint -DnsResolverName $AzDnsPrivateResolver.Name -ResourceGroupName $AzResourceGroupName)
+                            $AzDnsResolverOutboundEndpoint = @(Get-AzDnsResolverOutboundEndpoint -DnsResolverName $AzDnsPrivateResolver.Name -ResourceGroupName $AzResourceGroupName)
+                            $AzDnsResolverEndpoints["$AzResourceGroupName/$($AzDnsPrivateResolver.Name)"] = @{ Inbound = $AzDnsResolverInboundEndpoint; Outbound = $AzDnsResolverOutboundEndpoint }
                             $InObj = [Ordered]@{
                                 $LocalizedData.Name = $AzDnsPrivateResolver.Name
                                 $LocalizedData.ResourceGroup = $AzResourceGroupName
@@ -88,16 +90,23 @@ function Get-AbrAzDnsPrivateResolver {
                                     }
                                     $AzDnsPrivateResolver | Table @TableParams
 
+                                    # Each row only holds translated labels, so endpoints are found by resource group and name
+                                    $AzDnsResolverKey = "$($AzDnsPrivateResolver.($LocalizedData.ResourceGroup))/$($AzDnsPrivateResolver.($LocalizedData.Name))"
+                                    $InboundEndpoints = $AzDnsResolverEndpoints[$AzDnsResolverKey].Inbound
+                                    $OutboundEndpoints = $AzDnsResolverEndpoints[$AzDnsResolverKey].Outbound
+
                                     # Inbound Endpoints
-                                    if ($AzDnsResolverInboundEndpoint) {
+                                    if ($InboundEndpoints) {
                                         Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.InboundEndpoints {
                                             $InboundEndpointInfo = @()
-                                            $InObj = [Ordered]@{
-                                                $LocalizedData.EndpointName = $AzDnsResolverInboundEndpoint.Name
-                                                $LocalizedData.IPAddress = $AzDnsResolverInboundEndpoint.IPConfiguration.PrivateIpAddress
-                                                $LocalizedData.IpAllocation = $AzDnsResolverInboundEndpoint.IPConfiguration.PrivateIPAllocationMethod
+                                            foreach ($InboundEndpoint in ($InboundEndpoints | Sort-Object Name)) {
+                                                $InObj = [Ordered]@{
+                                                    $LocalizedData.EndpointName = $InboundEndpoint.Name
+                                                    $LocalizedData.IpAddress = $InboundEndpoint.IPConfiguration.PrivateIPAddress -join ', '
+                                                    $LocalizedData.IpAllocation = $InboundEndpoint.IPConfiguration.PrivateIPAllocationMethod -join ', '
+                                                }
+                                                $InboundEndpointInfo += [PSCustomObject]$InObj
                                             }
-                                            $InboundEndpointInfo += [PSCustomObject]$InObj
 
                                             $TableParams = @{
                                                 Name = "$($LocalizedData.InboundEndpoints) - $($AzDnsPrivateResolver.($LocalizedData.Name))"
@@ -112,20 +121,21 @@ function Get-AbrAzDnsPrivateResolver {
                                     }
 
                                     # Outbound Endpoints
-                                    if ($AzDnsResolverOutboundEndpoint) {
+                                    if ($OutboundEndpoints) {
                                         Section -Style NOTOCHeading6 -ExcludeFromTOC $LocalizedData.OutboundEndpoints {
                                             $OutboundEndpointInfo = @()
-                                            $InObj = [Ordered]@{
-                                                $LocalizedData.EndpointName = $AzDnsResolverOutboundEndpoint.Name
-                                                $LocalizedData.IpAddress = $AzDnsResolverOutboundEndpoint.IPConfiguration.PrivateIPAddress
-                                                $LocalizedData.IpAllocation = $AzDnsResolverOutboundEndpoint.IPConfiguration.PrivateIPAllocationMethod
+                                            foreach ($OutboundEndpoint in ($OutboundEndpoints | Sort-Object Name)) {
+                                                $InObj = [Ordered]@{
+                                                    $LocalizedData.EndpointName = $OutboundEndpoint.Name
+                                                    $LocalizedData.Subnet = ($OutboundEndpoint.SubnetId).split('/')[-1]
+                                                }
+                                                $OutboundEndpointInfo += [PSCustomObject]$InObj
                                             }
-                                            $OutboundEndpointInfo += [PSCustomObject]$InObj
 
                                             $TableParams = @{
                                                 Name = "$($LocalizedData.OutboundEndpoints) - $($AzDnsPrivateResolver.($LocalizedData.Name))"
                                                 List = $false
-                                                ColumnWidths = 40, 30, 30
+                                                ColumnWidths = 50, 50
                                             }
                                             if ($Report.ShowTableCaptions) {
                                                 $TableParams['Caption'] = "- $($TableParams.Name)"

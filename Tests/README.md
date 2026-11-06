@@ -132,6 +132,9 @@ These tests run report functions against stubbed PScribo and Az commands, so the
 2. **Invoke-AsBuiltReport.Microsoft.Azure.Tests.ps1**
    - Validates which subscriptions are reported for different combinations of enabled sections
 
+3. **Get-AbrAzDnsPrivateResolver.Tests.ps1**
+   - Validates that each resolver reports its own inbound and outbound endpoints, with one row per endpoint
+
 ### Code Scans
 
 1. **TranslatedReportRows.Tests.ps1**

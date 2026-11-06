@@ -20,6 +20,7 @@
 * Fix `Get-AbrAzLbFrontendIpConfig` - Resolve `PublicIPAddress` to the associated public IP resource name
 * Fix per-subscription sections not being reported when `Policy` or `DiagnosticSetting` were the only sections enabled
 * Fix ExpressRoute, Firewall, IP Group, Key Vault, Load Balancer, Network Security Group and Virtual Machine sections being lost at InfoLevel 2 in the es-ES and fr-FR languages
+* Fix `Get-AbrAzDnsPrivateResolver` - Every resolver showed the last resolver's endpoints, multiple endpoints shared one table row, and outbound endpoints showed blank IP columns, which now show the subnet
 * Fix `Get-AbrAzDnsPrivateResolver` - Inbound and outbound endpoint table captions were missing the resolver name in the es-ES and fr-FR languages
 * Fix `Get-AbrAzPolicyAssignment` - Policy Assignments section was missing at InfoLevel 2 in the es-ES and fr-FR languages
 * Fix `Get-AbrAzPolicyAssignment` - Excluded Scopes was blank for resource groups and resources, repeated when there was more than one exclusion, and blank instead of `--` when there were none
