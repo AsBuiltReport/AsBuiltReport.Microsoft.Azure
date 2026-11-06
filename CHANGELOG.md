@@ -18,6 +18,7 @@
 
 ### Fixed
 * Fix `Get-AbrAzLbFrontendIpConfig` - Resolve `PublicIPAddress` to the associated public IP resource name
+* Fix per-subscription sections not being reported when `Policy` or `DiagnosticSetting` were the only sections enabled
 * Fix `Get-AbrAzPolicyAssignment` - Policy Assignments section was missing at InfoLevel 2 in the es-ES and fr-FR languages
 * Fix `Get-AbrAzPolicyAssignment` - Excluded Scopes was blank for resource groups and resources, repeated when there was more than one exclusion, and blank instead of `--` when there were none
 
