@@ -77,9 +77,10 @@ function Get-AbrAzLoadBalancer {
                         if ($InfoLevel.LoadBalancer -ge 2) {
                             Paragraph ($LocalizedData.ParagraphDetail -f $AzSubscription.Name)
                             foreach ($AzLoadBalancer in $AzLoadBalancerInfo) {
-                                Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzLoadBalancer.Name)" {
+                                $AzLoadBalancerName = $AzLoadBalancer.($LocalizedData.Name)
+                                Section -Style NOTOCHeading5 -ExcludeFromTOC $AzLoadBalancerName {
                                     $TableParams = @{
-                                        Name = "$($LocalizedData.TableHeading) - $($AzLoadBalancer.Name)"
+                                        Name = "$($LocalizedData.TableHeading) - $AzLoadBalancerName"
                                         List = $true
                                         ColumnWidths = 40, 60
                                     }
@@ -89,16 +90,16 @@ function Get-AbrAzLoadBalancer {
                                     $AzLoadBalancer | Table @TableParams
 
                                     # Get Frontend IP Configuration
-                                    Get-AbrAzLbFrontendIpConfig -Name $($AzLoadBalancer.Name)
+                                    Get-AbrAzLbFrontendIpConfig -Name $AzLoadBalancerName
 
                                     # Get Backend Pool Configuration
-                                    Get-AbrAzLbBackendPool -Name $($AzLoadBalancer.Name)
+                                    Get-AbrAzLbBackendPool -Name $AzLoadBalancerName
 
                                     # Get Health Probe Configuration
-                                    Get-AbrAzLbHealthProbe -Name $($AzLoadBalancer.Name)
+                                    Get-AbrAzLbHealthProbe -Name $AzLoadBalancerName
 
                                     # Get Load Balancing Rules
-                                    Get-AbrAzLbLoadBalancingRule -Name $($AzLoadBalancer.Name)
+                                    Get-AbrAzLbLoadBalancingRule -Name $AzLoadBalancerName
                                 }
                             }
                         } else {

@@ -132,6 +132,11 @@ These tests run report functions against stubbed PScribo and Az commands, so the
 2. **Invoke-AsBuiltReport.Microsoft.Azure.Tests.ps1**
    - Validates which subscriptions are reported for different combinations of enabled sections
 
+### Code Scans
+
+1. **TranslatedReportRows.Tests.ps1**
+   - Scans all report functions for hardcoded property names read from translated table rows, such as `$Row.Name`, which only exist in some languages
+
 ## Continuous Integration
 
 These tests are designed to run in CI/CD pipelines. They can be integrated with:
