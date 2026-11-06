@@ -360,7 +360,7 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | RouteTable                  |        1        |        2        |
 | SiteRecovery                |        1        |        2        |
 | StorageAccount              |        1        |        2        |
-| Subscription                |        1        |        1        |
+| Subscription                |        1        |        3        |
 | Tenant                      |        1        |        1        |
 | UserAssignedManagedIdentity |        1        |        2        |
 | VirtualMachine              |        1        |        2        |
@@ -369,6 +369,8 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | VmScaleSet                  |        1        |        2        |
 
 > **Note:** Policy assignments on resource groups and resources can be numerous, so `Policy > Assignments` reports them as a count at InfoLevel 1, as a compact table at InfoLevel 2, and in full at InfoLevel 3. `Policy > Exemptions` lists exemptions at every scope from InfoLevel 1. Exemptions are not reported if the `Exemptions` key is missing from an existing report configuration file, so add it to include them.
+
+> **Note:** `Subscription` lists the subscriptions at InfoLevel 1. InfoLevel 2 adds a governance summary for each subscription (resource groups, resources, percentage of resources tagged, and locks) and the 10 most used tag names across the reported subscriptions. InfoLevel 3 adds a list of management locks. InfoLevel 2 and above list every resource in every subscription, which can take longer in large environments.
 
 > **Note:** A subscription's section is only reported if the subscription contains a resource for at least one enabled section. `Policy` and `DiagnosticSetting` have no resource to check, so if they are the only sections enabled, every subscription is reported. If they are enabled alongside other sections, a subscription with no resources for those other sections is not reported, even if policies apply to it.
 

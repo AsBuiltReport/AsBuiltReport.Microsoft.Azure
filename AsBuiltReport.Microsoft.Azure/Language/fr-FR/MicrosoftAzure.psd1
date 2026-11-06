@@ -1099,6 +1099,26 @@ GetAbrAzSubscription = ConvertFrom-StringData @'
     SubscriptionID = ID d'abonnement
     State = Etat
     NoSubscriptions = Aucun abonnement trouve.
+    GovernanceHeading = Resume de la gouvernance
+    GovernanceParagraph = Le tableau suivant resume les groupes de ressources, les ressources, les balises et les verrous de chaque abonnement.
+    GovernanceError = Impossible de collecter les informations de gouvernance de l'abonnement '{0}': {1}
+    Subscription = Abonnement
+    ResourceGroups = Groupes de ressources
+    Resources = Ressources
+    Tagged = Avec balises
+    Locks = Verrous
+    TagCoverageHeading = Couverture des balises
+    TagCoverageParagraph = Le tableau suivant indique le nombre de ressources utilisant chaque nom de balise dans les abonnements du rapport.
+    TagCoverageLimit = Les {0} noms de balise les plus utilises sur {1} sont affiches.
+    Tag = Balise
+    Coverage = Couverture
+    LockHeading = Verrous de ressources
+    LockParagraph = Le tableau suivant repertorie les verrous de gestion des abonnements du rapport. Un verrou s'applique egalement a tout ce qui se trouve sous son etendue.
+    Resource = Ressource
+    Scope = Etendue
+    AppliesTo = S'applique a
+    Level = Niveau
+    Notes = Remarques
 '@
 
 # Azure Virtual Machine (Get-AbrAzVirtualMachine)

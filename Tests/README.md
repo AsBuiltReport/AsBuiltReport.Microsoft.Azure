@@ -137,6 +137,11 @@ Stubs only reflect what we expect Azure to return, so these tests do not replace
 3. **Get-AbrAzDnsPrivateResolver.Tests.ps1**
    - Validates that each resolver reports its own inbound and outbound endpoints, with one row per endpoint
 
+4. **Get-AbrAzSubscription.Tests.ps1**
+   - Validates the content reported at each `Subscription` InfoLevel, including the governance summary, tag coverage and lock list
+   - Validates that a subscription that cannot be read shows `--` rather than counts of 0
+   - Runs in every supported language, to catch labels that break when translated
+
 ### Code Scans
 
 1. **TranslatedReportRows.Tests.ps1**
