@@ -85,9 +85,10 @@ function Get-AbrAzNetworkSecurityGroup {
                         if ($InfoLevel.NetworkSecurityGroup -ge 2) {
                             Paragraph ($LocalizedData.ParagraphDetail -f $AzSubscription.Name)
                             foreach ($AzNetworkSecurityGroup in $AzNsgInfo) {
-                                Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzNetworkSecurityGroup.Name)" {
+                                $AzNetworkSecurityGroupName = $AzNetworkSecurityGroup.($LocalizedData.Name)
+                                Section -Style NOTOCHeading5 -ExcludeFromTOC $AzNetworkSecurityGroupName {
                                     $TableParams = @{
-                                        Name = "$($LocalizedData.TableHeading) - $($AzNetworkSecurityGroup.Name)"
+                                        Name = "$($LocalizedData.TableHeading) - $AzNetworkSecurityGroupName"
                                         List = $true
                                         ColumnWidths = 40, 60
                                     }
@@ -96,7 +97,7 @@ function Get-AbrAzNetworkSecurityGroup {
                                     }
                                     $AzNetworkSecurityGroup | Table @TableParams
 
-                                    Get-AbrAzNetworkSecurityGroupRule -Name $($AzNetworkSecurityGroup.Name)
+                                    Get-AbrAzNetworkSecurityGroupRule -Name $AzNetworkSecurityGroupName
                                 }
                             }
                         } else {

@@ -438,6 +438,7 @@ GetAbrAzDnsPrivateResolver = ConvertFrom-StringData @'
     EndpointName = Nombre del punto de conexión
     IpAddress = Dirección IP
     IpAllocation = Asignación de IP
+    Subnet = Subred
     Tags = Etiquetas
     None = Ninguno
 '@

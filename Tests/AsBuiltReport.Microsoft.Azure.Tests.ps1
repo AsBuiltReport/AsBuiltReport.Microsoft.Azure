@@ -1,3 +1,11 @@
+# Structural tests for the module: its manifest, files, configuration, language data and code quality.
+#
+# These tests inspect the module without running any report functions, so they need no Azure connection.
+# They cannot show that a report section works. For that, see the behaviour tests in this folder,
+# such as Get-AbrAzPolicyAssignment.Tests.ps1.
+#
+# Run from the repository root: Invoke-Pester -Path .\Tests\
+
 BeforeAll {
     # Import the module
     $ModulePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\AsBuiltReport.Microsoft.Azure.psd1'
@@ -12,6 +20,7 @@ BeforeAll {
 }
 
 Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
+    # Checks the metadata in the .psd1 file, which the PowerShell Gallery and module loader rely on.
     Context 'Module Manifest' {
         BeforeAll {
             $ManifestPath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\AsBuiltReport.Microsoft.Azure.psd1'
@@ -115,6 +124,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
         }
     }
 
+    # Checks that the folders and files the module loads at runtime are present.
     Context 'Module Structure' {
         It 'Should have a valid root module file' {
             $RootModulePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\AsBuiltReport.Microsoft.Azure.psm1'
@@ -170,6 +180,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
         }
     }
 
+    # The report framework calls one exported function, so nothing else should be exported from Src/Public.
     Context 'Public Functions' {
         It 'Should export Invoke-AsBuiltReport.Microsoft.Azure function' {
             Get-Command -Name 'Invoke-AsBuiltReport.Microsoft.Azure' -Module 'AsBuiltReport.Microsoft.Azure' -ErrorAction SilentlyContinue | Should -Not -BeNullOrEmpty
@@ -185,6 +196,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
         }
     }
 
+    # AsBuiltReport.Core passes these parameters by name, so renaming one would break report generation.
     Context 'Function Parameter Validation' {
         BeforeAll {
             $InvokeCommand = Get-Command -Name 'Invoke-AsBuiltReport.Microsoft.Azure'
@@ -236,6 +248,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
         }
     }
 
+    # Checks the comment-based help that Get-Help shows for the public function.
     Context 'Help Content' {
         It 'Invoke-AsBuiltReport.Microsoft.Azure should have help content' {
             $Help = Get-Help -Name 'Invoke-AsBuiltReport.Microsoft.Azure' -ErrorAction SilentlyContinue
@@ -254,6 +267,8 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
         }
     }
 
+    # Guards against a function file being deleted or renamed by accident.
+    # These only check that each file exists. They do not run the function.
     Context 'Private Functions' {
         BeforeAll {
             $PrivatePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Src\Private'
@@ -565,6 +580,8 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 
     }
 
+    # Checks that the default report configuration has the expected sections and keys.
+    # A section missing from here is disabled for users, so new sections are added to these lists.
     Context 'JSON Configuration' {
         BeforeAll {
             $JsonConfigPath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\AsBuiltReport.Microsoft.Azure.json'
@@ -965,6 +982,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
         }
     }
 
+    # Checks that the values in the default configuration have the types and ranges the report expects.
     Context 'Configuration Schema Validation' {
         BeforeAll {
             $JsonConfigPath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\AsBuiltReport.Microsoft.Azure.json'
@@ -1103,6 +1121,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 }
 
 Describe 'Module File Syntax and Quality' {
+    # Catches syntax errors in files that may not be run by any other test.
     Context 'PowerShell Script Files' {
         It 'Should have valid PowerShell syntax in all script files' {
             $ModuleRoot = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure'
@@ -1117,6 +1136,8 @@ Describe 'Module File Syntax and Quality' {
         }
     }
 
+    # Parses each function to find the strings it reads from $LocalizedData, then checks they are defined.
+    # A missing string would otherwise show as a blank label, with no error, at report time.
     Context 'Language Files' {
         BeforeAll {
             $LanguagePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Language\en-US'
@@ -1359,6 +1380,7 @@ Describe 'Module File Syntax and Quality' {
 
     }
 
+    # Enforces project conventions that PSScriptAnalyzer does not check.
     Context 'Code Style and Standards' {
         BeforeAll {
             $ModuleRoot = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure'
@@ -1391,6 +1413,7 @@ Describe 'Module File Syntax and Quality' {
         }
     }
 
+    # Runs PSScriptAnalyzer as a test, so its findings also fail a local Pester run.
     Context 'PSScriptAnalyzer Compliance' {
         BeforeAll {
             $ModuleRoot = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure'
@@ -1449,6 +1472,7 @@ Describe 'Module File Syntax and Quality' {
         }
     }
 
+    # Checks that the help for the public function is complete, not just present.
     Context 'Function Documentation Quality' {
         BeforeAll {
             $ModuleRoot = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure'
@@ -1509,6 +1533,7 @@ Describe 'Module File Syntax and Quality' {
 }
 
 Describe 'Error Handling and Edge Cases' {
+    # Checks the behaviour that configuration validation relies on, using sample values rather than the module itself.
     Context 'Configuration Error Handling' {
         It 'Should handle invalid JSON configuration gracefully' {
             $InvalidJsonPath = Join-Path -Path $TestDrive -ChildPath 'invalid.json'
@@ -1532,6 +1557,7 @@ Describe 'Error Handling and Edge Cases' {
         }
     }
 
+    # Further checks on the public function parameters, which are skipped if the function could not be imported.
     Context 'Parameter Validation' {
         BeforeAll {
             $InvokeCommand = Get-Command -Name 'Invoke-AsBuiltReport.Microsoft.Azure' -ErrorAction SilentlyContinue
@@ -1553,6 +1579,7 @@ Describe 'Error Handling and Edge Cases' {
         }
     }
 
+    # Checks the manifest settings that determine whether the module can be imported.
     Context 'Module Import Error Scenarios' {
         It 'Should gracefully handle missing required modules in manifest' {
             $ManifestPath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\AsBuiltReport.Microsoft.Azure.psd1'
@@ -1572,6 +1599,7 @@ Describe 'Error Handling and Edge Cases' {
         }
     }
 
+    # Checks that the paths these tests rely on exist.
     Context 'File Path Validation' {
         It 'Module manifest path should be valid' {
             $ManifestPath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\AsBuiltReport.Microsoft.Azure.psd1'
@@ -1595,6 +1623,7 @@ Describe 'Error Handling and Edge Cases' {
         }
     }
 
+    # Checks that the configuration, language and manifest files load without errors.
     Context 'Type Safety and Null Handling' {
         It 'JSON configuration should deserialize without errors' {
             $JsonConfigPath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\AsBuiltReport.Microsoft.Azure.json'

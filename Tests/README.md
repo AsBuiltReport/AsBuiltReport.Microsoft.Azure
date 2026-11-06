@@ -122,7 +122,9 @@ The test suite is organized into the following sections:
 
 ### Behaviour Tests
 
-These tests run report functions against stubbed PScribo and Az commands, so they need no Azure connection.
+These tests run report functions against stubbed PScribo and Az commands, so they need no Azure connection. Stubs are simple functions that return test data. They are used rather than Pester's `Mock` because `Mock` needs the command to exist, and the Az modules are not installed in CI.
+
+Stubs only reflect what we expect Azure to return, so these tests do not replace a run against a live tenant. Each test file starts with a comment explaining what it covers.
 
 1. **Get-AbrAzPolicyAssignment.Tests.ps1**
    - Validates the content reported at each `Policy.Assignments` InfoLevel
@@ -131,6 +133,14 @@ These tests run report functions against stubbed PScribo and Az commands, so the
 
 2. **Invoke-AsBuiltReport.Microsoft.Azure.Tests.ps1**
    - Validates which subscriptions are reported for different combinations of enabled sections
+
+3. **Get-AbrAzDnsPrivateResolver.Tests.ps1**
+   - Validates that each resolver reports its own inbound and outbound endpoints, with one row per endpoint
+
+### Code Scans
+
+1. **TranslatedReportRows.Tests.ps1**
+   - Scans all report functions for hardcoded property names read from translated table rows, such as `$Row.Name`, which only exist in some languages
 
 ## Continuous Integration
 

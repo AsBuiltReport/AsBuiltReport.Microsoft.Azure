@@ -1,3 +1,13 @@
+# Behaviour tests for Get-AbrAzPolicyAssignment, which run the real function with no Azure connection.
+#
+# PScribo and Az commands are replaced with stubs: simple functions that return test data and record what
+# the function reported. Stubs are used rather than Pester's Mock because Mock needs the command to exist,
+# and the Az modules are not installed in CI.
+#
+# Stubs only reflect what we expect Azure to return, so these tests do not replace a run against a live tenant.
+#
+# Run from the repository root: Invoke-Pester -Path .\Tests\Get-AbrAzPolicyAssignment.Tests.ps1
+
 BeforeAll {
     $ModulePath = Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -ChildPath 'AsBuiltReport.Microsoft.Azure'
     $script:LanguagePath = Join-Path -Path $ModulePath -ChildPath 'Language'
@@ -85,6 +95,8 @@ Describe 'Get-AbrAzPolicyAssignment' {
         )
     }
 
+    # Assignments on resource groups and resources can be numerous, so they are reported as
+    # a count at InfoLevel 1, a compact table at InfoLevel 2, and in full at InfoLevel 3.
     Context 'InfoLevels' {
         It 'InfoLevel 0 reports nothing' {
             Invoke-Assignment -Level 0
@@ -128,6 +140,7 @@ Describe 'Get-AbrAzPolicyAssignment' {
         }
     }
 
+    # Regression tests for #34: the section was lost in es-ES and fr-FR, where the Name label is translated.
     Context 'Languages' {
         It 'InfoLevel <Level> reports assignments with translated labels in <Culture>' -ForEach @(
             foreach ($Culture in 'de-DE', 'en-GB', 'en-US', 'es-ES', 'fr-FR') {
@@ -145,6 +158,8 @@ Describe 'Get-AbrAzPolicyAssignment' {
         }
     }
 
+    # Scopes are full resource paths, which these tests check are shown as readable names.
+    # Excluded scopes were previously blank for resource groups, and repeated when there was more than one.
     Context 'Scopes' {
         It 'Shows readable names for each scope type' {
             Invoke-Assignment -Level 3

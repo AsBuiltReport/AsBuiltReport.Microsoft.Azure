@@ -211,9 +211,10 @@ function Get-AbrAzVirtualMachine {
                         if ($InfoLevel.VirtualMachine -ge 2) {
                             Paragraph ($LocalizedData.ParagraphDetail -f $AzSubscription.Name)
                             foreach ($AzVM in $AzVMInfo) {
-                                Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzVM.Name)" {
+                                $AzVMName = $AzVM.($LocalizedData.Name)
+                                Section -Style NOTOCHeading5 -ExcludeFromTOC $AzVMName {
                                     $TableParams = @{
-                                        Name = "$($LocalizedData.TableHeading) - $($AzVM.Name)"
+                                        Name = "$($LocalizedData.TableHeading) - $AzVMName"
                                         List = $true
                                         ColumnWidths = 40, 60
                                     }

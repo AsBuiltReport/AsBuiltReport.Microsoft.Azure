@@ -1,3 +1,13 @@
+# Behaviour tests for how Invoke-AsBuiltReport.Microsoft.Azure decides which subscriptions to report.
+#
+# A subscription is only reported if it has a resource for an enabled section. Policy and DiagnosticSetting
+# have no resource type to check, so these tests cover those sections on their own and alongside others.
+#
+# The real function runs with stubbed PScribo, AsBuiltReport.Core and Az commands, so no Azure connection
+# is needed. The report sections are also stubs, which only record that they ran.
+#
+# Run from the repository root: Invoke-Pester -Path .\Tests\Invoke-AsBuiltReport.Microsoft.Azure.Tests.ps1
+
 BeforeAll {
     $ModulePath = Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -ChildPath 'AsBuiltReport.Microsoft.Azure'
     $script:LanguagePath = Join-Path -Path $ModulePath -ChildPath 'Language'
@@ -79,6 +89,7 @@ BeforeAll {
 }
 
 Describe 'Invoke-AsBuiltReport.Microsoft.Azure subscription sections' {
+    # Regression test: with only Policy enabled, the report contained just the subscriptions table.
     It 'Reports Policy when it is the only section enabled' {
         Invoke-Report -InfoLevel (New-InfoLevel -Assignments 3) -HasVirtualNetwork $true
         $script:Headings | Should -Contain $script:SubscriptionName
@@ -97,6 +108,7 @@ Describe 'Invoke-AsBuiltReport.Microsoft.Azure subscription sections' {
         $script:SectionsRun | Should -BeNullOrEmpty
     }
 
+    # Empty subscriptions are deliberately left out of reports, including when Policy is enabled alongside other sections.
     It 'Hides a subscription with no resources for the enabled sections' {
         Invoke-Report -InfoLevel (New-InfoLevel -VirtualNetwork 1 -DiagnosticSetting 1 -Assignments 1) -HasVirtualNetwork $false
         $script:Headings | Should -Not -Contain $script:SubscriptionName
