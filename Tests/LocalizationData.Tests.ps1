@@ -1,3 +1,10 @@
+# Checks that every language has exactly the same strings as en-US, which is the template.
+#
+# A string missing from one language would show as a blank label only in reports using that language,
+# so it is easy to miss when testing in English. Translations themselves are not checked.
+#
+# Run from the repository root: Invoke-Pester -Path .\Tests\LocalizationData.Tests.ps1
+
 BeforeAll {
     # Get the language folder path
     $LanguagePath = Join-Path -Path $PSScriptRoot -ChildPath '..\AsBuiltReport.Microsoft.Azure\Language'

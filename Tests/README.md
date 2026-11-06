@@ -122,7 +122,9 @@ The test suite is organized into the following sections:
 
 ### Behaviour Tests
 
-These tests run report functions against stubbed PScribo and Az commands, so they need no Azure connection.
+These tests run report functions against stubbed PScribo and Az commands, so they need no Azure connection. Stubs are simple functions that return test data. They are used rather than Pester's `Mock` because `Mock` needs the command to exist, and the Az modules are not installed in CI.
+
+Stubs only reflect what we expect Azure to return, so these tests do not replace a run against a live tenant. Each test file starts with a comment explaining what it covers.
 
 1. **Get-AbrAzPolicyAssignment.Tests.ps1**
    - Validates the content reported at each `Policy.Assignments` InfoLevel
