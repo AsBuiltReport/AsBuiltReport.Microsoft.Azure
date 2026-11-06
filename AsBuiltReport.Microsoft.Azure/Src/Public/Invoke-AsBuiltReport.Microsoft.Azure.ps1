@@ -275,8 +275,9 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                                 Write-PScriboMessage ($LocalizedData.SubscriptionID -f $($AzSubscription.Id))
                                 $AzContext = Set-AzContext -Subscription $AzSubscription.Id -Tenant $TenantId
 
+                                $EnabledSections = $SectionOrder | Where-Object { Test-AbrAzInfoLevelEnabled -SectionOrder @($_) -InfoLevel $InfoLevel }
                                 $SubHasResources = $false
-                                foreach ($SectionName in ($SectionOrder | Where-Object { Test-AbrAzInfoLevelEnabled -SectionOrder @($_) -InfoLevel $InfoLevel })) {
+                                foreach ($SectionName in $EnabledSections) {
                                     if (-not $ResourceTypeMap.ContainsKey($SectionName)) {
                                         $SubHasResources = $true
                                         break
@@ -287,6 +288,11 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
                                         $SubHasResources = $true
                                         break
                                     }
+                                }
+
+                                # Sections with no resource type, such as Policy, have nothing to check, so they would otherwise never be reported on their own
+                                if (-not $SubHasResources -and -not ($EnabledSections | Where-Object { $ResourceTypeMap[$_] })) {
+                                    $SubHasResources = $true
                                 }
 
                                 if ($SubHasResources) {

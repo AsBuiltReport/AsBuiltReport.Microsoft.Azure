@@ -352,8 +352,9 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | NetworkTopology             |        1        |        1        |
 | NetworkVirtualAppliance     |        1        |        3        |
 | NetworkWatcher              |        1        |        2        |
-| Policy > Assignments        |        1        |        2        |
+| Policy > Assignments        |        1        |        3        |
 | Policy > Definitions        |        0        |        1        |
+| Policy > Exemptions         |        1        |        2        |
 | PrivateDnsZone              |        1        |        2        |
 | PublicIpAddress             |        1        |        2        |
 | RecoveryServicesVault       |        1        |        2        |
@@ -368,6 +369,10 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | VirtualNetworkGateway       |        1        |        2        |
 | VirtualWan                  |        1        |        2        |
 | VmScaleSet                  |        1        |        2        |
+
+> **Note:** Policy assignments on resource groups and resources can be numerous, so `Policy > Assignments` reports them as a count at InfoLevel 1, as a compact table at InfoLevel 2, and in full at InfoLevel 3. `Policy > Exemptions` lists exemptions at every scope from InfoLevel 1. Exemptions are not reported if the `Exemptions` key is missing from an existing report configuration file, so add it to include them.
+
+> **Note:** A subscription's section is only reported if the subscription contains a resource for at least one enabled section. `Policy` and `DiagnosticSetting` have no resource to check, so if they are the only sections enabled, every subscription is reported. If they are enabled alongside other sections, a subscription with no resources for those other sections is not reported, even if policies apply to it.
 
 > **Note:** `NetworkTopology` collects its own Virtual Network, peering, Gateway, Firewall, and Network Virtual Appliance data independently of the `VirtualNetwork`, `VirtualNetworkGateway`, `Firewall`, and `NetworkVirtualAppliance` `InfoLevel` settings — only `NetworkTopology` itself controls whether the diagram is collected and rendered, so a hub is never misclassified as a spoke, or the diagram omitted entirely, just because another section is disabled or set to a lower level elsewhere in the report.
 
@@ -559,6 +564,13 @@ The **NetworkWatcher** schema is used to configure health checks for Azure Netwo
 |-------------------|--------------|---------|------------------------------------------------------------|-------------------------------------------------------------------------------------------|
 | ProvisioningState | true / false | true    | Highlights Network Watchers in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 | FlowLogEnabled    | true / false | true    | Highlights NSG Flow Logs that are not enabled              | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Flow log is not enabled              |
+
+#### Policy
+The **Policy** schema is used to configure health checks for Azure Policy.
+
+| Sub-Schema        | Setting      | Default | Description                                    | Highlight                                                                       |
+|-------------------|--------------|---------|------------------------------------------------|---------------------------------------------------------------------------------|
+| ExpiredExemptions | true / false | true    | Highlights policy exemptions that have expired | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Policy exemption has expired |
 
 #### PrivateDnsZone
 The **PrivateDnsZone** schema is used to configure health checks for Azure Private DNS Zones.

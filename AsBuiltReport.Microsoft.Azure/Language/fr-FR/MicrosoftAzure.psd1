@@ -860,6 +860,9 @@ GetAbrAzPolicyAssignment = ConvertFrom-StringData @'
     PolicyEnforcement = Application de la strategie
     Enforce = Appliquer
     DoNotEnforce = Ne pas appliquer
+    ResourceAssignmentsHeading = Affectations de groupes de ressources et de ressources
+    ParagraphResourceAssignments = Le tableau suivant resume les affectations de strategie sur les groupes de ressources et les ressources de l'abonnement {0}.
+    ParagraphResourceAssignmentCount = {0} autre(s) affectation(s) de strategie s'appliquent aux groupes de ressources et aux ressources de l'abonnement {1}. Definissez l'InfoLevel des affectations de strategie sur 2 pour les inclure.
 '@
 
 # Azure Policy Definitions (Get-AbrAzPolicyDefinition)
@@ -878,6 +881,35 @@ GetAbrAzPolicyDefinition = ConvertFrom-StringData @'
     Policy = Strategie
     Initiative = Initiative
     Category = Categorie
+'@
+
+# Azure Policy Exemptions (Get-AbrAzPolicyExemption)
+GetAbrAzPolicyExemption = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel des exemptions de strategie defini a {0}.
+    Collecting = Collecte des informations d'exemption Azure Policy.
+    ParagraphDetail = Les sections suivantes detaillent les exemptions de strategie qui s'appliquent a l'abonnement {0}.
+    ParagraphSummary = Le tableau suivant resume les exemptions de strategie qui s'appliquent a l'abonnement {0}.
+    Heading = Exemptions de strategie
+    TableHeading = Exemption de strategie
+    TableHeadings = Exemptions de strategie
+    Name = Nom
+    Description = Description
+    Scope = Etendue
+    ScopeType = Type d'etendue
+    ManagementGroup = Groupe d'administration
+    Subscription = Abonnement
+    ResourceGroup = Groupe de ressources
+    Resource = Ressource
+    Category = Categorie
+    PolicyAssignment = Affectation de strategie
+    PolicyDefinitions = Strategies exemptees
+    AllPolicies = Toutes
+    ExpiresOn = Expire le (UTC)
+    NoExpiry = Jamais
+    Status = Statut
+    Active = Active
+    Expired = Expiree
+    ErrorMessage = Impossible de collecter les informations d'exemption de strategie:
 '@
 
 # Azure Private Endpoint (Get-AbrAzPrivateEndpoint)
