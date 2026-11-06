@@ -7,8 +7,11 @@
 * Add support for Azure Virtual Network Managers (`VirtualNetworkManager`), with a summary table at InfoLevel 1, per-manager scope, features, locks and network groups at InfoLevel 2, and network group static members at InfoLevel 3; `ProvisioningState` health check highlights failed provisioning
 * Add Azure Virtual Network Manager connectivity, security admin and routing configurations, with deployed regions per configuration at InfoLevel 2 and configuration settings, rule collections and rules at InfoLevel 3, plus a configuration deployments table by region; `DeploymentStatus`, `UndeployedConfiguration` and `PermissiveSecurityAdminRule` health checks highlight failed deployments, configurations with no effect and inbound Always Allow rules from any source
 * Add Azure Virtual Network Manager IPAM pools and their static CIDR allocations at InfoLevel 2; the `ProvisioningState` health check also highlights pools and static CIDRs that are not in a succeeded state
+* Add support for Azure Policy exemptions (`Policy.Exemptions`), including those on resource groups and resources, with a summary table at InfoLevel 1 and per-exemption detail at InfoLevel 2; `ExpiredExemptions` health check highlights exemptions that have expired
 
 ### Changed
+* Include policy assignments on resource groups and resources in `Policy.Assignments`, as a count at InfoLevel 1, a compact table at InfoLevel 2, and in full at a new InfoLevel 3
+* Show the name of the management group in policy assignment scopes, rather than its full path
 * Extract NVA detection logic shared by `Get-AbrAzNetworkVirtualAppliance` and `Get-AbrAzNetworkTopology` into `Test-AbrAzNvaVm`
 * **Breaking:** Replace global `Options.EnableDiagrams`/`DiagramTheme`/`DiagramDpi`/`DiagramColumnSize` with a per-diagram `Diagram` JSON section (`Diagram.ManagementGroup.*`, `Diagram.NetworkTopology.*`), allowing each diagram to be independently enabled, themed, and sized
 * Replace `PublicIpAddress` column with `Tier` in the Bastion summary table
@@ -18,6 +21,9 @@
 
 ### Fixed
 * Fix `Get-AbrAzLbFrontendIpConfig` - Resolve `PublicIPAddress` to the associated public IP resource name
+* Fix per-subscription sections not being reported when `Policy` or `DiagnosticSetting` were the only sections enabled
+* Fix `Get-AbrAzPolicyAssignment` - Policy Assignments section was missing at InfoLevel 2 in the es-ES and fr-FR languages
+* Fix `Get-AbrAzPolicyAssignment` - Excluded Scopes was blank for resource groups and resources, repeated when there was more than one exclusion, and blank instead of `--` when there were none
 
 ### Removed
 * Remove X/Tweet post action in `Release.yml` pipeline

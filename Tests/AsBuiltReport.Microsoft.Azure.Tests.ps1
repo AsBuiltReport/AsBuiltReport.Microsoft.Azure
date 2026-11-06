@@ -329,6 +329,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzPolicyDefinition.ps1'
         }
 
+        It 'Should have Get-AbrAzPolicyExemption function' {
+            $PrivateFunctions.Name | Should -Contain 'Get-AbrAzPolicyExemption.ps1'
+        }
+
         It 'Should have Get-AbrAzPrivateEndpoint function' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzPrivateEndpoint.ps1'
         }
@@ -551,6 +555,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $PrivateFunctions.Name | Should -Contain 'Get-AbrAzVmScaleSet.ps1'
         }
 
+        It 'Should have Resolve-AbrAzPolicyScopeName function' {
+            $PrivateFunctions.Name | Should -Contain 'Resolve-AbrAzPolicyScopeName.ps1'
+        }
+
         It 'Should have Resolve-AbrVNetIdFromSubnetId function' {
             $PrivateFunctions.Name | Should -Contain 'Resolve-AbrVNetIdFromSubnetId.ps1'
         }
@@ -693,10 +701,11 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $JsonConfig.InfoLevel.PSObject.Properties.Name | Should -Contain 'Policy'
         }
 
-        It 'InfoLevel Policy should be a complex object with Assignments and Definitions' {
+        It 'InfoLevel Policy should be a complex object with Assignments, Definitions and Exemptions' {
             $JsonConfig.InfoLevel.Policy | Should -Not -BeNullOrEmpty
             $JsonConfig.InfoLevel.Policy.PSObject.Properties.Name | Should -Contain 'Assignments'
             $JsonConfig.InfoLevel.Policy.PSObject.Properties.Name | Should -Contain 'Definitions'
+            $JsonConfig.InfoLevel.Policy.PSObject.Properties.Name | Should -Contain 'Exemptions'
         }
 
         It 'InfoLevel should include PrivateEndpoint' {
@@ -937,6 +946,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
 
         It 'HealthCheck should include SiteRecovery checks' {
             $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'SiteRecovery'
+        }
+
+        It 'HealthCheck should include Policy checks' {
+            $JsonConfig.HealthCheck.PSObject.Properties.Name | Should -Contain 'Policy'
         }
 
         It 'HealthCheck should include VirtualNetworkGateway checks' {

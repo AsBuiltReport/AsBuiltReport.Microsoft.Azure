@@ -860,6 +860,9 @@ GetAbrAzPolicyAssignment = ConvertFrom-StringData @'
     PolicyEnforcement = Richtliniendurchsetzung
     Enforce = Erzwingen
     DoNotEnforce = Nicht erzwingen
+    ResourceAssignmentsHeading = Zuweisungen fuer Ressourcengruppen und Ressourcen
+    ParagraphResourceAssignments = Die folgende Tabelle fasst die Richtlinienzuweisungen fuer Ressourcengruppen und Ressourcen im Abonnement {0} zusammen.
+    ParagraphResourceAssignmentCount = Weitere {0} Richtlinienzuweisung(en) gelten fuer Ressourcengruppen und Ressourcen im Abonnement {1}. Setzen Sie den InfoLevel der Richtlinienzuweisungen auf 2, um sie einzubeziehen.
 '@
 
 # Azure Policy Definitions (Get-AbrAzPolicyDefinition)
@@ -878,6 +881,35 @@ GetAbrAzPolicyDefinition = ConvertFrom-StringData @'
     Policy = Richtlinie
     Initiative = Initiative
     Category = Kategorie
+'@
+
+# Azure Policy Exemptions (Get-AbrAzPolicyExemption)
+GetAbrAzPolicyExemption = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel der Richtlinienausnahmen auf {0} gesetzt.
+    Collecting = Azure-Richtlinienausnahmen werden gesammelt.
+    ParagraphDetail = Die folgenden Abschnitte beschreiben die Richtlinienausnahmen, die fuer das Abonnement {0} gelten.
+    ParagraphSummary = Die folgende Tabelle fasst die Richtlinienausnahmen zusammen, die fuer das Abonnement {0} gelten.
+    Heading = Richtlinienausnahmen
+    TableHeading = Richtlinienausnahme
+    TableHeadings = Richtlinienausnahmen
+    Name = Name
+    Description = Beschreibung
+    Scope = Bereich
+    ScopeType = Bereichstyp
+    ManagementGroup = Verwaltungsgruppe
+    Subscription = Abonnement
+    ResourceGroup = Ressourcengruppe
+    Resource = Ressource
+    Category = Kategorie
+    PolicyAssignment = Richtlinienzuweisung
+    PolicyDefinitions = Ausgenommene Richtlinien
+    AllPolicies = Alle
+    ExpiresOn = Laeuft ab am (UTC)
+    NoExpiry = Nie
+    Status = Status
+    Active = Aktiv
+    Expired = Abgelaufen
+    ErrorMessage = Fehler beim Sammeln von Richtlinienausnahmen:
 '@
 
 # Azure Private Endpoint (Get-AbrAzPrivateEndpoint)
