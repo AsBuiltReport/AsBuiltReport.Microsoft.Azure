@@ -13,7 +13,7 @@ Before running the tests, ensure you have the following installed:
 ### Installing Pester
 
 ```powershell
-# Install Pester 5.x
+# Install the latest Pester, version 5.0 or later
 Install-Module -Name Pester -MinimumVersion 5.0.0 -Force -SkipPublisherCheck
 ```
 
@@ -249,7 +249,7 @@ If syntax tests fail:
 
 When adding new features or functions to the module:
 
-1. **Add your new Get-AbrAz* function** to `Src/Private/`
+1. **Add your new Get-AbrAz* function** to `Src/Private/Report/`
 2. **Add localization strings** to `Language/en-US/MicrosoftAzure.psd1`
    - Create a new section named after your function (e.g., `GetAbrAzLogAnalyticsWorkspace`)
    - Add all required properties (InfoLevel, Collecting, Heading, Name, ResourceGroup, Location, etc.)

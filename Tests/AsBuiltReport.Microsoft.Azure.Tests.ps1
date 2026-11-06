@@ -57,9 +57,9 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $Manifest.RequiredModules.Name | Should -Contain 'AsBuiltReport.Core'
         }
 
-        It 'Should require AsBuiltReport.Core version 1.6.2 or higher' {
+        It 'Should require AsBuiltReport.Core version 1.6.4 or higher' {
             $CoreModule = $Manifest.RequiredModules | Where-Object { $_.Name -eq 'AsBuiltReport.Core' }
-            $CoreModule.Version | Should -BeGreaterOrEqual ([Version]'1.6.2')
+            $CoreModule.Version | Should -BeGreaterOrEqual ([Version]'1.6.4')
         }
 
         It 'Should declare Az as an external module dependency' {

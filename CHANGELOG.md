@@ -1,6 +1,6 @@
 # :arrows_clockwise: Microsoft Azure As Built Report Changelog
 
-## [0.3.1] - 2026-07-??
+## [0.4.0] - Unreleased
 
 ### Added
 * Add support for Virtual Network hub-spoke topology information and diagrams
