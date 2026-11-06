@@ -43,25 +43,31 @@ jobs:
         run: |
           Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
-      - name: Install Pester
+      - name: Install PowerShell modules
         run: |
-          Install-Module -Name Pester -MinimumVersion 5.0.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
+          # Retry each install, as downloads from the PowerShell Gallery can fail intermittently
+          $Modules = @(
+            @{ Name = 'Pester'; MinimumVersion = '5.0.0' }
+            @{ Name = 'PScribo'; MinimumVersion = '0.11.1' }
+            @{ Name = 'PSScriptAnalyzer'; MinimumVersion = '1.0.0' }
+            @{ Name = 'AsBuiltReport.Core'; MinimumVersion = '1.6.4' }
+            @{ Name = 'AsBuiltReport.Diagram'; MinimumVersion = '1.0.8' }
+          )
+          $MaxAttempts = 3
 
-      - name: Install PScribo
-        run: |
-          Install-Module -Name PScribo -MinimumVersion 0.11.1 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
-
-      - name: Install PSScriptAnalyzer
-        run: |
-          Install-Module -Name PSScriptAnalyzer -MinimumVersion 1.0.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
-
-      - name: Install AsBuiltReport.Core
-        run: |
-          Install-Module -Name AsBuiltReport.Core -MinimumVersion 1.6.4 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
-
-      - name: Install AsBuiltReport.Diagram
-        run: |
-          Install-Module -Name AsBuiltReport.Diagram -MinimumVersion 1.0.8 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
+          foreach ($Module in $Modules) {
+            for ($Attempt = 1; $Attempt -le $MaxAttempts; $Attempt++) {
+              try {
+                Install-Module -Name $Module.Name -MinimumVersion $Module.MinimumVersion -Repository PSGallery -Force -AllowClobber -Scope CurrentUser -ErrorAction Stop
+                break
+              } catch {
+                if ($Attempt -eq $MaxAttempts) { throw }
+                $WaitSeconds = 30 * $Attempt
+                Write-Warning "Attempt $Attempt of $MaxAttempts to install $($Module.Name) failed, retrying in $WaitSeconds seconds: $($_.Exception.Message)"
+                Start-Sleep -Seconds $WaitSeconds
+              }
+            }
+          }
 
       - name: Run Pester Tests
         run: |

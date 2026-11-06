@@ -79,9 +79,10 @@ function Get-AbrAzExpressRouteCircuit {
                             Paragraph ($LocalizedData.ParagraphDetail -f $AzSubscription.Name)
                             BlankLine
                             foreach ($AzExpressRouteCircuit in $AzExpressRouteCircuitInfo) {
-                                Section -Style NOTOCHeading5 -ExcludeFromTOC $AzExpressRouteCircuit.Name {
+                                $AzExpressRouteCircuitName = $AzExpressRouteCircuit.($LocalizedData.Name)
+                                Section -Style NOTOCHeading5 -ExcludeFromTOC $AzExpressRouteCircuitName {
                                     $TableParams = @{
-                                        Name = "$($LocalizedData.TableHeading) - $($AzExpressRouteCircuit.Name)"
+                                        Name = "$($LocalizedData.TableHeading) - $AzExpressRouteCircuitName"
                                         List = $true
                                         ColumnWidths = 40, 60
                                     }

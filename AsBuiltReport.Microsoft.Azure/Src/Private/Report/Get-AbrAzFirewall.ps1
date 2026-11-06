@@ -107,9 +107,10 @@ function Get-AbrAzFirewall {
                         if ($InfoLevel.Firewall -ge 2) {
                             Paragraph ($LocalizedData.ParagraphDetail -f $AzSubscription.Name)
                             foreach ($AzFirewall in $AzFirewallInfo) {
-                                Section -Style NOTOCHeading5 -ExcludeFromTOC $AzFirewall.Name {
+                                $AzFirewallName = $AzFirewall.($LocalizedData.Name)
+                                Section -Style NOTOCHeading5 -ExcludeFromTOC $AzFirewallName {
                                     $TableParams = @{
-                                        Name = "$($LocalizedData.TableHeading) - $($AzFirewall.Name)"
+                                        Name = "$($LocalizedData.TableHeading) - $AzFirewallName"
                                         List = $true
                                         ColumnWidths = 40, 60
                                     }
@@ -119,10 +120,10 @@ function Get-AbrAzFirewall {
                                     $AzFirewall | Table @TableParams
 
                                     # Get NAT Collection Rules
-                                    Get-AbrAzFirewallNatRule -Name $AzFirewall.Name
+                                    Get-AbrAzFirewallNatRule -Name $AzFirewallName
 
                                     # Get Network Collection Rules
-                                    Get-AbrAzFirewallNetworkRule -Name $AzFirewall.Name
+                                    Get-AbrAzFirewallNetworkRule -Name $AzFirewallName
                                 }
                             }
                         } else {

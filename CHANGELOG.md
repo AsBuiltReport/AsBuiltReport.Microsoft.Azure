@@ -14,12 +14,16 @@
 * **Breaking:** Replace global `Options.EnableDiagrams`/`DiagramTheme`/`DiagramDpi`/`DiagramColumnSize` with a per-diagram `Diagram` JSON section (`Diagram.ManagementGroup.*`, `Diagram.NetworkTopology.*`), allowing each diagram to be independently enabled, themed, and sized
 * Replace `PublicIpAddress` column with `Tier` in the Bastion summary table
 * Update `actions/checkout` to v7 and `actions/upload-artifact` to v7 in `Pester.yml`, `DraftRelease.yml`, and `Release.yml` pipelines to run on Node.js 24
+* Retry PowerShell module installs in `Pester.yml`, so an intermittent PowerShell Gallery download failure does not fail the pipeline
 * Exclude `PSUseSingularNouns` from `PSScriptAnalyzerSettings.psd1`; `Get-AbrAsrProtectedItems` is intentionally plural
 * Align the "Should have minimal PSScriptAnalyzer warnings" Pester test with `PSScriptAnalyzerSettings.psd1` so it evaluates the same rule set as the PSScriptAnalyzer workflow
 
 ### Fixed
 * Fix `Get-AbrAzLbFrontendIpConfig` - Resolve `PublicIPAddress` to the associated public IP resource name
 * Fix per-subscription sections not being reported when `Policy` or `DiagnosticSetting` were the only sections enabled
+* Fix ExpressRoute, Firewall, IP Group, Key Vault, Load Balancer, Network Security Group and Virtual Machine sections being lost at InfoLevel 2 in the es-ES and fr-FR languages
+* Fix `Get-AbrAzDnsPrivateResolver` - Every resolver showed the last resolver's endpoints, multiple endpoints shared one table row, and outbound endpoints showed blank IP columns, which now show the subnet
+* Fix `Get-AbrAzDnsPrivateResolver` - Inbound and outbound endpoint table captions were missing the resolver name in the es-ES and fr-FR languages
 * Fix `Get-AbrAzPolicyAssignment` - Policy Assignments section was missing at InfoLevel 2 in the es-ES and fr-FR languages
 * Fix `Get-AbrAzPolicyAssignment` - Excluded Scopes was blank for resource groups and resources, repeated when there was more than one exclusion, and blank instead of `--` when there were none
 
