@@ -1,3 +1,14 @@
+# Scans the report functions for a bug that is invisible when testing in English (see issue #34).
+#
+# Table rows are built with translated property names, such as "Nombre" in es-ES and "Nom" in fr-FR.
+# Reading one with a hardcoded name, such as $Row.Name, only works in languages where the label is "Name".
+# Everywhere else the name is empty, PScribo rejects the section heading, and the section is lost.
+#
+# This reads the code without running it, so it covers every function, including new ones.
+# It checks foreach loops over row variables. A less direct read could still be missed.
+#
+# Run from the repository root: Invoke-Pester -Path .\Tests\TranslatedReportRows.Tests.ps1
+
 BeforeAll {
     $ModulePath = Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -ChildPath 'AsBuiltReport.Microsoft.Azure'
     $script:ReportPath = Join-Path -Path (Join-Path -Path (Join-Path -Path $ModulePath -ChildPath 'Src') -ChildPath 'Private') -ChildPath 'Report'
@@ -64,6 +75,7 @@ BeforeAll {
 }
 
 Describe 'Translated report rows' {
+    # Guards the scan itself: if it stopped recognising row variables, the next test would pass without checking anything.
     It 'Finds translated rows to check' {
         $RowFiles = foreach ($File in (Get-ChildItem -Path $script:ReportPath -Filter '*.ps1')) {
             $Tokens = $null
