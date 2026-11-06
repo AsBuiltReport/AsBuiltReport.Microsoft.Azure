@@ -1,3 +1,11 @@
+# Behaviour tests for the endpoint tables in Get-AbrAzDnsPrivateResolver (see issue #37).
+#
+# Runs the real function with stubbed PScribo and Az commands, so no Azure connection is needed.
+# The stubs follow the Az.DnsResolver models: inbound endpoints have a list of IP configurations, while
+# outbound endpoints have a SubnetId. These tests do not replace a run against a live tenant.
+#
+# Run from the repository root: Invoke-Pester -Path .\Tests\Get-AbrAzDnsPrivateResolver.Tests.ps1
+
 BeforeAll {
     $ModulePath = Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -ChildPath 'AsBuiltReport.Microsoft.Azure'
     $script:LanguagePath = Join-Path -Path $ModulePath -ChildPath 'Language'
@@ -106,6 +114,8 @@ Describe 'Get-AbrAzDnsPrivateResolver endpoints' {
         }
     }
 
+    # Regression test for #37: endpoints were collected in one loop and read in a later one,
+    # so every resolver showed the last resolver's endpoints.
     It 'Shows each resolver its own endpoints' {
         Invoke-Resolver
         (Get-EndpointRow $script:Text.InboundEndpoints 'resolver-a').($script:Text.EndpointName) | Should -Be @('inbound-a1', 'inbound-a2')
@@ -130,6 +140,7 @@ Describe 'Get-AbrAzDnsPrivateResolver endpoints' {
         $Row.($script:Text.IpAllocation) | Should -Be 'Dynamic, Dynamic'
     }
 
+    # The outbound endpoint model has no IP configuration, so IP columns could never be populated.
     It 'Reports the subnet for outbound endpoints, not IP columns' {
         Invoke-Resolver
         $Row = Get-EndpointRow $script:Text.OutboundEndpoints 'resolver-a'
@@ -146,7 +157,8 @@ Describe 'Get-AbrAzDnsPrivateResolver endpoints' {
         }
         $script:Outbound = @{}
         Invoke-Resolver
-        (Get-EndpointRow $script:Text.InboundEndpoints 'resolver-a').($script:Text.EndpointName) | Should -Be @('inbound-one', 'inbound-two')
+        # Sort-Object is not stable in Windows PowerShell 5.1, so resolvers with the same name can appear in either order
+        (Get-EndpointRow $script:Text.InboundEndpoints 'resolver-a').($script:Text.EndpointName) | Sort-Object | Should -Be @('inbound-one', 'inbound-two')
     }
 
     It 'Omits the endpoint tables for a resolver with no endpoints, even if another resolver has them' {
