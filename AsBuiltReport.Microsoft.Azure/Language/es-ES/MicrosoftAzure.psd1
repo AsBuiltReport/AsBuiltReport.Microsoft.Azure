@@ -1099,6 +1099,30 @@ GetAbrAzSubscription = ConvertFrom-StringData @'
     SubscriptionID = ID de suscripción
     State = Estado
     NoSubscriptions = No se encontraron suscripciones.
+    GovernanceHeading = Resumen de gobernanza
+    GovernanceParagraph = La siguiente tabla resume los grupos de recursos, los recursos, las etiquetas y los bloqueos de cada suscripción.
+    GovernanceError = No se puede recopilar la información de gobernanza de la suscripción '{0}': {1}
+    Subscription = Suscripción
+    ResourceGroups = Grupos de recursos
+    Resources = Recursos
+    Tagged = Etiquetados
+    Locks = Bloqueos
+    TagCoverageHeading = Cobertura de etiquetas
+    TagCoverageParagraph = La siguiente tabla muestra cuántos recursos usan cada nombre de etiqueta en las suscripciones del informe.
+    TagCoverageLimit = Se muestran los {0} nombres de etiqueta más usados de un total de {1}.
+    TagCoverageLimitInvalid = El valor '{0}' de Options.TagCoverageLimit no es un número entero mayor que 0 ni *. Se usa {1}.
+    TagCoverageAll = Se muestran los {0} nombres de etiqueta.
+    Tag = Etiqueta
+    Coverage = Cobertura
+    LockHeading = Bloqueos de recursos
+    LockParagraph = La siguiente tabla enumera los bloqueos de administración de las suscripciones del informe. Un bloqueo también se aplica a todo lo que está por debajo de su ámbito.
+    Resource = Recurso
+    Scope = Ámbito
+    AppliesTo = Se aplica a
+    Type = Tipo
+    LockTypeDelete = Eliminar
+    LockTypeReadOnly = Solo lectura
+    Notes = Notas
 '@
 
 # Azure Virtual Machine (Get-AbrAzVirtualMachine)

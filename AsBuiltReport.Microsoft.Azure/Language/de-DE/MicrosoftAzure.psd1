@@ -1099,6 +1099,30 @@ GetAbrAzSubscription = ConvertFrom-StringData @'
     SubscriptionID = Abonnement-ID
     State = Status
     NoSubscriptions = Keine Abonnements gefunden.
+    GovernanceHeading = Governance-Zusammenfassung
+    GovernanceParagraph = Die folgende Tabelle fasst die Ressourcengruppen, Ressourcen, Tags und Sperren in jedem Abonnement zusammen.
+    GovernanceError = Governance-Informationen fuer das Abonnement '{0}' konnten nicht erfasst werden: {1}
+    Subscription = Abonnement
+    ResourceGroups = Ressourcengruppen
+    Resources = Ressourcen
+    Tagged = Mit Tags
+    Locks = Sperren
+    TagCoverageHeading = Tag-Abdeckung
+    TagCoverageParagraph = Die folgende Tabelle zeigt, wie viele Ressourcen jeden Tag-Namen in den berichteten Abonnements verwenden.
+    TagCoverageLimit = Die {0} am haeufigsten verwendeten von {1} Tag-Namen werden angezeigt.
+    TagCoverageLimitInvalid = Der Wert '{0}' von Options.TagCoverageLimit ist weder eine ganze Zahl groesser als 0 noch *. Es wird {1} verwendet.
+    TagCoverageAll = Alle {0} Tag-Namen werden angezeigt.
+    Tag = Tag
+    Coverage = Abdeckung
+    LockHeading = Ressourcensperren
+    LockParagraph = Die folgende Tabelle listet die Verwaltungssperren in den berichteten Abonnements auf. Eine Sperre gilt auch fuer alles unterhalb ihres Bereichs.
+    Resource = Ressource
+    Scope = Bereich
+    AppliesTo = Gilt fuer
+    Type = Typ
+    LockTypeDelete = Loeschen
+    LockTypeReadOnly = Schreibgeschuetzt
+    Notes = Hinweise
 '@
 
 # Azure Virtual Machine (Get-AbrAzVirtualMachine)

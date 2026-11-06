@@ -1099,6 +1099,30 @@ GetAbrAzSubscription = ConvertFrom-StringData @'
     SubscriptionID = Subscription ID
     State = State
     NoSubscriptions = No subscriptions found.
+    GovernanceHeading = Governance Summary
+    GovernanceParagraph = The following table summarizes the resource groups, resources, tagging and locks in each subscription.
+    GovernanceError = Unable to collect governance information for subscription '{0}': {1}
+    Subscription = Subscription
+    ResourceGroups = Resource Groups
+    Resources = Resources
+    Tagged = Tagged
+    Locks = Locks
+    TagCoverageHeading = Tag Coverage
+    TagCoverageParagraph = The following table shows how many resources use each tag name across the reported subscriptions.
+    TagCoverageLimit = The {0} most used of {1} tag names are shown.
+    TagCoverageLimitInvalid = The Options.TagCoverageLimit value '{0}' is not a whole number above 0 or *. Using {1}.
+    TagCoverageAll = All {0} tag names are shown.
+    Tag = Tag
+    Coverage = Coverage
+    LockHeading = Resource Locks
+    LockParagraph = The following table lists the management locks in the reported subscriptions. A lock also applies to everything beneath its scope.
+    Resource = Resource
+    Scope = Scope
+    AppliesTo = Applies To
+    Type = Type
+    LockTypeDelete = Delete
+    LockTypeReadOnly = Read-Only
+    Notes = Notes
 '@
 
 # Azure Virtual Machine (Get-AbrAzVirtualMachine)
