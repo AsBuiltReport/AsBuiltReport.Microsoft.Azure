@@ -4,8 +4,11 @@
 
 ### Added
 * Add support for Virtual Network hub-spoke topology information and diagrams
+* Add support for Azure Policy exemptions (`Policy.Exemptions`), including those on resource groups and resources, with a summary table at InfoLevel 1 and per-exemption detail at InfoLevel 2; `ExpiredExemptions` health check highlights exemptions that have expired
 
 ### Changed
+* Include policy assignments on resource groups and resources in `Policy.Assignments`, as a count at InfoLevel 1, a compact table at InfoLevel 2, and in full at a new InfoLevel 3
+* Show the name of the management group in policy assignment scopes, rather than its full path
 * Extract NVA detection logic shared by `Get-AbrAzNetworkVirtualAppliance` and `Get-AbrAzNetworkTopology` into `Test-AbrAzNvaVm`
 * **Breaking:** Replace global `Options.EnableDiagrams`/`DiagramTheme`/`DiagramDpi`/`DiagramColumnSize` with a per-diagram `Diagram` JSON section (`Diagram.ManagementGroup.*`, `Diagram.NetworkTopology.*`), allowing each diagram to be independently enabled, themed, and sized
 * Replace `PublicIpAddress` column with `Tier` in the Bastion summary table
@@ -15,6 +18,9 @@
 
 ### Fixed
 * Fix `Get-AbrAzLbFrontendIpConfig` - Resolve `PublicIPAddress` to the associated public IP resource name
+* Fix per-subscription sections not being reported when `Policy` or `DiagnosticSetting` were the only sections enabled
+* Fix `Get-AbrAzPolicyAssignment` - Policy Assignments section was missing at InfoLevel 2 in the es-ES and fr-FR languages
+* Fix `Get-AbrAzPolicyAssignment` - Excluded Scopes was blank for resource groups and resources, repeated when there was more than one exclusion, and blank instead of `--` when there were none
 
 ### Removed
 * Remove X/Tweet post action in `Release.yml` pipeline

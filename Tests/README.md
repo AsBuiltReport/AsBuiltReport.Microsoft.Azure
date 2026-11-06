@@ -8,7 +8,7 @@ Before running the tests, ensure you have the following installed:
 
 - **PowerShell 5.1** or later (PowerShell 7+ recommended)
 - **Pester 5.0** or later
-- **AsBuiltReport.Core** module (version 1.5.0 or later)
+- **AsBuiltReport.Core** module (version 1.6.4 or later)
 
 ### Installing Pester
 
@@ -120,6 +120,18 @@ The test suite is organized into the following sections:
    - Validates CmdletBinding attributes
    - Confirms try/catch error handling in private functions
 
+### Behaviour Tests
+
+These tests run report functions against stubbed PScribo and Az commands, so they need no Azure connection.
+
+1. **Get-AbrAzPolicyAssignment.Tests.ps1**
+   - Validates the content reported at each `Policy.Assignments` InfoLevel
+   - Runs in every supported language, to catch labels that break when translated
+   - Validates scope and excluded scope names
+
+2. **Invoke-AsBuiltReport.Microsoft.Azure.Tests.ps1**
+   - Validates which subscriptions are reported for different combinations of enabled sections
+
 ## Continuous Integration
 
 These tests are designed to run in CI/CD pipelines. They can be integrated with:
@@ -148,7 +160,7 @@ jobs:
 
       - name: Install AsBuiltReport.Core
         shell: pwsh
-        run: Install-Module -Name AsBuiltReport.Core -MinimumVersion 1.5.0 -Force
+        run: Install-Module -Name AsBuiltReport.Core -MinimumVersion 1.6.4 -Force
 
       - name: Run Pester Tests
         shell: pwsh

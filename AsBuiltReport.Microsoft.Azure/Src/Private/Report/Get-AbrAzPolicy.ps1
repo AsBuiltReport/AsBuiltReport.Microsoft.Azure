@@ -31,6 +31,7 @@ function Get-AbrAzPolicy {
                         Paragraph $LocalizedData.SectionInfo
                     }
                     Get-AbrAzPolicyAssignment
+                    Get-AbrAzPolicyExemption
                     Get-AbrAzPolicyDefinition
                 }
             } else {

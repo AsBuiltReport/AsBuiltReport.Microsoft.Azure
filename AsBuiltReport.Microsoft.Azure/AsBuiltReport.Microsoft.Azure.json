@@ -89,7 +89,8 @@
         "NetworkWatcher": 1,
         "Policy": {
 			"Assignments": 1,
-			"Definitions": 0
+			"Definitions": 0,
+			"Exemptions": 1
 		},
         "PrivateDnsZone": 1,
         "PrivateEndpoint": 2,
@@ -204,6 +205,9 @@
         "NetworkWatcher": {
             "ProvisioningState": true,
             "FlowLogEnabled": true
+        },
+        "Policy": {
+            "ExpiredExemptions": true
         },
         "PrivateDnsZone": {
             "ProvisioningState": true,
