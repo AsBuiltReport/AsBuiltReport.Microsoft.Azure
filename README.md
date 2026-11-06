@@ -26,10 +26,6 @@
     <a href="https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/actions/workflows/Pester.yml" alt="Pester Tests">
         <img src="https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/workflows/Pester%20Tests/badge.svg" /></a>
 </p>
-<p align="center">
-    <a href="https://twitter.com/AsBuiltReport" alt="Twitter">
-            <img src="https://img.shields.io/twitter/follow/AsBuiltReport.svg?style=social"/></a>
-</p>
 
 <p align="center">
     <a href='https://ko-fi.com/B0B7DDGZ7' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://ko-fi.com/img/githubbutton_sm.svg' border='0' alt='Want to keep alive this project? Support me on Ko-fi' /></a>
@@ -65,6 +61,7 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 * Maintenance Configurations
 * Management Groups
 * NetApp Files
+* Network Security Groups
 * Network Topology (hub-spoke diagram)
 * Network Virtual Appliances
 * Network Watchers
@@ -73,7 +70,10 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 * Private DNS Zones
 * Private Endpoints
 * Public IP Addresses
+* Recovery Services Vaults
+* Role Assignments and Custom Roles
 * Route Tables
+* Site Recovery
 * Storage Accounts
 * Subscriptions
 * Tenants
