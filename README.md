@@ -368,7 +368,9 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 | VirtualNetworkGateway       |        1        |        2        |
 | VmScaleSet                  |        1        |        2        |
 
-> **Note:** Policy assignments on resource groups and resources can be numerous, so `Policy > Assignments` reports them as a count at InfoLevel 1, as a compact table at InfoLevel 2, and in full at InfoLevel 3.
+> **Note:** Policy assignments on resource groups and resources can be numerous, so `Policy > Assignments` reports them as a count at InfoLevel 1, as a compact table at InfoLevel 2, and in full at InfoLevel 3. `Policy > Exemptions` lists exemptions at every scope from InfoLevel 1. Exemptions are not reported if the `Exemptions` key is missing from an existing report configuration file, so add it to include them.
+
+> **Note:** A subscription's section is only reported if the subscription contains a resource for at least one enabled section. `Policy` and `DiagnosticSetting` have no resource to check, so if they are the only sections enabled, every subscription is reported. If they are enabled alongside other sections, a subscription with no resources for those other sections is not reported, even if policies apply to it.
 
 > **Note:** `NetworkTopology` collects its own Virtual Network, peering, Gateway, Firewall, and Network Virtual Appliance data independently of the `VirtualNetwork`, `VirtualNetworkGateway`, `Firewall`, and `NetworkVirtualAppliance` `InfoLevel` settings — only `NetworkTopology` itself controls whether the diagram is collected and rendered, so a hub is never misclassified as a spoke, or the diagram omitted entirely, just because another section is disabled or set to a lower level elsewhere in the report.
 
