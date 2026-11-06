@@ -70,9 +70,10 @@ function Get-AbrAzIpGroup {
                         if ($InfoLevel.IPGroup -ge 2) {
                             Paragraph ($LocalizedData.ParagraphDetail -f $AzSubscription.Name)
                             foreach ($AzIpGroup in $AzIpGroupInfo) {
-                                Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzIpGroup.Name)" {
+                                $AzIpGroupName = $AzIpGroup.($LocalizedData.Name)
+                                Section -Style NOTOCHeading5 -ExcludeFromTOC $AzIpGroupName {
                                     $TableParams = @{
-                                        Name = "$($LocalizedData.TableHeading) - $($AzIpGroup.Name)"
+                                        Name = "$($LocalizedData.TableHeading) - $AzIpGroupName"
                                         List = $true
                                         ColumnWidths = 40, 60
                                     }

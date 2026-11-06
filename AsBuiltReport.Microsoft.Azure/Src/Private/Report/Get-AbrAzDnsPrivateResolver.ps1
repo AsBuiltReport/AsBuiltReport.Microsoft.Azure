@@ -100,7 +100,7 @@ function Get-AbrAzDnsPrivateResolver {
                                             $InboundEndpointInfo += [PSCustomObject]$InObj
 
                                             $TableParams = @{
-                                                Name = "$($LocalizedData.InboundEndpoints) - $($AzDnsPrivateResolver.Name)"
+                                                Name = "$($LocalizedData.InboundEndpoints) - $($AzDnsPrivateResolver.($LocalizedData.Name))"
                                                 List = $false
                                                 ColumnWidths = 40, 30, 30
                                             }
@@ -123,7 +123,7 @@ function Get-AbrAzDnsPrivateResolver {
                                             $OutboundEndpointInfo += [PSCustomObject]$InObj
 
                                             $TableParams = @{
-                                                Name = "$($LocalizedData.OutboundEndpoints) - $($AzDnsPrivateResolver.Name)"
+                                                Name = "$($LocalizedData.OutboundEndpoints) - $($AzDnsPrivateResolver.($LocalizedData.Name))"
                                                 List = $false
                                                 ColumnWidths = 40, 30, 30
                                             }

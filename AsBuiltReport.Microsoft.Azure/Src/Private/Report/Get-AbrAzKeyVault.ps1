@@ -125,9 +125,10 @@ function Get-AbrAzKeyVault {
 
                         if ($InfoLevel.KeyVault -ge 2) {
                             foreach ($AzKeyVault in $AzKeyVaultInfo) {
-                                Section -Style NOTOCHeading5 -ExcludeFromTOC "$($AzKeyVault.Name)" {
+                                $AzKeyVaultName = $AzKeyVault.($LocalizedData.Name)
+                                Section -Style NOTOCHeading5 -ExcludeFromTOC $AzKeyVaultName {
                                     $TableParams = @{
-                                        Name = "$($LocalizedData.TableHeading) - $($AzKeyVault.Name)"
+                                        Name = "$($LocalizedData.TableHeading) - $AzKeyVaultName"
                                         List = $true
                                         ColumnWidths = 40, 60
                                     }
