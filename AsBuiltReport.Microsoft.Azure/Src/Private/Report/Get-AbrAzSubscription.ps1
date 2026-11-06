@@ -183,7 +183,7 @@ function Get-AbrAzSubscription {
                         if ($AzTagCoverageInfo.Count -gt $TagCoverageLimit) {
                             Paragraph ($LocalizedData.TagCoverageLimit -f $TagCoverageLimit, $AzTagCoverageInfo.Count)
                         } else {
-                            Paragraph $LocalizedData.TagCoverageAll
+                            Paragraph ($LocalizedData.TagCoverageAll -f $AzTagCoverageInfo.Count)
                         }
                         BlankLine
                         $TableParams = @{

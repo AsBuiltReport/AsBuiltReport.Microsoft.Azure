@@ -249,7 +249,7 @@ Describe 'Get-AbrAzSubscription' {
             Invoke-Subscription -Level 2
             Get-TableRow $script:Text.TagCoverageHeading | Should -HaveCount 10
             $script:Paragraphs | Should -Not -Contain ($script:Text.TagCoverageLimit -f 10, 10)
-            $script:Paragraphs | Should -Contain $script:Text.TagCoverageAll
+            $script:Paragraphs | Should -Contain ($script:Text.TagCoverageAll -f 10)
         }
 
         It 'Uses the configured limit, and says when more exist' {
@@ -257,7 +257,7 @@ Describe 'Get-AbrAzSubscription' {
             Invoke-Subscription -Level 2 -TagCoverageLimit 5
             Get-TableRow $script:Text.TagCoverageHeading | Should -HaveCount 5
             $script:Paragraphs | Should -Contain ($script:Text.TagCoverageLimit -f 5, 13)
-            $script:Paragraphs | Should -Not -Contain $script:Text.TagCoverageAll
+            $script:Paragraphs | Should -Not -Contain ($script:Text.TagCoverageAll -f 13)
             $script:Warnings | Should -BeNullOrEmpty
         }
 
@@ -266,14 +266,14 @@ Describe 'Get-AbrAzSubscription' {
             Invoke-Subscription -Level 2 -TagCoverageLimit 50
             Get-TableRow $script:Text.TagCoverageHeading | Should -HaveCount 13
             $script:Paragraphs | Should -Not -Contain ($script:Text.TagCoverageLimit -f 50, 13)
-            $script:Paragraphs | Should -Contain $script:Text.TagCoverageAll
+            $script:Paragraphs | Should -Contain ($script:Text.TagCoverageAll -f 13)
         }
 
         It 'Lists every name when the limit is *' {
             $script:Resources['Sub-A'] = @(1..30 | ForEach-Object { New-TestResource @{ "Tag$_" = 'x' } })
             Invoke-Subscription -Level 2 -TagCoverageLimit '*'
             Get-TableRow $script:Text.TagCoverageHeading | Should -HaveCount 31
-            $script:Paragraphs | Should -Contain $script:Text.TagCoverageAll
+            $script:Paragraphs | Should -Contain ($script:Text.TagCoverageAll -f 31)
             $script:Warnings | Should -BeNullOrEmpty
         }
 
