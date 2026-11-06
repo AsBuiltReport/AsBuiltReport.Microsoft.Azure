@@ -972,6 +972,52 @@ GetAbrAzRecoveryServicesVault = ConvertFrom-StringData @'
     None = Ninguno
 '@
 
+# Azure Role Assignments (Get-AbrAzRoleAssignment)
+GetAbrAzRoleAssignment = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de RoleAssignment establecido en Assignments {0}, CustomRoles {1}.
+    Collecting = Recopilando información de asignaciones de roles de Azure.
+    SectionInfo = El control de acceso basado en roles de Azure (Azure RBAC) administra el acceso a los recursos de Azure. Una asignación de roles concede a un usuario, grupo o entidad de servicio los permisos de un rol en un ámbito, y esos permisos también se aplican a todo lo que está por debajo de ese ámbito.
+    Heading = Control de acceso (IAM)
+    AssignmentsHeading = Asignaciones de roles
+    ParagraphAssignments = La siguiente tabla resume las asignaciones de roles que se aplican a la suscripción {0}, por rol y tipo de entidad de seguridad. Las entidades de seguridad no se nombran.
+    AssignmentDetailHeading = Asignaciones de roles por ámbito
+    ParagraphDetailUpper = La siguiente tabla enumera las asignaciones de roles en los ámbitos de raíz, grupo de administración y suscripción que se aplican a la suscripción {0}.
+    ParagraphDetailAll = La siguiente tabla enumera las asignaciones de roles en todos los ámbitos que se aplican a la suscripción {0}.
+    ParagraphLowerScopeCount = Existen otras {0} asignaciones de roles en grupos de recursos y recursos.
+    Role = Rol
+    Users = Usuarios
+    Groups = Grupos
+    ServicePrincipals = Entidades de servicio
+    Other = Otros
+    Total = Total
+    Type = Tipo
+    User = Usuario
+    Group = Grupo
+    ServicePrincipal = Entidad de servicio
+    Scope = Ámbito
+    AssignmentCount = Asignaciones
+    RootScope = Raíz
+    ManagementGroup = Grupo de administración
+    Subscription = Suscripción
+    ResourceGroup = Grupo de recursos
+    Resource = Recurso
+    Location = Ubicación
+    Unknown = Desconocido
+    AssignmentsError = No se pueden leer las asignaciones de roles de la suscripción {0}.
+    UnknownPrincipals = Se desconoce el tipo de entidad de seguridad de {0} asignaciones de roles en la suscripción {1}. Es posible que la entidad se haya eliminado o que la cuenta no pueda leer el directorio.
+    CustomRolesHeading = Roles personalizados
+    ParagraphCustomRoles = La siguiente tabla resume los roles personalizados disponibles para la suscripción {0}.
+    CustomRoleTableHeading = Rol personalizado
+    Name = Nombre
+    Description = Descripción
+    AssignableScopes = Ámbitos asignables
+    Actions = Acciones
+    NotActions = Acciones excluidas
+    DataActions = Acciones de datos
+    NotDataActions = Acciones de datos excluidas
+    CustomRolesError = No se pueden leer los roles personalizados de la suscripción {0}: {1}
+'@
+
 # Azure Route Table (Get-AbrAzRouteTable)
 GetAbrAzRouteTable = ConvertFrom-StringData @'
     InfoLevel = InfoLevel de RouteTable establecido en {0}.

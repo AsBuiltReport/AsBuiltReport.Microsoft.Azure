@@ -972,6 +972,52 @@ GetAbrAzRecoveryServicesVault = ConvertFrom-StringData @'
     None = Aucun
 '@
 
+# Azure Role Assignments (Get-AbrAzRoleAssignment)
+GetAbrAzRoleAssignment = ConvertFrom-StringData @'
+    InfoLevel = InfoLevel de RoleAssignment defini sur Assignments {0}, CustomRoles {1}.
+    Collecting = Collecte des informations sur les attributions de roles Azure.
+    SectionInfo = Le controle d'acces en fonction du role Azure (Azure RBAC) gere l'acces aux ressources Azure. Une attribution de role accorde a un utilisateur, un groupe ou un principal de service les autorisations d'un role sur une etendue, et ces autorisations s'appliquent egalement a tout ce qui se trouve sous cette etendue.
+    Heading = Controle d'acces (IAM)
+    AssignmentsHeading = Attributions de roles
+    ParagraphAssignments = Le tableau suivant resume les attributions de roles qui s'appliquent a l'abonnement {0}, par role et type de principal. Les principaux ne sont pas nommes.
+    AssignmentDetailHeading = Attributions de roles par etendue
+    ParagraphDetailUpper = Le tableau suivant repertorie les attributions de roles aux etendues racine, groupe d'administration et abonnement qui s'appliquent a l'abonnement {0}.
+    ParagraphDetailAll = Le tableau suivant repertorie les attributions de roles a toutes les etendues qui s'appliquent a l'abonnement {0}.
+    ParagraphLowerScopeCount = {0} autres attributions de roles existent sur des groupes de ressources et des ressources.
+    Role = Role
+    Users = Utilisateurs
+    Groups = Groupes
+    ServicePrincipals = Principaux de service
+    Other = Autres
+    Total = Total
+    Type = Type
+    User = Utilisateur
+    Group = Groupe
+    ServicePrincipal = Principal de service
+    Scope = Etendue
+    AssignmentCount = Attributions
+    RootScope = Racine
+    ManagementGroup = Groupe d'administration
+    Subscription = Abonnement
+    ResourceGroup = Groupe de ressources
+    Resource = Ressource
+    Location = Emplacement
+    Unknown = Inconnu
+    AssignmentsError = Impossible de lire les attributions de roles de l'abonnement {0}.
+    UnknownPrincipals = Le type de principal de {0} attributions de roles dans l'abonnement {1} est inconnu. Le principal a peut-etre ete supprime, ou le compte ne peut pas lire l'annuaire.
+    CustomRolesHeading = Roles personnalises
+    ParagraphCustomRoles = Le tableau suivant resume les roles personnalises disponibles pour l'abonnement {0}.
+    CustomRoleTableHeading = Role personnalise
+    Name = Nom
+    Description = Description
+    AssignableScopes = Etendues attribuables
+    Actions = Actions
+    NotActions = Actions exclues
+    DataActions = Actions de donnees
+    NotDataActions = Actions de donnees exclues
+    CustomRolesError = Impossible de lire les roles personnalises de l'abonnement {0} : {1}
+'@
+
 # Azure Route Table (Get-AbrAzRouteTable)
 GetAbrAzRouteTable = ConvertFrom-StringData @'
     InfoLevel = InfoLevel de la table de routage defini a {0}.

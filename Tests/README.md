@@ -143,6 +143,11 @@ Stubs only reflect what we expect Azure to return, so these tests do not replace
    - Validates that a subscription that cannot be read shows `--` rather than counts of 0
    - Runs in every supported language, to catch labels that break when translated
 
+5. **Get-AbrAzRoleAssignment.Tests.ps1**
+   - Validates that no user, group or service principal identity appears anywhere in the output, including warnings
+   - Validates the content reported at each `RoleAssignment` InfoLevel
+   - Runs in every supported language, to catch labels that break when translated
+
 ### Code Scans
 
 1. **TranslatedReportRows.Tests.ps1**

@@ -37,6 +37,7 @@
             "PrivateDnsZone",
             "Bastion",
             "Policy",
+            "RoleAssignment",
             "UserAssignedManagedIdentity",
             "Firewall",
             "FirewallPolicy",
@@ -97,6 +98,10 @@
         "PrivateEndpoint": 2,
         "PublicIpAddress": 1,
         "RecoveryServicesVault": 1,
+        "RoleAssignment": {
+            "Assignments": 1,
+            "CustomRoles": 1
+        },
         "RouteTable": 1,
         "SiteRecovery": 1,
         "StorageAccount": 1,

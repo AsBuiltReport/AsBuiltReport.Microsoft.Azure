@@ -972,6 +972,52 @@ GetAbrAzRecoveryServicesVault = ConvertFrom-StringData @'
     None = Keine
 '@
 
+# Azure Role Assignments (Get-AbrAzRoleAssignment)
+GetAbrAzRoleAssignment = ConvertFrom-StringData @'
+    InfoLevel = RoleAssignment InfoLevel auf Assignments {0}, CustomRoles {1} gesetzt.
+    Collecting = Azure-Rollenzuweisungen werden erfasst.
+    SectionInfo = Die rollenbasierte Zugriffssteuerung von Azure (Azure RBAC) verwaltet den Zugriff auf Azure-Ressourcen. Eine Rollenzuweisung gibt einem Benutzer, einer Gruppe oder einem Dienstprinzipal die Berechtigungen einer Rolle fuer einen Bereich. Diese Berechtigungen gelten auch fuer alles unterhalb dieses Bereichs.
+    Heading = Zugriffssteuerung (IAM)
+    AssignmentsHeading = Rollenzuweisungen
+    ParagraphAssignments = Die folgende Tabelle fasst die fuer das Abonnement {0} geltenden Rollenzuweisungen nach Rolle und Prinzipaltyp zusammen. Prinzipale werden nicht namentlich genannt.
+    AssignmentDetailHeading = Rollenzuweisungen nach Bereich
+    ParagraphDetailUpper = Die folgende Tabelle listet die fuer das Abonnement {0} geltenden Rollenzuweisungen auf Stamm-, Verwaltungsgruppen- und Abonnementebene auf.
+    ParagraphDetailAll = Die folgende Tabelle listet die fuer das Abonnement {0} geltenden Rollenzuweisungen in allen Bereichen auf.
+    ParagraphLowerScopeCount = Weitere {0} Rollenzuweisungen bestehen fuer Ressourcengruppen und Ressourcen.
+    Role = Rolle
+    Users = Benutzer
+    Groups = Gruppen
+    ServicePrincipals = Dienstprinzipale
+    Other = Sonstige
+    Total = Gesamt
+    Type = Typ
+    User = Benutzer
+    Group = Gruppe
+    ServicePrincipal = Dienstprinzipal
+    Scope = Bereich
+    AssignmentCount = Zuweisungen
+    RootScope = Stamm
+    ManagementGroup = Verwaltungsgruppe
+    Subscription = Abonnement
+    ResourceGroup = Ressourcengruppe
+    Resource = Ressource
+    Location = Standort
+    Unknown = Unbekannt
+    AssignmentsError = Die Rollenzuweisungen fuer das Abonnement {0} konnten nicht gelesen werden.
+    UnknownPrincipals = Der Prinzipaltyp von {0} Rollenzuweisungen im Abonnement {1} ist unbekannt. Der Prinzipal wurde moeglicherweise geloescht, oder das Konto kann das Verzeichnis nicht lesen.
+    CustomRolesHeading = Benutzerdefinierte Rollen
+    ParagraphCustomRoles = Die folgende Tabelle fasst die fuer das Abonnement {0} verfuegbaren benutzerdefinierten Rollen zusammen.
+    CustomRoleTableHeading = Benutzerdefinierte Rolle
+    Name = Name
+    Description = Beschreibung
+    AssignableScopes = Zuweisbare Bereiche
+    Actions = Aktionen
+    NotActions = Ausgeschlossene Aktionen
+    DataActions = Datenaktionen
+    NotDataActions = Ausgeschlossene Datenaktionen
+    CustomRolesError = Die benutzerdefinierten Rollen fuer das Abonnement {0} konnten nicht gelesen werden: {1}
+'@
+
 # Azure Route Table (Get-AbrAzRouteTable)
 GetAbrAzRouteTable = ConvertFrom-StringData @'
     InfoLevel = RouteTable-InfoLevel auf {0} gesetzt.

@@ -5,6 +5,7 @@
 ### Added
 * Add support for Virtual Network hub-spoke topology information and diagrams
 * Add support for Azure Policy exemptions (`Policy.Exemptions`), including those on resource groups and resources, with a summary table at InfoLevel 1 and per-exemption detail at InfoLevel 2; `ExpiredExemptions` health check highlights exemptions that have expired
+* Add `RoleAssignment` section to report role assignments and custom roles. Users, groups and service principals are never named, so assignments are shown as counts by role, principal type and scope
 * Add a governance summary and tag coverage to `Subscription` at InfoLevel 2, and a list of management locks at a new InfoLevel 3; `TagCoverageLimit` option sets how many tag names are shown, or `*` for all of them
 
 ### Changed
