@@ -972,6 +972,52 @@ GetAbrAzRecoveryServicesVault = ConvertFrom-StringData @'
     None = None
 '@
 
+# Azure Role Assignments (Get-AbrAzRoleAssignment)
+GetAbrAzRoleAssignment = ConvertFrom-StringData @'
+    InfoLevel = RoleAssignment InfoLevel set at Assignments {0}, CustomRoles {1}.
+    Collecting = Collecting Azure role assignment information.
+    SectionInfo = Azure role-based access control (Azure RBAC) manages access to Azure resources. A role assignment gives a user, group or service principal the permissions of a role at a scope, and those permissions also apply to everything beneath that scope.
+    Heading = Access Control (IAM)
+    AssignmentsHeading = Role Assignments
+    ParagraphAssignments = The following table summarizes the role assignments that apply to the {0} subscription, by role and principal type. Principals are not named.
+    AssignmentDetailHeading = Role Assignments by Scope
+    ParagraphDetailUpper = The following table lists the role assignments at root, management group and subscription scope that apply to the {0} subscription.
+    ParagraphDetailAll = The following table lists the role assignments at every scope that apply to the {0} subscription.
+    ParagraphLowerScopeCount = A further {0} role assignments exist on resource groups and resources.
+    Role = Role
+    Users = Users
+    Groups = Groups
+    ServicePrincipals = Service Principals
+    Other = Other
+    Total = Total
+    Type = Type
+    User = User
+    Group = Group
+    ServicePrincipal = Service Principal
+    Scope = Scope
+    AssignmentCount = Assignments
+    RootScope = Root
+    ManagementGroup = Management Group
+    Subscription = Subscription
+    ResourceGroup = Resource Group
+    Resource = Resource
+    Location = Location
+    Unknown = Unknown
+    AssignmentsError = Unable to read role assignments for the {0} subscription.
+    UnknownPrincipals = The principal type of {0} role assignments in the {1} subscription is unknown. The principal may have been deleted, or the account may not be able to read the directory.
+    CustomRolesHeading = Custom Roles
+    ParagraphCustomRoles = The following table summarizes the custom roles available to the {0} subscription.
+    CustomRoleTableHeading = Custom Role
+    Name = Name
+    Description = Description
+    AssignableScopes = Assignable Scopes
+    Actions = Actions
+    NotActions = Not Actions
+    DataActions = Data Actions
+    NotDataActions = Not Data Actions
+    CustomRolesError = Unable to read custom roles for the {0} subscription: {1}
+'@
+
 # Azure Route Table (Get-AbrAzRouteTable)
 GetAbrAzRouteTable = ConvertFrom-StringData @'
     InfoLevel = RouteTable InfoLevel set at {0}.

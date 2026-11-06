@@ -87,6 +87,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "PrivateDnsZone",
         "Bastion",
         "Policy",
+        "RoleAssignment",
         "UserAssignedManagedIdentity",
         "Firewall",
         "FirewallPolicy",
@@ -138,6 +139,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         'NetworkSecurityGroup'  = 'Microsoft.Network/networkSecurityGroups'
         'DiagnosticSetting'     = $null
         'Policy'                = $null
+        'RoleAssignment'        = $null
         'UserAssignedManagedIdentity' = 'Microsoft.ManagedIdentity/userAssignedIdentities'
         'PrivateDnsZone'        = 'Microsoft.Network/privateDnsZones'
         'PrivateEndpoint'       = 'Microsoft.Network/privateEndpoints'
@@ -179,6 +181,7 @@ function Invoke-AsBuiltReport.Microsoft.Azure {
         "NetworkSecurityGroup" = "Get-AbrAzNetworkSecurityGroup"
         "DiagnosticSetting" = "Get-AbrAzDiagnosticSetting"
         "Policy" = "Get-AbrAzPolicy"
+        "RoleAssignment" = "Get-AbrAzRoleAssignment"
         "UserAssignedManagedIdentity" = "Get-AbrAzUserAssignedManagedIdentity"
         "RouteTable" = "Get-AbrAzRouteTable"
         "NetworkVirtualAppliance"  = "Get-AbrAzNetworkVirtualAppliance"

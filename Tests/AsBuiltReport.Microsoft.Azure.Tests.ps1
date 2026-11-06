@@ -589,7 +589,7 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
                 'Bastion', 'DataCollectionRule', 'DdosProtectionPlan', 'DesktopVirtualization', 'DnsForwardingRuleset',
                 'DnsPrivateResolver', 'ExpressRoute', 'Firewall', 'FirewallPolicy', 'IpGroup', 'LogAnalyticsWorkspace',
                 'MaintenanceConfiguration', 'NetAppFiles', 'NetworkSecurityGroup', 'NetworkVirtualAppliance',
-                'NetworkWatcher', 'Policy', 'PrivateDnsZone', 'PrivateEndpoint', 'PublicIpAddress',
+                'NetworkWatcher', 'Policy', 'PrivateDnsZone', 'PrivateEndpoint', 'PublicIpAddress', 'RoleAssignment',
                 'RecoveryServicesVault', 'RouteTable', 'SiteRecovery', 'VirtualNetworkGateway', 'VmScaleSet'
             )
 
@@ -1047,6 +1047,11 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
                 ($Dpi -is [int] -or $Dpi -is [int64]) | Should -Be $true -Because "Diagram.$DiagramName.Dpi should be an integer"
                 $Dpi | Should -BeGreaterThan 0 -Because "Diagram.$DiagramName.Dpi should be positive"
             }
+        }
+
+        It 'RoleAssignment InfoLevel structure should have Assignments and CustomRoles' {
+            $JsonConfig.InfoLevel.RoleAssignment.PSObject.Properties.Name | Should -Contain 'Assignments'
+            $JsonConfig.InfoLevel.RoleAssignment.PSObject.Properties.Name | Should -Contain 'CustomRoles'
         }
 
         It 'Policy InfoLevel structure should have Assignments and Definitions' {
