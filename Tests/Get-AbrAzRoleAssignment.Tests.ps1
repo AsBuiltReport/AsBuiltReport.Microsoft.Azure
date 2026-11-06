@@ -90,6 +90,8 @@ BeforeAll {
         param ([switch] $Custom)
         $script:RoleDefinitionCalls++
         if (-not $Custom) { throw 'Only custom roles should be requested' }
+        # The real cmdlet writes this on every call
+        Write-Warning 'Upcoming breaking changes in the cmdlet Get-AzRoleDefinition'
         if ($script:FailCustomRoles) { throw 'Access denied' }
         $script:CustomRoles
     }
@@ -341,6 +343,12 @@ Describe 'Get-AbrAzRoleAssignment' {
             $Row.($script:Text.DataActions) | Should -Be 'Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read'
             $Row.($script:Text.NotDataActions) | Should -Be '--'
             $Row.($script:Text.AssignableScopes) | Should -Be "$($script:Text.Subscription): Contoso-Prod, $($script:Text.ManagementGroup): mg-contoso"
+        }
+
+        # Otherwise the Az breaking change warning is repeated for every subscription in the report
+        It 'Does not show the Az breaking change warning' {
+            $Output = @(Invoke-RoleAssignment -CustomRoles 1 3>&1)
+            @($Output | Where-Object { $_ -is [System.Management.Automation.WarningRecord] }) | Should -BeNullOrEmpty
         }
 
         It 'Shows -- for a role with no description' {

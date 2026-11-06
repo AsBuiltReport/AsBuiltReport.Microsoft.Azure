@@ -47,7 +47,8 @@ function Get-AbrAzRoleAssignment {
                 $AzCustomRoles = @()
                 if ($CustomRoleLevel -gt 0) {
                     try {
-                        $AzCustomRoles = @(Get-AzRoleDefinition -Custom -ErrorAction Stop | Sort-Object -Property Name)
+                        # Az 16 warns on every call that Actions is moving to Permissions, which is already handled below
+                        $AzCustomRoles = @(Get-AzRoleDefinition -Custom -WarningAction SilentlyContinue -ErrorAction Stop | Sort-Object -Property Name)
                     } catch {
                         Write-PScriboMessage -IsWarning ($LocalizedData.CustomRolesError -f $AzSubscription.Name, $_.Exception.Message)
                     }
@@ -108,7 +109,7 @@ function Get-AbrAzRoleAssignment {
                 $CustomRoleSummaryInfo = @()
                 $CustomRoleDetailInfo = @()
                 foreach ($AzCustomRole in $AzCustomRoles) {
-                    # Newer Az versions hold actions in Permissions, and older versions on the role itself
+                    # Az 16 holds actions in Permissions, and older versions hold them on the role itself
                     $RolePermissions = if ($AzCustomRole.Permissions) { @($AzCustomRole.Permissions) } else { @($AzCustomRole) }
                     $Actions = @($RolePermissions | ForEach-Object { $_.Actions } | Where-Object { $_ })
                     $NotActions = @($RolePermissions | ForEach-Object { $_.NotActions } | Where-Object { $_ })
@@ -166,7 +167,7 @@ function Get-AbrAzRoleAssignment {
                                             $TableParams = @{
                                                 Name = "$($LocalizedData.AssignmentDetailHeading) - $($AzSubscription.Name)"
                                                 List = $false
-                                                ColumnWidths = 35, 20, 33, 12
+                                                ColumnWidths = 32, 18, 35, 15
                                             }
                                             if ($Report.ShowTableCaptions) {
                                                 $TableParams['Caption'] = "- $($TableParams.Name)"
