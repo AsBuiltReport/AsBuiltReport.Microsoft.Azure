@@ -131,6 +131,19 @@ function Get-AbrAzSubscription {
                 ) | Sort-Object -Property @{ Expression = $LocalizedData.Resources; Descending = $true }, $LocalizedData.Tag
                 $AzTagCoverageInfo = @($AzTagCoverageInfo)
 
+                # Existing report configuration files do not have this option, so a missing value is not a mistake
+                $TagCoverageLimit = 10
+                if ($AzTagCoverageInfo -and ($null -ne $Options.TagCoverageLimit)) {
+                    $ConfiguredLimit = 0
+                    if ("$($Options.TagCoverageLimit)" -eq '*') {
+                        $TagCoverageLimit = $AzTagCoverageInfo.Count
+                    } elseif ([int]::TryParse("$($Options.TagCoverageLimit)", [ref] $ConfiguredLimit) -and ($ConfiguredLimit -gt 0)) {
+                        $TagCoverageLimit = $ConfiguredLimit
+                    } else {
+                        Write-PScriboMessage -IsWarning ($LocalizedData.TagCoverageLimitInvalid -f $Options.TagCoverageLimit, $TagCoverageLimit)
+                    }
+                }
+
                 if ($Options.ShowSectionInfo) {
                     Paragraph $LocalizedData.SectionInfo
                     BlankLine
@@ -167,9 +180,10 @@ function Get-AbrAzSubscription {
                 if ($AzTagCoverageInfo) {
                     Section -Style Heading3 $LocalizedData.TagCoverageHeading {
                         Paragraph $LocalizedData.TagCoverageParagraph
-                        $TagCoverageLimit = 10
                         if ($AzTagCoverageInfo.Count -gt $TagCoverageLimit) {
                             Paragraph ($LocalizedData.TagCoverageLimit -f $TagCoverageLimit, $AzTagCoverageInfo.Count)
+                        } else {
+                            Paragraph $LocalizedData.TagCoverageAll
                         }
                         BlankLine
                         $TableParams = @{

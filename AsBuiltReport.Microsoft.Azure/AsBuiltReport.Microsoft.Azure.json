@@ -12,6 +12,7 @@
     "Options": {
         "ShowSectionInfo": true,
         "ShowTags": true,
+        "TagCoverageLimit": 10,
         "NvaPublishers": ["fortinet"],
         "NvaTag": "",
         "SectionOrder": [

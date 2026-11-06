@@ -84,7 +84,7 @@ BeforeAll {
     }
 
     function Invoke-Subscription {
-        param ([int] $Level, [string] $Culture = 'en-US')
+        param ([int] $Level, [string] $Culture = 'en-US', [object] $TagCoverageLimit)
         $script:Headings = @()
         $script:Paragraphs = @()
         $script:TableRows = @()
@@ -93,6 +93,9 @@ BeforeAll {
         $InfoLevel = [PSCustomObject]@{ Subscription = $Level }
         $Report = [PSCustomObject]@{ ShowTableCaptions = $true }
         $Options = [PSCustomObject]@{ ShowSectionInfo = $false }
+        if ($PSBoundParameters.ContainsKey('TagCoverageLimit')) {
+            $Options | Add-Member -NotePropertyName TagCoverageLimit -NotePropertyValue $TagCoverageLimit
+        }
         $AzTenant = [PSCustomObject]@{ Name = 'Contoso' }
         $TenantId = 'tenant-id'
         $AzSubscriptions = $script:Subscriptions
@@ -233,7 +236,8 @@ Describe 'Get-AbrAzSubscription' {
             $Values | Should -Not -Contain 'Prod'
         }
 
-        It 'Limits the table to the 10 most used names, and says when more exist' {
+        # Existing report configuration files do not have the TagCoverageLimit option
+        It 'Limits the table to the 10 most used names if the option is missing, and says when more exist' {
             $script:Resources['Sub-A'] = @(1..12 | ForEach-Object { New-TestResource @{ "Tag$_" = 'x' } })
             Invoke-Subscription -Level 2
             Get-TableRow $script:Text.TagCoverageHeading | Should -HaveCount 10
@@ -245,6 +249,41 @@ Describe 'Get-AbrAzSubscription' {
             Invoke-Subscription -Level 2
             Get-TableRow $script:Text.TagCoverageHeading | Should -HaveCount 10
             $script:Paragraphs | Should -Not -Contain ($script:Text.TagCoverageLimit -f 10, 10)
+            $script:Paragraphs | Should -Contain $script:Text.TagCoverageAll
+        }
+
+        It 'Uses the configured limit, and says when more exist' {
+            $script:Resources['Sub-A'] = @(1..12 | ForEach-Object { New-TestResource @{ "Tag$_" = 'x' } })
+            Invoke-Subscription -Level 2 -TagCoverageLimit 5
+            Get-TableRow $script:Text.TagCoverageHeading | Should -HaveCount 5
+            $script:Paragraphs | Should -Contain ($script:Text.TagCoverageLimit -f 5, 13)
+            $script:Paragraphs | Should -Not -Contain $script:Text.TagCoverageAll
+            $script:Warnings | Should -BeNullOrEmpty
+        }
+
+        It 'Does not mention a limit when it is above the number of names' {
+            $script:Resources['Sub-A'] = @(1..12 | ForEach-Object { New-TestResource @{ "Tag$_" = 'x' } })
+            Invoke-Subscription -Level 2 -TagCoverageLimit 50
+            Get-TableRow $script:Text.TagCoverageHeading | Should -HaveCount 13
+            $script:Paragraphs | Should -Not -Contain ($script:Text.TagCoverageLimit -f 50, 13)
+            $script:Paragraphs | Should -Contain $script:Text.TagCoverageAll
+        }
+
+        It 'Lists every name when the limit is *' {
+            $script:Resources['Sub-A'] = @(1..30 | ForEach-Object { New-TestResource @{ "Tag$_" = 'x' } })
+            Invoke-Subscription -Level 2 -TagCoverageLimit '*'
+            Get-TableRow $script:Text.TagCoverageHeading | Should -HaveCount 31
+            $script:Paragraphs | Should -Contain $script:Text.TagCoverageAll
+            $script:Warnings | Should -BeNullOrEmpty
+        }
+
+        # An empty table or an error would lose the section because of a typing mistake in the configuration
+        It 'Warns and uses 10 when the limit is <_>' -ForEach @(0, -1, 2.5, 'ten', '', '**') {
+            $script:Resources['Sub-A'] = @(1..12 | ForEach-Object { New-TestResource @{ "Tag$_" = 'x' } })
+            Invoke-Subscription -Level 2 -TagCoverageLimit $_
+            Get-TableRow $script:Text.TagCoverageHeading | Should -HaveCount 10
+            $script:Warnings | Should -HaveCount 1
+            $script:Warnings[0] | Should -Be ($script:Text.TagCoverageLimitInvalid -f $_, 10)
         }
 
         It 'Reports no tag coverage section when nothing is tagged' {

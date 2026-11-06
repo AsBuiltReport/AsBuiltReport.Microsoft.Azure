@@ -1024,6 +1024,10 @@ Describe 'AsBuiltReport.Microsoft.Azure Module Tests' {
             $JsonConfig.Options.ShowTags | Should -BeOfType [bool]
         }
 
+        It 'Options.TagCoverageLimit should default to 10' {
+            $JsonConfig.Options.TagCoverageLimit | Should -Be 10
+        }
+
         It 'Options should no longer have diagram settings' {
             $JsonConfig.Options.PSObject.Properties.Name | Should -Not -Contain 'EnableDiagrams'
             $JsonConfig.Options.PSObject.Properties.Name | Should -Not -Contain 'DiagramTheme'

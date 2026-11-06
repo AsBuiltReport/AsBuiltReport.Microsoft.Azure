@@ -139,6 +139,7 @@ Stubs only reflect what we expect Azure to return, so these tests do not replace
 
 4. **Get-AbrAzSubscription.Tests.ps1**
    - Validates the content reported at each `Subscription` InfoLevel, including the governance summary, tag coverage and lock list
+   - Validates the `TagCoverageLimit` option, including `*`, missing and invalid values
    - Validates that a subscription that cannot be read shows `--` rather than counts of 0
    - Runs in every supported language, to catch labels that break when translated
 
