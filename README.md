@@ -5,11 +5,11 @@
 </p>
 <p align="center">
     <a href="https://www.powershellgallery.com/packages/AsBuiltReport.Microsoft.Azure/" alt="PowerShell Gallery Version">
-        <img src="https://img.shields.io/powershellgallery/v/AsBuiltReport.Microsoft.Azure.svg" /></a>
+        <img src="https://img.shields.io/powershellgallery/v/AsBuiltReport.Microsoft.Azure.svg?color=1F5FD0" /></a>
     <a href="https://www.powershellgallery.com/packages/AsBuiltReport.Microsoft.Azure/" alt="PS Gallery Downloads">
-        <img src="https://img.shields.io/powershellgallery/dt/AsBuiltReport.Microsoft.Azure.svg" /></a>
+        <img src="https://img.shields.io/powershellgallery/dt/AsBuiltReport.Microsoft.Azure.svg?color=012456" /></a>
     <a href="https://www.powershellgallery.com/packages/AsBuiltReport.Microsoft.Azure/" alt="PS Platform">
-        <img src="https://img.shields.io/powershellgallery/p/AsBuiltReport.Microsoft.Azure.svg" /></a>
+        <img src="https://img.shields.io/powershellgallery/p/AsBuiltReport.Microsoft.Azure.svg?color=FFD02B" /></a>
 </p>
 <p align="center">
     <a href="https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/graphs/commit-activity" alt="GitHub Last Commit">
@@ -17,7 +17,7 @@
     <a href="https://raw.githubusercontent.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/master/LICENSE" alt="GitHub License">
         <img src="https://img.shields.io/github/license/AsBuiltReport/AsBuiltReport.Microsoft.Azure.svg" /></a>
     <a href="https://github.com/AsBuiltReport/AsBuiltReport.Microsoft.Azure/graphs/contributors" alt="GitHub Contributors">
-        <img src="https://img.shields.io/github/contributors/AsBuiltReport/AsBuiltReport.Microsoft.Azure.svg"/></a>
+        <img src="https://img.shields.io/github/contributors/AsBuiltReport/AsBuiltReport.Microsoft.Azure.svg?color=012456"/></a>
 </p>
 <p align="center">
     <a href="https://codecov.io/gh/AsBuiltReport/AsBuiltReport.Microsoft.Azure" >
@@ -83,7 +83,7 @@ The Microsoft Azure As Built Report currently supports reporting for the followi
 * Virtual Network Gateways
 * Virtual Networks
 
-# :beginner: Getting Started
+# <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/getting-started.svg" alt="" width="28" height="28" align="top"> Getting Started
 Below are the instructions on how to install, configure and generate a Microsoft Azure As Built report.
 
 ### PowerShell
@@ -94,7 +94,7 @@ This report is compatible with the following PowerShell versions;
 |:----------------------:|:------------------:|
 |   :white_check_mark:   | :white_check_mark: |
 
-## 🌐 Language Support
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/language-support.svg" alt="" width="24" height="24" align="top"> Language Support
 <!-- ********** Update supported languages ********** -->
 The Microsoft Azure As Built Report supports the following languages;
 
@@ -106,14 +106,14 @@ The Microsoft Azure As Built Report supports the following languages;
 | German       | de-DE           |
 | Spanish      | es-ES           |
 
-## :wrench: System Requirements
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/system-requirements.svg" alt="" width="24" height="24" align="top"> System Requirements
 <!-- ********** Update system requirements ********** -->
 PowerShell 5.1 or PowerShell 7, and the following PowerShell modules are required for generating a Microsoft Azure As Built Report.
 
 - [Microsoft Azure PowerShell Module](https://docs.microsoft.com/en-us/powershell/azure)
 - [AsBuiltReport.Microsoft.Azure Module](https://www.powershellgallery.com/packages/AsBuiltReport.Microsoft.Azure/)
 
-### :closed_lock_with_key: Required Privileges
+### <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/required-privileges.svg" alt="" width="20" height="20" align="top"> Required Privileges
 <!-- ********** Define required privileges ********** -->
 <!-- ********** Try to follow best practices to define least privileges ********** -->
 
@@ -126,7 +126,7 @@ The least privileged roles required to generate a Microsoft Azure As Built Repor
 > [!NOTE]
 > The `RoleAssignment` section shows the type of each principal, which Azure can only return if the account can read the directory. Without this access, for example without the `Directory Readers` role, principals are counted as `Other` and a warning is logged.
 
-## :key: Authentication Methods
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/authentication.svg" alt="" width="24" height="24" align="top"> Authentication Methods
 
 The Microsoft Azure As Built Report supports the following authentication methods to connect to Azure tenants. Choose the method that best suits your environment and security requirements.
 
@@ -211,7 +211,7 @@ New-AsBuiltReport -Report Microsoft.Azure -Target $TenantId `
     -Format HTML -OutputFolderPath 'C:\Reports'
 ```
 
-## :package: Module Installation
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/module-installation.svg" alt="" width="24" height="24" align="top"> Module Installation
 
 ### PowerShell
 <!-- ********** Add installation for any additional PowerShell module(s) ********** -->
@@ -245,7 +245,7 @@ If you are unable to use the PowerShell Gallery, you can still install the modul
 > [!NOTE]
 > You are not limited to installing the module to those example paths, you can add a new entry to the environment variable PSModulePath if you want to use another path.
 
-## :pencil2: Configuration
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/configuration.svg" alt="" width="24" height="24" align="top"> Configuration
 
 The Microsoft Azure As Built Report utilises a JSON file to allow configuration of report information, options, detail and healthchecks.
 
@@ -685,7 +685,7 @@ The **VmScaleSet** schema is used to configure health checks for Azure Virtual M
 |-------------------|--------------|---------|---------------------------------------------------------|-------------------------------------------------------------------------------------------|
 | ProvisioningState | true / false | true    | Highlights VM Scale Sets in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
 
-## :computer: Examples
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/examples.svg" alt="" width="24" height="24" align="top"> Examples
 <!-- ********** Add some examples. Use other AsBuiltReport modules as a guide. ********** -->
 
 ```powershell
