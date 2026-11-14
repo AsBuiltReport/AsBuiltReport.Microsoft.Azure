@@ -412,59 +412,59 @@ The **ApplicationGateway** schema is used to configure health checks for Azure A
 
 | Sub-Schema        | Setting      | Default | Description                                                     | Highlight                                                                                 |
 |-------------------|--------------|---------|-----------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Application Gateways in a failed provisioning state  | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-| OperationalState  | true / false | true    | Highlights Application Gateways that are not in a Running state | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Gateway is not in Running state      |
+| ProvisioningState | true / false | true    | Highlights Application Gateways in a failed provisioning state  | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
+| OperationalState  | true / false | true    | Highlights Application Gateways that are not in a Running state | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Gateway is not in Running state      |
 
 #### AsrNetworkMapping
 The **AsrNetworkMapping** schema is used to configure health checks for Azure Site Recovery Network Mappings.
 
 | Sub-Schema   | Setting      | Default | Description                                                    | Highlight                                                                          |
 |--------------|--------------|---------|----------------------------------------------------------------|------------------------------------------------------------------------------------|
-| MappingState | true / false | true    | Highlights ASR network mappings that are not in a Paired state | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Network mapping is not Paired |
+| MappingState | true / false | true    | Highlights ASR network mappings that are not in a Paired state | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Network mapping is not Paired |
 
 #### AsrPolicy
 The **AsrPolicy** schema is used to configure health checks for Azure Site Recovery Replication Policies.
 
 | Sub-Schema            | Setting      | Default | Description                                                                                    | Highlight                                                                                  |
 |-----------------------|--------------|---------|------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| AppConsistentSnapshot | true / false | true    | Highlights replication policies where app-consistent snapshot frequency is disabled (set to 0) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) App-consistent snapshots are disabled |
+| AppConsistentSnapshot | true / false | true    | Highlights replication policies where app-consistent snapshot frequency is disabled (set to 0) | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) App-consistent snapshots are disabled |
 
 #### AutomationAccount
 The **AutomationAccount** schema is used to configure health checks for Azure Automation Accounts.
 
 | Sub-Schema | Setting      | Default | Description                                                   | Highlight                                                                                 |
 |------------|--------------|---------|---------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| State      | true / false | true    | Highlights Automation Accounts not in an Ok operational state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| State      | true / false | true    | Highlights Automation Accounts not in an Ok operational state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
 
 #### Bastion
 The **Bastion** schema is used to configure health checks for Azure Bastion.
 
 | Sub-Schema        | Setting      | Default | Description                                                 | Highlight                                                                                 |
 |-------------------|--------------|---------|-------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Bastion instances in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights Bastion instances in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
 
 #### DataCollectionRule
 The **DataCollectionRule** schema is used to configure health checks for Azure Data Collection Rules.
 
 | Sub-Schema        | Setting      | Default | Description                                                     | Highlight                                                                                 |
 |-------------------|--------------|---------|-----------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Data Collection Rules in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights Data Collection Rules in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
 
 #### DdosProtectionPlan
 The **DdosProtectionPlan** schema is used to configure health checks for Azure DDoS Protection Plans.
 
 | Sub-Schema        | Setting      | Default | Description                                                     | Highlight                                                                                 |
 |-------------------|--------------|---------|-----------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights DDoS Protection Plans in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights DDoS Protection Plans in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
 
 #### DesktopVirtualization
 The **DesktopVirtualization** schema is used to configure health checks for Azure Virtual Desktop.
 
 | Sub-Schema         | Setting      | Default | Description                                                                   | Highlight                                                                                     |
 |--------------------|--------------|---------|-------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| SessionHostHealth  | true / false | true    | Highlights session hosts not in Available status or with failed health checks | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Session host is unavailable or unhealthy |
-| DrainMode          | true / false | true    | Highlights session hosts with drain mode enabled (not accepting new sessions) | ![Info](https://placehold.co/15x15/D4E4F7/D4E4F7) Session host is in drain mode               |
-| RegistrationExpiry | true / false | true    | Highlights host pools with expired registration tokens                        | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Registration token has expired           |
+| SessionHostHealth  | true / false | true    | Highlights session hosts not in Available status or with failed health checks | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Session host is unavailable or unhealthy |
+| DrainMode          | true / false | true    | Highlights session hosts with drain mode enabled (not accepting new sessions) | ![Info](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/E3F5FC.svg) Session host is in drain mode               |
+| RegistrationExpiry | true / false | true    | Highlights host pools with expired registration tokens                        | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Registration token has expired           |
 | NoSessionHosts     | true / false | true    | Warns when a host pool has no session hosts configured                        | Displays warning message in report                                                            |
 | HostPoolCapacity   | true / false | true    | Warns when a host pool is at maximum session capacity                         | Displays warning message in report                                                            |
 
@@ -473,215 +473,215 @@ The **DiagnosticSetting** schema is used to configure health checks for Azure Di
 
 | Sub-Schema    | Setting      | Default | Description                                                   | Highlight                                                                          |
 |---------------|--------------|---------|---------------------------------------------------------------|------------------------------------------------------------------------------------|
-| NoLogsEnabled | true / false | true    | Highlights Diagnostic Settings with no log categories enabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) No log categories are enabled |
+| NoLogsEnabled | true / false | true    | Highlights Diagnostic Settings with no log categories enabled | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) No log categories are enabled |
 
 #### DnsForwardingRuleset
 The **DnsForwardingRuleset** schema is used to configure health checks for Azure DNS Forwarding Rulesets.
 
 | Sub-Schema          | Setting      | Default | Description                                                       | Highlight                                                                                 |
 |---------------------|--------------|---------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState   | true / false | true    | Highlights DNS Forwarding Rulesets in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-| ForwardingRuleState | true / false | true    | Highlights forwarding rules that are not in an Enabled state      | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Forwarding rule is not enabled       |
+| ProvisioningState   | true / false | true    | Highlights DNS Forwarding Rulesets in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
+| ForwardingRuleState | true / false | true    | Highlights forwarding rules that are not in an Enabled state      | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Forwarding rule is not enabled       |
 
 #### DnsPrivateResolver
 The **DnsPrivateResolver** schema is used to configure health checks for Azure DNS Private Resolver.
 
 | Sub-Schema        | Setting      | Default | Description                                                     | Highlight                                                                                  |
 |-------------------|--------------|---------|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights DNS Private Resolvers in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state  |
-| CurrentState      | true / false | true    | Highlights DNS Private Resolvers not in a Connected state       | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) DNS Private Resolver is not Connected |
+| ProvisioningState | true / false | true    | Highlights DNS Private Resolvers in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state  |
+| CurrentState      | true / false | true    | Highlights DNS Private Resolvers not in a Connected state       | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) DNS Private Resolver is not Connected |
 
 #### ExpressRoute
 The **ExpressRoute** schema is used to configure health checks for Azure ExpressRoute.
 
 | Sub-Schema    | Setting      | Default | Description                                         | Highlight                                                                              |
 |---------------|--------------|---------|-----------------------------------------------------|----------------------------------------------------------------------------------------|
-| CircuitStatus | true / false | true    | Highlights ExpressRoute circuits which are disabled | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) ExpressRoute circuit is disabled |
+| CircuitStatus | true / false | true    | Highlights ExpressRoute circuits which are disabled | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) ExpressRoute circuit is disabled |
 
 #### Firewall
 The **Firewall** schema is used to configure health checks for Azure Firewall.
 
 | Sub-Schema        | Setting      | Default | Description                                         | Highlight                                                                                 |
 |-------------------|--------------|---------|-----------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Firewalls in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights Firewalls in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
 
 #### FirewallPolicy
 The **FirewallPolicy** schema is used to configure health checks for Azure Firewall Policy.
 
 | Sub-Schema        | Setting      | Default | Description                                                    | Highlight                                                                                 |
 |-------------------|--------------|---------|----------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Firewall Policies in a failed provisioning state    | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-| ThreatIntelMode   | true / false | true    | Highlights Firewall Policies with Threat Intelligence disabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Threat Intelligence is disabled      |
+| ProvisioningState | true / false | true    | Highlights Firewall Policies in a failed provisioning state    | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
+| ThreatIntelMode   | true / false | true    | Highlights Firewall Policies with Threat Intelligence disabled | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Threat Intelligence is disabled      |
 
 #### IpGroup
 The **IpGroup** schema is used to configure health checks for Azure IP Groups.
 
 | Sub-Schema        | Setting      | Default | Description                                         | Highlight                                                                                 |
 |-------------------|--------------|---------|-----------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights IP Groups in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights IP Groups in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
 
 #### KeyVault
 The **KeyVault** schema is used to configure health checks for Azure Key Vault.
 
 | Sub-Schema          | Setting      | Default | Description                                              | Highlight                                                                             |
 |---------------------|--------------|---------|----------------------------------------------------------|---------------------------------------------------------------------------------------|
-| SoftDelete          | true / false | true    | Highlights Key Vaults without soft delete enabled        | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Soft delete is disabled         |
-| PurgeProtection     | true / false | true    | Highlights Key Vaults without purge protection enabled   | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Purge protection is disabled     |
-| PublicNetworkAccess | true / false | true    | Highlights Key Vaults with public network access enabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access is enabled |
-| RBACAuthorization   | true / false | true    | Highlights Key Vaults without RBAC authorization enabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) RBAC authorization is disabled   |
+| SoftDelete          | true / false | true    | Highlights Key Vaults without soft delete enabled        | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Soft delete is disabled         |
+| PurgeProtection     | true / false | true    | Highlights Key Vaults without purge protection enabled   | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Purge protection is disabled     |
+| PublicNetworkAccess | true / false | true    | Highlights Key Vaults with public network access enabled | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Public network access is enabled |
+| RBACAuthorization   | true / false | true    | Highlights Key Vaults without RBAC authorization enabled | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) RBAC authorization is disabled   |
 
 #### LoadBalancer
 The **LoadBalancer** schema is used to configure health checks for Azure Load Balancer.
 
 | Sub-Schema        | Setting      | Default | Description                                              | Highlight                                                                                 |
 |-------------------|--------------|---------|----------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Load Balancers in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights Load Balancers in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
 
 #### LogAnalyticsWorkspace
 The **LogAnalyticsWorkspace** schema is used to configure health checks for Azure Log Analytics Workspace.
 
 | Sub-Schema                      | Setting      | Default | Description                                                                  | Highlight                                                                                           |
 |---------------------------------|--------------|---------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| ProvisioningState               | true / false | true    | Highlights workspaces which are in a critical state                          | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state           |
-| PublicNetworkAccessForIngestion | true / false | true    | Highlights workspaces which have public network access enabled for ingestion | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access for ingestion is enabled |
-| PublicNetworkAccessForQuery     | true / false | true    | Highlights workspaces which have public network access enabled for query     | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access for query is enabled     |
+| ProvisioningState               | true / false | true    | Highlights workspaces which are in a critical state                          | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state           |
+| PublicNetworkAccessForIngestion | true / false | true    | Highlights workspaces which have public network access enabled for ingestion | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Public network access for ingestion is enabled |
+| PublicNetworkAccessForQuery     | true / false | true    | Highlights workspaces which have public network access enabled for query     | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Public network access for query is enabled     |
 
 #### NetAppFiles
 The **NetAppFiles** schema is used to configure health checks for Azure NetApp Files.
 
 | Sub-Schema         | Setting      | Default | Description                                                                        | Highlight                                                                                    |
 |--------------------|--------------|---------|------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| PoolCapacity       | true / false | true    | Highlights capacity pools where the sum of volume quotas exceeds 85% of pool size  | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Capacity pool is nearly fully allocated |
-| AdHealth           | true / false | true    | Highlights NetApp Accounts with Active Directory configurations not in InUse state | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Active Directory join is unhealthy      |
-| SnapshotPolicy     | true / false | true    | Highlights volumes with no snapshot policy attached                                | ![Info](https://placehold.co/15x15/D4E4F7/D4E4F7) Volume has no snapshot policy              |
-| BackupProtection   | true / false | true    | Highlights volumes with no backup policy attached                                  | ![Info](https://placehold.co/15x15/D4E4F7/D4E4F7) Volume has no backup protection            |
-| CustomerManagedKey | true / false | true    | Highlights NetApp Accounts using platform-managed encryption keys                  | ![Info](https://placehold.co/15x15/D4E4F7/D4E4F7) Account is not using customer-managed keys |
+| PoolCapacity       | true / false | true    | Highlights capacity pools where the sum of volume quotas exceeds 85% of pool size  | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Capacity pool is nearly fully allocated |
+| AdHealth           | true / false | true    | Highlights NetApp Accounts with Active Directory configurations not in InUse state | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Active Directory join is unhealthy      |
+| SnapshotPolicy     | true / false | true    | Highlights volumes with no snapshot policy attached                                | ![Info](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/E3F5FC.svg) Volume has no snapshot policy              |
+| BackupProtection   | true / false | true    | Highlights volumes with no backup policy attached                                  | ![Info](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/E3F5FC.svg) Volume has no backup protection            |
+| CustomerManagedKey | true / false | true    | Highlights NetApp Accounts using platform-managed encryption keys                  | ![Info](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/E3F5FC.svg) Account is not using customer-managed keys |
 
 #### NetworkSecurityGroup
 The **NetworkSecurityGroup** schema is used to configure health checks for Azure Network Security Groups.
 
 | Sub-Schema            | Setting      | Default | Description                                                                           | Highlight                                                                                      |
 |-----------------------|--------------|---------|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
-| ProvisioningState     | true / false | true    | Highlights NSGs in a failed provisioning state                                        | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state      |
-| OverlyPermissiveRules | true / false | true    | Highlights NSG rules with overly permissive source addresses (*, 0.0.0.0/0, Internet) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Rule has overly permissive source address |
+| ProvisioningState     | true / false | true    | Highlights NSGs in a failed provisioning state                                        | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state      |
+| OverlyPermissiveRules | true / false | true    | Highlights NSG rules with overly permissive source addresses (*, 0.0.0.0/0, Internet) | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Rule has overly permissive source address |
 
 #### NetworkVirtualAppliance
 The **NetworkVirtualAppliance** schema is used to configure health checks for Azure Network Virtual Appliances.
 
 | Sub-Schema | Setting      | Default | Description                                | Highlight                                                                             |
 |------------|--------------|---------|---------------------------------------------|----------------------------------------------------------------------------------------|
-| Status     | true / false | true    | Highlights Network Virtual Appliances that are deallocated | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) NVA is in a deallocated state |
+| Status     | true / false | true    | Highlights Network Virtual Appliances that are deallocated | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) NVA is in a deallocated state |
 
 #### NetworkWatcher
 The **NetworkWatcher** schema is used to configure health checks for Azure Network Watchers.
 
 | Sub-Schema        | Setting      | Default | Description                                                | Highlight                                                                                 |
 |-------------------|--------------|---------|------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Network Watchers in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-| FlowLogEnabled    | true / false | true    | Highlights NSG Flow Logs that are not enabled              | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Flow log is not enabled              |
+| ProvisioningState | true / false | true    | Highlights Network Watchers in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
+| FlowLogEnabled    | true / false | true    | Highlights NSG Flow Logs that are not enabled              | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Flow log is not enabled              |
 
 #### Policy
 The **Policy** schema is used to configure health checks for Azure Policy.
 
 | Sub-Schema        | Setting      | Default | Description                                    | Highlight                                                                       |
 |-------------------|--------------|---------|------------------------------------------------|---------------------------------------------------------------------------------|
-| ExpiredExemptions | true / false | true    | Highlights policy exemptions that have expired | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Policy exemption has expired |
+| ExpiredExemptions | true / false | true    | Highlights policy exemptions that have expired | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Policy exemption has expired |
 
 #### PrivateDnsZone
 The **PrivateDnsZone** schema is used to configure health checks for Azure Private DNS Zones.
 
 | Sub-Schema          | Setting      | Default | Description                                                           | Highlight                                                                                 |
 |---------------------|--------------|---------|-----------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState   | true / false | true    | Highlights Private DNS Zones in a failed provisioning state           | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-| VirtualNetworkLinks | true / false | true    | Highlights Private DNS Zones with no virtual network links configured | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) No virtual network links configured  |
+| ProvisioningState   | true / false | true    | Highlights Private DNS Zones in a failed provisioning state           | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
+| VirtualNetworkLinks | true / false | true    | Highlights Private DNS Zones with no virtual network links configured | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) No virtual network links configured  |
 
 #### PrivateEndpoint
 The **PrivateEndpoint** schema is used to configure health checks for Azure Private Endpoints.
 
 | Sub-Schema        | Setting      | Default | Description                                                      | Highlight                                                                                 |
 |-------------------|--------------|---------|------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Private Endpoints in a failed provisioning state      | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-| ConnectionStatus  | true / false | true    | Highlights Private Endpoints with connection status not Approved | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Connection is not Approved          |
+| ProvisioningState | true / false | true    | Highlights Private Endpoints in a failed provisioning state      | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
+| ConnectionStatus  | true / false | true    | Highlights Private Endpoints with connection status not Approved | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Connection is not Approved          |
 
 #### PublicIpAddress
 The **PublicIpAddress** schema is used to configure health checks for Azure Public IP Addresses.
 
 | Sub-Schema        | Setting      | Default | Description                                                                       | Highlight                                                                                           |
 |-------------------|--------------|---------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Public IP Addresses in a failed provisioning state                     | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state           |
-| Unattached        | true / false | true    | Highlights Public IP Addresses not associated with any resource (potential waste) | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) IP address is not associated with any resource |
+| ProvisioningState | true / false | true    | Highlights Public IP Addresses in a failed provisioning state                     | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state           |
+| Unattached        | true / false | true    | Highlights Public IP Addresses not associated with any resource (potential waste) | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) IP address is not associated with any resource |
 
 #### RecoveryServicesVault
 The **RecoveryServicesVault** schema is used to configure health checks for Azure Recovery Services Vault.
 
 | Sub-Schema                    | Setting      | Default | Description                                                        | Highlight                                                                                          |
 |-------------------------------|--------------|---------|--------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
-| ProvisioningState             | true / false | true    | Highlights Recovery Services Vaults in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state          |
-| PrivateEndpointStateForBackup | true / false | true    | Highlights vaults without private endpoints configured for backup  | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Private endpoint for backup is not configured |
-| SoftDeleteEnabled             | true / false | true    | Highlights vaults where soft delete is disabled                    | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Soft delete is disabled                       |
-| ImmutabilityEnabled           | true / false | true    | Highlights vaults where immutability is not enabled                | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Vault immutability is not enabled             |
-| PublicNetworkAccess           | true / false | true    | Highlights vaults with public network access enabled               | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access is enabled              |
+| ProvisioningState             | true / false | true    | Highlights Recovery Services Vaults in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state          |
+| PrivateEndpointStateForBackup | true / false | true    | Highlights vaults without private endpoints configured for backup  | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Private endpoint for backup is not configured |
+| SoftDeleteEnabled             | true / false | true    | Highlights vaults where soft delete is disabled                    | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Soft delete is disabled                       |
+| ImmutabilityEnabled           | true / false | true    | Highlights vaults where immutability is not enabled                | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Vault immutability is not enabled             |
+| PublicNetworkAccess           | true / false | true    | Highlights vaults with public network access enabled               | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Public network access is enabled              |
 
 #### RouteTable
 The **RouteTable** schema is used to configure health checks for Azure Route Tables.
 
 | Sub-Schema        | Setting      | Default | Description                                            | Highlight                                                                                 |
 |-------------------|--------------|---------|--------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Route Tables in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights Route Tables in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
 
 #### SiteRecovery
 The **SiteRecovery** schema is used to configure health checks for Azure Site Recovery protected items.
 
 | Sub-Schema        | Setting      | Default | Description                                                                  | Highlight                                                                                                       |
 |-------------------|--------------|---------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| ReplicationHealth | true / false | true    | Highlights replicated items which are in a critical replication health state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Replication health is in a critical state                 |
-| FailoverHealth    | true / false | true    | Highlights replicated items where the last test failover has failed          | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Test failover has failed                                  |
-| NoTestFailover    | true / false | true    | Highlights replicated items where no test failover has ever been performed   | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) No test failover has been performed on the replicated item |
+| ReplicationHealth | true / false | true    | Highlights replicated items which are in a critical replication health state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Replication health is in a critical state                 |
+| FailoverHealth    | true / false | true    | Highlights replicated items where the last test failover has failed          | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Test failover has failed                                  |
+| NoTestFailover    | true / false | true    | Highlights replicated items where no test failover has ever been performed   | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) No test failover has been performed on the replicated item |
 
 #### StorageAccount
 The **StorageAccount** schema is used to configure health checks for Azure Storage Account.
 
 | Sub-Schema              | Setting      | Default | Description                                                               | Highlight                                                                                  |
 |-------------------------|--------------|---------|---------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| ProvisioningState       | true / false | true    | Highlights storage accounts which are in a critical state                 | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state  |
-| StorageAccountKeyAccess | true / false | true    | Highlights storage accounts which have storage account key access enabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Storage account key access is enabled |
-| SecureTransfer          | true / false | true    | Highlights storage accounts which do not have secure transfer enabled     | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Secure transfer is disabled           |
-| BlobAnonymousAccess     | true / false | true    | Highlights storage accounts which have Blob anonymous read access enabled | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Anonymous read access is enabled      |
-| PublicNetworkAccess     | true / false | true    | Highlights storage accounts which have public network access enabled      | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Public network access is enabled      |
-| MinimumTlsVersion       | true / false | true    | Highlights storage accounts which have TLS 1.0 or TLS 1.1 configured      | ![Citical](https://placehold.co/15x15/FEDDD7/FEDDD7) TLS version 1.0 or 1.1 configured     |
+| ProvisioningState       | true / false | true    | Highlights storage accounts which are in a critical state                 | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state  |
+| StorageAccountKeyAccess | true / false | true    | Highlights storage accounts which have storage account key access enabled | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Storage account key access is enabled |
+| SecureTransfer          | true / false | true    | Highlights storage accounts which do not have secure transfer enabled     | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Secure transfer is disabled           |
+| BlobAnonymousAccess     | true / false | true    | Highlights storage accounts which have Blob anonymous read access enabled | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Anonymous read access is enabled      |
+| PublicNetworkAccess     | true / false | true    | Highlights storage accounts which have public network access enabled      | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Public network access is enabled      |
+| MinimumTlsVersion       | true / false | true    | Highlights storage accounts which have TLS 1.0 or TLS 1.1 configured      | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) TLS version 1.0 or 1.1 configured     |
 
 #### VirtualMachine
 The **VirtualMachine** schema is used to configure health checks for Azure Virtual Machines.
 
 | Sub-Schema      | Setting      | Default | Description                                                                             | Highlight                                                                                                                                                                                               |
 |-----------------|--------------|---------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Status          | true / false | true    | Highlights VMs which are not in a running state                                         | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) VM is in a deallocated state                                                                                                                       |
-| DiskEncryption  | true / false | true    | Highlights VMs which do not have disk encryption enabled                                | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Disk encryption is disabled                                                                                                                        |
-| BootDiagnostics | true / false | true    | Highlights VMs which do not have boot diagnostics enabled with a custom storage account | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Boot diagnostics is disabled <br> ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Boot diagnostics is enabled with a managed storage account |
-| BackupEnabled   | true / false | true    | Highlights VMs which do not have Azure Backup enabled                                   | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Backup is disabled                                                                                                                                 |
+| Status          | true / false | true    | Highlights VMs which are not in a running state                                         | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) VM is in a deallocated state                                                                                                                       |
+| DiskEncryption  | true / false | true    | Highlights VMs which do not have disk encryption enabled                                | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Disk encryption is disabled                                                                                                                        |
+| BootDiagnostics | true / false | true    | Highlights VMs which do not have boot diagnostics enabled with a custom storage account | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Boot diagnostics is disabled <br> ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Boot diagnostics is enabled with a managed storage account |
+| BackupEnabled   | true / false | true    | Highlights VMs which do not have Azure Backup enabled                                   | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Backup is disabled                                                                                                                                 |
 
 #### VirtualNetwork
 The **VirtualNetwork** schema is used to configure health checks for Azure Virtual Networks.
 
 | Sub-Schema        | Setting      | Default | Description                                                  | Highlight                                                                                 |
 |-------------------|--------------|---------|--------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Virtual Networks in a failed provisioning state   | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-| DnsServers        | true / false | true    | Highlights Virtual Networks using default Azure-provided DNS | ![Info](https://placehold.co/15x15/D4E4F7/D4E4F7) Using default Azure-provided DNS        |
+| ProvisioningState | true / false | true    | Highlights Virtual Networks in a failed provisioning state   | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
+| DnsServers        | true / false | true    | Highlights Virtual Networks using default Azure-provided DNS | ![Info](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/E3F5FC.svg) Using default Azure-provided DNS        |
 
 #### VirtualNetworkGateway
 The **VirtualNetworkGateway** schema is used to configure health checks for Azure Virtual Network Gateways.
 
 | Sub-Schema        | Setting      | Default | Description                                                        | Highlight                                                                                 |
 |-------------------|--------------|---------|--------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights Virtual Network Gateways in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
-| ConnectionStatus  | true / false | true    | Highlights VPN connections that are not Connected (InfoLevel 2+)   | ![Warning](https://placehold.co/15x15/FFF4C7/FFF4C7) Connection is not in Connected state |
+| ProvisioningState | true / false | true    | Highlights Virtual Network Gateways in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
+| ConnectionStatus  | true / false | true    | Highlights VPN connections that are not Connected (InfoLevel 2+)   | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Connection is not in Connected state |
 
 #### VmScaleSet
 The **VmScaleSet** schema is used to configure health checks for Azure Virtual Machine Scale Sets.
 
 | Sub-Schema        | Setting      | Default | Description                                             | Highlight                                                                                 |
 |-------------------|--------------|---------|---------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ProvisioningState | true / false | true    | Highlights VM Scale Sets in a failed provisioning state | ![Critical](https://placehold.co/15x15/FEDDD7/FEDDD7) Provisioning is in a critical state |
+| ProvisioningState | true / false | true    | Highlights VM Scale Sets in a failed provisioning state | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Provisioning is in a critical state |
 
 ## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/examples.svg" alt="" width="24" height="24" align="top"> Examples
 <!-- ********** Add some examples. Use other AsBuiltReport modules as a guide. ********** -->
