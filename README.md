@@ -32,8 +32,6 @@
 </p>
 <!-- ********** DO NOT EDIT THESE LINKS ********** -->
 
-# Microsoft Azure As Built Report
-
 Microsoft Azure As Built Report is a PowerShell module which works in conjunction with [AsBuiltReport.Core](https://github.com/AsBuiltReport/AsBuiltReport.Core).
 
 [AsBuiltReport](https://github.com/AsBuiltReport/AsBuiltReport) is an open-sourced community project which utilises PowerShell to produce as-built documentation in multiple document formats for multiple vendors and technologies.
